@@ -1,0 +1,72 @@
+{
+  "name": "Andy Ebert",
+  "tagline": "When Artists Need to Hear Perfection.",
+  "email": "info@andyebert.com",
+  "location": "Touring Worldwide",
+  "linkedin": "https://www.linkedin.com/in/andyebert",
+  "social": [
+    { "label": "LinkedIn", "href": "https://www.linkedin.com/in/andyebert" },
+    { "label": "Instagram", "href": "https://instagram.com/andyebert" }
+  ],
+  "hero": {
+    "headline": "WHEN ARTISTS NEED TO HEAR PERFECTION.",
+    "headlineAccent": "PERFECTION.",
+    "subheadline": [],
+    "body": "Worldwide touring monitor engineer since 1997 — trusted on arena, stadium, and festival stages with artists including Alanis Morissette, The Weeknd, Maroon 5, Guns N’ Roses, and Mariah Carey.",
+    "ctaPrimary": { "label": "VIEW PORTFOLIO", "href": "/portfolio" },
+    "ctaSecondary": { "label": "START A CONVERSATION", "href": "/contact" },
+    "backgroundImage": "/images/hero/arena.jpg"
+  },
+  "stats": [
+    { "value": 25, "suffix": "+", "label": "Years Touring", "icon": "Briefcase" },
+    { "value": 40, "suffix": "+", "label": "Major Artists & Acts", "icon": "Users" },
+    { "value": 0, "label": "Arena · Stadium · Festival", "icon": "Globe" },
+    { "value": 2017, "label": "Parnelli Award Nominee", "icon": "SlidersHorizontal" }
+  ],
+  "cta": {
+    "title": "Planning Your Next Production?",
+    "subtitle": "",
+    "button": { "label": "Get In Touch", "href": "/contact" },
+    "image": "/images/about/portrait.jpg",
+    "imageAlt": "Andy Ebert at the console with SPL Transient Designer"
+  },
+  "about": {
+    "portrait": "/images/about/portrait.jpg",
+    "quote": "Step by step I'm going to get where I already wanted to be when I was a 10-year old kid — when I started to play the guitar: Anywhere in the world to play Rock 'N' Roll (let others play).",
+    "quoteAttribution": "From Andy’s biography — andyebert.com",
+    "story": [
+      "I was born at November 27 1971 in Berlin – Charlottenburg and my enthusiasm for music was evident even in my early years. On my 10th birthday I received my first guitar as a gift. This set the mark for my youth and, as it later became evident, for my whole life: Rock 'N' Roll!!!",
+      "As a guitar player I spent five years in different bands, playing a couple of concerts. Using some microphones and a little 6-channel mixer we recorded our demos to a stereo tape deck in my rehearsal room — \"studio\". Because my only field of real interest was music, and with the hope for more Rock 'N' Roll, I started my training as a sales representative of musical instruments at the age of 16.",
+      "In 1995 I made the change to wholesale trade which gave me the chance, in my spare time, to also work as the FOH engineer for the band of my ex colleague. It was my first job as a live sound engineer. Early 1997 brought a six month tour as a freelance FOH / monitor engineer through churches all over Germany and surrounding countries with the Golden Gospel Singers — a damn tough, but good, learning curve.",
+      "In spring of 1998, for one of the first Robbie Williams solo shows ever, I had to set up the whole PA, mic up the stage and so forth — without any doubt my entrance into the more professional league of sound reinforcement. Following were national and international tours as monitor engineer, and in spring 1999 I was offered the position as monitor engineer for Modern Talking. From 2002 onward Audio Rent – Clair Brothers Europe hired me from European tour to European tour with different American Rock and Pop acts."
+    ],
+    "philosophy": "At some shows I was allowed to mix the monitor sound. That was another incisive occurrence in my life and I knew — that is what I want to carry on with! I already knew a little bit about the psychology of mixing monitors, but I couldn't imagine that there would be a Mr. Bohlen who would primarily be responsible for my knowledge growing as much and as quickly as it did.",
+    "travel": "To be a monitor engineer for Rocksound at the world exhibition Expo 2000 I had to move to Hannover for five months. Directly afterwards I toured for four months through half of Europe with a Gospel show again. In summer 2001 I worked for different companies at a couple of big festivals in Germany as local monitor engineer where I had the honor to mix the sound for some of my (teenage year) heroes.",
+    "behindTheScenes": "From then on it was a fast way up. As well as my work at TSE I was touring as a backliner for some German artists and at some shows I was allowed to mix the monitor sound. Since Audio Rent I've been working with the most respected FOH engineers, production managers and tour managers worldwide.",
+    "funFacts": [
+      "Born November 27, 1971 in Berlin – Charlottenburg",
+      "First guitar on his 10th birthday — Rock 'N' Roll for life",
+      "First live sound job as FOH in 1995; Golden Gospel Singers tour in early 1997",
+      "First major professional PA load-in: early Robbie Williams solo show, spring 1998",
+      "Monitor engineer for Modern Talking, 1999; Audio Rent – Clair Brothers Europe from 2002"
+    ]
+  },
+  "media": {
+    "biography": "Andy Ebert is a monitor and FOH engineer based in worldwide touring production. Since going on the road in 1997, he has mixed monitors for artists including Alanis Morissette, The Weeknd, Maroon 5, Guns N’ Roses, Mariah Carey, Stone Temple Pilots, Neil Young, Velvet Revolver, Carrie Underwood, Adam Lambert, R.E.M., Dream Theater, and many others. He was nominated for the 2017 Parnelli Award for Monitor Engineer of the Year.",
+    "headshots": [
+      "/images/media/headshot-1.jpg",
+      "/images/media/headshot-2.jpg",
+      "/images/media/headshot-3.jpg"
+    ],
+    "logos": [
+      "/images/media/logo-black.svg",
+      "/images/media/logo-white.svg"
+    ],
+    "downloads": [
+      { "label": "Full Biography (PDF)", "href": "/downloads/andy-ebert-bio.pdf", "type": "PDF" },
+      { "label": "Resume (PDF)", "href": "/downloads/andy-ebert-resume.pdf", "type": "PDF" },
+      { "label": "Press Kit (ZIP)", "href": "/downloads/andy-ebert-press-kit.zip", "type": "ZIP" }
+    ]
+  },
+  "contactPhoto": "/images/about/contact.jpg"
+}

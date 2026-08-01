@@ -1,0 +1,297 @@
+[
+  {
+    "slug": "alanis-morissette",
+    "title": "Worldwide Tours",
+    "artist": "Alanis Morissette",
+    "year": "2020–2024",
+    "role": "Monitor Engineer",
+    "category": [
+      "Arena",
+      "Tours"
+    ],
+    "featured": true,
+    "heroImage": "/images/projects/alanis-hero.jpg",
+    "thumbnail": "/images/logos/alanis-morissette.png",
+    "overview": "Monitor engineer for Alanis Morissette’s continuous worldwide touring run from 2020 through 2024, with earlier USA and worldwide dates in 2012, 2015, 2016, and 2019.",
+    "responsibilities": [
+      "Artist and band monitor mixes across international arenas",
+      "Daily show operations and mix consistency night to night",
+      "RF and wireless coordination on touring packages",
+      "Advance work with production and FOH"
+    ],
+    "technicalSetup": "Touring digital console with multi-mix IEM / wedge package and show-file based daily workflow.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM System",
+      "Wireless Mics",
+      "RF Toolkit"
+    ],
+    "challenges": [
+      "Multi-year mix consistency across changing venues and continents",
+      "Dense RF environments on arena and festival bills"
+    ],
+    "gallery": [
+      "/images/projects/alanis-1.jpg",
+      "/images/projects/alanis-2.jpg",
+      "/images/projects/alanis-3.jpg"
+    ],
+    "videos": [],
+    "technicalNotes": "Long-form artist relationship requiring stable cueing and musical IEM balances.",
+    "logo": "/images/logos/alanis-morissette.png"
+  },
+  {
+    "slug": "the-weeknd",
+    "title": "Worldwide Tours",
+    "artist": "The Weeknd",
+    "year": "2012–2019",
+    "role": "Monitor Engineer",
+    "category": [
+      "Arena",
+      "Tours"
+    ],
+    "featured": true,
+    "heroImage": "/images/projects/weeknd-hero.jpg",
+    "thumbnail": "/images/logos/the-weeknd.png",
+    "overview": "Monitor engineer for The Weeknd worldwide from 2012 through 2019 — arena-scale productions across multi-year touring cycles. Nominated for the 2017 Parnelli Award for Monitor Engineer of the Year during this era.",
+    "responsibilities": [
+      "Multi-mix IEM design for artist and band",
+      "Daily line check, RF coordination, and show file management",
+      "Artist cueing and on-stage communication",
+      "Touring production collaboration"
+    ],
+    "technicalSetup": "Large-scale touring monitor package with redundant wireless paths and show-file recall.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM Transmitters",
+      "Wireless Mics",
+      "RF Toolkit"
+    ],
+    "challenges": [
+      "High-energy arena productions with dense wireless packages",
+      "Consistency across worldwide venue infrastructures"
+    ],
+    "gallery": [
+      "/images/projects/weeknd-1.jpg",
+      "/images/projects/weeknd-2.jpg",
+      "/images/projects/weeknd-3.jpg"
+    ],
+    "videos": [],
+    "logo": "/images/logos/the-weeknd.png"
+  },
+  {
+    "slug": "maroon-5",
+    "title": "Worldwide Tours",
+    "artist": "Maroon 5",
+    "year": "2004–2005",
+    "role": "Monitor Engineer",
+    "category": [
+      "Arena",
+      "Tours"
+    ],
+    "featured": true,
+    "heroImage": "/images/projects/maroon5-hero.jpg",
+    "thumbnail": "/images/logos/maroon-5.png",
+    "overview": "Monitor engineer for Maroon 5 worldwide (2004–2005), including work covered in Live Design Magazine and the Live Friday The 13th DVD/CD credit as Monitor Engineer.",
+    "responsibilities": [
+      "Artist and band monitor mixes on worldwide dates",
+      "Touring show consistency and cue discipline",
+      "Coordination with production and FOH"
+    ],
+    "technicalSetup": "Touring monitor console and wireless package with Rat Sound touring support noted in contemporary press.",
+    "equipment": [
+      "Touring Console",
+      "IEM / Wedges",
+      "Wireless Mics"
+    ],
+    "challenges": [
+      "Rapidly scaling pop arena production",
+      "Maintaining mix stability across international routing"
+    ],
+    "gallery": [
+      "/images/projects/maroon5-1.jpg",
+      "/images/projects/maroon5-2.jpg"
+    ],
+    "videos": [],
+    "logo": "/images/logos/maroon-5.png"
+  },
+  {
+    "slug": "guns-n-roses",
+    "title": "Europe & USA Tours",
+    "artist": "Guns N' Roses",
+    "year": "2006",
+    "role": "Monitor Engineer",
+    "category": [
+      "Arena",
+      "Tours"
+    ],
+    "featured": true,
+    "heroImage": "/images/projects/gnr-hero.jpg",
+    "thumbnail": "/images/logos/guns-n-roses.png",
+    "overview": "Monitor engineer for Guns N’ Roses across Europe and the USA in 2006 — covered in Mix Magazine’s January 2007 Guns N’ Roses tour profile and related Venue / Live Design press.",
+    "responsibilities": [
+      "Monitor mixes for a large rock production",
+      "Show-file and cue management under high stage volume",
+      "Crew coordination across international routing"
+    ],
+    "technicalSetup": "Dual VENUE-era touring systems as documented in contemporary trade press.",
+    "equipment": [
+      "Digital Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Large channel counts and high SPL stage environments",
+      "International venue variability"
+    ],
+    "gallery": [
+      "/images/projects/gnr-1.jpg",
+      "/images/projects/gnr-2.jpg"
+    ],
+    "videos": [],
+    "logo": "/images/logos/guns-n-roses.png"
+  },
+  {
+    "slug": "stone-temple-pilots",
+    "title": "USA & Worldwide Tours",
+    "artist": "Stone Temple Pilots",
+    "year": "2008–2011",
+    "role": "Monitor Engineer",
+    "category": [
+      "Arena",
+      "Tours"
+    ],
+    "featured": true,
+    "heroImage": "/images/projects/stp-hero.jpg",
+    "thumbnail": "/images/logos/stone-temple-pilots.png",
+    "overview": "Monitor engineer for Stone Temple Pilots across USA and worldwide dates from 2008 through 2011, with related press in Pro Sound News, L&S America, and FOH Magazine.",
+    "responsibilities": [
+      "Band and artist monitor mixes",
+      "Touring RF and wireless coordination",
+      "Daily show operations"
+    ],
+    "technicalSetup": "Touring dual Venue-era monitor workflow as covered in period trade press.",
+    "equipment": [
+      "Digital Console",
+      "IEM System",
+      "Wireless Mics"
+    ],
+    "challenges": [
+      "Rock-stage volume management in IEMs and wedges",
+      "Multi-year touring consistency"
+    ],
+    "gallery": [
+      "/images/projects/stp-1.jpg",
+      "/images/projects/stp-2.jpg"
+    ],
+    "videos": [],
+    "logo": "/images/logos/stone-temple-pilots.png"
+  },
+  {
+    "slug": "mariah-carey",
+    "title": "Worldwide Tours",
+    "artist": "Mariah Carey",
+    "year": "2003–2004",
+    "role": "Monitor Engineer",
+    "category": [
+      "Arena",
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/mariah-hero.jpg",
+    "thumbnail": "/images/logos/mariah-carey.png",
+    "overview": "Monitor engineer for Mariah Carey worldwide in 2003 and 2004 — large-scale pop production with demanding vocal monitoring.",
+    "responsibilities": [
+      "Artist-focused monitor mixes",
+      "Band and vocal cueing",
+      "Touring show consistency"
+    ],
+    "technicalSetup": "Arena touring monitor package for worldwide pop production.",
+    "equipment": [
+      "Touring Console",
+      "IEM / Wedges",
+      "Wireless Mics"
+    ],
+    "challenges": [
+      "Precision vocal monitoring under arena acoustics",
+      "High-production changeovers"
+    ],
+    "gallery": [
+      "/images/projects/mariah-1.jpg",
+      "/images/projects/mariah-2.jpg"
+    ],
+    "videos": [],
+    "logo": "/images/logos/mariah-carey.png"
+  },
+  {
+    "slug": "neil-young-velvet-revolver",
+    "title": "USA & Europe Tours",
+    "artist": "Neil Young · Velvet Revolver",
+    "year": "2007–2008",
+    "role": "Monitor Engineer",
+    "category": [
+      "Arena",
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/neil-young-hero.jpg",
+    "thumbnail": "/images/logos/neil-young-velvet-revolver.png",
+    "overview": "Monitor engineer for Neil Young (USA 2007, Europe 2008) and Velvet Revolver (USA 2007), with coverage in Total Production, Pro Sound News, and Mix Magazine tour profiles.",
+    "responsibilities": [
+      "Artist and band monitor mixes",
+      "Touring production collaboration",
+      "Show consistency across arena dates"
+    ],
+    "technicalSetup": "Touring monitor console packages for rock arena productions.",
+    "equipment": [
+      "Touring Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Artist-specific monitoring preferences",
+      "High-SPL rock stages"
+    ],
+    "gallery": [
+      "/images/projects/neil-young-1.jpg",
+      "/images/projects/neil-young-2.jpg"
+    ],
+    "videos": [],
+    "logo": "/images/logos/neil-young-velvet-revolver.png"
+  },
+  {
+    "slug": "european-festivals-early-tours",
+    "title": "Festivals & Early European Tours",
+    "artist": "Multi-Act · Gospel · Rock",
+    "year": "1997–2003",
+    "role": "Monitor / FOH Engineer",
+    "category": [
+      "Festivals",
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/festivals-hero.jpg",
+    "thumbnail": "/images/logos/festivals.png",
+    "overview": "Career foundations across European Gospel touring (FOH from 1997), Modern Talking arena monitors (1999), Expo 2000, Rock am Ring, Wacken, and monitor work with Dream Theater, R.E.M., Puddle of Mudd, Harlem Gospel Singers, and more — leading to Audio-Rent Clair work and a first US visa in 2003.",
+    "responsibilities": [
+      "Festival and tour monitor / FOH mixing",
+      "Rapid changeovers on multi-act bills",
+      "Learning curve from churches to arenas"
+    ],
+    "technicalSetup": "Vendor and festival-provided systems across German and European venues.",
+    "equipment": [
+      "Analog / Digital Consoles",
+      "Festival RF",
+      "IEM / Wedges"
+    ],
+    "challenges": [
+      "Shared festival infrastructure and tight changeovers",
+      "Wide range of genres and stage plots"
+    ],
+    "gallery": [
+      "/images/projects/festivals-1.jpg",
+      "/images/projects/festivals-2.jpg"
+    ],
+    "videos": [],
+    "logo": "/images/logos/festivals.png"
+  }
+]

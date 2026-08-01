@@ -1,0 +1,82 @@
+[
+  {
+    "id": "g1",
+    "src": "/images/gallery/arena-foh.jpg",
+    "alt": "Andy at FOH looking toward a packed arena stage",
+    "category": "Arena",
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "g2",
+    "src": "/images/gallery/arena-1.jpg",
+    "alt": "Alanis Morissette stage from the wings — Tel Aviv",
+    "category": "Arena",
+    "width": 709,
+    "height": 532
+  },
+  {
+    "id": "g3",
+    "src": "/images/gallery/monitor-world-1.jpg",
+    "alt": "Andy behind a large analog mixing console",
+    "category": "Monitor World",
+    "width": 583,
+    "height": 437
+  },
+  {
+    "id": "g4",
+    "src": "/images/gallery/monitor-world-2.jpg",
+    "alt": "Andy at a Midas H3000 — Guns N' Roses, Prague",
+    "category": "Monitor World",
+    "width": 709,
+    "height": 532
+  },
+  {
+    "id": "g5",
+    "src": "/images/gallery/backstage-1.jpg",
+    "alt": "Andy and colleague at the console",
+    "category": "Backstage",
+    "width": 709,
+    "height": 531
+  },
+  {
+    "id": "g6",
+    "src": "/images/gallery/backstage-2.jpg",
+    "alt": "Tour bus crew — Puddle of Mudd era, 2002",
+    "category": "Backstage",
+    "width": 741,
+    "height": 465
+  },
+  {
+    "id": "g7",
+    "src": "/images/gallery/crew-1.jpg",
+    "alt": "The Weeknd production crew on stage",
+    "category": "Crew",
+    "width": 709,
+    "height": 532
+  },
+  {
+    "id": "g8",
+    "src": "/images/gallery/rehearsal-1.jpg",
+    "alt": "Dream Theater World Turbulence Tour crew, 2002",
+    "category": "Crew",
+    "width": 709,
+    "height": 531
+  },
+  {
+    "id": "g9",
+    "src": "/images/gallery/arena-2.jpg",
+    "alt": "Andy at console — Stone Temple Pilots, Australia",
+    "category": "Arena",
+    "width": 709,
+    "height": 532
+  },
+  {
+    "id": "g10",
+    "src": "/images/gallery/equipment-1.jpg",
+    "alt": "Collection of tour laminates and backstage passes",
+    "category": "Equipment",
+    "width": 380,
+    "height": 289
+  }
+]

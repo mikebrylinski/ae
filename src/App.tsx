@@ -1,0 +1,31 @@
+import { lazy } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { RootLayout } from '@/components/layout/RootLayout'
+
+const HomePage = lazy(() => import('@/pages/HomePage'))
+const PortfolioPage = lazy(() => import('@/pages/PortfolioPage'))
+const ProjectDetailPage = lazy(() => import('@/pages/ProjectDetailPage'))
+const ExperiencePage = lazy(() => import('@/pages/ExperiencePage'))
+const MediaPage = lazy(() => import('@/pages/MediaPage'))
+const AboutPage = lazy(() => import('@/pages/AboutPage'))
+const ContactPage = lazy(() => import('@/pages/ContactPage'))
+const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'))
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<RootLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="portfolio" element={<PortfolioPage />} />
+          <Route path="portfolio/:slug" element={<ProjectDetailPage />} />
+          <Route path="experience" element={<ExperiencePage />} />
+          <Route path="media" element={<MediaPage />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="contact" element={<ContactPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
+}

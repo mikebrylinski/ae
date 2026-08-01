@@ -1,0 +1,7 @@
+[
+  { "label": "Portfolio", "href": "/portfolio" },
+  { "label": "Services", "href": "/#services" },
+  { "label": "About", "href": "/about" },
+  { "label": "Press", "href": "/media" },
+  { "label": "Contact", "href": "/contact" }
+]

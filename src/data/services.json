@@ -1,0 +1,26 @@
+[
+  {
+    "id": "monitor-engineering",
+    "title": "Monitor Engineering",
+    "description": "Creating mixes artists trust, night after night.",
+    "icon": "SlidersHorizontal"
+  },
+  {
+    "id": "foh-engineering",
+    "title": "FOH Engineering",
+    "description": "Front-of-house mixing for tours, festivals, and special events.",
+    "icon": "Music"
+  },
+  {
+    "id": "live-production",
+    "title": "Live Production",
+    "description": "From rehearsals through the final encore.",
+    "icon": "Stage"
+  },
+  {
+    "id": "technical-leadership",
+    "title": "Technical Leadership",
+    "description": "Calm decision-making under pressure on complex shows.",
+    "icon": "Headphones"
+  }
+]

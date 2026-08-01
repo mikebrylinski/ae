@@ -1,0 +1,164 @@
+[
+  {
+    "id": "p1",
+    "title": "Andy Ebert: From The Wall To The Monitors — Hot Seat",
+    "type": "Interview",
+    "publication": "FOH Magazine",
+    "date": "May 2011",
+    "excerpt": "Hot Seat interview covering Andy’s path from early gigs to major-tour monitor engineering.",
+    "url": "http://fohonline.com/index.php?option=com_content&task=view&id=5126&Itemid=40"
+  },
+  {
+    "id": "p2",
+    "title": "Andy Ebert: Der Mann Für den Monitor",
+    "type": "Interview",
+    "publication": "Soundcheck Magazine",
+    "date": "Feb 2010",
+    "excerpt": "Feature interview on Andy’s work as a monitor engineer.",
+    "url": "http://news.musicstore.de/wp-content/uploads/PPV_Tipps_Tricks/PA/PAH_interview-andy-ebert-der-mann-fuer-den-monitor_SC1002028.pdf"
+  },
+  {
+    "id": "p3",
+    "title": "Pilots Leave No Stone Untempled",
+    "type": "Article",
+    "publication": "Pro Sound News",
+    "date": "Nov 2010",
+    "excerpt": "Stone Temple Pilots tour coverage featuring Andy’s monitor work.",
+    "url": "http://www.nxtbook.com/nxtbooks/newbay/prosound_201011/#/50"
+  },
+  {
+    "id": "p4",
+    "title": "Stone Temple Pilots Fly Again",
+    "type": "Article",
+    "publication": "Pro Sound News",
+    "date": "Dec 2008",
+    "excerpt": "Tour profile on Stone Temple Pilots’ return to the road.",
+    "url": "http://www.nxtbook.com/nxtbooks/newbay/prosound_200812/index.php?startid=51"
+  },
+  {
+    "id": "p5",
+    "title": "Stone Temple Pilots Tour with Dual Venue Systems",
+    "type": "Article",
+    "publication": "Lighting & Sound America",
+    "date": "Jul 2008",
+    "excerpt": "Technical feature on dual Venue systems for the STP tour.",
+    "url": "http://www.lightingandsoundamerica.com/news/story.asp?ID=-UAWACH"
+  },
+  {
+    "id": "p6",
+    "title": "Neil Young: Chrome Dreams II",
+    "type": "Article",
+    "publication": "Total Production",
+    "date": "Jul 2008",
+    "excerpt": "Production coverage of Neil Young’s Chrome Dreams II touring.",
+    "url": "http://www.tpimagazine.com/production-profiles/32799/neil_young_chrome_dreams_ii.html"
+  },
+  {
+    "id": "p7",
+    "title": "Top 10 Tours Of The Month: Neil Young",
+    "type": "Article",
+    "publication": "Pro Sound News",
+    "date": "Feb 2008",
+    "excerpt": "Pro Sound News monthly top tours feature including Neil Young.",
+    "url": "http://www.nxtbook.com/nxtbooks/newbay/prosound_200802/index.php?startid=66"
+  },
+  {
+    "id": "p8",
+    "title": "Tour Profile — Velvet Revolver",
+    "type": "Article",
+    "publication": "Mix Magazine",
+    "date": "Jan 2008",
+    "excerpt": "Now Playing tour profile covering Velvet Revolver live sound.",
+    "url": "http://mixonline.com/live/tourprofiles/audio_playing_51/"
+  },
+  {
+    "id": "p9",
+    "title": "Tour Profile — Guns N' Roses",
+    "type": "Article",
+    "publication": "Mix Magazine",
+    "date": "Jan 2007",
+    "excerpt": "Title-story tour profile on Guns N’ Roses live production.",
+    "url": "http://mixonline.com/livesound/tours/audio_guns_roses/"
+  },
+  {
+    "id": "p10",
+    "title": "Dual VENUE Systems Bolster Guns N' Roses Live Shows",
+    "type": "Article",
+    "publication": "Lighting & Sound America",
+    "date": "Dec 2006",
+    "excerpt": "Coverage of dual Digidesign Venue systems on Guns N’ Roses live shows.",
+    "url": "http://www.lightingandsoundamerica.com/news/story.asp?ID=-44G91R"
+  },
+  {
+    "id": "p11",
+    "title": "Rat Provides Big Sound To Maroon 5",
+    "type": "Article",
+    "publication": "Live Design Magazine",
+    "date": "Apr 2005",
+    "excerpt": "Coverage of Maroon 5 touring sound with Rat Sound.",
+    "url": "http://livedesignonline.com/concerts/ratsound_maroon/index.html"
+  },
+  {
+    "id": "p12",
+    "title": "STP Adds Heil Sound to Mixture",
+    "type": "Article",
+    "publication": "Heil Sound",
+    "date": "Aug 2009",
+    "excerpt": "Heil Sound press release on Stone Temple Pilots adding Heil microphones to the mix.",
+    "url": "http://heilsound.com/pro/press/stp.php"
+  },
+  {
+    "id": "p13",
+    "title": "Engineer Testimonial",
+    "type": "Article",
+    "publication": "SPL",
+    "date": "",
+    "excerpt": "SPL user-site testimonial featuring Andy Ebert.",
+    "url": "http://spl.info/users/andy-ebert.html"
+  },
+  {
+    "id": "p14",
+    "title": "Optogate References",
+    "type": "Article",
+    "publication": "Optogate",
+    "date": "",
+    "excerpt": "Optogate mic-switch references listing Andy among users.",
+    "url": "http://www.optogate.com/html/references.html"
+  },
+  {
+    "id": "p15",
+    "title": "Guns N' Roses — Andy Ebert, Monitors",
+    "type": "Article",
+    "publication": "Venue On The Road",
+    "date": "",
+    "excerpt": "Digidesign Venue On The Road install listing Andy Ebert on Guns N’ Roses monitors.",
+    "url": "http://www.digidesign.com/xtras/venueInstalls.cfm"
+  },
+  {
+    "id": "p16",
+    "title": "Maroon 5 Honda Civic Tour 2005",
+    "type": "Article",
+    "publication": "Rat Sound",
+    "date": "2005",
+    "excerpt": "Rat Sound tour page listing Andy as band monitor engineer on the Honda Civic Tour.",
+    "url": "http://ratsound.com/tours/maroon5/index.htm"
+  },
+  {
+    "id": "p17",
+    "title": "R.E.L. Musik “Modern Talking”",
+    "type": "Article",
+    "publication": "JBL HLA News",
+    "date": "1999",
+    "excerpt": "JBL HLA tour news covering R.E.L. Musik / Modern Talking.",
+    "url": "http://www.cinematech.info/manuals/Sound/Speakers/JBL/pages/tour/HLA/RELMusik1.htm"
+  },
+  {
+    "id": "p18",
+    "title": "Maroon 5 — Live Friday The 13th",
+    "type": "Review",
+    "publication": "DVD / CD Credit",
+    "date": "2005",
+    "excerpt": "Credited as Monitor Engineer on Maroon 5’s Live Friday The 13th DVD + CD.",
+    "url": ""
+  }
+]
