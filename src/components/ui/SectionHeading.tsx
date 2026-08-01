@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils'
 interface SectionHeadingProps extends HTMLAttributes<HTMLDivElement> {
   eyebrow?: string
   title: string
+  titleClassName?: string
   align?: 'left' | 'center'
   action?: ReactNode
 }
@@ -11,6 +12,7 @@ interface SectionHeadingProps extends HTMLAttributes<HTMLDivElement> {
 export function SectionHeading({
   eyebrow,
   title,
+  titleClassName,
   align = 'center',
   action,
   className,
@@ -34,7 +36,12 @@ export function SectionHeading({
             {eyebrow}
           </p>
         ) : null}
-        <h2 className="font-heading text-3xl tracking-[0.08em] text-foreground sm:text-4xl md:text-5xl">
+        <h2
+          className={cn(
+            'font-heading text-3xl tracking-[0.08em] text-foreground sm:text-4xl md:text-5xl',
+            titleClassName,
+          )}
+        >
           {title}
         </h2>
       </div>

@@ -32,8 +32,6 @@
   },
   "about": {
     "portrait": "/images/about/portrait.jpg",
-    "quote": "Step by step I'm going to get where I already wanted to be when I was a 10-year old kid — when I started to play the guitar: Anywhere in the world to play Rock 'N' Roll (let others play).",
-    "quoteAttribution": "From Andy’s biography — andyebert.com",
     "story": [
       "I was born at November 27 1971 in Berlin – Charlottenburg and my enthusiasm for music was evident even in my early years. On my 10th birthday I received my first guitar as a gift. This set the mark for my youth and, as it later became evident, for my whole life: Rock 'N' Roll!!!",
       "As a guitar player I spent five years in different bands, playing a couple of concerts. Using some microphones and a little 6-channel mixer we recorded our demos to a stereo tape deck in my rehearsal room — \"studio\". Because my only field of real interest was music, and with the hope for more Rock 'N' Roll, I started my training as a sales representative of musical instruments at the age of 16.",
@@ -63,9 +61,10 @@
       "/images/media/logo-white.svg"
     ],
     "downloads": [
-      { "label": "Full Biography (PDF)", "href": "/downloads/andy-ebert-bio.pdf", "type": "PDF" },
-      { "label": "Resume (PDF)", "href": "/downloads/andy-ebert-resume.pdf", "type": "PDF" },
-      { "label": "Press Kit (ZIP)", "href": "/downloads/andy-ebert-press-kit.zip", "type": "ZIP" }
+      { "label": "All Technical Downloads", "href": "/downloads", "type": "Page" },
+      { "label": "Inputlist + Stageplot — 48ch", "href": "/downloads/Inputlist+Stageplot-48ch.pdf", "type": "PDF" },
+      { "label": "Universal Console Chart — 32ch", "href": "/downloads/Universal-console-chart-32ch.pdf", "type": "PDF" },
+      { "label": "Midas H-3000 Chart", "href": "/downloads/Midas-H3000-chart.pdf", "type": "PDF" }
     ]
   },
   "contactPhoto": "/images/about/contact.jpg"

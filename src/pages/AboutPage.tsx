@@ -33,17 +33,6 @@ export default function AboutPage() {
                 Andy Ebert
               </h1>
 
-              <blockquote className="mt-8 border-l-4 border-primary bg-surface/80 py-5 pl-5 pr-4 md:py-6 md:pl-6">
-                <p className="font-heading text-lg leading-snug tracking-[0.04em] text-primary sm:text-xl md:text-2xl">
-                  “{about.quote}”
-                </p>
-                {about.quoteAttribution ? (
-                  <footer className="mt-4 text-xs tracking-[0.14em] text-muted uppercase">
-                    — {about.quoteAttribution}
-                  </footer>
-                ) : null}
-              </blockquote>
-
               <div className="mt-8 space-y-5 text-base leading-relaxed text-foreground/90">
                 {about.story.map((p) => (
                   <p key={p.slice(0, 32)}>{p}</p>
@@ -75,7 +64,7 @@ export default function AboutPage() {
             <h2 className="font-heading mb-4 text-sm tracking-[0.16em] text-primary">
               On The Road
             </h2>
-            <p className="max-w-3xl text-sm leading-relaxed text-muted md:text-base">
+            <p className="text-sm leading-relaxed text-muted md:text-base">
               {about.travel}
             </p>
           </div>

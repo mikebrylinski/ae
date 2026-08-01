@@ -46,7 +46,7 @@ export interface CreditEntry {
 
 /** Artist credit with consecutive years collapsed into ranges for Portfolio. */
 export interface GroupedCredit {
-  /** Display label, e.g. "2015–2019" or "2012, 2015–2016, 2019–2024" */
+  /** Display label, e.g. "2015–2019" or "2012, 2015–2016, 2019–2026" */
   yearLabel: string
   artist: string
   region: string
@@ -110,6 +110,28 @@ export interface NavItem {
   href: string
 }
 
+export interface DownloadItem {
+  id: string
+  label: string
+  description: string
+  href: string
+  type: string
+  /** When true, open the original remote URL instead of a local file. */
+  external?: boolean
+}
+
+export interface DownloadCategory {
+  id: string
+  title: string
+  description?: string
+  items: DownloadItem[]
+}
+
+export interface DownloadsData {
+  intro: string
+  categories: DownloadCategory[]
+}
+
 export interface SiteConfig {
   name: string
   tagline: string
@@ -137,9 +159,6 @@ export interface SiteConfig {
   }
   about: {
     portrait: string
-    /** Prominent pullquote from andyebert.com biography */
-    quote: string
-    quoteAttribution?: string
     story: string[]
     philosophy: string
     travel: string

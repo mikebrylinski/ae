@@ -1,7 +1,12 @@
 import { useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { gallery, press, site } from '@/lib/content'
 import { Container } from '@/components/ui/Container'
 import { MediaImage } from '@/components/ui/MediaImage'
+import {
+  GalleryLightbox,
+  type GalleryLightboxItem,
+} from '@/components/ui/GalleryLightbox'
 import { Badge } from '@/components/ui/Badge'
 import { buttonVariants } from '@/components/ui/Button'
 import { CTABanner } from '@/components/sections/CTABanner'
@@ -18,6 +23,11 @@ const galleryFilters = [
   'Equipment',
 ] as const
 
+type LightboxState = {
+  items: GalleryLightboxItem[]
+  index: number
+}
+
 export default function MediaPage() {
   useSeo({
     title: 'Press & Media',
@@ -26,6 +36,7 @@ export default function MediaPage() {
   })
 
   const [filter, setFilter] = useState<(typeof galleryFilters)[number]>('All')
+  const [lightbox, setLightbox] = useState<LightboxState | null>(null)
   const filteredGallery = useMemo(
     () =>
       filter === 'All'
@@ -33,6 +44,18 @@ export default function MediaPage() {
         : gallery.filter((g) => g.category === filter),
     [filter],
   )
+
+  const headshotItems: GalleryLightboxItem[] = site.media.headshots.map(
+    (src, i) => ({
+      src,
+      alt: `Andy Ebert headshot ${i + 1}`,
+    }),
+  )
+
+  const galleryItems: GalleryLightboxItem[] = filteredGallery.map((item) => ({
+    src: item.src,
+    alt: item.alt,
+  }))
 
   return (
     <>
@@ -59,21 +82,43 @@ export default function MediaPage() {
                 Downloads
               </h2>
               <ul className="space-y-3">
-                {site.media.downloads.map((d) => (
-                  <li key={d.href}>
-                    <a
-                      href={d.href}
-                      className={cn(
-                        buttonVariants({ variant: 'outline', size: 'sm' }),
-                        'w-full justify-between sm:w-auto',
-                      )}
-                    >
+                {site.media.downloads.map((d) => {
+                  const isPage = d.type === 'Page' || !/\.\w+$/.test(d.href)
+                  const className = cn(
+                    buttonVariants({ variant: 'outline', size: 'sm' }),
+                    'w-full justify-between sm:w-auto',
+                  )
+                  const content = (
+                    <>
                       <span>{d.label}</span>
                       <span className="text-primary">{d.type}</span>
-                    </a>
-                  </li>
-                ))}
+                    </>
+                  )
+
+                  return (
+                    <li key={d.href}>
+                      {isPage ? (
+                        <Link to={d.href} className={className}>
+                          {content}
+                        </Link>
+                      ) : (
+                        <a href={d.href} download className={className}>
+                          {content}
+                        </a>
+                      )}
+                    </li>
+                  )
+                })}
               </ul>
+              <p className="mt-4 text-sm text-muted">
+                Input lists, rack layouts, and console charts —{' '}
+                <Link
+                  to="/downloads"
+                  className="font-heading text-xs tracking-[0.12em] text-primary uppercase hover:opacity-80"
+                >
+                  Browse all downloads
+                </Link>
+              </p>
             </div>
           </div>
 
@@ -84,12 +129,22 @@ export default function MediaPage() {
             <ul className="grid gap-4 sm:grid-cols-3">
               {site.media.headshots.map((src, i) => (
                 <li key={src}>
-                  <MediaImage
-                    src={src}
-                    alt={`Andy Ebert headshot ${i + 1}`}
-                    aspect="aspect-[3/4]"
-                    fallbackLabel={`Headshot ${i + 1}`}
-                  />
+                  <button
+                    type="button"
+                    className="group w-full cursor-pointer text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                    onClick={() =>
+                      setLightbox({ items: headshotItems, index: i })
+                    }
+                    aria-label={`View headshot ${i + 1} larger`}
+                  >
+                    <MediaImage
+                      src={src}
+                      alt={`Andy Ebert headshot ${i + 1}`}
+                      aspect="aspect-[3/4]"
+                      fallbackLabel={`Headshot ${i + 1}`}
+                      wrapperClassName="transition-[border-color,box-shadow] duration-500 group-hover:border-primary/40 group-hover:shadow-[0_0_24px_rgba(184,255,0,0.06)]"
+                    />
+                  </button>
                 </li>
               ))}
             </ul>
@@ -158,18 +213,27 @@ export default function MediaPage() {
               ))}
             </div>
             <ul className="columns-1 gap-4 sm:columns-2 lg:columns-3">
-              {filteredGallery.map((item) => (
+              {filteredGallery.map((item, i) => (
                 <li key={item.id} className="mb-4 break-inside-avoid">
-                  <MediaImage
-                    src={item.src}
-                    alt={item.alt}
-                    aspect=""
-                    fallbackLabel={item.category}
-                    wrapperClassName="border border-border"
-                    wrapperStyle={{
-                      aspectRatio: `${item.width}/${item.height}`,
-                    }}
-                  />
+                  <button
+                    type="button"
+                    className="group w-full cursor-pointer text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                    onClick={() =>
+                      setLightbox({ items: galleryItems, index: i })
+                    }
+                    aria-label={`View ${item.alt} larger`}
+                  >
+                    <MediaImage
+                      src={item.src}
+                      alt={item.alt}
+                      aspect=""
+                      fallbackLabel={item.category}
+                      wrapperClassName="border border-border transition-[border-color,box-shadow] duration-500 group-hover:border-primary/40 group-hover:shadow-[0_0_24px_rgba(184,255,0,0.06)]"
+                      wrapperStyle={{
+                        aspectRatio: `${item.width}/${item.height}`,
+                      }}
+                    />
+                  </button>
                 </li>
               ))}
             </ul>
@@ -177,6 +241,14 @@ export default function MediaPage() {
         </Container>
       </section>
       <CTABanner />
+      <GalleryLightbox
+        items={lightbox?.items ?? []}
+        index={lightbox?.index ?? null}
+        onClose={() => setLightbox(null)}
+        onIndexChange={(index) =>
+          setLightbox((current) => (current ? { ...current, index } : current))
+        }
+      />
     </>
   )
 }

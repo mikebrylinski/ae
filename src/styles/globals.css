@@ -215,7 +215,47 @@
     }
   }
 
-  /* Soft lime icon pulse — stats / services */
+  /* ——— Paper surface: warm cream with subtle grain (stats bar, services) ——— */
+  /* Crowd lives in background-image (not ::before) so it doesn't collide with
+     .section-divider-top::before (same pseudo, 3px neon edge). */
+
+  .paper-surface {
+    position: relative;
+    isolation: isolate;
+    background-color: #e0d5c2;
+    background-image:
+      linear-gradient(
+        168deg,
+        rgb(232 224 208 / 0.78) 0%,
+        rgb(221 210 190 / 0.82) 42%,
+        rgb(212 201 181 / 0.86) 100%
+      ),
+      url('/images/hero/arena.jpg');
+    background-size: auto, cover;
+    background-position: 0 0, 48% 18%;
+    background-repeat: no-repeat;
+  }
+
+  .paper-surface::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.42;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 180px 180px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .paper-surface {
+      animation: paper-crowd-drift 36s ease-in-out infinite alternate;
+    }
+  }
+
+  /* Soft lime icon pulse — services */
   .icon-glow-soft {
     filter: drop-shadow(0 0 0 transparent);
   }
@@ -224,140 +264,6 @@
     .icon-glow-soft {
       animation: icon-glow-soft 7s ease-in-out infinite alternate;
     }
-  }
-
-  /* ——— Hero console panel (in-flow right column) ——— */
-
-  .console-panel__bank {
-    display: flex;
-    align-items: stretch;
-    justify-content: center;
-    gap: clamp(0.75rem, 1.8vw, 1.35rem);
-    width: 100%;
-    padding: clamp(1.25rem, 2.5vw, 2rem) clamp(1rem, 2vw, 1.75rem);
-    background: linear-gradient(
-      165deg,
-      rgba(14, 14, 14, 0.82) 0%,
-      rgba(8, 8, 8, 0.72) 55%,
-      rgba(0, 0, 0, 0.55) 100%
-    );
-    border: 1px solid color-mix(in srgb, var(--color-primary) 28%, #222);
-    box-shadow:
-      0 0 28px color-mix(in srgb, var(--color-primary) 5%, transparent),
-      inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  }
-
-  .console-panel[data-animate='true'] .console-panel__bank {
-    animation: console-soft-fade 18s ease-in-out infinite alternate;
-  }
-
-  .console-panel__channel {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-    width: clamp(1.55rem, 2.8vw, 2.25rem);
-  }
-
-  .console-panel__knob {
-    position: relative;
-    width: clamp(1.15rem, 2.1vw, 1.55rem);
-    height: clamp(1.15rem, 2.1vw, 1.55rem);
-    border-radius: 9999px;
-    background: radial-gradient(circle at 35% 30%, #3a3a3a, #111 70%, #000);
-    border: 1px solid color-mix(in srgb, var(--color-primary) 50%, #333);
-    transform: rotate(var(--knob-rest, 0deg));
-    flex-shrink: 0;
-  }
-
-  .console-panel__knob-pointer {
-    position: absolute;
-    left: 50%;
-    top: 14%;
-    width: 2px;
-    height: 36%;
-    background: var(--color-primary);
-    transform: translateX(-50%);
-    border-radius: 1px;
-  }
-
-  .console-panel__track {
-    position: relative;
-    flex: 1 1 auto;
-    width: 100%;
-    min-height: clamp(11rem, 36vh, 22rem);
-    display: flex;
-    justify-content: center;
-  }
-
-  .console-panel__rail {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 4px;
-    transform: translateX(-50%);
-    border-radius: 2px;
-    background: linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--color-primary) 40%, #222) 0%,
-      #1a1a1a 40%,
-      #0a0a0a 100%
-    );
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-  }
-
-  .console-panel__cap {
-    position: absolute;
-    left: 50%;
-    width: clamp(1.35rem, 2.4vw, 1.85rem);
-    height: clamp(0.7rem, 1.15vw, 0.9rem);
-    margin-left: calc(clamp(1.35rem, 2.4vw, 1.85rem) / -2);
-    border-radius: 1px;
-    background: linear-gradient(180deg, #d4ff4a 0%, var(--color-primary) 45%, #7aaa00 100%);
-    box-shadow:
-      0 0 10px color-mix(in srgb, var(--color-primary) 32%, transparent),
-      0 1px 2px rgba(0, 0, 0, 0.55);
-    bottom: var(--fader-rest, 40%);
-    will-change: bottom;
-  }
-
-  .console-panel__slot {
-    width: 70%;
-    height: 4px;
-    background: #1a1a1a;
-    border-radius: 1px;
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-primary) 18%, transparent);
-  }
-
-  .console-panel[data-animate='true'] .console-panel__cap--m1 {
-    animation: fader-ride-1 16s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
-  }
-  .console-panel[data-animate='true'] .console-panel__cap--m2 {
-    animation: fader-ride-2 19s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
-  }
-  .console-panel[data-animate='true'] .console-panel__cap--m3 {
-    animation: fader-ride-3 14.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
-  }
-  .console-panel[data-animate='true'] .console-panel__cap--m4 {
-    animation: fader-ride-4 21s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
-  }
-  .console-panel[data-animate='true'] .console-panel__cap--m5 {
-    animation: fader-ride-5 17s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
-  }
-  .console-panel[data-animate='true'] .console-panel__cap--m6 {
-    animation: fader-ride-6 22s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
-  }
-  .console-panel[data-animate='true'] .console-panel__cap--m7 {
-    animation: fader-ride-7 15.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
-  }
-  .console-panel[data-animate='true'] .console-panel__cap--m8 {
-    animation: fader-ride-8 18.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
-  }
-
-  .console-panel[data-animate='false'] .console-panel__cap,
-  .console-panel[data-animate='false'] .console-panel__bank {
-    animation: none;
   }
 
   /* ——— Shared: neon glow behind industrial wire mesh (header + footer) ——— */
@@ -573,15 +479,6 @@
   }
 }
 
-@keyframes console-soft-fade {
-  from {
-    opacity: 0.94;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 @keyframes icon-glow-soft {
   from {
     filter: drop-shadow(0 0 2px rgba(184, 255, 0, 0.15));
@@ -608,6 +505,15 @@
   }
   to {
     opacity: 0.34;
+  }
+}
+
+@keyframes paper-crowd-drift {
+  from {
+    background-position: 0 0, 48% 18%;
+  }
+  to {
+    background-position: 0 0, 46% 22%;
   }
 }
 
@@ -714,72 +620,6 @@
   }
 }
 
-/* Gentle drift — narrow travel around mid positions */
-@keyframes fader-ride-1 {
-  from {
-    bottom: 38%;
-  }
-  to {
-    bottom: 58%;
-  }
-}
-@keyframes fader-ride-2 {
-  from {
-    bottom: 52%;
-  }
-  to {
-    bottom: 34%;
-  }
-}
-@keyframes fader-ride-3 {
-  from {
-    bottom: 28%;
-  }
-  to {
-    bottom: 46%;
-  }
-}
-@keyframes fader-ride-4 {
-  from {
-    bottom: 44%;
-  }
-  to {
-    bottom: 62%;
-  }
-}
-@keyframes fader-ride-5 {
-  from {
-    bottom: 60%;
-  }
-  to {
-    bottom: 42%;
-  }
-}
-@keyframes fader-ride-6 {
-  from {
-    bottom: 32%;
-  }
-  to {
-    bottom: 50%;
-  }
-}
-@keyframes fader-ride-7 {
-  from {
-    bottom: 48%;
-  }
-  to {
-    bottom: 33%;
-  }
-}
-@keyframes fader-ride-8 {
-  from {
-    bottom: 36%;
-  }
-  to {
-    bottom: 54%;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -790,16 +630,19 @@
     scroll-behavior: auto !important;
   }
 
-  .console-panel__cap,
-  .console-panel__bank,
   .icon-glow-soft,
   .mesh-glow,
+  .paper-surface,
   .cta-crowd__field,
   .cta-crowd__shimmer,
   .cta-particles__dot,
   .section-divider,
   .section-divider-top::before {
     animation: none !important;
+  }
+
+  .paper-surface {
+    background-position: 0 0, 48% 18%;
   }
 
   .section-divider,

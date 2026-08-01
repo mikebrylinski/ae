@@ -1,10 +1,10 @@
 {
   "timeline": [
     {
-      "year": "2020–2024",
+      "year": "2020–2026",
       "tour": "Worldwide Tours",
       "artist": "Alanis Morissette",
-      "description": "Monitor engineer for Alanis Morissette’s continuous worldwide touring run — arena and international dates across five consecutive years.",
+      "description": "Monitor engineer for Alanis Morissette’s continuous worldwide touring run — currently on the road for arena and international dates through 2025–2026.",
       "photo": "/images/experience/alanis-2020s.jpg"
     },
     {
@@ -103,6 +103,18 @@
   ],
   "resumePdf": "/downloads/andy-ebert-resume.pdf",
   "credits": [
+    {
+      "year": "2026",
+      "artist": "Alanis Morissette",
+      "region": "Worldwide",
+      "role": "Monitor Engineer"
+    },
+    {
+      "year": "2025",
+      "artist": "Alanis Morissette",
+      "region": "Worldwide",
+      "role": "Monitor Engineer"
+    },
     {
       "year": "2024",
       "artist": "Alanis Morissette",

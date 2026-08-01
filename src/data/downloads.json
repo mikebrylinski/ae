@@ -1,0 +1,159 @@
+{
+  "intro": "You can download any list, layout and chart as a PDF file, free of charge.",
+  "categories": [
+    {
+      "id": "input-lists",
+      "title": "Input Lists",
+      "description": "Channel input lists and stage plots for common console sizes.",
+      "items": [
+        {
+          "id": "inputlist-40ch",
+          "label": "Inputlist — 40ch",
+          "description": "40-channel input list template.",
+          "href": "/downloads/Inputlist-40ch.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "inputlist-stageplot-40ch",
+          "label": "Inputlist + Stageplot — 40ch",
+          "description": "40-channel input list with stage plot.",
+          "href": "/downloads/Inputlist+Stageplot-40ch.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "inputlist-stageplot-48ch",
+          "label": "Inputlist + Stageplot — 48ch",
+          "description": "48-channel input list with stage plot.",
+          "href": "/downloads/Inputlist+Stageplot-48ch.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "inputlist-52ch",
+          "label": "Inputlist — 52ch",
+          "description": "52-channel input list template.",
+          "href": "/downloads/Inputlist-52ch.pdf",
+          "type": "PDF"
+        }
+      ]
+    },
+    {
+      "id": "rack-layouts",
+      "title": "Rack Layouts",
+      "description": "Outboard rack space layouts for touring production.",
+      "items": [
+        {
+          "id": "rack-16-13",
+          "label": "16-space & 13-space",
+          "description": "Combined 16-space and 13-space rack layout.",
+          "href": "/downloads/Rack-Layout-16+13.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "rack-18-12",
+          "label": "18-space & 12-space",
+          "description": "Combined 18-space and 12-space rack layout.",
+          "href": "/downloads/Rack-Layout-18+12.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "rack-36",
+          "label": "36-space",
+          "description": "Full 36-space rack layout.",
+          "href": "/downloads/Rack-Layout-36.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "rack-3-10",
+          "label": "3 × 10-space",
+          "description": "Triple 10-space rack layout.",
+          "href": "/downloads/Rack-Layout-3-10.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "rack-3-12",
+          "label": "3 × 12-space",
+          "description": "Triple 12-space rack layout.",
+          "href": "/downloads/Rack-Layout-3-12.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "rack-3-10-18",
+          "label": "3 × 10-space & 18-space",
+          "description": "Triple 10-space plus 18-space rack layout.",
+          "href": "/downloads/Rack-Layout-3-10+18.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "rack-3-12-18",
+          "label": "3 × 12-space & 18-space",
+          "description": "Triple 12-space plus 18-space rack layout.",
+          "href": "/downloads/Rack-Layout-3-12+18.pdf",
+          "type": "PDF"
+        }
+      ]
+    },
+    {
+      "id": "console-charts",
+      "title": "Console Charts",
+      "description": "Channel charts for classic and universal consoles.",
+      "items": [
+        {
+          "id": "midas-h2000",
+          "label": "Midas H-2000",
+          "description": "Console chart for the Midas H-2000.",
+          "href": "/downloads/Midas-H2000-chart.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "midas-h3000",
+          "label": "Midas H-3000",
+          "description": "Console chart for the Midas H-3000.",
+          "href": "/downloads/Midas-H3000-chart.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "midas-xl4",
+          "label": "Midas XL-4",
+          "description": "Console chart for the Midas XL-4.",
+          "href": "/downloads/Midas-XL4-chart.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "midas-xl250",
+          "label": "Midas XL-250",
+          "description": "Console chart for the Midas XL-250.",
+          "href": "/downloads/Midas-XL250-chart.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "universal-32ch",
+          "label": "Universal console — 32ch",
+          "description": "Universal 32-channel console chart.",
+          "href": "/downloads/Universal-console-chart-32ch.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "yamaha-pm3500m",
+          "label": "Yamaha PM-3500M",
+          "description": "Console chart for the Yamaha PM-3500M.",
+          "href": "/downloads/Yamaha-PM3500M-chart.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "yamaha-pm4000",
+          "label": "Yamaha PM-4000",
+          "description": "Console chart for the Yamaha PM-4000.",
+          "href": "/downloads/Yamaha-PM4000-chart.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "yamaha-pm4000m",
+          "label": "Yamaha PM-4000M",
+          "description": "Console chart for the Yamaha PM-4000M.",
+          "href": "/downloads/Yamaha-PM4000M-chart.pdf",
+          "type": "PDF"
+        }
+      ]
+    }
+  ]
+}

@@ -15,14 +15,19 @@ export function Navbar() {
     <header className="fixed inset-x-0 top-0 z-50 overflow-hidden border-b border-white/5 bg-black/80 backdrop-blur-md">
       <MeshBackdrop />
 
-      <Container className="relative z-10 flex h-16 items-center justify-between md:h-20">
+      <Container className="relative z-10 flex h-20 items-center justify-between md:h-24">
         <Link
           to="/"
-          className="font-heading text-xl tracking-[0.12em] sm:text-2xl"
+          className="inline-flex flex-col items-center gap-0.5 text-center"
           onClick={() => setOpen(false)}
         >
-          <span className="text-white">ANDY</span>{' '}
-          <span className="text-primary">EBERT</span>
+          <span className="whitespace-nowrap font-heading text-2xl tracking-[0.12em] sm:text-3xl">
+            <span className="text-white">ANDY</span>{' '}
+            <span className="text-primary">EBERT</span>
+          </span>
+          <span className="w-full font-heading text-[0.6rem] uppercase text-muted sm:text-[0.7rem]">
+            Sound Engineer
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">

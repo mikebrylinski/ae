@@ -36,6 +36,7 @@ export function FeaturedProjects() {
         <SectionHeading
           id="featured-heading"
           title="Featured Projects"
+          titleClassName="text-primary"
           align="left"
           action={
             <Link
@@ -77,7 +78,7 @@ export function FeaturedProjects() {
                     aspect="aspect-square"
                     fit="contain"
                     fallbackLabel={project.artist}
-                    className="!p-4 sm:!p-3"
+                    className="!box-border !h-full !w-full !object-contain !object-center !p-5 sm:!p-6"
                     wrapperClassName="card-lift__frame transition-[transform,box-shadow,border-color] duration-700 ease-out group-hover:-translate-y-1 group-hover:border-primary/35 group-hover:shadow-[0_0_28px_rgba(184,255,0,0.08)]"
                   />
                   <div className="mt-2.5 text-center sm:mt-3 lg:text-left">

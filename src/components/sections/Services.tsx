@@ -27,11 +27,15 @@ export function Services() {
   return (
     <section
       id="services"
-      className="section-divider-top section-pad scroll-mt-24 bg-black"
+      className="paper-surface section-divider-top section-pad relative scroll-mt-24 overflow-hidden"
       aria-labelledby="services-heading"
     >
-      <Container>
-        <SectionHeading id="services-heading" title="What Andy Brings" />
+      <Container className="relative z-[2]">
+        <SectionHeading
+          id="services-heading"
+          title="What Andy Brings"
+          className="[&_h2]:text-black"
+        />
 
         <motion.ul
           className="grid sm:grid-cols-2 lg:grid-cols-4"
@@ -46,18 +50,18 @@ export function Services() {
               <motion.li
                 key={service.id}
                 variants={item}
-                className="flex flex-col items-center gap-3.5 border-border/35 px-5 py-7 text-center sm:px-6 sm:py-8 max-sm:border-b max-sm:last:border-b-0 sm:max-lg:[&:nth-child(-n+2)]:border-b sm:max-lg:[&:nth-child(odd)]:border-r lg:border-l lg:first:border-l-0"
+                className="flex flex-col items-center gap-3.5 border-black/15 px-5 py-7 text-center sm:px-6 sm:py-8 max-sm:border-b max-sm:last:border-b-0 sm:max-lg:[&:nth-child(-n+2)]:border-b sm:max-lg:[&:nth-child(odd)]:border-r lg:border-l lg:first:border-l-0"
               >
                 <Icon
-                  className="icon-glow-soft text-primary"
+                  className="text-black"
                   size={38}
                   strokeWidth={1.4}
                   aria-hidden
                 />
-                <h3 className="font-heading text-[15px] tracking-[0.12em] text-primary sm:text-base">
+                <h3 className="font-heading text-[15px] tracking-[0.12em] text-black sm:text-base">
                   {service.title}
                 </h3>
-                <p className="text-[15px] leading-relaxed text-muted sm:text-base">
+                <p className="text-[15px] leading-relaxed text-black sm:text-base">
                   {service.description}
                 </p>
               </motion.li>

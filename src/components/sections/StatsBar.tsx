@@ -24,10 +24,10 @@ export function StatsBar() {
 
   return (
     <section
-      className="section-divider-top bg-black"
+      className="paper-surface section-divider-top relative overflow-hidden"
       aria-label="Career highlights"
     >
-      <Container className="py-10 md:py-12">
+      <Container className="relative z-[2] py-10 md:py-12">
         <motion.ul
           className="grid grid-cols-2 lg:grid-cols-4"
           variants={reduced ? undefined : staggerContainer}
@@ -46,15 +46,15 @@ export function StatsBar() {
               <motion.li
                 key={stat.label}
                 variants={item}
-                className="flex flex-col items-center justify-center gap-3.5 border-border/35 px-5 py-7 text-center sm:px-6 sm:py-8 max-lg:[&:nth-child(-n+2)]:border-b max-lg:[&:nth-child(odd)]:border-r lg:border-l lg:first:border-l-0"
+                className="flex flex-col items-center justify-center gap-3.5 border-black/15 px-5 py-7 text-center sm:px-6 sm:py-8 max-lg:[&:nth-child(-n+2)]:border-b max-lg:[&:nth-child(odd)]:border-r lg:border-l lg:first:border-l-0"
               >
                 <Icon
-                  className="icon-glow-soft text-primary"
+                  className="text-black"
                   size={34}
                   strokeWidth={1.4}
                   aria-hidden
                 />
-                <p className="font-heading text-[13px] tracking-[0.14em] text-white sm:text-sm">
+                <p className="font-heading text-[13px] tracking-[0.14em] text-black sm:text-sm">
                   {label.toUpperCase()}
                 </p>
               </motion.li>

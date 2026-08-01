@@ -3,5 +3,6 @@
   { "label": "Services", "href": "/#services" },
   { "label": "About", "href": "/about" },
   { "label": "Press", "href": "/media" },
+  { "label": "Downloads", "href": "/downloads" },
   { "label": "Contact", "href": "/contact" }
 ]

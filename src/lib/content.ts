@@ -1,5 +1,6 @@
 import type {
   CreditEntry,
+  DownloadsData,
   ExperienceData,
   GalleryItem,
   GroupedCredit,
@@ -19,6 +20,7 @@ import pressData from '@/data/press.json'
 import projectsData from '@/data/projects.json'
 import experienceData from '@/data/experience.json'
 import galleryData from '@/data/gallery.json'
+import downloadsData from '@/data/downloads.json'
 
 export const site = siteData as SiteConfig
 export const nav = navData as NavItem[]
@@ -28,6 +30,7 @@ export const press = pressData as PressItem[]
 export const projects = projectsData as Project[]
 export const experience = experienceData as ExperienceData
 export const gallery = galleryData as GalleryItem[]
+export const downloads = downloadsData as DownloadsData
 
 export function getFeaturedProjects(): Project[] {
   return projects.filter((p) => p.featured)
