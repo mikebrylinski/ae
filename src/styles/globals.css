@@ -880,6 +880,11 @@
     opacity: 0.7;
   }
 
+  /* Header has no top vent slot */
+  .rack-header .rack-faceplate__vent {
+    display: none;
+  }
+
   .rack-faceplate__vent--footer {
     top: auto;
     bottom: 10px;
@@ -997,7 +1002,7 @@
     position: relative;
     gap: 0.2rem;
     line-height: 1;
-    padding: 0.3rem 0.55rem 0.28rem;
+    padding: 0.5rem 0.85rem 0.55rem;
     border: 1px solid rgba(255, 255, 255, 0.06);
     background:
       linear-gradient(
@@ -1079,7 +1084,7 @@
     }
 
     .rack-brand {
-      padding: 0.45rem 0.95rem 0.4rem;
+      padding: 0.6rem 1.15rem 0.65rem;
     }
 
     .rack-nav__item {

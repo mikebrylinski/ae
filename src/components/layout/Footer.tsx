@@ -52,12 +52,12 @@ export function Footer() {
               to="/"
               className="rack-brand inline-flex flex-col items-center gap-0.5 text-center"
             >
-              <span className="rack-brand__sub w-full font-heading text-[0.7rem] uppercase text-muted sm:text-xs">
-                Sound Engineer
-              </span>
               <span className="rack-brand__name whitespace-nowrap font-heading text-3xl tracking-[0.12em] sm:text-4xl md:text-5xl">
                 <span className="text-white">ANDY</span>{' '}
                 <span className="text-primary">EBERT</span>
+              </span>
+              <span className="rack-brand__sub w-full font-heading text-[0.7rem] uppercase text-muted sm:text-xs">
+                Sound Engineer
               </span>
             </Link>
 

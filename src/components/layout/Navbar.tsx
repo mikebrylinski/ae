@@ -290,23 +290,22 @@ export function Navbar() {
           <span className="rack-screw" />
           <span className="rack-screw" />
         </div>
-        <div className="rack-faceplate__vent" />
         <div className="rack-faceplate__edge" />
       </div>
 
       <Container className="relative z-10 flex h-20 items-center justify-between md:h-24 lg:px-12 xl:px-14">
-        {/* Full brand block on all viewports — Sound Engineer above name, soft glow, no LED */}
+        {/* Full brand block on all viewports — name above Sound Engineer, soft glow, no LED */}
         <Link
           to="/"
           className="rack-brand rack-brand--glow inline-flex max-w-[min(100%,14.5rem)] shrink flex-col items-center gap-0.5 text-center sm:max-w-none"
           onClick={() => setOpen(false)}
         >
-          <span className="rack-brand__sub w-full font-heading text-[0.55rem] uppercase sm:text-[0.65rem] lg:text-[0.7rem]">
-            Sound Engineer
-          </span>
           <span className="rack-brand__name whitespace-nowrap font-heading text-[1.35rem] tracking-[0.1em] sm:text-2xl lg:text-[1.65rem] xl:text-3xl">
             <span className="text-white">ANDY</span>{' '}
             <span className="text-primary">EBERT</span>
+          </span>
+          <span className="rack-brand__sub w-full font-heading text-[0.55rem] uppercase sm:text-[0.65rem] lg:text-[0.7rem]">
+            Sound Engineer
           </span>
         </Link>
 
