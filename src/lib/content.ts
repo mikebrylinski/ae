@@ -24,6 +24,28 @@ import downloadsData from '@/data/downloads.json'
 
 export const site = siteData as SiteConfig
 export const nav = navData as NavItem[]
+
+/** Flat list for footer / simple menus: parents then unique children. */
+export function flattenNav(items: NavItem[] = nav): NavItem[] {
+  const result: NavItem[] = []
+  const seen = new Set<string>()
+
+  for (const item of items) {
+    if (!seen.has(item.href)) {
+      result.push({ label: item.label, href: item.href })
+      seen.add(item.href)
+    }
+    for (const child of item.children ?? []) {
+      if (!seen.has(child.href)) {
+        result.push({ label: child.label, href: child.href })
+        seen.add(child.href)
+      }
+    }
+  }
+
+  return result
+}
+
 export const services = servicesData as Service[]
 export const testimonials = testimonialsData as Testimonial[]
 export const press = pressData as PressItem[]

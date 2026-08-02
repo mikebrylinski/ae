@@ -24,7 +24,7 @@ export function StatsBar() {
 
   return (
     <section
-      className="paper-surface section-divider-top relative overflow-hidden"
+      className="stats-bar section-divider-top relative overflow-hidden"
       aria-label="Career highlights"
     >
       <Container className="relative z-[2] py-10 md:py-12">

@@ -27,7 +27,7 @@ export function Services() {
   return (
     <section
       id="services"
-      className="paper-surface section-divider-top section-pad relative scroll-mt-24 overflow-hidden"
+      className="services-panel section-divider-top section-pad relative scroll-mt-24 overflow-hidden"
       aria-labelledby="services-heading"
     >
       <Container className="relative z-[2]">

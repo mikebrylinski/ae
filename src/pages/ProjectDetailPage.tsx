@@ -49,6 +49,17 @@ export default function ProjectDetailPage() {
             ))}
           </div>
 
+          {project.logo ? (
+            <MediaImage
+              src={project.logo}
+              alt={`${project.artist} logo`}
+              aspect="mb-8 aspect-[16/9] max-w-lg"
+              fit="contain"
+              fallbackLabel={project.artist}
+              className="!p-8 sm:!p-12"
+            />
+          ) : null}
+
           <h1 className="font-heading text-4xl tracking-[0.06em] text-white sm:text-5xl md:text-6xl">
             {project.artist}
           </h1>

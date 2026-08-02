@@ -3,7 +3,6 @@ import { motion } from 'framer-motion'
 import { getFeaturedProjects } from '@/lib/content'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
-import { MediaImage } from '@/components/ui/MediaImage'
 import { fadeUp, staggerContainer, reducedMotionVariants } from '@/lib/motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { cn } from '@/lib/utils'
@@ -36,7 +35,6 @@ export function FeaturedProjects() {
         <SectionHeading
           id="featured-heading"
           title="Featured Projects"
-          titleClassName="text-primary"
           align="left"
           action={
             <Link
@@ -49,14 +47,13 @@ export function FeaturedProjects() {
         />
 
         <motion.ul
-          className="mx-auto grid max-w-sm grid-cols-2 gap-3 sm:max-w-none sm:gap-5 sm:grid-cols-2 lg:grid-cols-5"
+          className="mx-auto grid max-w-xs grid-cols-2 gap-2.5 sm:max-w-none sm:gap-5 sm:grid-cols-2 lg:grid-cols-5"
           variants={container}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
         >
           {projects.map((project, index) => {
-            const src = project.logo || project.thumbnail
             const isLastOdd = index === projects.length - 1 && projects.length % 2 === 1
             return (
               <motion.li
@@ -65,28 +62,23 @@ export function FeaturedProjects() {
                 className={cn(
                   'relative z-10',
                   // Center the orphan 5th card on 2-col mobile/tablet grids
-                  isLastOdd && 'max-lg:col-span-2 max-lg:mx-auto max-lg:w-[calc(50%-0.375rem)] sm:max-lg:w-[calc(50%-0.625rem)]',
+                  isLastOdd && 'max-lg:col-span-2 max-lg:mx-auto max-lg:w-[calc(50%-0.3125rem)] sm:max-lg:w-[calc(50%-0.625rem)]',
                 )}
               >
                 <Link
                   to={`/portfolio/${project.slug}`}
                   className="card-lift group block focus-visible:outline-none"
                 >
-                  <MediaImage
-                    src={src}
-                    alt={`${project.artist} logo`}
-                    aspect="aspect-square"
-                    fit="contain"
-                    fallbackLabel={project.artist}
-                    className="!box-border !h-full !w-full !object-contain !object-center !p-5 sm:!p-6"
-                    wrapperClassName="card-lift__frame transition-[transform,box-shadow,border-color] duration-700 ease-out group-hover:-translate-y-1 group-hover:border-primary/35 group-hover:shadow-[0_0_28px_rgba(184,255,0,0.08)]"
-                  />
-                  <div className="mt-2.5 text-center sm:mt-3 lg:text-left">
-                    <h3 className="font-heading text-sm tracking-[0.08em] text-white transition-colors duration-500 group-hover:text-primary sm:text-base">
+                  <div className="card-lift__frame relative flex aspect-square flex-col items-center justify-center overflow-hidden border border-border bg-black px-2 py-3 text-center transition-[transform,box-shadow,border-color] duration-700 ease-out group-hover:-translate-y-1 group-hover:border-primary/35 group-hover:shadow-[0_0_28px_rgba(184,255,0,0.08)] sm:px-4 sm:py-5">
+                    <h3 className="font-heading text-sm leading-tight tracking-[0.04em] text-white transition-colors duration-500 group-hover:text-primary sm:text-lg lg:text-xl">
                       {project.artist}
                     </h3>
-                    <p className="mt-1 text-[11px] tracking-wide text-muted uppercase sm:text-xs">
-                      {project.title}
+                    <p className="mt-1.5 text-[9px] leading-snug tracking-[0.1em] text-muted uppercase sm:mt-2.5 sm:text-[11px]">
+                      {project.year}
+                      <span className="mx-1 text-border sm:mx-1.5" aria-hidden>
+                        ·
+                      </span>
+                      {project.role}
                     </p>
                   </div>
                 </Link>

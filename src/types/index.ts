@@ -16,7 +16,7 @@ export interface Project {
   featured: boolean
   heroImage: string
   thumbnail: string
-  /** Artist logo mark for project cards (prefer over photo thumbs when set). */
+  /** Artist logo mark — shown on project detail pages only, not on cards. */
   logo?: string
   overview: string
   responsibilities: string[]
@@ -108,6 +108,8 @@ export interface Service {
 export interface NavItem {
   label: string
   href: string
+  /** Optional nested links (e.g. Contact → Downloads). */
+  children?: NavItem[]
 }
 
 export interface DownloadItem {

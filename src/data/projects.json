@@ -12,6 +12,7 @@
     "featured": true,
     "heroImage": "/images/projects/alanis-hero.jpg",
     "thumbnail": "/images/logos/alanis-morissette.png",
+    "icon": "Headphones",
     "overview": "Monitor engineer for Alanis Morissette’s continuous worldwide touring run from 2020 through 2026 (currently touring), with earlier USA and worldwide dates in 2012, 2015, 2016, and 2019.",
     "responsibilities": [
       "Artist and band monitor mixes across international arenas",
@@ -52,6 +53,7 @@
     "featured": true,
     "heroImage": "/images/projects/weeknd-hero.jpg",
     "thumbnail": "/images/logos/the-weeknd.png",
+    "icon": "Mic",
     "overview": "Monitor engineer for The Weeknd worldwide from 2012 through 2019 — arena-scale productions across multi-year touring cycles. Nominated for the 2017 Parnelli Award for Monitor Engineer of the Year during this era.",
     "responsibilities": [
       "Multi-mix IEM design for artist and band",
@@ -91,6 +93,7 @@
     "featured": true,
     "heroImage": "/images/projects/maroon5-hero.jpg",
     "thumbnail": "/images/logos/maroon-5.png",
+    "icon": "Music",
     "overview": "Monitor engineer for Maroon 5 worldwide (2004–2005), including work covered in Live Design Magazine and the Live Friday The 13th DVD/CD credit as Monitor Engineer.",
     "responsibilities": [
       "Artist and band monitor mixes on worldwide dates",
@@ -127,6 +130,7 @@
     "featured": true,
     "heroImage": "/images/projects/gnr-hero.jpg",
     "thumbnail": "/images/logos/guns-n-roses.png",
+    "icon": "Speaker",
     "overview": "Monitor engineer for Guns N’ Roses across Europe and the USA in 2006 — covered in Mix Magazine’s January 2007 Guns N’ Roses tour profile and related Venue / Live Design press.",
     "responsibilities": [
       "Monitor mixes for a large rock production",
@@ -163,6 +167,7 @@
     "featured": true,
     "heroImage": "/images/projects/stp-hero.jpg",
     "thumbnail": "/images/logos/stone-temple-pilots.png",
+    "icon": "Radio",
     "overview": "Monitor engineer for Stone Temple Pilots across USA and worldwide dates from 2008 through 2011, with related press in Pro Sound News, L&S America, and FOH Magazine.",
     "responsibilities": [
       "Band and artist monitor mixes",
@@ -199,6 +204,7 @@
     "featured": false,
     "heroImage": "/images/projects/mariah-hero.jpg",
     "thumbnail": "/images/logos/mariah-carey.png",
+    "icon": "AudioWaveform",
     "overview": "Monitor engineer for Mariah Carey worldwide in 2003 and 2004 — large-scale pop production with demanding vocal monitoring.",
     "responsibilities": [
       "Artist-focused monitor mixes",
@@ -235,6 +241,7 @@
     "featured": false,
     "heroImage": "/images/projects/neil-young-hero.jpg",
     "thumbnail": "/images/logos/neil-young-velvet-revolver.png",
+    "icon": "Guitar",
     "overview": "Monitor engineer for Neil Young (USA 2007, Europe 2008) and Velvet Revolver (USA 2007), with coverage in Total Production, Pro Sound News, and Mix Magazine tour profiles.",
     "responsibilities": [
       "Artist and band monitor mixes",
@@ -271,6 +278,7 @@
     "featured": false,
     "heroImage": "/images/projects/festivals-hero.jpg",
     "thumbnail": "/images/logos/festivals.png",
+    "icon": "Disc3",
     "overview": "Career foundations across European Gospel touring (FOH from 1997), Modern Talking arena monitors (1999), Expo 2000, Rock am Ring, Wacken, and monitor work with Dream Theater, R.E.M., Puddle of Mudd, Harlem Gospel Singers, and more — leading to Audio-Rent Clair work and a first US visa in 2003.",
     "responsibilities": [
       "Festival and tour monitor / FOH mixing",

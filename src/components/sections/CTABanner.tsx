@@ -4,6 +4,7 @@ import { site } from '@/lib/content'
 import { Container } from '@/components/ui/Container'
 import { MediaImage } from '@/components/ui/MediaImage'
 import { buttonVariants } from '@/components/ui/Button'
+import { ConsolePanel } from '@/components/ui/ConsolePanel'
 import { NoiseOverlay } from '@/components/ui/NoiseOverlay'
 import { fadeUp, reducedMotionVariants } from '@/lib/motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
@@ -135,20 +136,37 @@ export function CTABanner() {
               />
             </div>
 
-            <div className="flex flex-col justify-center px-6 py-10 text-center md:px-10 md:py-14 md:text-left lg:px-14">
-              <h2 className="font-heading text-3xl tracking-[0.08em] text-white sm:text-4xl md:text-5xl">
-                {cta.title}
-              </h2>
-              {cta.subtitle ? (
-                <p className="mt-4 text-lg text-primary md:text-xl">{cta.subtitle}</p>
-              ) : null}
-              <div className="mt-8 flex justify-center md:justify-start">
-                <Link
-                  to={cta.button.href}
-                  className={cn(buttonVariants({ size: 'lg' }), 'inline-flex')}
-                >
-                  {cta.button.label}
-                </Link>
+            <div className="relative flex flex-col justify-center px-6 py-10 text-center md:px-10 md:py-14 md:text-left lg:px-14">
+              {/* Mixer — dark copy side only; desktop; behind type */}
+              <div
+                className={cn(
+                  'cta-mixer pointer-events-none absolute inset-y-3 right-0 hidden w-[min(52%,14.5rem)] overflow-hidden md:block lg:w-[min(48%,16rem)]',
+                  reduced && 'cta-mixer--static',
+                )}
+                aria-hidden
+              >
+                <ConsolePanel
+                  compact
+                  opacity={1}
+                  className="cta-mixer__panel h-full max-w-none translate-x-[18%] scale-[0.95]"
+                />
+              </div>
+
+              <div className="relative z-10">
+                <h2 className="font-heading text-3xl tracking-[0.08em] text-white sm:text-4xl md:text-5xl">
+                  {cta.title}
+                </h2>
+                {cta.subtitle ? (
+                  <p className="mt-4 text-lg text-primary md:text-xl">{cta.subtitle}</p>
+                ) : null}
+                <div className="mt-8 flex justify-center md:justify-start">
+                  <Link
+                    to={cta.button.href}
+                    className={cn(buttonVariants({ size: 'lg' }), 'inline-flex')}
+                  >
+                    {cta.button.label}
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

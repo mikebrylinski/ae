@@ -1,8 +1,14 @@
 [
+  { "label": "Home", "href": "/" },
   { "label": "Portfolio", "href": "/portfolio" },
-  { "label": "Services", "href": "/#services" },
   { "label": "About", "href": "/about" },
   { "label": "Press", "href": "/media" },
-  { "label": "Downloads", "href": "/downloads" },
-  { "label": "Contact", "href": "/contact" }
+  {
+    "label": "Contact",
+    "href": "/contact",
+    "children": [
+      { "label": "Contact", "href": "/contact" },
+      { "label": "Downloads", "href": "/downloads" }
+    ]
+  }
 ]
