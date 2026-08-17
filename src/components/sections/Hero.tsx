@@ -1,10 +1,12 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { LayoutGrid, Mail } from 'lucide-react'
 import gsap from 'gsap'
 import { site } from '@/lib/content'
 import { Container } from '@/components/ui/Container'
 import { buttonVariants } from '@/components/ui/Button'
 import { NoiseOverlay } from '@/components/ui/NoiseOverlay'
+import { VuPlate } from '@/components/ui/VuPlate'
 import { cn } from '@/lib/utils'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 
@@ -72,12 +74,9 @@ export function Hero() {
           className="mx-auto max-w-xl text-center lg:mx-0 lg:max-w-2xl lg:text-left"
         >
           {eyebrow ? (
-            <p
-              data-hero="eyebrow"
-              className="font-heading mb-5 text-[11px] tracking-[0.22em] text-primary sm:text-xs"
-            >
-              {eyebrow}
-            </p>
+            <div data-hero="eyebrow">
+              <VuPlate className="mb-5 mx-auto lg:mx-0">{eyebrow}</VuPlate>
+            </div>
           ) : null}
 
           <h1
@@ -104,12 +103,14 @@ export function Hero() {
               to={hero.ctaPrimary.href}
               className={cn(buttonVariants({ variant: 'default', size: 'lg' }))}
             >
+              <LayoutGrid size={18} strokeWidth={1.8} aria-hidden />
               {hero.ctaPrimary.label}
             </Link>
             <Link
               to={hero.ctaSecondary.href}
               className={cn(buttonVariants({ variant: 'outline', size: 'lg' }))}
             >
+              <Mail size={18} strokeWidth={1.8} aria-hidden />
               {hero.ctaSecondary.label}
             </Link>
           </div>

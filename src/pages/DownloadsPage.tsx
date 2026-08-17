@@ -6,6 +6,7 @@ import { buttonVariants } from '@/components/ui/Button'
 import { CTABanner } from '@/components/sections/CTABanner'
 import { cn } from '@/lib/utils'
 import { useSeo } from '@/hooks/useSeo'
+import { VuPlate } from '@/components/ui/VuPlate'
 
 export default function DownloadsPage() {
   useSeo({
@@ -18,9 +19,7 @@ export default function DownloadsPage() {
     <>
       <section className="section-pad bg-black">
         <Container>
-          <p className="font-heading mb-3 text-xs tracking-[0.2em] text-primary">
-            Resources
-          </p>
+          <VuPlate className="mb-3">Resources</VuPlate>
           <h1 className="font-heading text-4xl tracking-[0.08em] text-white sm:text-5xl md:text-6xl">
             Downloads
           </h1>

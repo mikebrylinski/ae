@@ -295,7 +295,7 @@ export function Navbar() {
         <div className="rack-faceplate__edge" />
       </div>
 
-      <Container className="relative z-10 flex h-20 items-center justify-between md:h-24 lg:px-12 xl:px-14">
+      <Container className="relative z-10 flex h-20 items-center justify-between md:h-24">
         {/* Full brand block on all viewports — name above Sound Engineer, soft glow, no LED */}
         <div className="rack-brand-wrap mr-3 sm:mr-4">
           <VeganSeal />

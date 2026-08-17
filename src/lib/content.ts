@@ -21,6 +21,7 @@ import projectsData from '@/data/projects.json'
 import experienceData from '@/data/experience.json'
 import galleryData from '@/data/gallery.json'
 import downloadsData from '@/data/downloads.json'
+import { loadStoredCredits } from '@/lib/admin'
 
 export const site = siteData as SiteConfig
 export const nav = navData as NavItem[]
@@ -85,7 +86,13 @@ export function getRelatedProjects(slug: string, limit = 3): Project[] {
 }
 
 export function getCredits(): CreditEntry[] {
-  return experience.credits ?? []
+  const stored = typeof window !== 'undefined' ? loadStoredCredits() : null
+  return stored ?? experience.credits ?? []
+}
+
+export function isCreditFeatured(credit: CreditEntry): boolean {
+  if (typeof credit.featured === 'boolean') return credit.featured
+  return PORTFOLIO_HIGHLIGHT_ARTISTS.has(credit.artist)
 }
 
 /**
@@ -114,6 +121,8 @@ const PORTFOLIO_HIGHLIGHT_ARTISTS = new Set([
   'Zwan',
   'Harlem Gospel Singers',
   'Modern Talking',
+  'Glenn Hughes',
+  'Michael Schenker Group',
   'Tarkan',
   'Rock am Ring Festival',
   'Expo 2000',
@@ -125,10 +134,22 @@ const PORTFOLIO_HIGHLIGHT_ARTISTS = new Set([
 
 export type CreditRoleFilter = 'all' | 'monitors' | 'foh'
 
-function parseYearSpan(year: string): { start: number; end: number } {
-  const match = year.trim().match(/^(\d{4})(?:\s*[–-]\s*(\d{4}))?$/)
+function parseYearSpan(year: string): { start: number; end: number; open?: boolean } {
+  const trimmed = year.trim()
+  const now = new Date().getFullYear()
+
+  if (/^current$/i.test(trimmed)) {
+    return { start: now, end: now, open: true }
+  }
+
+  const openRange = trimmed.match(/^(\d{4})\s*[–-]\s*current$/i)
+  if (openRange) {
+    return { start: Number.parseInt(openRange[1], 10), end: now, open: true }
+  }
+
+  const match = trimmed.match(/^(\d{4})(?:\s*[–-]\s*(\d{4}))?$/)
   if (!match) {
-    const fallback = Number.parseInt(year, 10)
+    const fallback = Number.parseInt(trimmed, 10)
     return { start: fallback, end: fallback }
   }
   const start = Number.parseInt(match[1], 10)
@@ -136,21 +157,25 @@ function parseYearSpan(year: string): { start: number; end: number } {
   return { start, end }
 }
 
-function formatYearRanges(spans: { start: number; end: number }[]): string {
+function formatYearRanges(spans: { start: number; end: number; open?: boolean }[]): string {
   const sorted = [...spans].sort((a, b) => a.start - b.start)
-  const merged: { start: number; end: number }[] = []
+  const merged: { start: number; end: number; open?: boolean }[] = []
 
   for (const span of sorted) {
     const prev = merged[merged.length - 1]
     if (prev && span.start <= prev.end + 1) {
       prev.end = Math.max(prev.end, span.end)
+      prev.open = Boolean(prev.open || span.open)
     } else {
       merged.push({ ...span })
     }
   }
 
   return merged
-    .map(({ start, end }) => (start === end ? `${start}` : `${start}–${end}`))
+    .map(({ start, end, open }) => {
+      if (open) return start === end ? 'Current' : `${start}–current`
+      return start === end ? `${start}` : `${start}–${end}`
+    })
     .join(', ')
 }
 
@@ -199,9 +224,7 @@ export function collapseCredits(credits: CreditEntry[]): GroupedCredit[] {
 export function getPortfolioCredits(
   role: CreditRoleFilter = 'all',
 ): GroupedCredit[] {
-  let credits = getCredits().filter((c) =>
-    PORTFOLIO_HIGHLIGHT_ARTISTS.has(c.artist),
-  )
+  let credits = getCredits().filter(isCreditFeatured)
 
   if (role === 'monitors') {
     credits = credits.filter((c) => c.role === 'Monitor Engineer')

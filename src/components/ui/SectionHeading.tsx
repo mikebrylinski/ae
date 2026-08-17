@@ -1,5 +1,6 @@
 import type { HTMLAttributes, ReactNode } from 'react'
 import { cn } from '@/lib/utils'
+import { VuPlate } from '@/components/ui/VuPlate'
 
 interface SectionHeadingProps extends HTMLAttributes<HTMLDivElement> {
   eyebrow?: string
@@ -32,9 +33,14 @@ export function SectionHeading({
     >
       <div className={align === 'center' && !action ? 'mx-auto' : undefined}>
         {eyebrow ? (
-          <p className="mb-3 font-heading text-xs tracking-[0.2em] text-primary">
+          <VuPlate
+            className={cn(
+              'mb-3',
+              align === 'center' ? 'mx-auto' : 'mx-auto md:mx-0',
+            )}
+          >
             {eyebrow}
-          </p>
+          </VuPlate>
         ) : null}
         <h2
           className={cn(

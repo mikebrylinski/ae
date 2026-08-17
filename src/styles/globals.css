@@ -215,20 +215,17 @@
     }
   }
 
-  /* ——— Paper surface: warm cream with subtle grain (Downloads) ——— */
-  /* Crowd lives in background-image (not ::before) so it doesn't collide with
-     .section-divider-top::before (same pseudo, 3px neon edge). */
-
+  /* ——— Paper surface: cool grey with subtle grain (Downloads) ——— */
   .paper-surface {
     position: relative;
     isolation: isolate;
-    background-color: #e0d5c2;
+    background-color: #cfcfcf;
     background-image:
       linear-gradient(
         168deg,
-        rgb(232 224 208 / 0.78) 0%,
-        rgb(221 210 190 / 0.82) 42%,
-        rgb(212 201 181 / 0.86) 100%
+        rgb(212 212 212 / 0.78) 0%,
+        rgb(196 196 196 / 0.82) 42%,
+        rgb(180 180 180 / 0.86) 100%
       ),
       url('/images/hero/arena.jpg');
     background-size: auto, cover;
@@ -249,74 +246,93 @@
     background-size: 180px 180px;
   }
 
-  /* ——— Stats bar: tour-bus photo under cream parchment ghost + grain ——— */
-  /* Layering (bottom → top):
-     1. stats-bg.jpg (tour bus)
-     2. semi-transparent cream wash (ghost — bus reads faintly through)
-     3. ::after paper grain
-     4. content (z-[2])
-     ::before reserved for .section-divider-top neon edge. */
+  /* ——— Stats bar: tour-bus photo fading through grey ——— */
   .stats-bar {
     position: relative;
     isolation: isolate;
-    background-color: #e0d5c2;
+    background-color: #cfcfcf;
     background-image:
       linear-gradient(
-        168deg,
-        rgb(232 224 208 / 0.78) 0%,
-        rgb(221 210 190 / 0.82) 42%,
-        rgb(212 201 181 / 0.86) 100%
+        180deg,
+        rgb(212 212 212 / 0.88) 0%,
+        rgb(212 212 212 / 0.55) 26%,
+        rgb(196 196 196 / 0.42) 50%,
+        rgb(180 180 180 / 0.52) 76%,
+        rgb(212 212 212 / 0.86) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgb(212 212 212 / 0.5) 0%,
+        rgb(212 212 212 / 0.22) 20%,
+        rgb(212 212 212 / 0.22) 80%,
+        rgb(212 212 212 / 0.52) 100%
       ),
       url('/images/sections/stats-bg.jpg');
-    background-size: auto, cover;
-    background-position: 0 0, center center;
+    background-size: auto, auto, cover;
+    background-position: 0 0, 0 0, center center;
     background-repeat: no-repeat;
   }
 
-  .stats-bar::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    opacity: 0.42;
-    mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    background-size: 180px 180px;
-  }
-
-  /* ——— Services: stage/gear photo under cream parchment ghost + grain ——— */
-  /* Same layering as .stats-bar; separate class so each section keeps its photo.
-     Downloads keeps .paper-surface (arena crowd). */
-  .services-panel {
-    position: relative;
-    isolation: isolate;
-    background-color: #e0d5c2;
-    background-image:
-      linear-gradient(
-        168deg,
-        rgb(232 224 208 / 0.78) 0%,
-        rgb(221 210 190 / 0.82) 42%,
-        rgb(212 201 181 / 0.86) 100%
-      ),
-      url('/images/sections/services-bg.jpg');
-    background-size: auto, cover;
-    background-position: 0 0, center center;
-    background-repeat: no-repeat;
-  }
-
+  .stats-bar::after,
   .services-panel::after {
     content: '';
     position: absolute;
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    opacity: 0.42;
     mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    background-size: 180px 180px;
+    background-color: rgb(212 212 212 / 0.42);
+    background-image:
+      radial-gradient(
+        ellipse 78% 62% at 50% 48%,
+        rgb(212 212 212 / 0.18) 0%,
+        rgb(200 200 200 / 0.48) 52%,
+        rgb(212 212 212 / 0.82) 100%
+      ),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+      repeating-linear-gradient(
+        18deg,
+        transparent 0,
+        transparent 2px,
+        rgb(72 72 72 / 0.045) 2px,
+        rgb(72 72 72 / 0.045) 3px
+      ),
+      repeating-linear-gradient(
+        108deg,
+        transparent 0,
+        transparent 3px,
+        rgb(72 72 72 / 0.03) 3px,
+        rgb(72 72 72 / 0.03) 4px
+      );
+    background-size: auto, 170px 170px, auto, auto;
+    background-repeat: no-repeat, repeat, repeat, repeat;
+  }
+
+  /* ——— Services: grey strongest at the heading, photo fading in behind cards ——— */
+  .services-panel {
+    position: relative;
+    isolation: isolate;
+    background-color: #cfcfcf;
+    background-image:
+      linear-gradient(
+        180deg,
+        rgb(212 212 212 / 0.94) 0%,
+        rgb(212 212 212 / 0.72) 16%,
+        rgb(196 196 196 / 0.48) 42%,
+        rgb(180 180 180 / 0.5) 68%,
+        rgb(212 212 212 / 0.86) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgb(212 212 212 / 0.48) 0%,
+        rgb(212 212 212 / 0.2) 18%,
+        rgb(212 212 212 / 0.2) 82%,
+        rgb(212 212 212 / 0.5) 100%
+      ),
+      url('/images/sections/services-bg.jpg');
+    background-size: auto, auto, cover;
+    background-position: 0 0, 0 0, center center;
+    background-repeat: no-repeat;
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -1534,7 +1550,7 @@
   .berlin-skyline--header {
     display: flex;
     align-items: flex-end;
-    min-height: clamp(11rem, 28vw, 20rem);
+    min-height: clamp(13rem, 32vw, 24rem);
   }
 
   .berlin-skyline__frame {
@@ -1545,11 +1561,12 @@
 
   .berlin-skyline__photo {
     position: absolute;
-    inset: -6%;
-    width: 112%;
-    height: 112%;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    object-position: center 40%;
+    object-position: 50% 42%;
+    transform-origin: center center;
   }
 
   .berlin-skyline__shade {
@@ -1679,6 +1696,162 @@
       animation-name: berlin-particle;
       animation-timing-function: ease-in-out;
       animation-iteration-count: infinite;
+    }
+  }
+
+  /* Contact: arena load-out behind frosted glass card */
+  .contact-stage {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .contact-stage__frame {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .contact-stage__photo {
+    position: absolute;
+    inset: -6%;
+    width: 112%;
+    height: 112%;
+    max-width: none;
+    object-fit: cover;
+    object-position: center 42%;
+  }
+
+  .contact-stage__shade {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.58) 0%,
+        rgba(0, 0, 0, 0.28) 38%,
+        rgba(0, 0, 0, 0.62) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.42) 0%,
+        transparent 42%,
+        rgba(0, 0, 0, 0.32) 100%
+      );
+  }
+
+  .glass-card,
+  .contact-glass {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 1rem;
+    background:
+      linear-gradient(
+        165deg,
+        rgba(255, 255, 255, 0.09) 0%,
+        rgba(8, 8, 8, 0.52) 42%,
+        rgba(0, 0, 0, 0.58) 100%
+      );
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(22px) saturate(1.25);
+    -webkit-backdrop-filter: blur(22px) saturate(1.25);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.16),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.45),
+      0 24px 64px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(0, 0, 0, 0.4);
+  }
+
+  .glass-card::before,
+  .contact-glass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0.03) 22%,
+      transparent 52%
+    );
+  }
+
+  .glass-card > *:not([aria-hidden]),
+  .contact-glass > *:not([aria-hidden]) {
+    position: relative;
+    z-index: 1;
+  }
+
+  .glass-card--matte::before {
+    display: none;
+  }
+
+  .glass-card--matte {
+    box-shadow:
+      inset 0 -1px 0 rgba(0, 0, 0, 0.45),
+      0 18px 40px rgba(0, 0, 0, 0.35),
+      0 0 0 1px rgba(0, 0, 0, 0.4);
+  }
+
+  .stats-bar .glass-card,
+  .services-panel .glass-card {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+      0 4px 10px rgba(0, 0, 0, 0.18),
+      0 16px 36px rgba(0, 0, 0, 0.28),
+      0 32px 64px rgba(0, 0, 0, 0.16);
+  }
+
+  .stats-bar .glass-card--matte {
+    box-shadow:
+      inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+      0 4px 10px rgba(0, 0, 0, 0.18),
+      0 16px 36px rgba(0, 0, 0, 0.28),
+      0 32px 64px rgba(0, 0, 0, 0.16);
+  }
+
+  .glass-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.15rem;
+    height: 3.15rem;
+    flex-shrink: 0;
+    border-radius: 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: var(--color-primary);
+    background:
+      linear-gradient(
+        165deg,
+        rgba(184, 255, 0, 0.14) 0%,
+        rgba(0, 0, 0, 0.38) 100%
+      );
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.14),
+      0 8px 20px rgba(0, 0, 0, 0.35);
+  }
+
+  .contact-field {
+    background-color: rgba(0, 0, 0, 0.42);
+    border-color: rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .contact-field:focus-visible {
+    border-color: var(--color-primary);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .contact-stage:not(.contact-stage--static) .contact-stage__photo {
+      animation: contact-ken 36s ease-in-out infinite alternate;
     }
   }
 }
@@ -1875,6 +2048,80 @@
   letter-spacing: 0.14em;
 }
 
+.vu-plate {
+  position: relative;
+  display: inline-flex;
+  width: max-content;
+  max-width: 100%;
+  padding: 0.42rem;
+  border: 1px solid rgba(214, 205, 176, 0.42);
+  border-radius: 0.32rem;
+  background: rgba(0, 0, 0, 0.28);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(184, 255, 0, 0.16);
+}
+
+.vu-plate::before,
+.vu-plate::after {
+  content: '';
+  position: absolute;
+  width: 0.55rem;
+  height: 0.55rem;
+  pointer-events: none;
+  border-color: rgba(184, 255, 0, 0.55);
+  border-style: solid;
+}
+
+.vu-plate::before {
+  top: -1px;
+  left: -1px;
+  border-width: 2px 0 0 2px;
+}
+
+.vu-plate::after {
+  top: -1px;
+  right: -1px;
+  border-width: 2px 2px 0 0;
+}
+
+.vu-plate__mark {
+  position: absolute;
+  width: 0.55rem;
+  height: 0.55rem;
+  pointer-events: none;
+  border-color: rgba(184, 255, 0, 0.55);
+  border-style: solid;
+}
+
+.vu-plate__mark--bl {
+  left: -1px;
+  bottom: -1px;
+  border-width: 0 0 2px 2px;
+}
+
+.vu-plate__mark--br {
+  right: -1px;
+  bottom: -1px;
+  border-width: 0 2px 2px 0;
+}
+
+.vu-plate__face {
+  gap: 0.7rem;
+  padding: 0.55rem 0.95rem 0.5rem;
+}
+
+.vu-plate .vu-pair__plate-vu {
+  padding: 0.22rem 0.52rem 0.18rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+}
+
+.vu-plate .vu-pair__plate-name {
+  font-size: 1.05rem;
+  letter-spacing: 0.18em;
+}
+
 .vu-pair__row {
   display: flex;
   flex-wrap: nowrap;
@@ -1916,9 +2163,9 @@
 .vu-meter__label {
   margin: 0;
   font-family: var(--font-heading);
-  font-size: 0.62rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   color: #b8ff00;
 }
 
@@ -2049,7 +2296,7 @@
   }
 
   .vu-meter__label {
-    font-size: 0.5rem;
+    font-size: 0.78rem;
     letter-spacing: 0.16em;
   }
 
@@ -2182,19 +2429,19 @@
 
 @keyframes stats-bg-drift {
   from {
-    background-position: 0 0, center center;
+    background-position: 0 0, 0 0, center center;
   }
   to {
-    background-position: 0 0, 48% 54%;
+    background-position: 0 0, 0 0, 48% 54%;
   }
 }
 
 @keyframes services-bg-drift {
   from {
-    background-position: 0 0, center center;
+    background-position: 0 0, 0 0, center center;
   }
   to {
-    background-position: 0 0, 52% 46%;
+    background-position: 0 0, 0 0, 52% 46%;
   }
 }
 
@@ -2378,10 +2625,19 @@
 
 @keyframes berlin-ken {
   from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes contact-ken {
+  from {
     transform: scale(1) translate3d(0, 0, 0);
   }
   to {
-    transform: scale(1.08) translate3d(1.6%, -1.2%, 0);
+    transform: scale(1.07) translate3d(-1.4%, 1%, 0);
   }
 }
 
@@ -2464,6 +2720,7 @@
   .rack-brand__shine::after,
   .rack-brand-wrap::before,
   .berlin-skyline__photo,
+  .contact-stage__photo,
   .berlin-skyline__sweep,
   .berlin-skyline__beacon,
   .berlin-skyline__shaft,
@@ -2477,11 +2734,11 @@
   }
 
   .stats-bar {
-    background-position: 0 0, center center;
+    background-position: 0 0, 0 0, center center;
   }
 
   .services-panel {
-    background-position: 0 0, center center;
+    background-position: 0 0, 0 0, center center;
   }
 
   .section-divider,

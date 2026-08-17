@@ -34,6 +34,7 @@ export function FeaturedProjects() {
       <Container className="relative z-10">
         <SectionHeading
           id="featured-heading"
+          eyebrow="Featured"
           title="Featured Projects"
           align="left"
           action={
@@ -61,7 +62,6 @@ export function FeaturedProjects() {
                 variants={item}
                 className={cn(
                   'relative z-10',
-                  // Center the orphan 5th card on 2-col mobile/tablet grids
                   isLastOdd && 'max-lg:col-span-2 max-lg:mx-auto max-lg:w-[calc(50%-0.3125rem)] sm:max-lg:w-[calc(50%-0.625rem)]',
                 )}
               >
@@ -69,13 +69,13 @@ export function FeaturedProjects() {
                   to={`/portfolio/${project.slug}`}
                   className="card-lift group block focus-visible:outline-none"
                 >
-                  <div className="card-lift__frame relative flex aspect-square flex-col items-center justify-center overflow-hidden border border-border bg-black px-2 py-3 text-center transition-[transform,box-shadow,border-color] duration-700 ease-out group-hover:-translate-y-1 group-hover:border-primary/35 group-hover:shadow-[0_0_28px_rgba(184,255,0,0.08)] sm:px-4 sm:py-5">
+                  <div className="glass-card card-lift__frame relative flex aspect-square flex-col items-center justify-center px-2 py-3 text-center transition-[transform,box-shadow,border-color] duration-700 ease-out group-hover:-translate-y-1 group-hover:border-primary/35 group-hover:shadow-[0_0_28px_rgba(184,255,0,0.08)] sm:px-4 sm:py-5">
                     <h3 className="font-heading text-sm leading-tight tracking-[0.04em] text-white transition-colors duration-500 group-hover:text-primary sm:text-lg lg:text-xl">
                       {project.artist}
                     </h3>
                     <p className="mt-1.5 text-[9px] leading-snug tracking-[0.1em] text-muted uppercase sm:mt-2.5 sm:text-[11px]">
                       {project.year}
-                      <span className="mx-1 text-border sm:mx-1.5" aria-hidden>
+                      <span className="mx-1 text-white/25 sm:mx-1.5" aria-hidden>
                         ·
                       </span>
                       {project.role}

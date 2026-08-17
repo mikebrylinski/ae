@@ -1,7 +1,9 @@
+import { Quote } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { testimonials } from '@/lib/content'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
+import { GlassIcon } from '@/components/ui/GlassCard'
 import { fadeUp, reducedMotionVariants, staggerContainer } from '@/lib/motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 
@@ -17,10 +19,14 @@ export function Testimonials() {
       aria-labelledby="testimonials-heading"
     >
       <Container>
-        <SectionHeading id="testimonials-heading" title="Trusted On Tour" />
+        <SectionHeading
+          id="testimonials-heading"
+          eyebrow="Tour"
+          title="Trusted On Tour"
+        />
 
         <motion.ul
-          className="grid gap-6 md:grid-cols-2"
+          className="grid gap-4 md:grid-cols-2 md:gap-6"
           variants={reduced ? undefined : staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -30,8 +36,11 @@ export function Testimonials() {
             <motion.li
               key={t.id}
               variants={item}
-              className="border border-border bg-black p-6 text-center md:p-8 md:text-left"
+              className="glass-card p-6 text-center md:p-8 md:text-left"
             >
+              <GlassIcon className="mb-4 h-10 w-10 max-md:mx-auto">
+                <Quote size={18} strokeWidth={1.6} className="icon-glow-soft" aria-hidden />
+              </GlassIcon>
               <blockquote className="text-base leading-relaxed text-foreground/90 md:text-lg">
                 “{t.quote}”
               </blockquote>

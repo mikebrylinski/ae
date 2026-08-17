@@ -6,12 +6,28 @@
 export interface SeoConfig {
   title: string
   description?: string
+  noIndex?: boolean
 }
 
 const SITE_NAME = 'Andy Ebert'
 
-export function setSeo({ title, description }: SeoConfig) {
+function setRobots(noIndex: boolean) {
+  let robots = document.querySelector('meta[name="robots"]')
+  if (noIndex) {
+    if (!robots) {
+      robots = document.createElement('meta')
+      robots.setAttribute('name', 'robots')
+      document.head.appendChild(robots)
+    }
+    robots.setAttribute('content', 'noindex, nofollow')
+    return
+  }
+  robots?.remove()
+}
+
+export function setSeo({ title, description, noIndex = false }: SeoConfig) {
   document.title = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`
+  setRobots(noIndex)
 
   if (description) {
     let meta = document.querySelector('meta[name="description"]')

@@ -1,5 +1,6 @@
 import { NoiseOverlay } from '@/components/ui/NoiseOverlay'
 import { Container } from '@/components/ui/Container'
+import { GlassCard } from '@/components/ui/GlassCard'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { cn } from '@/lib/utils'
 
@@ -69,17 +70,19 @@ export function BerlinSkyline({ heading, subheading }: BerlinSkylineProps) {
         <NoiseOverlay opacity={0.045} />
       </div>
 
-      <Container className="relative z-10 py-5 md:py-7 lg:px-12 xl:px-14">
+      <Container className="relative z-10 w-full py-4 sm:py-5 md:py-6 lg:py-7">
         {isHeader ? (
-          <h1 className="w-full text-center font-heading text-[clamp(1.2rem,3.4vw,2.35rem)] leading-[1.1] tracking-[0.08em] text-white">
-            <span className="text-white">{heading}</span>
-            {subheading ? (
-              <>
-                <span className="text-white/45"> — </span>
-                <span className="text-primary">{subheading}</span>
-              </>
-            ) : null}
-          </h1>
+          <GlassCard className="w-full px-6 py-6 text-center sm:px-10 sm:py-8 md:px-14 md:py-9">
+            <h1 className="font-heading text-[clamp(1.35rem,4.2vw,2.85rem)] leading-[1.15] tracking-[0.08em] text-white">
+              <span className="text-white">{heading}</span>
+              {subheading ? (
+                <>
+                  <br />
+                  <span className="text-primary">{subheading}</span>
+                </>
+              ) : null}
+            </h1>
+          </GlassCard>
         ) : (
           <div className="flex flex-col items-start gap-2 md:max-w-md">
             <p className="font-heading text-[0.65rem] tracking-[0.28em] text-primary">

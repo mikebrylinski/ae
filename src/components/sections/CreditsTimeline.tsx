@@ -1,9 +1,10 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import {
   getPortfolioCredits,
   type CreditRoleFilter,
 } from '@/lib/content'
+import { CREDITS_UPDATED_EVENT } from '@/lib/admin'
 import { Badge } from '@/components/ui/Badge'
 import { fadeUp, reducedMotionVariants, staggerContainer } from '@/lib/motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
@@ -20,7 +21,18 @@ const PAGE_SIZE = 10
 export function CreditsTimeline() {
   const [role, setRole] = useState<CreditRoleFilter>('all')
   const [page, setPage] = useState(1)
-  const credits = useMemo(() => getPortfolioCredits(role), [role])
+  const [version, setVersion] = useState(0)
+  const credits = useMemo(() => getPortfolioCredits(role), [role, version])
+
+  useEffect(() => {
+    const refresh = () => setVersion((current) => current + 1)
+    window.addEventListener(CREDITS_UPDATED_EVENT, refresh)
+    window.addEventListener('storage', refresh)
+    return () => {
+      window.removeEventListener(CREDITS_UPDATED_EVENT, refresh)
+      window.removeEventListener('storage', refresh)
+    }
+  }, [])
   const reduced = useReducedMotion()
   const item = reduced ? reducedMotionVariants : fadeUp
   const container = reduced ? undefined : staggerContainer

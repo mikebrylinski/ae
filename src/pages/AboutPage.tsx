@@ -3,6 +3,7 @@ import { Container } from '@/components/ui/Container'
 import { MediaImage } from '@/components/ui/MediaImage'
 import { CTABanner } from '@/components/sections/CTABanner'
 import { BerlinSkyline } from '@/components/sections/BerlinSkyline'
+import { VuPlate } from '@/components/ui/VuPlate'
 import { useSeo } from '@/hooks/useSeo'
 import { cn } from '@/lib/utils'
 
@@ -11,12 +12,13 @@ const CHAPTERS = [
     eyebrow: 'West Berlin',
     from: 0,
     to: 4,
-    side: 'right' as const,
+    layout: 'split' as const,
+    imageSide: 'right' as const,
     images: [
       {
         src: '/images/about/west-berlin.jpg',
         label: 'Analog mixer',
-        aspect: 'aspect-[4/5]',
+        aspect: 'aspect-[4/5] lg:aspect-auto lg:h-full lg:min-h-[28rem]',
       },
     ],
   },
@@ -24,7 +26,7 @@ const CHAPTERS = [
     eyebrow: 'The basement',
     from: 4,
     to: 7,
-    side: 'wide' as const,
+    layout: 'stack' as const,
     images: [
       {
         src: '/images/about/basement-studio.jpg',
@@ -37,7 +39,7 @@ const CHAPTERS = [
     eyebrow: 'On the road',
     from: 7,
     to: 10,
-    side: 'wide' as const,
+    layout: 'stack' as const,
     images: [
       {
         src: '/images/about/gospel-tour.jpg',
@@ -60,16 +62,59 @@ const CHAPTERS = [
     eyebrow: 'Los Angeles',
     from: 10,
     to: 13,
-    side: 'left' as const,
+    layout: 'split' as const,
+    imageSide: 'left' as const,
     images: [
       {
-        src: '/images/about/outboard-rack.jpg',
-        label: 'IEM racks',
-        aspect: 'aspect-[3/4]',
+        src: '/images/about/ots-arena.jpg',
+        label: 'View from the console over an arena crowd',
+        aspect: 'aspect-[16/9]',
+      },
+      {
+        src: '/images/about/ots-amphitheater.jpg',
+        label: 'View from the console toward an outdoor stage',
+        aspect: 'aspect-[16/9]',
       },
     ],
   },
 ] as const
+
+function ChapterImages({
+  images,
+  layout,
+}: {
+  images: (typeof CHAPTERS)[number]['images']
+  layout: (typeof CHAPTERS)[number]['layout']
+}) {
+  const many = images.length > 1
+
+  return (
+    <div
+      className={cn(
+        'min-w-0 overflow-hidden',
+        many && layout === 'stack' && 'grid gap-px sm:grid-cols-2',
+        many && layout === 'split' && 'grid gap-px',
+        !many && 'h-full min-h-[16rem]',
+      )}
+    >
+      {images.map((img, i) => (
+        <MediaImage
+          key={img.label}
+          src={img.src}
+          alt={img.label}
+          fallbackLabel={img.label}
+          aspect={img.aspect}
+          className="object-cover"
+          wrapperClassName={cn(
+            'w-full border-0',
+            !many && 'h-full',
+            layout === 'stack' && images.length === 3 && i === 2 && 'sm:col-span-2',
+          )}
+        />
+      ))}
+    </div>
+  )
+}
 
 export default function AboutPage() {
   useSeo({
@@ -87,102 +132,53 @@ export default function AboutPage() {
         subheading={about.subhead ?? 'Sound Engineer & Plant Powered Roadie'}
       />
 
-      <section className="section-pad bg-black">
-        <Container className="lg:px-12 xl:px-14">
-          <p className="font-heading mb-3 text-center text-xs tracking-[0.2em] text-primary">
-            About
-          </p>
+      <section className="section-divider-top bg-black py-16 sm:py-20 md:py-24 lg:py-28">
+        <Container>
+          <VuPlate className="mx-auto mb-8 md:mb-10">About</VuPlate>
 
-          <div className="mt-10 space-y-16 md:mt-14 md:space-y-24">
+          <div className="space-y-8 md:space-y-10">
             {CHAPTERS.map((chapter) => {
               const paras = about.story.slice(chapter.from, chapter.to)
-              const images = (
-                <div
-                  className={cn(
-                    'mx-auto w-full',
-                    chapter.images.length > 1
-                      ? chapter.side === 'wide'
-                        ? 'grid gap-4 sm:grid-cols-2'
-                        : 'grid gap-4'
-                      : 'w-full',
-                  )}
-                >
-                  {chapter.images.map((img, i) => (
-                    <MediaImage
-                      key={img.label}
-                      src={img.src}
-                      alt={img.label}
-                      fallbackLabel={img.label}
-                      aspect={img.aspect}
-                      wrapperClassName={
-                        chapter.side === 'wide' &&
-                        chapter.images.length === 3 &&
-                        i === 2
-                          ? 'sm:col-span-2'
-                          : undefined
-                      }
-                    />
-                  ))}
+              const copy = (
+                <div className="flex min-w-0 flex-col justify-center p-6 sm:p-8 md:p-10 lg:p-12">
+                  <VuPlate className="mb-5 max-w-full">{chapter.eyebrow}</VuPlate>
+                  <div className="min-w-0 space-y-5 text-[0.9375rem] leading-relaxed break-words text-foreground/90 md:space-y-6 md:text-[0.98rem] md:leading-[1.8]">
+                    {paras.map((p) => (
+                      <p key={p.slice(0, 36)}>{p}</p>
+                    ))}
+                  </div>
                 </div>
               )
 
-              if (chapter.side === 'wide') {
+              if (chapter.layout === 'stack') {
                 return (
-                  <article key={chapter.eyebrow} className="space-y-8 text-center md:space-y-10">
-                    {images}
-                    <div className="mx-auto w-full">
-                      <p className="font-heading mb-4 text-[0.65rem] tracking-[0.22em] text-primary">
-                        {chapter.eyebrow}
-                      </p>
-                      <div className="space-y-6 text-base leading-relaxed text-foreground/90 md:text-[1.05rem] md:leading-[1.8]">
-                        {paras.map((p) => (
-                          <p key={p.slice(0, 36)}>{p}</p>
-                        ))}
-                      </div>
-                    </div>
+                  <article key={chapter.eyebrow} className="glass-card overflow-hidden p-0">
+                    <ChapterImages images={chapter.images} layout={chapter.layout} />
+                    {copy}
                   </article>
                 )
               }
 
-              const imageCol = (
-                <div
-                  className={cn(
-                    'md:sticky md:top-28',
-                    chapter.side === 'left' ? 'md:order-1' : 'md:order-2',
-                  )}
-                >
-                  {images}
-                </div>
-              )
+              const imageFirst = chapter.imageSide === 'left'
 
               return (
                 <article
                   key={chapter.eyebrow}
-                  className="grid w-full items-start gap-8 text-center md:grid-cols-2 md:gap-12 lg:gap-16"
+                  className="glass-card grid overflow-hidden p-0 lg:grid-cols-2 lg:items-start"
                 >
-                  {chapter.side === 'left' ? imageCol : null}
-                  <div
-                    className={cn(
-                      chapter.side === 'left' ? 'md:order-2' : 'md:order-1',
-                    )}
-                  >
-                    <p className="font-heading mb-4 text-[0.65rem] tracking-[0.22em] text-primary">
-                      {chapter.eyebrow}
-                    </p>
-                    <div className="space-y-6 text-base leading-relaxed text-foreground/90 md:text-[1.05rem] md:leading-[1.8]">
-                      {paras.map((p) => (
-                        <p key={p.slice(0, 36)}>{p}</p>
-                      ))}
-                    </div>
+                  <div className={cn('min-w-0 overflow-hidden', imageFirst ? 'lg:order-1' : 'lg:order-2')}>
+                    <ChapterImages images={chapter.images} layout={chapter.layout} />
                   </div>
-                  {chapter.side === 'right' ? imageCol : null}
+                  <div className={cn('min-w-0', imageFirst ? 'lg:order-2' : 'lg:order-1')}>
+                    {copy}
+                  </div>
                 </article>
               )
             })}
           </div>
 
           {about.next ? (
-            <p className="font-heading mt-16 text-center text-sm tracking-[0.12em] text-primary md:mt-24 sm:text-base">
+            <p className="font-heading mt-12 text-center text-xs tracking-[0.12em] text-primary sm:mt-16 sm:text-sm">
               {about.next}
             </p>
           ) : null}

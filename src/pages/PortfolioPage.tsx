@@ -10,14 +10,15 @@ import { fadeUp, reducedMotionVariants, staggerContainer } from '@/lib/motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { cn } from '@/lib/utils'
 import { useSeo } from '@/hooks/useSeo'
+import { VuPlate } from '@/components/ui/VuPlate'
 
-const HERO_IMAGE_SRC = '/images/about/contact.jpg'
+const HERO_IMAGE_SRC = '/images/portfolio/console.jpg'
 
 export default function PortfolioPage() {
   useSeo({
     title: 'Portfolio',
     description:
-      'Selected career credits for monitor engineer Andy Ebert — arena and stadium tours with year ranges from 1997 to today.',
+      'Selected career credits for monitor engineer Andy Ebert — arena, stadium, amphitheater, festival, TV, and corporate work with year ranges from 1997 to today.',
   })
 
   const reduced = useReducedMotion()
@@ -31,22 +32,21 @@ export default function PortfolioPage() {
       <section className="section-pad border-b border-border bg-black">
         <Container>
           <motion.div
-            className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14"
+            className="glass-card grid overflow-hidden p-0 lg:grid-cols-[1.05fr_0.95fr] lg:items-stretch"
             variants={reduced ? undefined : staggerContainer}
             initial="hidden"
             animate="visible"
           >
-            <motion.div variants={item}>
-              <p className="font-heading mb-3 text-xs tracking-[0.2em] text-primary">
-                Credits
-              </p>
+            <motion.div variants={item} className="flex flex-col justify-center p-6 sm:p-8 md:p-10 lg:p-12">
+              <VuPlate className="mb-3">Credits</VuPlate>
               <h1 className="font-heading text-4xl tracking-[0.08em] text-white sm:text-5xl md:text-6xl">
                 Portfolio
               </h1>
               <p className="mt-4 max-w-2xl text-muted">
-                Selected arena, stadium, and touring credits — consecutive years
-                collapsed into ranges. Alanis Morissette, The Weeknd, Maroon 5,
-                Guns N’ Roses, and more.
+                Selected arena, stadium, amphitheater, festival, TV, and
+                corporate credits — consecutive years collapsed into ranges.
+                Alanis Morissette, The Weeknd, Maroon 5, Guns N’ Roses, and
+                more.
               </p>
               {experience.award ? (
                 <p className="font-heading mt-6 max-w-2xl text-sm tracking-[0.12em] text-primary">
@@ -55,25 +55,20 @@ export default function PortfolioPage() {
               ) : null}
             </motion.div>
 
-            <motion.div variants={item} className="relative">
+            <motion.div variants={item} className="min-h-[18rem] sm:min-h-[22rem] lg:min-h-[28rem]">
               <MediaImage
                 src={HERO_IMAGE_SRC}
-                alt="Andy Ebert smiling with Heil microphones at the console"
-                aspect="aspect-[4/5] sm:aspect-[5/4] lg:aspect-[4/5]"
-                className="object-cover object-[center_22%]"
+                alt="Andy Ebert at a mixing console in an arena"
+                aspect="h-full min-h-[18rem] aspect-[4/5] sm:min-h-[22rem] sm:aspect-[5/4] lg:aspect-auto lg:min-h-full"
+                className="object-cover object-[center_30%]"
+                wrapperClassName="h-full border-0"
                 fallbackLabel="Andy Ebert"
-              />
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-y-0 left-0 w-px bg-primary/35 shadow-[0_0_18px_rgba(184,255,0,0.3)] max-lg:hidden"
               />
             </motion.div>
           </motion.div>
 
           <div className="mt-14 border-t border-border pt-14 md:mt-16 md:pt-16">
-            <p className="font-heading mb-3 text-xs tracking-[0.2em] text-primary">
-              Selected
-            </p>
+            <VuPlate className="mb-3">Selected</VuPlate>
             <h2 className="font-heading text-3xl tracking-[0.08em] text-white sm:text-4xl">
               Project Spotlights
             </h2>
@@ -105,7 +100,7 @@ export default function PortfolioPage() {
               ))}
             </div>
 
-            <ul className="mt-8 grid grid-cols-2 gap-3 sm:mt-12 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <ul className="mt-8 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-5 lg:grid-cols-4">
               {filtered.map((project) => (
                 <li key={project.slug}>
                   <ProjectCard project={project} />
@@ -122,9 +117,7 @@ export default function PortfolioPage() {
 
       <section className="section-pad border-b border-border bg-black">
         <Container>
-          <p className="font-heading mb-3 text-xs tracking-[0.2em] text-primary">
-            Timeline
-          </p>
+          <VuPlate className="mb-3">Timeline</VuPlate>
           <h2 className="font-heading text-3xl tracking-[0.08em] text-white sm:text-4xl">
             Career Credits
           </h2>

@@ -1,4 +1,4 @@
-import { lazy } from 'react'
+import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { RootLayout } from '@/components/layout/RootLayout'
 
@@ -10,12 +10,27 @@ const MediaPage = lazy(() => import('@/pages/MediaPage'))
 const DownloadsPage = lazy(() => import('@/pages/DownloadsPage'))
 const AboutPage = lazy(() => import('@/pages/AboutPage'))
 const ContactPage = lazy(() => import('@/pages/ContactPage'))
+const AdminPage = lazy(() => import('@/pages/AdminPage'))
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'))
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route
+          path="admin"
+          element={
+            <Suspense
+              fallback={
+                <div className="flex min-h-screen items-center justify-center bg-black text-primary">
+                  Loading…
+                </div>
+              }
+            >
+              <AdminPage />
+            </Suspense>
+          }
+        />
         <Route element={<RootLayout />}>
           <Route index element={<HomePage />} />
           <Route path="portfolio" element={<PortfolioPage />} />

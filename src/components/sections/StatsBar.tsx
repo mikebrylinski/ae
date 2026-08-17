@@ -8,6 +8,7 @@ import {
 import { motion } from 'framer-motion'
 import { site } from '@/lib/content'
 import { Container } from '@/components/ui/Container'
+import { GlassIcon } from '@/components/ui/GlassCard'
 import { fadeUp, reducedMotionVariants, staggerContainer } from '@/lib/motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 
@@ -27,9 +28,9 @@ export function StatsBar() {
       className="stats-bar section-divider-top relative overflow-hidden"
       aria-label="Career highlights"
     >
-      <Container className="relative z-[2] py-10 md:py-12">
+      <Container className="relative z-[2] py-16 sm:py-20 md:py-24 lg:py-28">
         <motion.ul
-          className="grid grid-cols-2 lg:grid-cols-4"
+          className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4"
           variants={reduced ? undefined : staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -46,15 +47,16 @@ export function StatsBar() {
               <motion.li
                 key={stat.label}
                 variants={item}
-                className="flex flex-col items-center justify-center gap-3.5 border-black/15 px-5 py-7 text-center sm:px-6 sm:py-8 max-lg:[&:nth-child(-n+2)]:border-b max-lg:[&:nth-child(odd)]:border-r lg:border-l lg:first:border-l-0"
+                className="glass-card glass-card--matte flex flex-col items-center justify-center gap-3.5 px-5 py-7 text-center sm:px-6 sm:py-8"
               >
-                <Icon
-                  className="text-black"
-                  size={34}
-                  strokeWidth={1.4}
-                  aria-hidden
-                />
-                <p className="font-heading text-[13px] tracking-[0.14em] text-black sm:text-sm">
+                <GlassIcon>
+                  <Icon
+                    size={22}
+                    strokeWidth={1.6}
+                    aria-hidden
+                  />
+                </GlassIcon>
+                <p className="font-heading text-[13px] tracking-[0.14em] text-white sm:text-sm">
                   {label.toUpperCase()}
                 </p>
               </motion.li>

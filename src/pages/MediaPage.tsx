@@ -12,6 +12,7 @@ import { buttonVariants } from '@/components/ui/Button'
 import { CTABanner } from '@/components/sections/CTABanner'
 import { cn } from '@/lib/utils'
 import { useSeo } from '@/hooks/useSeo'
+import { VuPlate } from '@/components/ui/VuPlate'
 
 const galleryFilters = [
   'All',
@@ -60,10 +61,8 @@ export default function MediaPage() {
   return (
     <>
       <section className="bg-black py-20 sm:py-24 md:py-28 lg:py-32">
-        <Container className="px-6 sm:px-10 lg:px-14">
-          <p className="font-heading mb-3 text-xs tracking-[0.2em] text-primary">
-            Media Kit
-          </p>
+        <Container>
+          <VuPlate className="mb-3">Media Kit</VuPlate>
           <h1 className="font-heading text-4xl tracking-[0.08em] text-white sm:text-5xl md:text-6xl">
             Press & Media
           </h1>

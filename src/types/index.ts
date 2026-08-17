@@ -1,9 +1,15 @@
 export type ProjectCategory =
   | 'Arena'
-  | 'Broadcast'
-  | 'Tours'
-  | 'Television'
+  | 'Stadiums'
+  | 'Amphitheaters'
+  | 'Theatres'
+  | 'Clubs'
   | 'Festivals'
+  | 'TV'
+  | 'Corporate'
+  | 'Tours'
+  | 'Broadcast'
+  | 'Television'
   | 'Musical Direction'
 
 export interface Project {
@@ -16,6 +22,8 @@ export interface Project {
   featured: boolean
   heroImage: string
   thumbnail: string
+  /** Lucide icon name for featured / portfolio cards. */
+  icon?: string
   /** Artist logo mark — shown on project detail pages only, not on cards. */
   logo?: string
   overview: string
@@ -42,6 +50,8 @@ export interface CreditEntry {
   artist: string
   region: string
   role: 'Monitor Engineer' | 'FOH Engineer' | string
+  /** When set, controls Career Credits visibility. Omitted = highlight-list default. */
+  featured?: boolean
 }
 
 /** Artist credit with consecutive years collapsed into ranges for Portfolio. */

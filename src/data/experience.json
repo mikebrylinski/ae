@@ -1,10 +1,10 @@
 {
   "timeline": [
     {
-      "year": "2020–2026",
+      "year": "2020–current",
       "tour": "Worldwide Tours",
       "artist": "Alanis Morissette",
-      "description": "Monitor engineer for Alanis Morissette’s continuous worldwide touring run — currently on the road for arena and international dates through 2025–2026.",
+      "description": "Monitor engineer for Alanis Morissette’s continuous worldwide touring run — currently on the road across arenas, stadiums, amphitheaters, festivals, TV, and corporate dates.",
       "photo": "/images/experience/alanis-2020s.jpg"
     },
     {
@@ -66,7 +66,6 @@
         "IEM Mixing",
         "Wedge Mixing",
         "Artist Cueing",
-        "RF Coordination",
         "Show File Management"
       ]
     },
@@ -104,520 +103,606 @@
   "resumePdf": "/downloads/andy-ebert-resume.pdf",
   "credits": [
     {
-      "year": "2026",
+      "year": "Current",
       "artist": "Alanis Morissette",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2025",
       "artist": "Alanis Morissette",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2024",
       "artist": "Alanis Morissette",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2023",
       "artist": "Alanis Morissette",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2022",
       "artist": "Alanis Morissette",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2021",
       "artist": "Alanis Morissette",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2020",
       "artist": "Alanis Morissette",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2019",
       "artist": "Alanis Morissette",
       "region": "USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2019",
       "artist": "The Weeknd",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2018",
       "artist": "The Weeknd",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2017",
       "artist": "The Weeknd",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2016",
       "artist": "Alanis Morissette",
       "region": "USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2016",
       "artist": "The Weeknd",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2015",
       "artist": "Alanis Morissette",
       "region": "USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2015",
       "artist": "The Weeknd",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2014",
       "artist": "Adam Lambert",
       "region": "USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2014",
       "artist": "The Weeknd",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2014",
       "artist": "Usher",
       "region": "One off, USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2013",
       "artist": "Adam Lambert",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2013",
       "artist": "Local Natives",
       "region": "USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": false
     },
     {
       "year": "2013",
       "artist": "The Weeknd",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2012",
       "artist": "Adam Lambert",
       "region": "USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2012",
       "artist": "Alanis Morissette",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2012",
       "artist": "The Weeknd",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2012",
       "artist": "Adam Lambert",
       "region": "Asia",
-      "role": "FOH Engineer"
+      "role": "FOH Engineer",
+      "featured": true
     },
     {
       "year": "2011",
       "artist": "Carrie Underwood",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2011",
       "artist": "Stone Temple Pilots",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2010",
       "artist": "Adam Lambert",
       "region": "USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2010",
       "artist": "Stone Temple Pilots",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2009",
       "artist": "Scott Weiland",
       "region": "USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2009",
       "artist": "Shakira",
       "region": "USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2009",
       "artist": "Stone Temple Pilots",
       "region": "USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2009",
       "artist": "Sugar Ray",
       "region": "One offs, USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2008",
       "artist": "Neil Young",
       "region": "Europe",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2008",
       "artist": "Scott Weiland",
       "region": "USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2008",
       "artist": "Stone Temple Pilots",
       "region": "USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2007",
       "artist": "Enrique Iglesias",
       "region": "One off, USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": false
     },
     {
       "year": "2007",
       "artist": "Neil Young",
       "region": "USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2007",
       "artist": "Velvet Revolver",
       "region": "USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2007",
       "artist": "Operator",
       "region": "USA",
-      "role": "FOH Engineer"
+      "role": "FOH Engineer",
+      "featured": true
     },
     {
       "year": "2006",
       "artist": "Guns N' Roses",
       "region": "Europe, USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2006",
       "artist": "Sebastian Bach",
       "region": "USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": false
     },
     {
       "year": "2005",
       "artist": "Beck",
       "region": "One off, USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": false
     },
     {
       "year": "2005",
       "artist": "KROQ Inland Invasion Festival",
       "region": "USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": false
     },
     {
       "year": "2005",
       "artist": "Maroon 5",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2005",
       "artist": "Red Hot Chili Peppers",
       "region": "USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2004",
       "artist": "Blackalicious",
       "region": "One off, USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": false
     },
     {
       "year": "2004",
       "artist": "Foo Fighters",
       "region": "One off, USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2004",
       "artist": "Mariah Carey",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2004",
       "artist": "Maroon 5",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2004",
       "artist": "Pointer Sisters",
       "region": "One offs, USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": false
     },
     {
       "year": "2004",
       "artist": "Quannum World feat. DJ Shadow a.o.",
       "region": "USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": false
     },
     {
       "year": "2004",
       "artist": "Red Hot Chili Peppers",
       "region": "USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2004",
       "artist": "Sugar Ray",
       "region": "USA",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": false
     },
     {
       "year": "2003",
       "artist": "Die Prinzen",
       "region": "One offs, Germany",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": false
     },
     {
       "year": "2003",
       "artist": "Element Of Crime",
       "region": "One off, Germany",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": false
     },
     {
       "year": "2003",
       "artist": "Harlem Gospel Singers",
       "region": "Europe",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2003",
       "artist": "Mariah Carey",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2003",
       "artist": "Puddle Of Mudd",
       "region": "Worldwide",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2003",
       "artist": "REM",
       "region": "Europe",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2003",
       "artist": "Rock am Ring Festival",
       "region": "Germany",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2003",
       "artist": "Zwan",
       "region": "Europe",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2003",
       "artist": "Ute Lemper and Tapiola Orchester",
       "region": "Europe",
-      "role": "FOH Engineer"
+      "role": "FOH Engineer",
+      "featured": true
     },
     {
       "year": "2002",
       "artist": "Al Bano Carrisi",
       "region": "Austria",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": false
     },
     {
       "year": "2002",
       "artist": "Dream Theater",
       "region": "Europe",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2002",
       "artist": "Harlem Gospel Singers",
       "region": "Europe",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2002",
       "artist": "Puddle Of Mudd",
       "region": "Europe",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2001",
       "artist": "Harlem Gospel Singers",
       "region": "Europe",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2001",
       "artist": "Highfield Festival",
       "region": "Germany",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": false
     },
     {
       "year": "2001",
       "artist": "MTV Hip Hop Open Festival",
       "region": "Germany",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": false
     },
     {
       "year": "2001",
       "artist": "Rock am Ring Festival",
       "region": "Germany",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2001",
       "artist": "Scooter",
       "region": "One offs, Germany",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": false
     },
     {
       "year": "2001",
       "artist": "Seeed",
       "region": "One offs, Germany",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": false
     },
     {
       "year": "2001",
       "artist": "Sonne Mond Sterne Festival",
       "region": "Germany",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": false
     },
     {
       "year": "2001",
       "artist": "Splash Festival",
       "region": "Germany",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": false
     },
     {
       "year": "2001",
       "artist": "Wacken Open Air Festival",
       "region": "Germany",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": false
     },
     {
       "year": "2001",
       "artist": "With Full Force Festival",
       "region": "Germany",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": false
     },
     {
       "year": "2000",
       "artist": "Expo 2000",
       "region": "Hannover, Germany",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2000",
       "artist": "Harlem Gospel Singers",
       "region": "Europe",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "1999",
       "artist": "Glenn Hughes",
       "region": "Germany",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "1999",
       "artist": "Michael Schenker Group",
       "region": "Germany",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "1999",
       "artist": "Modern Talking",
       "region": "Europe",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "1999",
       "artist": "Roland Kaiser",
       "region": "One offs, Germany",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": false
     },
     {
       "year": "1999",
       "artist": "Tarkan",
       "region": "Europe",
-      "role": "Monitor Engineer"
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "1999",
       "artist": "Momix",
       "region": "Germany",
-      "role": "FOH Engineer"
+      "role": "FOH Engineer",
+      "featured": true
     },
     {
       "year": "1997–2000",
       "artist": "Golden Gospel Singers",
       "region": "Europe",
-      "role": "FOH Engineer"
+      "role": "FOH Engineer",
+      "featured": true
     }
   ]
 }

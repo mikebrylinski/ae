@@ -3,33 +3,36 @@
     "slug": "alanis-morissette",
     "title": "Worldwide Tours",
     "artist": "Alanis Morissette",
-    "year": "2020–2026",
+    "year": "2020–current",
     "role": "Monitor Engineer",
     "category": [
       "Arena",
+      "Stadiums",
+      "Amphitheaters",
+      "Festivals",
+      "TV",
+      "Corporate",
       "Tours"
     ],
     "featured": true,
     "heroImage": "/images/projects/alanis-hero.jpg",
     "thumbnail": "/images/logos/alanis-morissette.png",
     "icon": "Headphones",
-    "overview": "Monitor engineer for Alanis Morissette’s continuous worldwide touring run from 2020 through 2026 (currently touring), with earlier USA and worldwide dates in 2012, 2015, 2016, and 2019.",
+    "overview": "Monitor engineer for Alanis Morissette’s continuous worldwide touring run from 2020 to current — arenas, stadiums, amphitheaters, festivals, TV, and corporate appearances — with earlier USA and worldwide dates in 2012, 2015, 2016, and 2019.",
     "responsibilities": [
-      "Artist and band monitor mixes across international arenas",
+      "Artist and band monitor mixes across arenas, stadiums, amphitheaters, and festivals",
       "Daily show operations and mix consistency night to night",
-      "RF and wireless coordination on touring packages",
       "Advance work with production and FOH"
     ],
     "technicalSetup": "Touring digital console with multi-mix IEM / wedge package and show-file based daily workflow.",
     "equipment": [
       "Digital Mixing Console",
       "IEM System",
-      "Wireless Mics",
-      "RF Toolkit"
+      "Wireless Mics"
     ],
     "challenges": [
       "Multi-year mix consistency across changing venues and continents",
-      "Dense RF environments on arena and festival bills"
+      "Dense wireless environments on arena and festival bills"
     ],
     "gallery": [
       "/images/projects/alanis-1.jpg",
@@ -47,17 +50,20 @@
     "year": "2012–2019",
     "role": "Monitor Engineer",
     "category": [
+      "Clubs",
+      "Theatres",
       "Arena",
-      "Tours"
+      "Amphitheaters",
+      "Festivals"
     ],
     "featured": true,
     "heroImage": "/images/projects/weeknd-hero.jpg",
     "thumbnail": "/images/logos/the-weeknd.png",
     "icon": "Mic",
-    "overview": "Monitor engineer for The Weeknd worldwide from 2012 through 2019 — arena-scale productions across multi-year touring cycles. Nominated for the 2017 Parnelli Award for Monitor Engineer of the Year during this era.",
+    "overview": "Monitor engineer for The Weeknd worldwide from 2012 through 2019 — clubs, theatres, arenas, amphitheaters, and festivals across multi-year touring cycles. Nominated for the 2017 Parnelli Award for Monitor Engineer of the Year during this era.",
     "responsibilities": [
       "Multi-mix IEM design for artist and band",
-      "Daily line check, RF coordination, and show file management",
+      "Daily line check and show file management",
       "Artist cueing and on-stage communication",
       "Touring production collaboration"
     ],
@@ -65,8 +71,7 @@
     "equipment": [
       "Digital Mixing Console",
       "IEM Transmitters",
-      "Wireless Mics",
-      "RF Toolkit"
+      "Wireless Mics"
     ],
     "challenges": [
       "High-energy arena productions with dense wireless packages",
@@ -87,16 +92,19 @@
     "year": "2004–2005",
     "role": "Monitor Engineer",
     "category": [
+      "Clubs",
       "Arena",
-      "Tours"
+      "Amphitheaters",
+      "Festivals"
     ],
     "featured": true,
     "heroImage": "/images/projects/maroon5-hero.jpg",
     "thumbnail": "/images/logos/maroon-5.png",
     "icon": "Music",
-    "overview": "Monitor engineer for Maroon 5 worldwide (2004–2005), including work covered in Live Design Magazine and the Live Friday The 13th DVD/CD credit as Monitor Engineer.",
+    "overview": "Monitor engineer for Maroon 5 worldwide (2004–2005) across clubs, arenas, amphitheaters, and festivals, including work covered in Live Design Magazine and the Live Friday The 13th DVD/CD credit as Monitor Engineer.",
     "responsibilities": [
       "Artist and band monitor mixes on worldwide dates",
+      "RF coordination on touring packages",
       "Touring show consistency and cue discipline",
       "Coordination with production and FOH"
     ],
@@ -125,20 +133,22 @@
     "role": "Monitor Engineer",
     "category": [
       "Arena",
-      "Tours"
+      "Festivals"
     ],
     "featured": true,
     "heroImage": "/images/projects/gnr-hero.jpg",
     "thumbnail": "/images/logos/guns-n-roses.png",
     "icon": "Speaker",
-    "overview": "Monitor engineer for Guns N’ Roses across Europe and the USA in 2006 — covered in Mix Magazine’s January 2007 Guns N’ Roses tour profile and related Venue / Live Design press.",
+    "overview": "Monitor engineer for Guns N’ Roses across Europe and the USA in 2006 — arenas and festivals — covered in Mix Magazine’s January 2007 Guns N’ Roses tour profile and related Venue / Live Design press.",
     "responsibilities": [
       "Monitor mixes for a large rock production",
+      "RF coordination on touring packages",
       "Show-file and cue management under high stage volume",
       "Crew coordination across international routing"
     ],
     "technicalSetup": "Dual VENUE-era touring systems as documented in contemporary trade press.",
     "equipment": [
+      "Analog Console",
       "Digital Console",
       "IEM / Wedges",
       "Wireless Package"
@@ -171,7 +181,7 @@
     "overview": "Monitor engineer for Stone Temple Pilots across USA and worldwide dates from 2008 through 2011, with related press in Pro Sound News, L&S America, and FOH Magazine.",
     "responsibilities": [
       "Band and artist monitor mixes",
-      "Touring RF and wireless coordination",
+      "Touring show operations and wireless workflow",
       "Daily show operations"
     ],
     "technicalSetup": "Touring dual Venue-era monitor workflow as covered in period trade press.",
@@ -199,21 +209,22 @@
     "role": "Monitor Engineer",
     "category": [
       "Arena",
-      "Tours"
+      "Stadiums"
     ],
     "featured": false,
     "heroImage": "/images/projects/mariah-hero.jpg",
     "thumbnail": "/images/logos/mariah-carey.png",
     "icon": "AudioWaveform",
-    "overview": "Monitor engineer for Mariah Carey worldwide in 2003 and 2004 — large-scale pop production with demanding vocal monitoring.",
+    "overview": "Monitor engineer for Mariah Carey worldwide in 2003 and 2004 — arenas and stadiums, large-scale pop production with demanding vocal monitoring.",
     "responsibilities": [
       "Artist-focused monitor mixes",
+      "RF coordination on touring packages",
       "Band and vocal cueing",
       "Touring show consistency"
     ],
     "technicalSetup": "Arena touring monitor package for worldwide pop production.",
     "equipment": [
-      "Touring Console",
+      "Analog Console",
       "IEM / Wedges",
       "Wireless Mics"
     ],
@@ -229,37 +240,73 @@
     "logo": "/images/logos/mariah-carey.png"
   },
   {
-    "slug": "neil-young-velvet-revolver",
+    "slug": "neil-young",
     "title": "USA & Europe Tours",
-    "artist": "Neil Young · Velvet Revolver",
+    "artist": "Neil Young",
     "year": "2007–2008",
     "role": "Monitor Engineer",
     "category": [
-      "Arena",
-      "Tours"
+      "Theatres",
+      "Arena"
     ],
     "featured": false,
     "heroImage": "/images/projects/neil-young-hero.jpg",
     "thumbnail": "/images/logos/neil-young-velvet-revolver.png",
     "icon": "Guitar",
-    "overview": "Monitor engineer for Neil Young (USA 2007, Europe 2008) and Velvet Revolver (USA 2007), with coverage in Total Production, Pro Sound News, and Mix Magazine tour profiles.",
+    "overview": "Monitor engineer for Neil Young (USA 2007, Europe 2008) in theatres and arenas, with coverage in Total Production, Pro Sound News, and Mix Magazine tour profiles. Flown sidefills in precise positions were Neil’s only monitors — no RF.",
     "responsibilities": [
-      "Artist and band monitor mixes",
-      "Touring production collaboration",
-      "Show consistency across arena dates"
+      "Artist monitor mixes from wedges and flown sidefills",
+      "Precise flown SF positioning — Neil’s only monitors",
+      "Touring production collaboration"
     ],
-    "technicalSetup": "Touring monitor console packages for rock arena productions.",
+    "technicalSetup": "Digital console with wedges and flown sidefills placed in exact positions. Those flown SF were Neil’s only monitors. No RF / wireless IEM package.",
     "equipment": [
-      "Touring Console",
-      "IEM / Wedges",
-      "Wireless Package"
+      "Digital Console",
+      "Wedges",
+      "Flown Sidefills"
     ],
     "challenges": [
-      "Artist-specific monitoring preferences",
-      "High-SPL rock stages"
+      "Flown sidefills as the sole monitor system",
+      "Artist-specific placement and coverage night to night"
     ],
     "gallery": [
-      "/images/projects/neil-young-1.jpg",
+      "/images/projects/neil-young-1.jpg"
+    ],
+    "videos": [],
+    "technicalNotes": "Flown SF in precise position were Neil’s only monitors.",
+    "logo": "/images/logos/neil-young-velvet-revolver.png"
+  },
+  {
+    "slug": "velvet-revolver",
+    "title": "USA Tours",
+    "artist": "Velvet Revolver",
+    "year": "2007",
+    "role": "Monitor Engineer",
+    "category": [
+      "Amphitheaters",
+      "Arena",
+      "Festivals"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/neil-young-2.jpg",
+    "thumbnail": "/images/logos/neil-young-velvet-revolver.png",
+    "icon": "Radio",
+    "overview": "Monitor engineer for Velvet Revolver (USA 2007) across amphitheaters, arenas, and festivals, with coverage in Mix Magazine and related tour profiles.",
+    "responsibilities": [
+      "Band monitor mixes",
+      "RF coordination on touring packages",
+      "FX mixing for Scott Weiland’s mix"
+    ],
+    "technicalSetup": "Digital console for band monitor mixes, with FX for Scott Weiland’s mix.",
+    "equipment": [
+      "Digital Console",
+      "IEM / Wedges"
+    ],
+    "challenges": [
+      "High-SPL rock stages",
+      "FX balance for Scott Weiland’s vocal mix"
+    ],
+    "gallery": [
       "/images/projects/neil-young-2.jpg"
     ],
     "videos": [],
@@ -279,16 +326,16 @@
     "heroImage": "/images/projects/festivals-hero.jpg",
     "thumbnail": "/images/logos/festivals.png",
     "icon": "Disc3",
-    "overview": "Career foundations across European Gospel touring (FOH from 1997), Modern Talking arena monitors (1999), Expo 2000, Rock am Ring, Wacken, and monitor work with Dream Theater, R.E.M., Puddle of Mudd, Harlem Gospel Singers, and more — leading to Audio-Rent Clair work and a first US visa in 2003.",
+    "overview": "Career foundations across European Gospel touring (FOH from 1997), Modern Talking arena monitors (1999), Expo 2000, Rock am Ring, Wacken (local Festival monitor engineer), and monitor engineer for Dream Theater, R.E.M., Puddle of Mudd, Harlem Gospel Singers, and more — leading to Audio-Rent Clair work and his first US work visa in 2003.",
     "responsibilities": [
       "Festival and tour monitor / FOH mixing",
+      "RF coordination across festival and tour packages",
       "Rapid changeovers on multi-act bills",
       "Learning curve from churches to arenas"
     ],
     "technicalSetup": "Vendor and festival-provided systems across German and European venues.",
     "equipment": [
       "Analog / Digital Consoles",
-      "Festival RF",
       "IEM / Wedges"
     ],
     "challenges": [

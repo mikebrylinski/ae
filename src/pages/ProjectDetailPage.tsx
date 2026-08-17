@@ -17,6 +17,10 @@ export default function ProjectDetailPage() {
     description: project?.overview,
   })
 
+  if (slug === 'neil-young-velvet-revolver') {
+    return <Navigate to="/portfolio/neil-young" replace />
+  }
+
   if (!project) {
     return <Navigate to="/portfolio" replace />
   }

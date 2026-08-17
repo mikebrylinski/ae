@@ -42,7 +42,7 @@ export function Footer() {
         <div className="rack-faceplate__edge rack-faceplate__edge--top" />
       </div>
 
-      <Container className="relative z-10 py-10 md:py-12 lg:px-12 xl:px-14">
+      <Container className="relative z-10 py-10 md:py-12">
         <motion.div
           className="flex flex-col items-center gap-10 text-center md:flex-row md:items-center md:justify-between md:text-left"
           variants={item}

@@ -27,8 +27,8 @@
     "title": "Planning Your Next Production?",
     "subtitle": "",
     "button": { "label": "Get In Touch", "href": "/contact" },
-    "image": "/images/about/portrait.jpg",
-    "imageAlt": "Andy Ebert at the console with SPL Transient Designer"
+    "image": "/images/sections/cta-bg.jpg",
+    "imageAlt": "Arena tour from front of house — packed house and hanging PA"
   },
   "about": {
     "portrait": "/images/about/portrait.jpg",
@@ -79,5 +79,5 @@
       { "label": "Midas H-3000 Chart", "href": "/downloads/Midas-H3000-chart.pdf", "type": "PDF" }
     ]
   },
-  "contactPhoto": "/images/about/contact.jpg"
+  "contactPhoto": "/images/contact/loadout.jpg"
 }

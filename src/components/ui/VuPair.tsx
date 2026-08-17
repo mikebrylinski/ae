@@ -22,20 +22,8 @@ function VuFace({ angle, label }: { angle: number; label: string }) {
               <stop offset="0%" stopColor="#161616" />
               <stop offset="100%" stopColor="#080808" />
             </linearGradient>
-            <linearGradient id={`${uid}-arc`} x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#5a5a5a" />
-              <stop offset="72%" stopColor="#b8ff00" />
-              <stop offset="100%" stopColor="#ff4d4d" />
-            </linearGradient>
           </defs>
           <rect x="4" y="4" width="192" height="122" rx="14" fill={`url(#${uid}-glass)`} />
-          <path
-            d="M22 98 A78 78 0 0 1 178 98"
-            fill="none"
-            stroke={`url(#${uid}-arc)`}
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
           {SCALE.map((n) => {
             const t = (n + 20) / 23
             const a = Math.PI * (1.12 - t * 0.84)
@@ -43,28 +31,29 @@ function VuFace({ angle, label }: { angle: number; label: string }) {
             const y1 = 108 + Math.sin(a) * -68
             const x2 = 100 + Math.cos(a) * (n >= 0 ? 76 : 74)
             const y2 = 108 + Math.sin(a) * (n >= 0 ? -76 : -74)
-            const lx = 100 + Math.cos(a) * 86
-            const ly = 108 + Math.sin(a) * -86
+            const lx = 100 + Math.cos(a) * 84
+            const ly = 108 + Math.sin(a) * -84
             const hot = n >= 0
             return (
               <g key={n}>
-                <line
-                  x1={x1}
-                  y1={y1}
-                  x2={x2}
-                  y2={y2}
-                  stroke={hot ? '#ff5a5a' : '#8a8a8a'}
-                  strokeWidth={n === 0 || n === 3 || n === -20 ? 1.5 : 0.9}
-                  strokeLinecap="round"
-                />
+            <line
+              x1={x1}
+              y1={y1}
+              x2={x2}
+              y2={y2}
+              stroke={hot ? '#ff5a5a' : '#8a8a8a'}
+              strokeWidth={n === 0 || n === 3 || n === -20 ? 1.5 : 0.9}
+              strokeLinecap="round"
+            />
                 {(n === -20 || n === -10 || n === -5 || n === 0 || n === 3) && (
                   <text
                     x={lx}
                     y={ly}
                     textAnchor="middle"
                     fill={hot ? '#ff7a7a' : '#a3a3a3'}
-                    fontSize="7.5"
+                    fontSize="11"
                     fontFamily="Inter, sans-serif"
+                    fontWeight="600"
                   >
                     {n}
                   </text>
@@ -83,26 +72,14 @@ function VuFace({ angle, label }: { angle: number; label: string }) {
               x1="100"
               y1="108"
               x2="100"
-              y2="32"
+              y2="38"
               stroke="#b8ff00"
               strokeWidth="1.5"
-              strokeLinecap="round"
+              strokeLinecap="butt"
             />
           </g>
           <circle cx="100" cy="108" r="4.5" fill="#b8ff00" />
           <circle cx="100" cy="108" r="2" fill="#111" />
-          <text
-            x="100"
-            y="58"
-            textAnchor="middle"
-            fill="#b8ff00"
-            fontSize="9"
-            fontFamily="Space Grotesk, sans-serif"
-            fontWeight="700"
-            letterSpacing="1.6"
-          >
-            VU
-          </text>
         </svg>
       </div>
       <p className="vu-meter__label">{label}</p>
@@ -258,7 +235,6 @@ export function VuPair() {
         aria-label="Main stereo out analog and digital VU meters"
       >
         <p className="vu-pair__plate">
-          <span className="vu-pair__plate-vu">VU</span>
           <span className="vu-pair__plate-name">Main Stereo Out</span>
         </p>
         <div className="vu-pair__row">

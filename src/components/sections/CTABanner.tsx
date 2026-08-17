@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { Mail } from 'lucide-react'
 import { site } from '@/lib/content'
 import { Container } from '@/components/ui/Container'
-import { MediaImage } from '@/components/ui/MediaImage'
 import { buttonVariants } from '@/components/ui/Button'
-import { ConsolePanel } from '@/components/ui/ConsolePanel'
+import { GlassCard } from '@/components/ui/GlassCard'
 import { NoiseOverlay } from '@/components/ui/NoiseOverlay'
 import { fadeUp, reducedMotionVariants } from '@/lib/motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
@@ -105,70 +105,43 @@ export function CTABanner() {
     <section className="section-divider-top section-pad bg-black" aria-label="Call to action">
       <Container>
         <motion.div
-          className="relative overflow-hidden border border-border bg-surface"
+          className="relative min-h-[22rem] overflow-hidden rounded-[1rem] border border-white/16 md:min-h-[28rem] lg:min-h-[32rem]"
           variants={item}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
         >
+          <img
+            src={imageSrc}
+            alt={imageAlt}
+            className="absolute inset-0 h-full w-full object-cover object-center"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/35 md:bg-gradient-to-r md:from-black/20 md:via-black/35 md:to-black/70"
+          />
           <CrowdLights reduced={reduced} />
           <CtaParticles reduced={reduced} />
           <NoiseOverlay opacity={0.04} className="z-[2]" />
 
-          <div className="relative z-10 grid md:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
-            <div className="relative min-h-[220px] border-b border-border md:min-h-[320px] md:border-b-0 md:border-r">
-              <MediaImage
-                src={imageSrc}
-                alt={imageAlt}
-                aspect="aspect-[16/10] md:aspect-auto md:absolute md:inset-0 md:h-full"
-                wrapperClassName="border-0 h-full"
-                className="object-cover object-[center_22%]"
-                fallbackLabel="Andy Ebert"
-              />
-              {/* Lime edge wash into content — neon/black blend */}
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/20 md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-black/70"
-              />
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-y-0 right-0 hidden w-px bg-primary/40 shadow-[0_0_18px_rgba(184,255,0,0.35)] md:block"
-              />
-            </div>
-
-            <div className="relative flex flex-col justify-center px-6 py-10 text-center md:px-10 md:py-14 md:text-left lg:px-14">
-              {/* Mixer — dark copy side only; desktop; behind type */}
-              <div
-                className={cn(
-                  'cta-mixer pointer-events-none absolute inset-y-3 right-0 hidden w-[min(52%,14.5rem)] overflow-hidden md:block lg:w-[min(48%,16rem)]',
-                  reduced && 'cta-mixer--static',
-                )}
-                aria-hidden
-              >
-                <ConsolePanel
-                  compact
-                  opacity={1}
-                  className="cta-mixer__panel h-full max-w-none translate-x-[18%] scale-[0.95]"
-                />
+          <div className="relative z-10 flex min-h-[22rem] items-end p-5 sm:p-7 md:min-h-[28rem] md:items-center md:justify-end md:p-10 lg:min-h-[32rem] lg:p-12">
+            <GlassCard className="w-full max-w-lg px-6 py-8 text-center sm:px-8 sm:py-10 md:text-left lg:px-10 lg:py-12">
+              <h2 className="font-heading text-3xl tracking-[0.08em] text-white sm:text-4xl md:text-5xl">
+                {cta.title}
+              </h2>
+              {cta.subtitle ? (
+                <p className="mt-4 text-lg text-primary md:text-xl">{cta.subtitle}</p>
+              ) : null}
+              <div className="mt-8 flex justify-center md:justify-start">
+                <Link
+                  to={cta.button.href}
+                  className={cn(buttonVariants({ size: 'lg' }), 'inline-flex')}
+                >
+                  <Mail size={18} strokeWidth={1.8} aria-hidden />
+                  {cta.button.label}
+                </Link>
               </div>
-
-              <div className="relative z-10">
-                <h2 className="font-heading text-3xl tracking-[0.08em] text-white sm:text-4xl md:text-5xl">
-                  {cta.title}
-                </h2>
-                {cta.subtitle ? (
-                  <p className="mt-4 text-lg text-primary md:text-xl">{cta.subtitle}</p>
-                ) : null}
-                <div className="mt-8 flex justify-center md:justify-start">
-                  <Link
-                    to={cta.button.href}
-                    className={cn(buttonVariants({ size: 'lg' }), 'inline-flex')}
-                  >
-                    {cta.button.label}
-                  </Link>
-                </div>
-              </div>
-            </div>
+            </GlassCard>
           </div>
         </motion.div>
       </Container>

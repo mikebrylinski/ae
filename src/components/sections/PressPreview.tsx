@@ -1,11 +1,19 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { FileText, Mic, Newspaper, Star, type LucideIcon } from 'lucide-react'
 import { press } from '@/lib/content'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Badge } from '@/components/ui/Badge'
+import { GlassIcon } from '@/components/ui/GlassCard'
 import { fadeUp, reducedMotionVariants, staggerContainer } from '@/lib/motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
+
+const typeIcon: Record<string, LucideIcon> = {
+  Interview: Mic,
+  Article: Newspaper,
+  Review: Star,
+}
 
 export function PressPreview() {
   const items = press.slice(0, 3)
@@ -17,9 +25,10 @@ export function PressPreview() {
       className="section-divider-top bg-black py-20 sm:py-24 md:py-28 lg:py-32"
       aria-labelledby="press-heading"
     >
-      <Container className="px-6 sm:px-10 lg:px-14">
+      <Container>
         <SectionHeading
           id="press-heading"
+          eyebrow="Press"
           title="Press & Media"
           align="left"
           action={
@@ -33,7 +42,7 @@ export function PressPreview() {
         />
 
         <motion.ul
-          className="grid gap-6 md:grid-cols-3"
+          className="grid gap-4 md:grid-cols-3 md:gap-6"
           variants={reduced ? undefined : staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -44,10 +53,16 @@ export function PressPreview() {
             const meta = [pressItem.publication, pressItem.date]
               .filter(Boolean)
               .join(' · ')
+            const Icon = typeIcon[pressItem.type] ?? FileText
             const body = (
               <div className="p-5 md:p-6">
-                <Badge variant="muted">{pressItem.type}</Badge>
-                <h3 className="font-heading mt-3 text-lg tracking-[0.06em] text-white transition-colors duration-500 group-hover:text-primary">
+                <div className="mb-4 flex items-center gap-3">
+                  <GlassIcon className="h-10 w-10">
+                    <Icon size={18} strokeWidth={1.6} className="icon-glow-soft" aria-hidden />
+                  </GlassIcon>
+                  <Badge variant="muted">{pressItem.type}</Badge>
+                </div>
+                <h3 className="font-heading text-lg tracking-[0.06em] text-white transition-colors duration-500 group-hover:text-primary">
                   {pressItem.title}
                 </h3>
                 <p className="mt-2 text-sm text-muted">{meta}</p>
@@ -59,7 +74,7 @@ export function PressPreview() {
               <motion.li
                 key={pressItem.id}
                 variants={item}
-                className="border border-border bg-surface"
+                className="glass-card"
               >
                 {hasLink ? (
                   <a
