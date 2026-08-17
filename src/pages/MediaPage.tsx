@@ -10,6 +10,7 @@ import {
 import { Badge } from '@/components/ui/Badge'
 import { buttonVariants } from '@/components/ui/Button'
 import { CTABanner } from '@/components/sections/CTABanner'
+import { PhotoHeader } from '@/components/sections/PhotoHeader'
 import { cn } from '@/lib/utils'
 import { useSeo } from '@/hooks/useSeo'
 import { VuPlate } from '@/components/ui/VuPlate'
@@ -60,14 +61,18 @@ export default function MediaPage() {
 
   return (
     <>
-      <section className="bg-black py-20 sm:py-24 md:py-28 lg:py-32">
-        <Container>
-          <VuPlate className="mb-3">Media Kit</VuPlate>
-          <h1 className="font-heading text-4xl tracking-[0.08em] text-white sm:text-5xl md:text-6xl">
-            Press & Media
-          </h1>
+      <PhotoHeader
+        src="/images/media/header-bg.jpg"
+        alt="Arena concert stage from the press pit"
+        heading="Press & Media"
+        subheading="Media Kit"
+      />
 
-          <div className="mt-14 grid gap-10 lg:grid-cols-[1.4fr_1fr] md:mt-16">
+      <section className="bg-black py-16 sm:py-20 md:py-24 lg:py-28">
+        <Container>
+          <VuPlate className="mb-8">Media Kit</VuPlate>
+
+          <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr]">
             <div>
               <h2 className="font-heading mb-4 text-sm tracking-[0.16em] text-primary">
                 Biography

@@ -30,14 +30,6 @@ export default function ProjectDetailPage() {
   return (
     <>
       <section className="bg-black">
-        <MediaImage
-          src={project.heroImage}
-          alt={`${project.artist} hero`}
-          aspect="aspect-[21/9] min-h-[280px]"
-          fallbackLabel={project.artist}
-          wrapperClassName="border-0 border-b border-border"
-        />
-
         <Container className="section-pad">
           <Link
             to="/portfolio"

@@ -39,8 +39,8 @@ export default function PortfolioPage() {
           >
             <motion.div variants={item} className="flex flex-col justify-center p-6 sm:p-8 md:p-10 lg:p-12">
               <VuPlate className="mb-3">Credits</VuPlate>
-              <h1 className="font-heading text-4xl tracking-[0.08em] text-white sm:text-5xl md:text-6xl">
-                Portfolio
+              <h1 className="font-heading text-3xl tracking-[0.08em] text-white sm:text-4xl md:text-5xl">
+                Andy's Work
               </h1>
               <p className="mt-4 max-w-2xl text-muted">
                 Selected arena, stadium, amphitheater, festival, TV, and

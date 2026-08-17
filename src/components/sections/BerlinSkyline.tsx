@@ -72,8 +72,8 @@ export function BerlinSkyline({ heading, subheading }: BerlinSkylineProps) {
 
       <Container className="relative z-10 w-full py-4 sm:py-5 md:py-6 lg:py-7">
         {isHeader ? (
-          <GlassCard className="w-full px-6 py-6 text-center sm:px-10 sm:py-8 md:px-14 md:py-9">
-            <h1 className="font-heading text-[clamp(1.35rem,4.2vw,2.85rem)] leading-[1.15] tracking-[0.08em] text-white">
+          <GlassCard className="mx-auto w-max max-w-full px-6 py-5 text-center sm:px-8 sm:py-6 md:px-10 md:py-7">
+            <h1 className="font-heading text-[clamp(1.15rem,3.2vw,2.15rem)] leading-[1.2] tracking-[0.08em] text-white">
               <span className="text-white">{heading}</span>
               {subheading ? (
                 <>

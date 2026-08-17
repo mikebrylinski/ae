@@ -1549,8 +1549,8 @@
 
   .berlin-skyline--header {
     display: flex;
-    align-items: flex-end;
-    min-height: clamp(13rem, 32vw, 24rem);
+    align-items: center;
+    min-height: 0;
   }
 
   .berlin-skyline__frame {
