@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { RootLayout } from '@/components/layout/RootLayout'
+import { LoadingLine, LoadingMeter } from '@/components/ui/LoadingMeter'
 
 const HomePage = lazy(() => import('@/pages/HomePage'))
 const PortfolioPage = lazy(() => import('@/pages/PortfolioPage'))
@@ -22,8 +23,9 @@ export default function App() {
           element={
             <Suspense
               fallback={
-                <div className="flex min-h-screen items-center justify-center bg-black text-primary">
-                  Loading…
+                <div className="flex min-h-screen items-center justify-center bg-black px-5">
+                  <LoadingLine decorative />
+                  <LoadingMeter />
                 </div>
               }
             >

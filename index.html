@@ -31,9 +31,42 @@
         }
       })()
     </script>
+    <style>
+      #boot-line {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 100;
+        height: 3px;
+        overflow: hidden;
+        background: #0a0a0a;
+      }
+      #boot-line > span {
+        display: block;
+        height: 100%;
+        width: 38%;
+        background: #b8ff00;
+        transform: translate3d(-120%, 0, 0);
+        animation: boot-line-sweep 1.15s ease-in-out infinite;
+      }
+      @keyframes boot-line-sweep {
+        0% { transform: translate3d(-120%, 0, 0); }
+        100% { transform: translate3d(360%, 0, 0); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #boot-line > span {
+          animation: none;
+          width: 42%;
+          transform: none;
+        }
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div id="boot-line" aria-hidden="true"><span></span></div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

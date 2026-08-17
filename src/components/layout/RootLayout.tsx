@@ -4,15 +4,17 @@ import { Footer } from './Footer'
 import { PageTransition } from './PageTransition'
 import { ScrollToTop } from './ScrollToTop'
 import { NoiseOverlay } from '@/components/ui/NoiseOverlay'
+import { LoadingLine, LoadingMeter } from '@/components/ui/LoadingMeter'
 import { useLenis } from '@/hooks/useLenis'
 
 function PageFallback() {
   return (
-    <div className="flex min-h-[50vh] items-center justify-center" role="status">
-      <span className="font-heading text-xs tracking-[0.2em] text-primary">
-        Loading…
-      </span>
-    </div>
+    <>
+      <LoadingLine decorative />
+      <div className="flex min-h-[50vh] items-center justify-center px-5">
+        <LoadingMeter />
+      </div>
+    </>
   )
 }
 
