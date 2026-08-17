@@ -20,7 +20,7 @@ export function RootLayout() {
   useLenis()
 
   return (
-    <div className="relative flex min-h-screen flex-col bg-background text-foreground">
+    <div className="relative flex min-h-screen min-w-0 flex-col overflow-x-hidden bg-background text-foreground">
       <NoiseOverlay fixed opacity={0.035} className="z-[45]" />
       <a
         href="#main"
@@ -30,7 +30,7 @@ export function RootLayout() {
       </a>
       <ScrollToTop />
       <Navbar />
-      <main id="main" className="relative z-0 flex-1 pt-20 md:pt-24">
+      <main id="main" className="relative z-0 min-w-0 flex-1 pt-20 md:pt-24">
         <Suspense fallback={<PageFallback />}>
           <PageTransition />
         </Suspense>

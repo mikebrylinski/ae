@@ -277,7 +277,7 @@ export function Navbar() {
   }, [location.pathname, location.hash])
 
   return (
-    <header className="rack-header fixed inset-x-0 top-0 z-50 overflow-visible">
+    <header className="rack-header fixed inset-x-0 top-0 z-50 overflow-x-hidden lg:overflow-visible">
       <MeshBackdrop className="rack-header__mesh" />
 
       {/* Desktop rack faceplate + mounting ears */}
@@ -295,17 +295,17 @@ export function Navbar() {
         <div className="rack-faceplate__edge" />
       </div>
 
-      <Container className="relative z-10 flex h-20 items-center justify-between md:h-24">
+      <Container className="relative z-10 flex h-20 min-w-0 items-center justify-between md:h-24">
         {/* Full brand block on all viewports — name above Sound Engineer, soft glow, no LED */}
-        <div className="rack-brand-wrap mr-3 sm:mr-4">
+        <div className="rack-brand-wrap mr-2 min-w-0 sm:mr-4">
           <VeganSeal />
           <Link
             to="/"
-            className="rack-brand rack-brand--glow inline-flex max-w-[min(100%,14.5rem)] shrink flex-col items-center gap-0.5 text-center sm:max-w-none"
+            className="rack-brand rack-brand--glow inline-flex max-w-full min-w-0 shrink flex-col items-center gap-0.5 text-center sm:max-w-none"
             onClick={() => setOpen(false)}
           >
             <span className="rack-brand__shine" aria-hidden />
-            <span className="rack-brand__name whitespace-nowrap font-heading text-[1.35rem] tracking-[0.1em] sm:text-2xl lg:text-[1.65rem] xl:text-3xl">
+            <span className="rack-brand__name whitespace-nowrap font-heading text-[clamp(1.05rem,4.6vw,1.35rem)] tracking-[0.08em] sm:text-2xl sm:tracking-[0.1em] lg:text-[1.65rem] xl:text-3xl">
               <span className="text-white">ANDY</span>{' '}
               <span className="text-primary">EBERT</span>
             </span>

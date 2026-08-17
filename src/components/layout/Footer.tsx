@@ -51,15 +51,15 @@ export function Footer() {
           viewport={{ once: true, margin: '-40px' }}
         >
           <div className="flex flex-col items-center gap-6 md:items-start">
-            <div className="flex w-max flex-col items-center gap-2">
-              <div className="rack-brand-wrap rack-brand-wrap--lg">
+            <div className="flex w-full max-w-full min-w-0 flex-col items-center gap-2">
+              <div className="rack-brand-wrap rack-brand-wrap--lg max-w-full min-w-0">
                 <VeganSeal />
                 <Link
                   to="/"
                   className="rack-brand inline-flex flex-col items-center gap-0.5 text-center"
                 >
                   <span className="rack-brand__shine" aria-hidden />
-                  <span className="rack-brand__name whitespace-nowrap font-heading text-3xl tracking-[0.12em] sm:text-4xl md:text-5xl">
+                  <span className="rack-brand__name whitespace-nowrap font-heading text-[clamp(1.5rem,7.5vw,1.875rem)] tracking-[0.1em] sm:text-4xl sm:tracking-[0.12em] md:text-5xl">
                     <span className="text-white">ANDY</span>{' '}
                     <span className="text-primary">EBERT</span>
                   </span>
