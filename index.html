@@ -22,6 +22,15 @@
       rel="stylesheet"
     />
     <title>Andy Ebert | Live Production</title>
+    <script>
+      (function () {
+        var ua = navigator.userAgent
+        if (/CriOS|FxiOS|EdgiOS|Chrome|Chromium|Android/i.test(ua)) return
+        if (/Safari/i.test(ua) || navigator.vendor === 'Apple Computer, Inc.') {
+          document.documentElement.classList.add('is-safari')
+        }
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

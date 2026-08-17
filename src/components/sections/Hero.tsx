@@ -20,7 +20,7 @@ export function Hero() {
   const eyebrow = hero.subheadline.filter(Boolean).join(' • ')
 
   useEffect(() => {
-    if (reduced || !contentRef.current) return
+    if (reduced || !contentRef.current || document.documentElement.classList.contains('is-safari')) return
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power2.out' } })
@@ -61,7 +61,7 @@ export function Hero() {
           ref={bgRef}
           src={hero.backgroundImage}
           alt=""
-          className="h-full w-full object-cover object-[70%_center] will-change-transform md:object-[75%_center]"
+          className="h-full w-full object-cover object-[70%_center] md:object-[75%_center]"
           fetchPriority="high"
         />
         <div className="hero-overlay absolute inset-0" aria-hidden />

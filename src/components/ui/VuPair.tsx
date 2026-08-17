@@ -170,6 +170,13 @@ export function VuPair() {
   useEffect(() => {
     if (!inView) return
 
+    if (reduced) {
+      setFeeds([0.38, 0.46, 0.32, 0.52])
+      setLevelL(0.42)
+      setLevelR(0.48)
+      return
+    }
+
     const speed = 1 / 6
     let frame = 0
     let t = 0
