@@ -6,8 +6,14 @@ Production photos live under these paths. Until a file exists, the UI shows a gr
 - [x] `/public/images/hero/arena.jpg` — FOH / arena background (AndyBG)
 
 ## About
-- [x] `/public/images/about/portrait.jpg` — SPL promo portrait
-- [x] `/public/images/about/contact.jpg` — Heil / mics smile shot
+- [x] `/public/images/about/berlin.jpg` — night skyline / Fernsehturm (About header)
+- `/public/images/about/west-berlin.jpg` — vintage analog mixer close-up
+- [x] `/public/images/about/basement-studio.jpg` — basement mixer / tape deck
+- [x] `/public/images/about/gospel-tour.jpg` — analog live console
+- [x] `/public/images/about/tse-berlin.jpg` — arena console surface
+- [x] `/public/images/about/monitor-world.jpg` — digital desk close-up
+- [x] `/public/images/about/outboard-rack.jpg` — IEM / outboard racks
+- [x] `/public/images/about/portrait.jpg` — later portrait (CTA, not About story)
 
 ## Media kit
 - [x] `/public/images/media/headshot-1.jpg` — Mariah Carey Jakarta

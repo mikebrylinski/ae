@@ -7,6 +7,8 @@ import type { NavItem } from '@/types'
 import { cn } from '@/lib/utils'
 import { Container } from '@/components/ui/Container'
 import { MeshBackdrop } from '@/components/ui/MeshBackdrop'
+import { RackScrew } from '@/components/ui/Screws'
+import { VeganSeal } from '@/components/ui/VeganSeal'
 
 /** Hash links only light when the section hash matches. */
 function isNavActive(
@@ -275,39 +277,43 @@ export function Navbar() {
   }, [location.pathname, location.hash])
 
   return (
-    <header className="rack-header fixed inset-x-0 top-0 z-50 overflow-x-clip overflow-y-visible">
+    <header className="rack-header fixed inset-x-0 top-0 z-50 overflow-visible">
       <MeshBackdrop className="rack-header__mesh" />
 
       {/* Desktop rack faceplate + mounting ears */}
       <div className="rack-faceplate" aria-hidden>
         <div className="rack-ear rack-ear--left">
-          <span className="rack-screw" />
-          <span className="rack-screw" />
-          <span className="rack-screw" />
+          <RackScrew angle={14} />
+          <RackScrew drive="phillips" angle={-48} />
+          <RackScrew angle={67} />
         </div>
         <div className="rack-ear rack-ear--right">
-          <span className="rack-screw" />
-          <span className="rack-screw" />
-          <span className="rack-screw" />
+          <RackScrew drive="phillips" angle={22} />
+          <RackScrew angle={-33} />
+          <RackScrew drive="phillips" angle={81} />
         </div>
         <div className="rack-faceplate__edge" />
       </div>
 
       <Container className="relative z-10 flex h-20 items-center justify-between md:h-24 lg:px-12 xl:px-14">
         {/* Full brand block on all viewports — name above Sound Engineer, soft glow, no LED */}
-        <Link
-          to="/"
-          className="rack-brand rack-brand--glow inline-flex max-w-[min(100%,14.5rem)] shrink flex-col items-center gap-0.5 text-center sm:max-w-none"
-          onClick={() => setOpen(false)}
-        >
-          <span className="rack-brand__name whitespace-nowrap font-heading text-[1.35rem] tracking-[0.1em] sm:text-2xl lg:text-[1.65rem] xl:text-3xl">
-            <span className="text-white">ANDY</span>{' '}
-            <span className="text-primary">EBERT</span>
-          </span>
-          <span className="rack-brand__sub w-full font-heading text-[0.55rem] uppercase sm:text-[0.65rem] lg:text-[0.7rem]">
-            Sound Engineer
-          </span>
-        </Link>
+        <div className="rack-brand-wrap mr-3 sm:mr-4">
+          <VeganSeal />
+          <Link
+            to="/"
+            className="rack-brand rack-brand--glow inline-flex max-w-[min(100%,14.5rem)] shrink flex-col items-center gap-0.5 text-center sm:max-w-none"
+            onClick={() => setOpen(false)}
+          >
+            <span className="rack-brand__shine" aria-hidden />
+            <span className="rack-brand__name whitespace-nowrap font-heading text-[1.35rem] tracking-[0.1em] sm:text-2xl lg:text-[1.65rem] xl:text-3xl">
+              <span className="text-white">ANDY</span>{' '}
+              <span className="text-primary">EBERT</span>
+            </span>
+            <span className="rack-brand__sub w-full font-heading text-[0.55rem] uppercase sm:text-[0.65rem] lg:text-[0.7rem]">
+              Sound Engineer
+            </span>
+          </Link>
+        </div>
 
         <nav
           className="rack-nav hidden items-center gap-1.5 lg:flex xl:gap-2.5"

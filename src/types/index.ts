@@ -102,7 +102,7 @@ export interface Service {
   id: string
   title: string
   description: string
-  icon: string
+  icon?: string
 }
 
 export interface NavItem {
@@ -161,7 +161,10 @@ export interface SiteConfig {
   }
   about: {
     portrait: string
+    headline?: string
+    subhead?: string
     story: string[]
+    next?: string
     philosophy: string
     travel: string
     behindTheScenes: string

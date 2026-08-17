@@ -3,7 +3,10 @@ import { motion } from 'framer-motion'
 import { ArrowUp } from 'lucide-react'
 import { flattenNav } from '@/lib/content'
 import { Container } from '@/components/ui/Container'
+import { VuPair } from '@/components/ui/VuPair'
+import { VeganSeal } from '@/components/ui/VeganSeal'
 import { MeshBackdrop } from '@/components/ui/MeshBackdrop'
+import { RackScrew } from '@/components/ui/Screws'
 import { fadeUp, reducedMotionVariants } from '@/lib/motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 
@@ -17,19 +20,19 @@ export function Footer() {
   }
 
   return (
-    <footer className="rack-footer relative overflow-hidden">
+    <footer className="rack-footer relative overflow-visible">
       <MeshBackdrop className="rack-footer__mesh" />
 
       <div className="rack-faceplate" aria-hidden>
         <div className="rack-ear rack-ear--left">
-          <span className="rack-screw" />
-          <span className="rack-screw" />
-          <span className="rack-screw" />
+          <RackScrew drive="phillips" angle={-11} />
+          <RackScrew angle={52} />
+          <RackScrew drive="phillips" angle={-71} />
         </div>
         <div className="rack-ear rack-ear--right">
-          <span className="rack-screw" />
-          <span className="rack-screw" />
-          <span className="rack-screw" />
+          <RackScrew angle={-44} />
+          <RackScrew drive="phillips" angle={9} />
+          <RackScrew angle={38} />
         </div>
         <span className="rack-rivet rack-rivet--tl" />
         <span className="rack-rivet rack-rivet--tr" />
@@ -48,18 +51,27 @@ export function Footer() {
           viewport={{ once: true, margin: '-40px' }}
         >
           <div className="flex flex-col items-center gap-6 md:items-start">
-            <Link
-              to="/"
-              className="rack-brand inline-flex flex-col items-center gap-0.5 text-center"
-            >
-              <span className="rack-brand__name whitespace-nowrap font-heading text-3xl tracking-[0.12em] sm:text-4xl md:text-5xl">
-                <span className="text-white">ANDY</span>{' '}
-                <span className="text-primary">EBERT</span>
-              </span>
-              <span className="rack-brand__sub w-full font-heading text-[0.7rem] uppercase text-muted sm:text-xs">
-                Sound Engineer
-              </span>
-            </Link>
+            <div className="flex w-max flex-col items-center gap-2">
+              <div className="rack-brand-wrap rack-brand-wrap--lg">
+                <VeganSeal />
+                <Link
+                  to="/"
+                  className="rack-brand inline-flex flex-col items-center gap-0.5 text-center"
+                >
+                  <span className="rack-brand__shine" aria-hidden />
+                  <span className="rack-brand__name whitespace-nowrap font-heading text-3xl tracking-[0.12em] sm:text-4xl md:text-5xl">
+                    <span className="text-white">ANDY</span>{' '}
+                    <span className="text-primary">EBERT</span>
+                  </span>
+                  <span className="rack-brand__sub w-full font-heading text-[0.7rem] uppercase text-muted sm:text-xs">
+                    Sound Engineer
+                  </span>
+                </Link>
+              </div>
+              <p className="rack-brand-caption font-heading text-[0.65rem] tracking-[0.18em] text-muted sm:text-[0.7rem]">
+                proudly powered by plants
+              </p>
+            </div>
 
             <nav aria-label="Footer">
               <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 md:justify-start">
@@ -77,24 +89,8 @@ export function Footer() {
             </nav>
           </div>
 
-          <div className="flex flex-col items-center gap-4 md:ml-auto md:items-end md:text-right">
-            <div
-              className="flex flex-col items-center gap-2 md:items-end"
-              role="img"
-              aria-label="Vegan — proudly powered by plants"
-            >
-              <img
-                src="/images/brand/vegan-logo.png"
-                alt=""
-                width={284}
-                height={284}
-                className="h-14 w-14 object-contain sm:h-16 sm:w-16"
-              />
-              <p className="text-center font-heading text-[0.65rem] tracking-[0.18em] text-muted sm:text-[0.7rem] md:text-right">
-                proudly powered by plants
-              </p>
-            </div>
-
+          <div className="flex w-full flex-col items-center gap-4 md:ml-auto md:w-auto md:items-end md:text-right">
+            <VuPair />
             <button
               type="button"
               onClick={scrollTop}
@@ -107,8 +103,11 @@ export function Footer() {
           </div>
         </motion.div>
 
-        <div className="mt-8 border-t border-white/10 pt-5 text-center text-xs text-muted md:text-left">
-          <p>© {year} Andy Ebert. All rights reserved.</p>
+        <div className="mt-8 flex flex-col items-center gap-2 border-t border-white/10 pt-5 text-center text-xs text-muted lg:flex-row lg:items-center lg:justify-between lg:text-left">
+          <p>© {year} Andy Ebert. All Rights Reserved.</p>
+          <p className="font-heading w-full tracking-[0.14em] lg:w-auto lg:text-right">
+            Site by Pixel Palisade
+          </p>
         </div>
       </Container>
     </footer>

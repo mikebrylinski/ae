@@ -946,16 +946,27 @@
     position: relative;
   }
 
+  .rack-screw::before,
   .rack-screw::after {
     content: '';
     position: absolute;
-    inset: 35% 18%;
+    left: 18%;
+    right: 18%;
     height: 1px;
     top: 50%;
     margin-top: -0.5px;
     background: rgba(0, 0, 0, 0.55);
     box-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.08);
-    transform: rotate(-28deg);
+    transform: rotate(var(--slot, -28deg));
+  }
+
+  .rack-screw::before {
+    display: none;
+  }
+
+  .rack-screw--phillips::before {
+    display: block;
+    transform: rotate(calc(var(--slot, -28deg) + 90deg));
   }
 
   /* Mobile/tablet footer: corner rivets instead of full rack ears */
@@ -973,6 +984,18 @@
       0 1px 2px rgba(0, 0, 0, 0.7);
   }
 
+  .rack-rivet::after {
+    content: '';
+    position: absolute;
+    left: 18%;
+    right: 18%;
+    height: 1px;
+    top: 50%;
+    margin-top: -0.5px;
+    background: rgba(0, 0, 0, 0.5);
+    transform: rotate(var(--slot, -24deg));
+  }
+
   .rack-footer .rack-rivet {
     display: block;
   }
@@ -980,43 +1003,212 @@
   .rack-rivet--tl {
     top: 12px;
     left: 12px;
+    --slot: 18deg;
   }
 
   .rack-rivet--tr {
     top: 12px;
     right: 12px;
+    width: 8px;
+    height: 8px;
+    --slot: -47deg;
   }
 
   .rack-rivet--bl {
     bottom: 12px;
     left: 12px;
+    --slot: 63deg;
   }
 
   .rack-rivet--br {
     bottom: 12px;
     right: 12px;
+    width: 10px;
+    height: 10px;
+    --slot: -12deg;
   }
 
-  /* Brand wordmark + subtitle — same panel treatment on mobile + desktop */
+  .rack-brand-wrap {
+    position: relative;
+    isolation: isolate;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    overflow: visible;
+    padding-right: 2.35rem;
+  }
+
+  .rack-brand-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -28% -18% -32% -14%;
+    z-index: 0;
+    border-radius: 1.35rem;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        ellipse 55% 70% at 62% 48%,
+        rgba(184, 255, 0, 0.42) 0%,
+        rgba(184, 255, 0, 0.12) 42%,
+        transparent 72%
+      ),
+      radial-gradient(
+        ellipse 45% 55% at 28% 40%,
+        rgba(255, 255, 255, 0.22) 0%,
+        transparent 68%
+      );
+    filter: blur(16px);
+    opacity: 0.7;
+  }
+
+  .rack-brand__vegan,
+  .rack-brand__vegan-mark {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    z-index: 0;
+    width: 2.4rem;
+    height: 2.4rem;
+    pointer-events: none;
+    transform: translateY(-50%) scale(1);
+    transform-origin: center center;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .rack-brand__vegan {
+    object-fit: contain;
+  }
+
+  .rack-brand__vegan-mark {
+    width: 3.15rem;
+    height: 3.15rem;
+  }
+
+  .rack-brand__vegan-icon {
+    position: absolute;
+    inset: 18%;
+    width: 64%;
+    height: 64%;
+    object-fit: contain;
+  }
+
+  .rack-brand__vegan-ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .rack-brand__vegan-ring-text {
+    fill: #b8ff00;
+    font-family: var(--font-heading);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .rack-brand-wrap:hover .rack-brand__vegan,
+  .rack-brand-wrap:focus-within .rack-brand__vegan,
+  .rack-brand-wrap:hover .rack-brand__vegan-mark,
+  .rack-brand-wrap:focus-within .rack-brand__vegan-mark {
+    transform: translateY(-50%) scale(1.22);
+  }
+
+  .rack-brand-wrap--lg {
+    padding-right: 3.35rem;
+  }
+
+  .rack-brand-wrap--lg .rack-brand__vegan,
+  .rack-brand-wrap--lg .rack-brand__vegan-mark {
+    width: 4.75rem;
+    height: 4.75rem;
+  }
+
+  .rack-brand-caption {
+    box-sizing: border-box;
+    width: 100%;
+    padding-right: 1.7rem;
+    text-align: center;
+  }
+
+  .rack-brand-wrap--lg + .rack-brand-caption {
+    padding-right: 3.35rem;
+  }
+
+  /* Brand wordmark + subtitle — frosted glass card on mobile + desktop */
   .rack-brand {
     position: relative;
+    isolation: isolate;
+    z-index: 1;
     gap: 0.2rem;
     line-height: 1;
-    padding: 0.5rem 0.85rem 0.55rem;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 0.55rem 1rem 0.6rem;
+    overflow: visible;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 0.9rem;
     background:
       linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.04) 0%,
-        rgba(0, 0, 0, 0.25) 100%
+        165deg,
+        rgba(255, 255, 255, 0.07) 0%,
+        rgba(8, 8, 8, 0.96) 38%,
+        rgba(0, 0, 0, 0.98) 100%
       );
+    background-color: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(18px) saturate(1.2);
+    -webkit-backdrop-filter: blur(18px) saturate(1.2);
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.07),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.5),
-      0 1px 0 rgba(0, 0, 0, 0.4);
+      inset 0 1px 0 rgba(255, 255, 255, 0.14),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.6),
+      0 10px 32px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(0, 0, 0, 0.55);
+  }
+
+  .rack-brand::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.02) 24%,
+      transparent 52%
+    );
+  }
+
+  .rack-brand__shine {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .rack-brand__shine::after {
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: -40%;
+    width: 22%;
+    height: 140%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 100%
+    );
+    transform: skewX(-22deg);
+    opacity: 0.28;
   }
 
   .rack-brand__name {
+    position: relative;
+    z-index: 2;
     display: block;
     line-height: 0.9;
     margin: 0;
@@ -1024,6 +1216,8 @@
   }
 
   .rack-brand__sub {
+    position: relative;
+    z-index: 2;
     display: block;
     margin: 0;
     padding: 0;
@@ -1046,6 +1240,14 @@
 
     .rack-brand--glow {
       animation: rack-brand-block-glow 6.5s ease-in-out infinite alternate;
+    }
+
+    .rack-brand-wrap::before {
+      animation: rack-brand-backlight 6.5s ease-in-out infinite alternate;
+    }
+
+    .rack-brand__shine::after {
+      animation: rack-brand-shimmer 11s ease-in-out infinite;
     }
   }
 
@@ -1085,6 +1287,38 @@
 
     .rack-brand {
       padding: 0.6rem 1.15rem 0.65rem;
+    }
+
+    .rack-brand-wrap {
+      padding-right: 2.6rem;
+    }
+
+    .rack-brand__vegan-mark {
+      width: 3.35rem;
+      height: 3.35rem;
+    }
+
+    .rack-brand__vegan {
+      width: 2.65rem;
+      height: 2.65rem;
+    }
+
+    .rack-brand-wrap--lg {
+      padding-right: 4rem;
+    }
+
+    .rack-brand-wrap--lg + .rack-brand-caption {
+      padding-right: 4rem;
+    }
+
+    .rack-brand-caption {
+      padding-right: 1.9rem;
+    }
+
+    .rack-brand-wrap--lg .rack-brand__vegan,
+    .rack-brand-wrap--lg .rack-brand__vegan-mark {
+      width: 5.7rem;
+      height: 5.7rem;
     }
 
     .rack-nav__item {
@@ -1141,12 +1375,7 @@
         0 3px 0 #050505,
         0 4px 0 #020202,
         0 5px 12px rgba(0, 0, 0, 0.5);
-      transform: translateY(0);
-      transition:
-        transform 120ms ease,
-        box-shadow 120ms ease,
-        color 120ms ease,
-        background 120ms ease;
+      transition: color 160ms ease;
     }
 
     .rack-btn__label {
@@ -1172,16 +1401,6 @@
 
     .rack-btn:hover .rack-btn__face {
       color: #f0f0f0;
-      transform: translateY(2px);
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.14),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.55),
-        inset 1px 0 0 rgba(255, 255, 255, 0.04),
-        inset -1px 0 0 rgba(0, 0, 0, 0.35),
-        0 1px 0 #050505,
-        0 2px 0 #020202,
-        0 3px 8px rgba(0, 0, 0, 0.42),
-        0 0 12px rgba(184, 255, 0, 0.14);
     }
 
     .rack-nav__item:hover .rack-btn__led {
@@ -1195,22 +1414,6 @@
     .rack-btn:active .rack-btn__face,
     .rack-btn--active .rack-btn__face {
       color: #b8ff00;
-      transform: translateY(3px);
-      background:
-        linear-gradient(
-          180deg,
-          #1a1a1a 0%,
-          #141414 35%,
-          #101010 70%,
-          #161616 100%
-        );
-      box-shadow:
-        inset 0 3px 6px rgba(0, 0, 0, 0.8),
-        inset 0 1px 0 rgba(0, 0, 0, 0.55),
-        inset 0 -1px 0 rgba(255, 255, 255, 0.04),
-        0 1px 0 #040404,
-        0 0 16px rgba(184, 255, 0, 0.22),
-        0 0 28px rgba(184, 255, 0, 0.12);
     }
 
     .rack-nav__item--active .rack-btn__led,
@@ -1322,6 +1525,568 @@
       transition: none;
     }
   }
+
+  .berlin-skyline {
+    background: #000;
+    min-height: clamp(18rem, 46vw, 34rem);
+  }
+
+  .berlin-skyline--header {
+    display: flex;
+    align-items: flex-end;
+    min-height: clamp(11rem, 28vw, 20rem);
+  }
+
+  .berlin-skyline__frame {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .berlin-skyline__photo {
+    position: absolute;
+    inset: -6%;
+    width: 112%;
+    height: 112%;
+    object-fit: cover;
+    object-position: center 40%;
+  }
+
+  .berlin-skyline__shade {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.72) 0%,
+        rgba(0, 0, 0, 0.28) 38%,
+        rgba(0, 0, 0, 0.12) 62%,
+        rgba(0, 0, 0, 0.4) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.2) 0%,
+        transparent 28%,
+        rgba(0, 0, 0, 0.55) 100%
+      );
+  }
+
+  .berlin-skyline__scan {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 3px,
+      rgba(184, 255, 0, 0.03) 3px,
+      rgba(184, 255, 0, 0.03) 4px
+    );
+    mix-blend-mode: screen;
+    opacity: 0.55;
+  }
+
+  .berlin-skyline__sweep {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 38%,
+      rgba(184, 255, 0, 0.08) 48%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(184, 255, 0, 0.06) 52%,
+      transparent 62%
+    );
+    background-size: 220% 100%;
+    background-position: 140% 0;
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+
+  .berlin-skyline__beacon {
+    position: absolute;
+    left: 61%;
+    top: 26%;
+    width: 18rem;
+    height: 18rem;
+    translate: -50% -50%;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(184, 255, 0, 0.28) 0%,
+      rgba(184, 255, 0, 0.08) 38%,
+      transparent 70%
+    );
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+
+  .berlin-skyline__shaft {
+    position: absolute;
+    left: 61%;
+    top: 18%;
+    width: 4.5rem;
+    height: 58%;
+    translate: -50% 0;
+    background: linear-gradient(
+      180deg,
+      rgba(184, 255, 0, 0.18) 0%,
+      rgba(184, 255, 0, 0.04) 55%,
+      transparent 100%
+    );
+    filter: blur(10px);
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+
+  .berlin-skyline__particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .berlin-skyline__particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #b8ff00;
+    box-shadow: 0 0 8px rgba(184, 255, 0, 0.8);
+    opacity: 0.35;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .berlin-skyline:not(.berlin-skyline--static) .berlin-skyline__photo {
+      animation: berlin-ken 32s ease-in-out infinite alternate;
+    }
+
+    .berlin-skyline:not(.berlin-skyline--static) .berlin-skyline__sweep {
+      animation: berlin-sweep 9s ease-in-out infinite;
+    }
+
+    .berlin-skyline:not(.berlin-skyline--static) .berlin-skyline__beacon {
+      animation: berlin-beacon 3.8s ease-in-out infinite alternate;
+    }
+
+    .berlin-skyline:not(.berlin-skyline--static) .berlin-skyline__shaft {
+      animation: berlin-shaft 5.2s ease-in-out infinite alternate;
+    }
+
+    .berlin-skyline:not(.berlin-skyline--static) .berlin-skyline__scan {
+      animation: berlin-scan 14s linear infinite;
+    }
+
+    .berlin-skyline:not(.berlin-skyline--static) .berlin-skyline__particle {
+      animation-name: berlin-particle;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+    }
+  }
+}
+
+.vu-rack {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0.7rem;
+}
+
+.vu-submix {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .vu-submix {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+    width: 11.75rem;
+    padding: 0.7rem 0.65rem 0.7rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 1rem;
+    background:
+      linear-gradient(
+        165deg,
+        rgba(255, 255, 255, 0.08) 0%,
+        rgba(12, 12, 12, 0.72) 42%,
+        rgba(0, 0, 0, 0.78) 100%
+      );
+    background-color: rgba(8, 8, 8, 0.55);
+    backdrop-filter: blur(16px) saturate(1.25);
+    -webkit-backdrop-filter: blur(16px) saturate(1.25);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.16),
+      0 12px 28px rgba(0, 0, 0, 0.35);
+  }
+
+  .vu-submix .vu-pair__plate-name {
+    font-size: 0.58rem;
+    letter-spacing: 0.16em;
+  }
+
+  .vu-pair {
+    justify-content: space-between;
+  }
+
+  .vu-pair__row {
+    flex: 1 1 auto;
+    align-items: center;
+  }
+
+  .vu-meter {
+    justify-content: center;
+  }
+}
+
+.vu-submix__feeds {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 0.28rem;
+}
+
+.vu-submix__feed {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.32rem;
+}
+
+.vu-submix__peak {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: #3a1010;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+.vu-submix__peak--on {
+  background: #ff4d4d;
+  box-shadow: 0 0 8px rgba(255, 77, 77, 0.7);
+}
+
+.vu-submix__meter {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  flex: 1 1 auto;
+  width: 0.7rem;
+  min-height: 4.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.vu-submix__fill {
+  position: absolute;
+  right: 0.12rem;
+  bottom: 0.12rem;
+  left: 0.12rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ff4d4d 0%, #b8ff00 55%, #6a9900 100%);
+}
+
+.vu-submix__label {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #b8ff00;
+}
+
+.vu-pair {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 28rem;
+  padding: 0.7rem 0.85rem 0.7rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 1rem;
+  background:
+    linear-gradient(
+      165deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(12, 12, 12, 0.72) 42%,
+      rgba(0, 0, 0, 0.78) 100%
+    );
+  background-color: rgba(8, 8, 8, 0.55);
+  backdrop-filter: blur(16px) saturate(1.25);
+  -webkit-backdrop-filter: blur(16px) saturate(1.25);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.vu-pair__plate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0.34rem 0.55rem 0.3rem;
+  border: 1px solid rgba(0, 0, 0, 0.72);
+  border-radius: 0.18rem;
+  background:
+    linear-gradient(180deg, #2c2c2c 0%, #161616 48%, #101010 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.55),
+    0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.vu-pair__plate-vu {
+  flex: 0 0 auto;
+  padding: 0.1rem 0.36rem 0.06rem;
+  border-radius: 0.12rem;
+  background: #b8ff00;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 0 8px rgba(184, 255, 0, 0.28);
+  font-family: var(--font-heading);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  color: #111;
+}
+
+.vu-pair__plate-name {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #d6cdb0;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.65);
+}
+
+.vu-pair__plate-name--url {
+  font-size: 0.74rem;
+  text-transform: none;
+  letter-spacing: 0.14em;
+}
+
+.vu-pair__row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.55rem 0.7rem;
+}
+
+.vu-meter {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 6.5rem;
+  max-width: 11.5rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.vu-meter__face {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.85rem;
+  background: #0a0a0a;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.vu-meter__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.vu-meter__needle {
+  transition: none;
+  filter: drop-shadow(0 0 4px rgba(184, 255, 0, 0.55));
+}
+
+.vu-meter__label {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #b8ff00;
+}
+
+.vu-digi-bank {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: stretch;
+  gap: 0.45rem;
+  padding: 0.1rem 0.05rem 0;
+}
+
+.vu-digi {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.28rem;
+}
+
+.vu-digi__db {
+  margin: 0;
+  min-width: 3.1rem;
+  font-family: var(--font-heading);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #d4d4d4;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.vu-digi__track {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 3px;
+  width: 0.85rem;
+  height: 7.4rem;
+  padding: 0.28rem 0.18rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.vu-digi__fill {
+  position: absolute;
+  right: 0.18rem;
+  bottom: 0.28rem;
+  left: 0.18rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ff4d4d 0%, #b8ff00 55%, #6a9900 100%);
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.vu-digi__seg {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 0.32rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.vu-digi__seg--on {
+  background: #b8ff00;
+  box-shadow: 0 0 8px rgba(184, 255, 0, 0.45);
+}
+
+.vu-digi__seg--on.vu-digi__seg--warn {
+  background: #f0c400;
+  box-shadow: 0 0 8px rgba(240, 196, 0, 0.4);
+}
+
+.vu-digi__seg--on.vu-digi__seg--clip {
+  background: #ff4d4d;
+  box-shadow: 0 0 8px rgba(255, 77, 77, 0.5);
+}
+
+.vu-digi__label {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #b8ff00;
+}
+
+@media (max-width: 767px) {
+  .vu-pair {
+    gap: 0.35rem;
+    max-width: 22.5rem;
+    padding: 0.5rem 0.45rem 0.42rem;
+    border-radius: 0.85rem;
+  }
+
+  .vu-pair__plate {
+    gap: 0.4rem;
+    padding: 0.26rem 0.38rem 0.22rem;
+  }
+
+  .vu-pair__plate-vu {
+    font-size: 0.5rem;
+    padding: 0.08rem 0.28rem 0.05rem;
+  }
+
+  .vu-pair__plate-name {
+    font-size: 0.56rem;
+    letter-spacing: 0.12em;
+  }
+
+  .vu-pair__plate-name--url {
+    font-size: 0.58rem;
+  }
+
+  .vu-pair__row {
+    gap: 0.35rem 0.4rem;
+  }
+
+  .vu-meter {
+    flex-basis: 0;
+    gap: 0.18rem;
+  }
+
+  .vu-meter__face {
+    border-radius: 0.65rem;
+  }
+
+  .vu-meter__label {
+    font-size: 0.5rem;
+    letter-spacing: 0.16em;
+  }
+
+  .vu-digi-bank {
+    gap: 0.28rem;
+  }
+
+  .vu-digi {
+    gap: 0.16rem;
+  }
+
+  .vu-digi__db {
+    min-width: 2.35rem;
+    font-size: 0.46rem;
+  }
+
+  .vu-digi__track {
+    width: 0.58rem;
+    height: 4.85rem;
+    gap: 2px;
+    padding: 0.18rem 0.1rem;
+  }
+
+  .vu-digi__fill {
+    right: 0.1rem;
+    bottom: 0.18rem;
+    left: 0.1rem;
+  }
+
+  .vu-digi__seg {
+    height: 0.2rem;
+  }
+
+  .vu-digi__label {
+    font-size: 0.48rem;
+    letter-spacing: 0.14em;
+  }
 }
 
 @keyframes icon-glow-soft {
@@ -1352,18 +2117,39 @@
 @keyframes rack-brand-block-glow {
   from {
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.07),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.5),
-      0 1px 0 rgba(0, 0, 0, 0.4),
-      0 0 12px rgba(184, 255, 0, 0.04);
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.6),
+      0 10px 32px rgba(0, 0, 0, 0.5),
+      0 0 14px rgba(184, 255, 0, 0.04);
   }
   to {
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.07),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.5),
-      0 1px 0 rgba(0, 0, 0, 0.4),
-      0 0 22px rgba(184, 255, 0, 0.12),
-      0 0 36px rgba(255, 255, 255, 0.05);
+      inset 0 1px 0 rgba(255, 255, 255, 0.16),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.6),
+      0 10px 32px rgba(0, 0, 0, 0.5),
+      0 0 18px rgba(184, 255, 0, 0.1);
+  }
+}
+
+@keyframes rack-brand-backlight {
+  from {
+    opacity: 0.4;
+    transform: translate3d(-8%, 6%, 0) scale(0.88);
+  }
+  to {
+    opacity: 0.95;
+    transform: translate3d(10%, -8%, 0) scale(1.12);
+  }
+}
+
+@keyframes rack-brand-shimmer {
+  0%,
+  12% {
+    transform: skewX(-22deg) translateX(0);
+  }
+  48%,
+  100% {
+    transform: skewX(-22deg) translateX(380%);
   }
 }
 
@@ -1590,6 +2376,67 @@
   }
 }
 
+@keyframes berlin-ken {
+  from {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.08) translate3d(1.6%, -1.2%, 0);
+  }
+}
+
+@keyframes berlin-sweep {
+  0%,
+  18% {
+    background-position: 140% 0;
+  }
+  55%,
+  100% {
+    background-position: -40% 0;
+  }
+}
+
+@keyframes berlin-beacon {
+  from {
+    opacity: 0.45;
+    transform: scale(0.86);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
+@keyframes berlin-shaft {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 0.85;
+  }
+}
+
+@keyframes berlin-scan {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 48px;
+  }
+}
+
+@keyframes berlin-particle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    opacity: 0.85;
+    transform: translate3d(8px, -14px, 0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -1613,7 +2460,15 @@
   .section-divider,
   .section-divider-top::before,
   .rack-brand--glow,
-  .rack-brand--glow .rack-brand__name {
+  .rack-brand--glow .rack-brand__name,
+  .rack-brand__shine::after,
+  .rack-brand-wrap::before,
+  .berlin-skyline__photo,
+  .berlin-skyline__sweep,
+  .berlin-skyline__beacon,
+  .berlin-skyline__shaft,
+  .berlin-skyline__scan,
+  .berlin-skyline__particle {
     animation: none !important;
   }
 

@@ -3,12 +3,5 @@
   { "label": "Portfolio", "href": "/portfolio" },
   { "label": "About", "href": "/about" },
   { "label": "Press", "href": "/media" },
-  {
-    "label": "Contact",
-    "href": "/contact",
-    "children": [
-      { "label": "Contact", "href": "/contact" },
-      { "label": "Downloads", "href": "/downloads" }
-    ]
-  }
+  { "label": "Contact", "href": "/contact" }
 ]

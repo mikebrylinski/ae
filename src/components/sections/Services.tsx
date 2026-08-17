@@ -2,7 +2,6 @@ import {
   Headphones,
   Music,
   SlidersHorizontal,
-  Theater,
   type LucideIcon,
 } from 'lucide-react'
 import { motion } from 'framer-motion'
@@ -15,9 +14,7 @@ import { useReducedMotion } from '@/hooks/useReducedMotion'
 const iconMap: Record<string, LucideIcon> = {
   SlidersHorizontal,
   Music,
-  Stage: Theater,
   Headphones,
-  Theater,
 }
 
 export function Services() {
@@ -38,26 +35,28 @@ export function Services() {
         />
 
         <motion.ul
-          className="grid sm:grid-cols-2 lg:grid-cols-4"
+          className="grid sm:grid-cols-2 lg:grid-cols-3"
           variants={reduced ? undefined : staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
         >
           {services.map((service) => {
-            const Icon = iconMap[service.icon] ?? Headphones
+            const Icon = service.icon ? iconMap[service.icon] : undefined
             return (
               <motion.li
                 key={service.id}
                 variants={item}
                 className="flex flex-col items-center gap-3.5 border-black/15 px-5 py-7 text-center sm:px-6 sm:py-8 max-sm:border-b max-sm:last:border-b-0 sm:max-lg:[&:nth-child(-n+2)]:border-b sm:max-lg:[&:nth-child(odd)]:border-r lg:border-l lg:first:border-l-0"
               >
-                <Icon
-                  className="text-black"
-                  size={38}
-                  strokeWidth={1.4}
-                  aria-hidden
-                />
+                {Icon ? (
+                  <Icon
+                    className="text-black"
+                    size={38}
+                    strokeWidth={1.4}
+                    aria-hidden
+                  />
+                ) : null}
                 <h3 className="font-heading text-[15px] tracking-[0.12em] text-black sm:text-base">
                   {service.title}
                 </h3>

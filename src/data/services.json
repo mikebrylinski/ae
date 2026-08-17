@@ -12,12 +12,6 @@
     "icon": "Music"
   },
   {
-    "id": "live-production",
-    "title": "Live Production",
-    "description": "From rehearsals through the final encore.",
-    "icon": "Stage"
-  },
-  {
     "id": "technical-leadership",
     "title": "Technical Leadership",
     "description": "Calm decision-making under pressure on complex shows.",

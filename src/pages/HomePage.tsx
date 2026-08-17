@@ -11,7 +11,7 @@ export default function HomePage() {
   useSeo({
     title: 'Andy Ebert | Monitor Engineer & Live Production',
     description:
-      'When artists need to hear perfection. Worldwide touring monitor engineer since 1997 — Alanis Morissette, The Weeknd, Maroon 5, Guns N’ Roses, Mariah Carey, and more.',
+      'When artists need to hear perfection. Worldwide touring sound engineer, professionally since ’97 — Alanis Morissette, The Weeknd, Neil Young, Guns N’ Roses, Maroon 5, Mariah Carey, and more.',
   })
 
   return (
