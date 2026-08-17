@@ -1,5 +1,6 @@
 import { NoiseOverlay } from '@/components/ui/NoiseOverlay'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
+import { hasSafariClass } from '@/lib/safari'
 import { cn } from '@/lib/utils'
 
 interface MeshBackdropProps {
@@ -17,6 +18,7 @@ export function MeshBackdrop({
   noiseOpacity = 0.025,
 }: MeshBackdropProps) {
   const reduced = useReducedMotion()
+  const staticGlow = reduced || hasSafariClass()
 
   return (
     <div
@@ -30,7 +32,7 @@ export function MeshBackdrop({
       <div
         className={cn(
           'mesh-glow absolute inset-0',
-          reduced && 'mesh-glow--static',
+          staticGlow && 'mesh-glow--static',
         )}
       />
       <div className="mesh-lattice absolute inset-0" />

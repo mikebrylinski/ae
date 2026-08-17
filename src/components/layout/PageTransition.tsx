@@ -1,18 +1,26 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLocation, Outlet } from 'react-router-dom'
-import { pageTransition, reducedMotionVariants } from '@/lib/motion'
+import { pageTransition } from '@/lib/motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
+import { hasSafariClass } from '@/lib/safari'
 
 export function PageTransition() {
   const location = useLocation()
   const reduced = useReducedMotion()
-  const variants = reduced ? reducedMotionVariants : pageTransition
+
+  if (reduced || hasSafariClass()) {
+    return (
+      <div className="min-h-[60vh]">
+        <Outlet />
+      </div>
+    )
+  }
 
   return (
     <AnimatePresence mode="wait">
       <motion.div
         key={location.pathname}
-        variants={variants}
+        variants={pageTransition}
         initial="initial"
         animate="animate"
         exit="exit"

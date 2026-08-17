@@ -2,6 +2,7 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { useInView } from '@/hooks/useInView'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
+import { isSafariBrowser } from '@/lib/safari'
 
 function clamp(n: number, min: number, max: number) {
   return Math.min(max, Math.max(min, n))
@@ -63,10 +64,7 @@ function VuFace({ angle, label }: { angle: number; label: string }) {
           })}
           <g
             className="vu-meter__needle"
-            style={{
-              transform: `rotate(${angle}deg)`,
-              transformOrigin: '100px 108px',
-            }}
+            transform={`rotate(${angle} 100 108)`}
           >
             <line
               x1="100"
@@ -170,13 +168,8 @@ export function VuPair() {
   useEffect(() => {
     if (!inView) return
 
-    if (reduced) {
-      setFeeds([0.38, 0.46, 0.32, 0.52])
-      setLevelL(0.42)
-      setLevelR(0.48)
-      return
-    }
-
+    const safari = isSafariBrowser()
+    const paintEvery = safari ? 70 : 0
     const speed = 1 / 6
     let frame = 0
     let t = 0
@@ -185,6 +178,7 @@ export function VuPair() {
     let curL = 0.2
     let curR = 0.22
     let last = performance.now()
+    let lastPaint = 0
     const f1 = [9.1, 8.4, 7.6, 10.2]
     const f2 = [16.4, 15.2, 14.1, 17.3]
     const off = [0, 0.7, 1.3, 2.1]
@@ -223,9 +217,12 @@ export function VuPair() {
       curL += (mixL - curL) * step
       curR += (mixR - curR) * step
 
-      setFeeds([curs[0], curs[1], curs[2], curs[3]])
-      setLevelL(curL)
-      setLevelR(curR)
+      if (!paintEvery || now - lastPaint >= paintEvery) {
+        lastPaint = now
+        setFeeds([curs[0], curs[1], curs[2], curs[3]])
+        setLevelL(curL)
+        setLevelR(curR)
+      }
       frame = requestAnimationFrame(tick)
     }
 

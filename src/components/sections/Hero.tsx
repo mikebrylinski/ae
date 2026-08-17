@@ -61,7 +61,7 @@ export function Hero() {
           ref={bgRef}
           src={hero.backgroundImage}
           alt=""
-          className="h-full w-full object-cover object-[70%_center] md:object-[75%_center]"
+          className="h-full w-full object-cover object-[70%_center] will-change-transform md:object-[75%_center]"
           fetchPriority="high"
         />
         <div className="hero-overlay absolute inset-0" aria-hidden />

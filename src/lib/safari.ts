@@ -11,3 +11,7 @@ export function applySafariClass() {
     document.documentElement.classList.add('is-safari')
   }
 }
+
+export function hasSafariClass() {
+  return typeof document !== 'undefined' && document.documentElement.classList.contains('is-safari')
+}

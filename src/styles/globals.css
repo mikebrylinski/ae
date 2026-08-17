@@ -51,7 +51,7 @@
   }
 
   ::selection {
-    background-color: rgba(184, 255, 0, 0.45);
+    background-color: color-mix(in srgb, var(--color-primary) 45%, transparent);
     color: var(--color-primary-foreground);
   }
 
@@ -81,12 +81,6 @@
 
   .font-subhead {
     font-family: var(--font-subhead);
-  }
-
-  .noise-overlay {
-    background-image: url('/images/noise.png');
-    background-repeat: repeat;
-    background-size: 128px 128px;
   }
 
   .text-neon {
@@ -247,9 +241,12 @@
     pointer-events: none;
     opacity: 0.42;
     mix-blend-mode: multiply;
-    background-image: url('/images/noise.png');
     background-repeat: repeat;
     background-size: 180px 180px;
+  }
+
+  html:not(.is-safari) .paper-surface::after {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   /* ——— Stats bar: tour-bus photo fading through grey ——— */
@@ -295,7 +292,34 @@
         rgb(200 200 200 / 0.48) 52%,
         rgb(212 212 212 / 0.82) 100%
       ),
-      url('/images/noise.png'),
+      repeating-linear-gradient(
+        18deg,
+        transparent 0,
+        transparent 2px,
+        rgb(72 72 72 / 0.045) 2px,
+        rgb(72 72 72 / 0.045) 3px
+      ),
+      repeating-linear-gradient(
+        108deg,
+        transparent 0,
+        transparent 3px,
+        rgb(72 72 72 / 0.03) 3px,
+        rgb(72 72 72 / 0.03) 4px
+      );
+    background-size: auto, auto, auto;
+    background-repeat: no-repeat, repeat, repeat;
+  }
+
+  html:not(.is-safari) .stats-bar::after,
+  html:not(.is-safari) .services-panel::after {
+    background-image:
+      radial-gradient(
+        ellipse 78% 62% at 50% 48%,
+        rgb(212 212 212 / 0.18) 0%,
+        rgb(200 200 200 / 0.48) 52%,
+        rgb(212 212 212 / 0.82) 100%
+      ),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
       repeating-linear-gradient(
         18deg,
         transparent 0,
@@ -379,25 +403,26 @@
     background:
       radial-gradient(
         circle 42% at 22% 28%,
-        rgba(184, 255, 0, 0.26),
+        color-mix(in srgb, var(--color-primary) 26%, transparent),
         transparent 70%
       ),
       radial-gradient(
         circle 36% at 78% 48%,
-        rgba(184, 255, 0, 0.2),
+        color-mix(in srgb, var(--color-primary) 20%, transparent),
         transparent 68%
       ),
       radial-gradient(
         circle 48% at 48% 78%,
-        rgba(184, 255, 0, 0.24),
+        color-mix(in srgb, var(--color-primary) 24%, transparent),
         transparent 72%
       ),
       radial-gradient(
         circle 28% at 88% 18%,
-        rgba(184, 255, 0, 0.14),
+        color-mix(in srgb, var(--color-primary) 14%, transparent),
         transparent 65%
       );
     opacity: 0.28;
+    will-change: opacity;
   }
 
   .mesh-glow--static {
@@ -2752,9 +2777,16 @@
   }
 }
 
-/* Safari (esp. macOS 12 / Safari 15): SVG noise, backdrop-filter, and
-   infinite ken-burns freeze or crawl the compositor. */
-html.is-safari .noise-overlay.fixed {
+/* Safari only: SVG feTurbulence, stacked backdrop-filter, and infinite
+   ken-burns freeze or crawl the compositor. Chrome/Firefox stay unchanged. */
+html.is-safari .noise-overlay {
+  display: none !important;
+  background-image: none !important;
+}
+
+html.is-safari .paper-surface::after,
+html.is-safari .stats-bar::after,
+html.is-safari .services-panel::after {
   display: none;
 }
 
@@ -2780,11 +2812,18 @@ html.is-safari .rack-brand {
   background-color: rgba(8, 8, 8, 0.94);
 }
 
-html.is-safari .paper-surface::after,
-html.is-safari .stats-bar::after,
-html.is-safari .services-panel::after {
-  mix-blend-mode: normal;
-  opacity: 0.12;
+html.is-safari img,
+html.is-safari .mesh-glow,
+html.is-safari .cta-particles__dot,
+html.is-safari .console-panel__cap {
+  will-change: auto !important;
+}
+
+html.is-safari .rack-brand-wrap::before,
+html.is-safari .icon-glow-soft,
+html.is-safari .vu-meter__needle {
+  filter: none !important;
+  animation: none !important;
 }
 
 html.is-safari .mesh-glow,
@@ -2794,6 +2833,13 @@ html.is-safari .services-panel,
 html.is-safari .cta-crowd__field,
 html.is-safari .cta-crowd__shimmer,
 html.is-safari .cta-particles__dot,
+html.is-safari .icon-glow-soft,
+html.is-safari .section-divider,
+html.is-safari .section-divider-top::before,
+html.is-safari .rack-brand--glow,
+html.is-safari .rack-brand--glow .rack-brand__name,
+html.is-safari .rack-brand__shine::after,
+html.is-safari .rack-brand-wrap::before,
 html.is-safari .berlin-skyline__photo,
 html.is-safari .contact-stage__photo,
 html.is-safari .berlin-skyline__sweep,
@@ -2802,10 +2848,6 @@ html.is-safari .berlin-skyline__shaft,
 html.is-safari .berlin-skyline__scan,
 html.is-safari .berlin-skyline__particle {
   animation: none !important;
-  will-change: auto;
-}
-
-html.is-safari .cta-particles__dot {
   will-change: auto;
 }
 

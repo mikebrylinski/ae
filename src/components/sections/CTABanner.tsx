@@ -8,6 +8,7 @@ import { GlassCard } from '@/components/ui/GlassCard'
 import { NoiseOverlay } from '@/components/ui/NoiseOverlay'
 import { fadeUp, reducedMotionVariants } from '@/lib/motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
+import { hasSafariClass } from '@/lib/safari'
 import { cn } from '@/lib/utils'
 
 /** Quiet “sea of phones / arena crowd” — soft twinkling dots, very low opacity. */
@@ -97,6 +98,7 @@ function CtaParticles({ reduced }: { reduced: boolean }) {
 export function CTABanner() {
   const { cta } = site
   const reduced = useReducedMotion()
+  const safari = hasSafariClass()
   const item = reduced ? reducedMotionVariants : fadeUp
   const imageSrc = cta.image ?? '/images/about/portrait.jpg'
   const imageAlt = cta.imageAlt ?? 'Andy Ebert at the console'
@@ -120,9 +122,9 @@ export function CTABanner() {
             aria-hidden
             className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/35 md:bg-gradient-to-r md:from-black/20 md:via-black/35 md:to-black/70"
           />
-          <CrowdLights reduced={reduced} />
-          <CtaParticles reduced={reduced} />
-          <NoiseOverlay opacity={0.04} className="z-[2]" />
+          {safari ? null : <CrowdLights reduced={reduced} />}
+          {safari ? null : <CtaParticles reduced={reduced} />}
+          {safari ? null : <NoiseOverlay opacity={0.04} className="z-[2]" />}
 
           <div className="relative z-10 flex min-h-[22rem] items-end p-5 sm:p-7 md:min-h-[28rem] md:items-center md:justify-end md:p-10 lg:min-h-[32rem] lg:p-12">
             <GlassCard className="w-full max-w-lg px-6 py-8 text-center sm:px-8 sm:py-10 md:text-left lg:px-10 lg:py-12">
