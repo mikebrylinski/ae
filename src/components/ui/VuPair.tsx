@@ -237,6 +237,8 @@ export function VuPair() {
   ])
   const [levelL, setLevelL] = useState(0.22)
   const [levelR, setLevelR] = useState(0.24)
+  const [digiL, setDigiL] = useState(0.26)
+  const [digiR, setDigiR] = useState(0.3)
   const [grL, setGrL] = useState(0.08)
   const [grR, setGrR] = useState(0.1)
 
@@ -252,6 +254,8 @@ export function VuPair() {
     const curs = [0.2, 0.26, 0.16, 0.22]
     let curL = 0.2
     let curR = 0.22
+    let curDigiL = 0.26
+    let curDigiR = 0.3
     let curGrL = 0.08
     let curGrR = 0.1
     let last = performance.now()
@@ -289,10 +293,17 @@ export function VuPair() {
         curs[i] += (sigs[i] - curs[i]) * step
       }
 
-      const mixL = clamp(curs[0] * 0.4 + curs[1] * 0.16 + curs[2] * 0.32 + curs[3] * 0.12, 0, 1)
-      const mixR = clamp(curs[0] * 0.12 + curs[1] * 0.4 + curs[2] * 0.16 + curs[3] * 0.32, 0, 1)
+      const mixL = clamp(curs[0] * 0.48 + curs[1] * 0.1 + curs[2] * 0.3 + curs[3] * 0.08, 0, 1)
+      const mixR = clamp(curs[0] * 0.08 + curs[1] * 0.48 + curs[2] * 0.1 + curs[3] * 0.3, 0, 1)
       curL += (mixL - curL) * step
       curR += (mixR - curR) * step
+
+      const peakL = clamp(mixL * 0.82 + sigs[0] * 0.18, 0, 1)
+      const peakR = clamp(mixR * 0.82 + sigs[1] * 0.18, 0, 1)
+      const digiUp = clamp(step * 2.6, 0.08, 0.98)
+      const digiDown = clamp(step * 0.7, 0.05, 0.9)
+      curDigiL += (peakL - curDigiL) * (peakL > curDigiL ? digiUp : digiDown)
+      curDigiR += (peakR - curDigiR) * (peakR > curDigiR ? digiUp : digiDown)
 
       const targetGrL = clamp((mixL - 0.48) / 0.42, 0, 1)
       const targetGrR = clamp((mixR - 0.48) / 0.42, 0, 1)
@@ -311,6 +322,8 @@ export function VuPair() {
         ])
         setLevelL(curL)
         setLevelR(curR)
+        setDigiL(curDigiL)
+        setDigiR(curDigiR)
         setGrL(curGrL)
         setGrR(curGrR)
       }
@@ -339,13 +352,13 @@ export function VuPair() {
               <GainReduction amount={grR} label="R" showScale />
             </div>
             <div className="vu-pair__faces">
-              <VuFace angle={-48 + levelL * 92} label="L" />
-              <VuFace angle={-48 + levelR * 92} label="R" />
+              <VuFace angle={-48 + levelL * 92} label="Left" />
+              <VuFace angle={-48 + levelR * 92} label="Right" />
             </div>
           </div>
           <div className="vu-digi-bank">
-            <DigiVu level={levelL} label="L" />
-            <DigiVu level={levelR} label="R" />
+            <DigiVu level={digiL} label="L" />
+            <DigiVu level={digiR} label="R" />
           </div>
         </div>
         <p className="vu-pair__plate">

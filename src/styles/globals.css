@@ -1946,7 +1946,7 @@
 
   .vu-pair__row {
     flex: 1 1 auto;
-    align-items: flex-end;
+    align-items: stretch;
   }
 
   .vu-meter {
@@ -2186,7 +2186,7 @@
 .vu-pair__row {
   display: flex;
   flex-wrap: nowrap;
-  align-items: flex-end;
+  align-items: stretch;
   justify-content: center;
   gap: 0.55rem 0.7rem;
 }
@@ -2344,34 +2344,42 @@
 .vu-meter__label {
   margin: 0;
   font-family: var(--font-heading);
-  font-size: 0.9rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: #b8ff00;
 }
 
 .vu-digi-bank {
   display: flex;
   flex: 0 0 auto;
+  align-self: stretch;
   align-items: stretch;
-  gap: 0.45rem;
-  padding: 0.1rem 0.05rem 0;
+  gap: 0.5rem;
+  padding: 0;
 }
 
 .vu-digi {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   align-items: center;
+  width: 0.75rem;
+  min-height: 0;
+  height: 100%;
+  overflow: visible;
   gap: 0.28rem;
 }
 
 .vu-digi__db {
   margin: 0;
-  min-width: 3.1rem;
+  min-width: 0;
+  white-space: nowrap;
   font-family: var(--font-heading);
-  font-size: 0.58rem;
+  font-size: 0.52rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   color: #d4d4d4;
   text-align: center;
   font-variant-numeric: tabular-nums;
@@ -2381,11 +2389,13 @@
   position: relative;
   display: flex;
   overflow: hidden;
+  flex: 1 1 auto;
   flex-direction: column;
   justify-content: flex-end;
   gap: 3px;
   width: 0.75rem;
-  height: 6.4rem;
+  height: auto;
+  min-height: 0;
   padding: 0.28rem 0.18rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 999px;
@@ -2406,8 +2416,10 @@
 .vu-digi__seg {
   position: relative;
   z-index: 1;
+  flex: 1 1 0;
   width: 100%;
-  height: 0.32rem;
+  min-height: 2px;
+  height: auto;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.06);
 }
@@ -2465,6 +2477,7 @@
 
   .vu-pair__row {
     gap: 0.35rem 0.4rem;
+    align-items: stretch;
   }
 
   .vu-pair__faces {
@@ -2518,26 +2531,35 @@
   }
 
   .vu-meter__label {
-    font-size: 0.78rem;
-    letter-spacing: 0.16em;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
   }
 
   .vu-digi-bank {
-    gap: 0.28rem;
+    align-self: stretch;
+    align-items: stretch;
+    gap: 0.32rem;
+    padding: 0;
   }
 
   .vu-digi {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+    width: 0.58rem;
     gap: 0.16rem;
   }
 
   .vu-digi__db {
-    min-width: 2.35rem;
-    font-size: 0.46rem;
+    min-width: 0;
+    font-size: 0.4rem;
   }
 
   .vu-digi__track {
+    flex: 1 1 auto;
     width: 0.58rem;
-    height: 4.2rem;
+    height: auto;
+    min-height: 0;
     gap: 2px;
     padding: 0.18rem 0.1rem;
   }
@@ -2549,7 +2571,9 @@
   }
 
   .vu-digi__seg {
-    height: 0.2rem;
+    flex: 1 1 0;
+    height: auto;
+    min-height: 2px;
   }
 
   .vu-digi__label {
