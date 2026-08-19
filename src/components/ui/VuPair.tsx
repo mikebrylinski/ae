@@ -10,6 +10,7 @@ function clamp(n: number, min: number, max: number) {
 
 const SCALE = [-20, -10, -7, -5, -3, -2, -1, 0, 1, 2, 3]
 const SEGS = 16
+const GR_SEGS = 18
 
 function VuFace({ angle, label }: { angle: number; label: string }) {
   const uid = useId().replace(/:/g, '')
@@ -85,6 +86,54 @@ function VuFace({ angle, label }: { angle: number; label: string }) {
   )
 }
 
+function GainReduction({
+  amount,
+  label,
+  showScale = false,
+}: {
+  amount: number
+  label: string
+  showScale?: boolean
+}) {
+  const lit = Math.round(clamp(amount, 0, 1) * GR_SEGS)
+  const db = clamp(amount, 0, 1) * 20
+
+  return (
+    <div className="vu-gr">
+      <p className="vu-gr__label">{label}</p>
+      <p className="vu-gr__db">-{db.toFixed(0)}</p>
+      <div className="vu-gr__meter">
+        <div className="vu-gr__track" aria-hidden>
+          <span className="vu-gr__fill" style={{ width: `${clamp(amount, 0, 1) * 100}%` }} />
+          {Array.from({ length: GR_SEGS }, (_, i) => {
+            const on = i < lit
+            const clip = i >= 15
+            const warn = i >= 11 && i < 15
+            return (
+              <span
+                key={i}
+                className={cn(
+                  'vu-gr__seg',
+                  on && 'vu-gr__seg--on',
+                  warn && 'vu-gr__seg--warn',
+                  clip && 'vu-gr__seg--clip',
+                )}
+              />
+            )
+          })}
+        </div>
+        {showScale ? (
+          <div className="vu-gr__scale" aria-hidden>
+            <span>-20</span>
+            <span>-10</span>
+            <span>0</span>
+          </div>
+        ) : null}
+      </div>
+    </div>
+  )
+}
+
 function DigiVu({ level, label }: { level: number; label: string }) {
   const lit = Math.round(clamp(level, 0, 1) * SEGS)
   const db = -20 + clamp(level, 0, 1) * 23
@@ -120,7 +169,7 @@ function DigiVu({ level, label }: { level: number; label: string }) {
   )
 }
 
-function SubmixMix({ level, label }: { level: number; label: string }) {
+function SubmixChannel({ level }: { level: number }) {
   const peak = level > 0.84
 
   return (
@@ -132,12 +181,31 @@ function SubmixMix({ level, label }: { level: number; label: string }) {
           style={{ height: `${clamp(level, 0, 1) * 100}%` }}
         />
       </div>
+    </div>
+  )
+}
+
+function SubmixMix({
+  left,
+  right,
+  label,
+}: {
+  left: number
+  right: number
+  label: string
+}) {
+  return (
+    <div className="vu-submix__mix">
+      <div className="vu-submix__pair">
+        <SubmixChannel level={left} />
+        <SubmixChannel level={right} />
+      </div>
       <p className="vu-submix__label">{label}</p>
     </div>
   )
 }
 
-function Submix({ mixes }: { mixes: number[] }) {
+function Submix({ mixes }: { mixes: [number, number][] }) {
   return (
     <div className="vu-submix" aria-hidden>
       <p className="vu-pair__plate">
@@ -145,8 +213,8 @@ function Submix({ mixes }: { mixes: number[] }) {
         <span className="vu-pair__plate-name">Submix</span>
       </p>
       <div className="vu-submix__feeds">
-        {mixes.map((level, i) => (
-          <SubmixMix key={i} level={level} label={`M${i + 1}`} />
+        {mixes.map(([left, right], i) => (
+          <SubmixMix key={i} left={left} right={right} label={`M${i + 1}`} />
         ))}
       </div>
       <p className="vu-pair__plate">
@@ -161,9 +229,16 @@ export function VuPair() {
   const rootRef = useRef<HTMLDivElement>(null)
   const inView = useInView(rootRef)
   const reduced = useReducedMotion()
-  const [feeds, setFeeds] = useState([0.22, 0.28, 0.18, 0.24])
+  const [feeds, setFeeds] = useState<[number, number][]>([
+    [0.22, 0.22],
+    [0.28, 0.28],
+    [0.18, 0.18],
+    [0.24, 0.24],
+  ])
   const [levelL, setLevelL] = useState(0.22)
   const [levelR, setLevelR] = useState(0.24)
+  const [grL, setGrL] = useState(0.08)
+  const [grR, setGrR] = useState(0.1)
 
   useEffect(() => {
     if (!inView) return
@@ -177,6 +252,8 @@ export function VuPair() {
     const curs = [0.2, 0.26, 0.16, 0.22]
     let curL = 0.2
     let curR = 0.22
+    let curGrL = 0.08
+    let curGrR = 0.1
     let last = performance.now()
     let lastPaint = 0
     const f1 = [9.1, 8.4, 7.6, 10.2]
@@ -217,11 +294,25 @@ export function VuPair() {
       curL += (mixL - curL) * step
       curR += (mixR - curR) * step
 
+      const targetGrL = clamp((mixL - 0.48) / 0.42, 0, 1)
+      const targetGrR = clamp((mixR - 0.48) / 0.42, 0, 1)
+      const grStepL = targetGrL > curGrL ? step * 2.1 : step * 0.28
+      const grStepR = targetGrR > curGrR ? step * 2.1 : step * 0.28
+      curGrL += (targetGrL - curGrL) * clamp(grStepL, 0.03, 0.95)
+      curGrR += (targetGrR - curGrR) * clamp(grStepR, 0.03, 0.95)
+
       if (!paintEvery || now - lastPaint >= paintEvery) {
         lastPaint = now
-        setFeeds([curs[0], curs[1], curs[2], curs[3]])
+        setFeeds([
+          [curs[0], curs[0]],
+          [curs[1], curs[1]],
+          [curs[2], curs[2]],
+          [curs[3], curs[3]],
+        ])
         setLevelL(curL)
         setLevelR(curR)
+        setGrL(curGrL)
+        setGrR(curGrR)
       }
       frame = requestAnimationFrame(tick)
     }
@@ -236,14 +327,22 @@ export function VuPair() {
       <div
         className="vu-pair"
         role="img"
-        aria-label="Main stereo out analog and digital VU meters"
+        aria-label="Main stereo out analog VU, gain reduction, and digital meters"
       >
         <p className="vu-pair__plate">
           <span className="vu-pair__plate-name">Main Stereo Out</span>
         </p>
         <div className="vu-pair__row">
-          <VuFace angle={-48 + levelL * 92} label="L" />
-          <VuFace angle={-48 + levelR * 92} label="R" />
+          <div className="vu-pair__analog">
+            <div className="vu-gr-bank">
+              <GainReduction amount={grL} label="L" />
+              <GainReduction amount={grR} label="R" showScale />
+            </div>
+            <div className="vu-pair__faces">
+              <VuFace angle={-48 + levelL * 92} label="L" />
+              <VuFace angle={-48 + levelR * 92} label="R" />
+            </div>
+          </div>
           <div className="vu-digi-bank">
             <DigiVu level={levelL} label="L" />
             <DigiVu level={levelR} label="R" />

@@ -138,11 +138,11 @@ function parseYearSpan(year: string): { start: number; end: number; open?: boole
   const trimmed = year.trim()
   const now = new Date().getFullYear()
 
-  if (/^current$/i.test(trimmed)) {
+  if (/^(current|present)$/i.test(trimmed)) {
     return { start: now, end: now, open: true }
   }
 
-  const openRange = trimmed.match(/^(\d{4})\s*[–-]\s*current$/i)
+  const openRange = trimmed.match(/^(\d{4})\s*[–-]\s*(?:current|present)$/i)
   if (openRange) {
     return { start: Number.parseInt(openRange[1], 10), end: now, open: true }
   }
@@ -173,7 +173,7 @@ function formatYearRanges(spans: { start: number; end: number; open?: boolean }[
 
   return merged
     .map(({ start, end, open }) => {
-      if (open) return start === end ? 'Current' : `${start}–current`
+      if (open) return start === end ? 'Present' : `${start}–Present`
       return start === end ? `${start}` : `${start}–${end}`
     })
     .join(', ')
@@ -203,10 +203,21 @@ export function collapseCredits(credits: CreditEntry[]): GroupedCredit[] {
 
   for (const entries of byKey.values()) {
     const spans = entries.map((e) => parseYearSpan(e.year))
-    const yearLabel = formatYearRanges(spans)
     const endYear = Math.max(...spans.map((s) => s.end))
+
+    if (entries[0].artist === 'Alanis Morissette') {
+      grouped.push({
+        yearLabel: '2012–Present',
+        artist: entries[0].artist,
+        region: 'Worldwide',
+        role: entries[0].role,
+        endYear,
+      })
+      continue
+    }
+
     grouped.push({
-      yearLabel,
+      yearLabel: formatYearRanges(spans),
       artist: entries[0].artist,
       region: mergeRegions(entries.map((e) => e.region)),
       role: entries[0].role,

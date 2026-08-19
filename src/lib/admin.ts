@@ -49,21 +49,45 @@ export function bundledCredits(): CreditEntry[] {
   return structuredClone(experience.credits ?? [])
 }
 
+export function persistCreditsLocal(credits: CreditEntry[]) {
+  localStorage.setItem(CREDITS_STORAGE_KEY, JSON.stringify({ credits }))
+  window.dispatchEvent(new Event(CREDITS_UPDATED_EVENT))
+}
+
+function withPortfolioCreditFixes(credits: CreditEntry[]): CreditEntry[] {
+  let sawFeaturedAlanis = false
+  return credits.map((credit) => {
+    let next = credit
+    if (credit.artist === 'Usher' && /one\s*offs?/i.test(credit.region)) {
+      next = { ...next, region: 'MTV Music Awards' }
+    }
+    if (credit.artist === 'Alanis Morissette') {
+      if (!sawFeaturedAlanis) {
+        sawFeaturedAlanis = true
+        next = {
+          ...next,
+          year: '2012–Present',
+          region: 'Worldwide',
+          featured: true,
+        }
+      } else {
+        next = { ...next, featured: false }
+      }
+    }
+    return next
+  })
+}
+
 export function loadStoredCredits(): CreditEntry[] | null {
   try {
     const raw = localStorage.getItem(CREDITS_STORAGE_KEY)
     if (!raw) return null
     const parsed = JSON.parse(raw) as { credits?: CreditEntry[] }
     if (!Array.isArray(parsed.credits)) return null
-    return parsed.credits
+    return withPortfolioCreditFixes(parsed.credits)
   } catch {
     return null
   }
-}
-
-export function persistCreditsLocal(credits: CreditEntry[]) {
-  localStorage.setItem(CREDITS_STORAGE_KEY, JSON.stringify({ credits }))
-  window.dispatchEvent(new Event(CREDITS_UPDATED_EVENT))
 }
 
 export function clearStoredCredits() {

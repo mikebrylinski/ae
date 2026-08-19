@@ -1,7 +1,7 @@
 {
   "timeline": [
     {
-      "year": "2020–current",
+      "year": "2012–Present",
       "tour": "Worldwide Tours",
       "artist": "Alanis Morissette",
       "description": "Monitor engineer for Alanis Morissette’s continuous worldwide touring run — currently on the road across arenas, stadiums, amphitheaters, festivals, TV, and corporate dates.",
@@ -18,7 +18,7 @@
       "year": "2012–2014",
       "tour": "Arena & Worldwide Tours",
       "artist": "The Weeknd · Adam Lambert · Alanis Morissette",
-      "description": "Monitor engineering across The Weeknd (worldwide), Adam Lambert (USA / worldwide), Alanis Morissette (worldwide, 2012), Usher (one-off, USA), and Local Natives (USA). FOH for Adam Lambert in Asia (2012).",
+      "description": "Monitor engineering across The Weeknd (worldwide), Adam Lambert (USA / worldwide), Alanis Morissette (worldwide, 2012), Usher (MTV Music Awards), and Local Natives (USA). FOH for Adam Lambert in Asia (2012).",
       "photo": "/images/experience/2012-2014.jpg"
     },
     {
@@ -103,7 +103,7 @@
   "resumePdf": "/downloads/andy-ebert-resume.pdf",
   "credits": [
     {
-      "year": "Current",
+      "year": "2012–Present",
       "artist": "Alanis Morissette",
       "region": "Worldwide",
       "role": "Monitor Engineer",
@@ -114,49 +114,49 @@
       "artist": "Alanis Morissette",
       "region": "Worldwide",
       "role": "Monitor Engineer",
-      "featured": true
+      "featured": false
     },
     {
       "year": "2024",
       "artist": "Alanis Morissette",
       "region": "Worldwide",
       "role": "Monitor Engineer",
-      "featured": true
+      "featured": false
     },
     {
       "year": "2023",
       "artist": "Alanis Morissette",
       "region": "Worldwide",
       "role": "Monitor Engineer",
-      "featured": true
+      "featured": false
     },
     {
       "year": "2022",
       "artist": "Alanis Morissette",
       "region": "Worldwide",
       "role": "Monitor Engineer",
-      "featured": true
+      "featured": false
     },
     {
       "year": "2021",
       "artist": "Alanis Morissette",
       "region": "Worldwide",
       "role": "Monitor Engineer",
-      "featured": true
+      "featured": false
     },
     {
       "year": "2020",
       "artist": "Alanis Morissette",
       "region": "Worldwide",
       "role": "Monitor Engineer",
-      "featured": true
+      "featured": false
     },
     {
       "year": "2019",
       "artist": "Alanis Morissette",
       "region": "USA",
       "role": "Monitor Engineer",
-      "featured": true
+      "featured": false
     },
     {
       "year": "2019",
@@ -184,7 +184,7 @@
       "artist": "Alanis Morissette",
       "region": "USA",
       "role": "Monitor Engineer",
-      "featured": true
+      "featured": false
     },
     {
       "year": "2016",
@@ -198,7 +198,7 @@
       "artist": "Alanis Morissette",
       "region": "USA",
       "role": "Monitor Engineer",
-      "featured": true
+      "featured": false
     },
     {
       "year": "2015",
@@ -224,7 +224,7 @@
     {
       "year": "2014",
       "artist": "Usher",
-      "region": "One off, USA",
+      "region": "MTV Music Awards",
       "role": "Monitor Engineer",
       "featured": true
     },
@@ -261,7 +261,7 @@
       "artist": "Alanis Morissette",
       "region": "Worldwide",
       "role": "Monitor Engineer",
-      "featured": true
+      "featured": false
     },
     {
       "year": "2012",
@@ -658,14 +658,14 @@
     {
       "year": "1999",
       "artist": "Glenn Hughes",
-      "region": "Germany",
+      "region": "Europe",
       "role": "Monitor Engineer",
       "featured": true
     },
     {
       "year": "1999",
       "artist": "Michael Schenker Group",
-      "region": "Germany",
+      "region": "Europe",
       "role": "Monitor Engineer",
       "featured": true
     },

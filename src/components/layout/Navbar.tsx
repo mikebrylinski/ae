@@ -8,7 +8,6 @@ import { cn } from '@/lib/utils'
 import { Container } from '@/components/ui/Container'
 import { MeshBackdrop } from '@/components/ui/MeshBackdrop'
 import { RackScrew } from '@/components/ui/Screws'
-import { VeganSeal } from '@/components/ui/VeganSeal'
 
 /** Hash links only light when the section hash matches. */
 function isNavActive(
@@ -295,21 +294,20 @@ export function Navbar() {
         <div className="rack-faceplate__edge" />
       </div>
 
-      <Container className="relative z-10 flex h-20 min-w-0 items-center justify-between md:h-24">
+      <Container className="relative z-10 flex h-28 min-w-0 items-center justify-between md:h-32">
         {/* Full brand block on all viewports — name above Sound Engineer, soft glow, no LED */}
-        <div className="rack-brand-wrap mr-2 min-w-0 sm:mr-4">
-          <VeganSeal />
+        <div className="rack-brand-wrap rack-brand-wrap--no-seal mr-2 min-w-0 sm:mr-4">
           <Link
             to="/"
             className="rack-brand rack-brand--glow inline-flex max-w-full min-w-0 shrink flex-col items-center gap-0.5 text-center sm:max-w-none"
             onClick={() => setOpen(false)}
           >
             <span className="rack-brand__shine" aria-hidden />
-            <span className="rack-brand__name whitespace-nowrap font-heading text-[clamp(1.05rem,4.6vw,1.35rem)] tracking-[0.08em] sm:text-2xl sm:tracking-[0.1em] lg:text-[1.65rem] xl:text-3xl">
+            <span className="rack-brand__name whitespace-nowrap font-heading text-[clamp(1.44rem,6vw,1.84rem)] tracking-[0.08em] sm:text-[2.16rem] sm:tracking-[0.1em] lg:text-[2.24rem] xl:text-[2.59rem]">
               <span className="text-white">ANDY</span>{' '}
               <span className="text-primary">EBERT</span>
             </span>
-            <span className="rack-brand__sub w-full font-heading text-[0.55rem] uppercase sm:text-[0.65rem] lg:text-[0.7rem]">
+            <span className="rack-brand__sub w-full font-heading text-[0.71rem] uppercase sm:text-[0.83rem] lg:text-[0.9rem]">
               Sound Engineer
             </span>
           </Link>

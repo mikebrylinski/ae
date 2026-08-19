@@ -32,7 +32,7 @@ export function RootLayout() {
       </a>
       <ScrollToTop />
       <Navbar />
-      <main id="main" className="relative z-0 min-w-0 flex-1 pt-20 md:pt-24">
+      <main id="main" className="relative z-0 min-w-0 flex-1 pt-28 md:pt-32">
         <Suspense fallback={<PageFallback />}>
           <PageTransition />
         </Suspense>
