@@ -296,7 +296,7 @@ export function Navbar() {
 
       <Container className="relative z-10 flex h-28 min-w-0 items-center justify-between md:h-32">
         {/* Full brand block on all viewports — name above Sound Engineer, soft glow, no LED */}
-        <div className="rack-brand-wrap rack-brand-wrap--no-seal mr-2 min-w-0 sm:mr-4">
+        <div className="rack-brand-wrap rack-brand-wrap--no-seal rack-brand-glow mr-2 min-w-0 sm:mr-4">
           <Link
             to="/"
             className="rack-brand rack-brand--glow inline-flex max-w-full min-w-0 shrink flex-col items-center gap-0.5 text-center sm:max-w-none"

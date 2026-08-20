@@ -54,19 +54,21 @@ export function Footer() {
             <div className="flex w-full max-w-full min-w-0 flex-col items-center gap-2">
               <div className="rack-brand-wrap rack-brand-wrap--lg max-w-full min-w-0">
                 <VeganSeal />
-                <Link
-                  to="/"
-                  className="rack-brand inline-flex flex-col items-center gap-0.5 text-center"
-                >
-                  <span className="rack-brand__shine" aria-hidden />
-                  <span className="rack-brand__name whitespace-nowrap font-heading text-[clamp(1.5rem,7.5vw,1.875rem)] tracking-[0.1em] sm:text-4xl sm:tracking-[0.12em] md:text-5xl">
-                    <span className="text-white">ANDY</span>{' '}
-                    <span className="text-primary">EBERT</span>
-                  </span>
-                  <span className="rack-brand__sub w-full font-heading text-[0.7rem] uppercase text-muted sm:text-xs">
-                    Sound Engineer
-                  </span>
-                </Link>
+                <span className="rack-brand-glow">
+                  <Link
+                    to="/"
+                    className="rack-brand inline-flex flex-col items-center gap-0.5 text-center"
+                  >
+                    <span className="rack-brand__shine" aria-hidden />
+                    <span className="rack-brand__name whitespace-nowrap font-heading text-[clamp(1.5rem,7.5vw,1.875rem)] tracking-[0.1em] sm:text-4xl sm:tracking-[0.12em] md:text-5xl">
+                      <span className="text-white">ANDY</span>{' '}
+                      <span className="text-primary">EBERT</span>
+                    </span>
+                    <span className="rack-brand__sub w-full font-heading text-[0.7rem] uppercase text-muted sm:text-xs">
+                      Sound Engineer
+                    </span>
+                  </Link>
+                </span>
               </div>
               <p className="rack-brand-caption font-heading text-[0.65rem] tracking-[0.18em] text-muted sm:text-[0.7rem]">
                 proudly powered by plants

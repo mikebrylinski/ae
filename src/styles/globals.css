@@ -1089,7 +1089,15 @@
     padding-right: 0;
   }
 
-  .rack-brand-wrap::before {
+  .rack-brand-glow {
+    position: relative;
+    display: inline-flex;
+    isolation: isolate;
+    z-index: 1;
+    overflow: visible;
+  }
+
+  .rack-brand-glow::before {
     content: '';
     position: absolute;
     inset: -30% -22%;
@@ -1169,13 +1177,14 @@
   }
 
   .rack-brand-wrap--lg {
-    padding-right: 3.35rem;
+    padding-right: 6.5rem;
   }
 
   .rack-brand-wrap--lg .rack-brand__vegan,
   .rack-brand-wrap--lg .rack-brand__vegan-mark {
     width: 4.75rem;
     height: 4.75rem;
+    right: 0.15rem;
   }
 
   .rack-brand-caption {
@@ -1186,7 +1195,47 @@
   }
 
   .rack-brand-wrap--lg + .rack-brand-caption {
-    padding-right: 3.35rem;
+    padding-right: 6.5rem;
+  }
+
+  @media (max-width: 767px) {
+    .rack-brand-wrap--lg {
+      flex-direction: column;
+      align-items: center;
+      padding-right: 0;
+      gap: 0;
+    }
+
+    .rack-brand-wrap--lg .rack-brand-glow {
+      order: 1;
+    }
+
+    .rack-brand-wrap--lg .rack-brand {
+      order: 1;
+    }
+
+    .rack-brand-wrap--lg .rack-brand__vegan,
+    .rack-brand-wrap--lg .rack-brand__vegan-mark {
+      position: relative;
+      right: auto;
+      top: auto;
+      order: 2;
+      width: 4.25rem;
+      height: 4.25rem;
+      transform: none;
+      margin: 1.15rem 0 1.25rem;
+    }
+
+    .rack-brand-wrap--lg:hover .rack-brand__vegan,
+    .rack-brand-wrap--lg:focus-within .rack-brand__vegan,
+    .rack-brand-wrap--lg:hover .rack-brand__vegan-mark,
+    .rack-brand-wrap--lg:focus-within .rack-brand__vegan-mark {
+      transform: scale(1.12);
+    }
+
+    .rack-brand-wrap--lg + .rack-brand-caption {
+      padding-right: 0;
+    }
   }
 
   /* Brand wordmark + subtitle — frosted glass card on mobile + desktop */
@@ -1294,7 +1343,7 @@
       animation: rack-brand-block-glow 6.5s ease-in-out infinite alternate;
     }
 
-    .rack-brand-wrap::before {
+    .rack-brand-glow::before {
       animation: rack-brand-backlight 6.5s ease-in-out infinite alternate;
     }
 
@@ -1360,11 +1409,11 @@
     }
 
     .rack-brand-wrap--lg {
-      padding-right: 4rem;
+      padding-right: 8rem;
     }
 
     .rack-brand-wrap--lg + .rack-brand-caption {
-      padding-right: 4rem;
+      padding-right: 8rem;
     }
 
     .rack-brand-caption {
@@ -1375,6 +1424,7 @@
     .rack-brand-wrap--lg .rack-brand__vegan-mark {
       width: 5.7rem;
       height: 5.7rem;
+      right: 0.25rem;
     }
 
     .rack-nav__item {
@@ -2365,7 +2415,7 @@
   flex: 1 1 auto;
   flex-direction: column;
   align-items: center;
-  width: 0.75rem;
+  width: 1.15rem;
   min-height: 0;
   height: 100%;
   overflow: visible;
@@ -2393,7 +2443,7 @@
   flex-direction: column;
   justify-content: flex-end;
   gap: 3px;
-  width: 0.75rem;
+  width: 1.15rem;
   height: auto;
   min-height: 0;
   padding: 0.28rem 0.18rem;
@@ -2546,7 +2596,7 @@
     flex: 1 1 auto;
     min-height: 0;
     height: 100%;
-    width: 0.58rem;
+    width: 0.92rem;
     gap: 0.16rem;
   }
 
@@ -2557,11 +2607,11 @@
 
   .vu-digi__track {
     flex: 1 1 auto;
-    width: 0.58rem;
+    width: 0.92rem;
     height: auto;
     min-height: 0;
     gap: 2px;
-    padding: 0.18rem 0.1rem;
+    padding: 0.18rem 0.14rem;
   }
 
   .vu-digi__fill {
@@ -3079,7 +3129,7 @@
   .rack-brand--glow,
   .rack-brand--glow .rack-brand__name,
   .rack-brand__shine::after,
-  .rack-brand-wrap::before,
+  .rack-brand-glow::before,
   .berlin-skyline__photo,
   .contact-stage__photo,
   .berlin-skyline__sweep,
@@ -3164,7 +3214,7 @@ html.is-safari .console-panel__cap {
   will-change: auto !important;
 }
 
-html.is-safari .rack-brand-wrap::before,
+html.is-safari .rack-brand-glow::before,
 html.is-safari .icon-glow-soft,
 html.is-safari .vu-meter__needle {
   filter: none !important;
@@ -3184,7 +3234,7 @@ html.is-safari .section-divider-top::before,
 html.is-safari .rack-brand--glow,
 html.is-safari .rack-brand--glow .rack-brand__name,
 html.is-safari .rack-brand__shine::after,
-html.is-safari .rack-brand-wrap::before,
+html.is-safari .rack-brand-glow::before,
 html.is-safari .berlin-skyline__photo,
 html.is-safari .contact-stage__photo,
 html.is-safari .berlin-skyline__sweep,
