@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import { RootLayout } from '@/components/layout/RootLayout'
 import { LoadingLine, LoadingMeter } from '@/components/ui/LoadingMeter'
 
@@ -45,6 +46,7 @@ export default function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
+      <Analytics />
     </BrowserRouter>
   )
 }
