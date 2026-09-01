@@ -6,16 +6,17 @@
     "year": "2012–Present",
     "role": "Monitor Engineer",
     "category": [
-      "Arena",
-      "Stadiums",
       "Amphitheaters",
-      "Festivals",
-      "TV",
+      "Arena",
       "Corporate",
+      "Festivals",
+      "Stadiums",
+      "TV",
+      "Theatres",
       "Tours"
     ],
     "featured": true,
-    "heroImage": "/images/projects/alanis-hero.jpg",
+    "heroImage": "/images/sections/services-bg.jpg",
     "thumbnail": "/images/logos/alanis-morissette.png",
     "icon": "Headphones",
     "overview": "Monitor engineer for Alanis Morissette’s continuous worldwide touring run from 2012 to present — arenas, stadiums, amphitheaters, festivals, TV, and corporate appearances.",
@@ -41,7 +42,8 @@
     ],
     "videos": [],
     "technicalNotes": "Long-form artist relationship requiring stable cueing and musical IEM balances.",
-    "logo": "/images/logos/alanis-morissette.png"
+    "logo": "/images/logos/alanis-morissette.png",
+    "cardImage": "/images/projects/cards/alanis-morissette.jpg"
   },
   {
     "slug": "the-weeknd",
@@ -50,11 +52,11 @@
     "year": "2012–2019",
     "role": "Monitor Engineer",
     "category": [
-      "Clubs",
-      "Theatres",
-      "Arena",
       "Amphitheaters",
-      "Festivals"
+      "Arena",
+      "Clubs",
+      "Festivals",
+      "Theatres"
     ],
     "featured": true,
     "heroImage": "/images/projects/weeknd-hero.jpg",
@@ -78,91 +80,124 @@
       "Consistency across worldwide venue infrastructures"
     ],
     "gallery": [
-      "/images/projects/weeknd-1.jpg",
-      "/images/projects/weeknd-2.jpg",
-      "/images/projects/weeknd-3.jpg"
+      "/images/projects/weeknd-1.jpg"
     ],
     "videos": [],
-    "logo": "/images/logos/the-weeknd.png"
+    "logo": "/images/logos/the-weeknd.png",
+    "cardImage": "/images/projects/cards/the-weeknd.jpg"
   },
   {
-    "slug": "maroon-5",
+    "slug": "adam-lambert",
     "title": "Worldwide Tours",
-    "artist": "Maroon 5",
-    "year": "2004–2005",
+    "artist": "Adam Lambert",
+    "year": "2010–2014",
     "role": "Monitor Engineer",
     "category": [
+      "Arena",
       "Clubs",
-      "Arena",
-      "Amphitheaters",
-      "Festivals"
+      "Corporate",
+      "TV",
+      "Theatres",
+      "Tours"
     ],
-    "featured": true,
-    "heroImage": "/images/projects/maroon5-hero.jpg",
-    "thumbnail": "/images/logos/maroon-5.png",
-    "icon": "Music",
-    "overview": "Monitor engineer for Maroon 5 worldwide (2004–2005) across clubs, arenas, amphitheaters, and festivals, including work covered in Live Design Magazine and the Live Friday The 13th DVD/CD credit as Monitor Engineer.",
+    "featured": false,
+    "heroImage": "/images/projects/cards/adam-lambert.jpg",
+    "thumbnail": "/images/logos/adam-lambert.png",
+    "icon": "Mic",
+    "overview": "Monitor engineer for Adam Lambert (2010–2014) across USA and worldwide arena, club, corporate, TV, theatre, and tour dates — plus FOH in Asia (2012).",
     "responsibilities": [
-      "Artist and band monitor mixes on worldwide dates",
-      "RF coordination on touring packages",
-      "Touring show consistency and cue discipline",
-      "Coordination with production and FOH"
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
     ],
-    "technicalSetup": "Touring monitor console and wireless package with Rat Sound touring support noted in contemporary press.",
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
     "equipment": [
-      "Touring Console",
-      "IEM / Wedges",
-      "Wireless Mics"
-    ],
-    "challenges": [
-      "Rapidly scaling pop arena production",
-      "Maintaining mix stability across international routing"
-    ],
-    "gallery": [
-      "/images/projects/maroon5-1.jpg",
-      "/images/projects/maroon5-2.jpg"
-    ],
-    "videos": [],
-    "logo": "/images/logos/maroon-5.png"
-  },
-  {
-    "slug": "guns-n-roses",
-    "title": "Europe & USA Tours",
-    "artist": "Guns N' Roses",
-    "year": "2006",
-    "role": "Monitor Engineer",
-    "category": [
-      "Arena",
-      "Festivals"
-    ],
-    "featured": true,
-    "heroImage": "/images/projects/gnr-hero.jpg",
-    "thumbnail": "/images/logos/guns-n-roses.png",
-    "icon": "Speaker",
-    "overview": "Monitor engineer for Guns N’ Roses across Europe and the USA in 2006 — arenas and festivals — covered in Mix Magazine’s January 2007 Guns N’ Roses tour profile and related Venue / Live Design press.",
-    "responsibilities": [
-      "Monitor mixes for a large rock production",
-      "RF coordination on touring packages",
-      "Show-file and cue management under high stage volume",
-      "Crew coordination across international routing"
-    ],
-    "technicalSetup": "Dual VENUE-era touring systems as documented in contemporary trade press.",
-    "equipment": [
-      "Analog Console",
-      "Digital Console",
+      "Digital Mixing Console",
       "IEM / Wedges",
       "Wireless Package"
     ],
     "challenges": [
-      "Large channel counts and high SPL stage environments",
-      "International venue variability"
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
     ],
-    "gallery": [
-      "/images/projects/gnr-1.jpg",
-      "/images/projects/gnr-2.jpg"
-    ],
+    "gallery": [],
     "videos": [],
-    "logo": "/images/logos/guns-n-roses.png"
+    "logo": "/images/logos/adam-lambert.png",
+    "cardImage": "/images/projects/cards/adam-lambert.jpg"
+  },
+  {
+    "slug": "usher",
+    "title": "MTV Music Awards",
+    "artist": "Usher",
+    "year": "2014",
+    "role": "Monitor Engineer",
+    "category": [
+      "TV"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/usher.jpg",
+    "thumbnail": "/images/logos/usher.png",
+    "icon": "Tv",
+    "overview": "Monitor engineer for Usher at the 2014 MTV Music Awards — television / broadcast date.",
+    "responsibilities": [
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/usher.png",
+    "cardImage": "/images/projects/cards/usher.jpg"
+  },
+  {
+    "slug": "carrie-underwood",
+    "title": "Worldwide Tours",
+    "artist": "Carrie Underwood",
+    "year": "2011",
+    "role": "Monitor Engineer",
+    "category": [
+      "Corporate",
+      "Festivals",
+      "TV",
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/carrie-underwood.jpg",
+    "thumbnail": "/images/logos/carrie-underwood.png",
+    "icon": "Mic",
+    "overview": "Monitor engineer for Carrie Underwood (2011) on USA and worldwide corporate, festival, TV, and tour dates.",
+    "responsibilities": [
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/carrie-underwood.png",
+    "cardImage": "/images/projects/cards/carrie-underwood.jpg"
   },
   {
     "slug": "stone-temple-pilots",
@@ -171,7 +206,13 @@
     "year": "2008–2011",
     "role": "Monitor Engineer",
     "category": [
+      "Amphitheaters",
       "Arena",
+      "Clubs",
+      "Corporate",
+      "Festivals",
+      "TV",
+      "Theatres",
       "Tours"
     ],
     "featured": true,
@@ -195,49 +236,125 @@
       "Multi-year touring consistency"
     ],
     "gallery": [
-      "/images/projects/stp-1.jpg",
-      "/images/projects/stp-2.jpg"
+      "/images/projects/stp-1.jpg"
     ],
     "videos": [],
-    "logo": "/images/logos/stone-temple-pilots.png"
+    "logo": "/images/logos/stone-temple-pilots.png",
+    "cardImage": "/images/projects/cards/stone-temple-pilots.jpg"
   },
   {
-    "slug": "mariah-carey",
-    "title": "Worldwide Tours",
-    "artist": "Mariah Carey",
-    "year": "2003–2004",
+    "slug": "scott-weiland",
+    "title": "USA Tours",
+    "artist": "Scott Weiland",
+    "year": "2008–2009",
+    "role": "Monitor Engineer",
+    "category": [
+      "Clubs",
+      "TV",
+      "Theatres",
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/scott-weiland.jpg",
+    "thumbnail": "/images/logos/scott-weiland.png",
+    "icon": "Mic",
+    "overview": "Monitor engineer for Scott Weiland (2008–2009) across USA clubs, TV, theatres, and tours.",
+    "responsibilities": [
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/scott-weiland.png",
+    "cardImage": "/images/projects/cards/scott-weiland.jpg"
+  },
+  {
+    "slug": "shakira",
+    "title": "USA Tours",
+    "artist": "Shakira",
+    "year": "2009",
     "role": "Monitor Engineer",
     "category": [
       "Arena",
-      "Stadiums"
+      "Festivals",
+      "TV",
+      "Tours"
     ],
     "featured": false,
-    "heroImage": "/images/projects/mariah-hero.jpg",
-    "thumbnail": "/images/logos/mariah-carey.png",
-    "icon": "AudioWaveform",
-    "overview": "Monitor engineer for Mariah Carey worldwide in 2003 and 2004 — arenas and stadiums, large-scale pop production with demanding vocal monitoring.",
+    "heroImage": "/images/projects/cards/shakira.jpg",
+    "thumbnail": "/images/logos/shakira.png",
+    "icon": "Mic",
+    "overview": "Monitor engineer for Shakira (2009) on USA arena, festival, TV, and tour dates.",
     "responsibilities": [
-      "Artist-focused monitor mixes",
-      "RF coordination on touring packages",
-      "Band and vocal cueing",
-      "Touring show consistency"
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
     ],
-    "technicalSetup": "Arena touring monitor package for worldwide pop production.",
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
     "equipment": [
-      "Analog Console",
+      "Digital Mixing Console",
       "IEM / Wedges",
-      "Wireless Mics"
+      "Wireless Package"
     ],
     "challenges": [
-      "Precision vocal monitoring under arena acoustics",
-      "High-production changeovers"
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
     ],
-    "gallery": [
-      "/images/projects/mariah-1.jpg",
-      "/images/projects/mariah-2.jpg"
-    ],
+    "gallery": [],
     "videos": [],
-    "logo": "/images/logos/mariah-carey.png"
+    "logo": "/images/logos/shakira.png",
+    "cardImage": "/images/projects/cards/shakira.jpg"
+  },
+  {
+    "slug": "sugar-ray",
+    "title": "USA Tours",
+    "artist": "Sugar Ray",
+    "year": "2004, 2009",
+    "role": "Monitor Engineer",
+    "category": [
+      "Amphitheaters",
+      "Corporate",
+      "Festivals",
+      "TV"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/sugar-ray.jpg",
+    "thumbnail": "/images/logos/sugar-ray.png",
+    "icon": "Music",
+    "overview": "Monitor engineer for Sugar Ray (2004, 2009) across USA amphitheaters, corporate, festivals, and TV.",
+    "responsibilities": [
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/sugar-ray.png",
+    "cardImage": "/images/projects/cards/sugar-ray.jpg"
   },
   {
     "slug": "neil-young",
@@ -246,8 +363,9 @@
     "year": "2007–2008",
     "role": "Monitor Engineer",
     "category": [
+      "Amphitheaters",
       "Theatres",
-      "Arena"
+      "Tours"
     ],
     "featured": false,
     "heroImage": "/images/projects/neil-young-hero.jpg",
@@ -274,7 +392,43 @@
     ],
     "videos": [],
     "technicalNotes": "Flown SF in precise position were Neil’s only monitors.",
-    "logo": "/images/logos/neil-young-velvet-revolver.png"
+    "logo": "/images/logos/neil-young-velvet-revolver.png",
+    "cardImage": "/images/projects/cards/neil-young.jpg"
+  },
+  {
+    "slug": "operator",
+    "title": "USA Tours",
+    "artist": "Operator",
+    "year": "2007",
+    "role": "FOH Engineer",
+    "category": [
+      "Clubs",
+      "Festivals",
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/operator-hero.jpg",
+    "thumbnail": "/images/logos/operator.png",
+    "icon": "Speaker",
+    "overview": "FOH engineer for Operator (2007) on USA club, festival, and tour dates.",
+    "responsibilities": [
+      "Front-of-house mix for artist and production",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "FOH PA"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/operator.png"
   },
   {
     "slug": "velvet-revolver",
@@ -285,10 +439,12 @@
     "category": [
       "Amphitheaters",
       "Arena",
-      "Festivals"
+      "Festivals",
+      "TV",
+      "Tours"
     ],
     "featured": false,
-    "heroImage": "/images/projects/neil-young-2.jpg",
+    "heroImage": "/images/projects/cards/velvet-revolver.jpg",
     "thumbnail": "/images/logos/neil-young-velvet-revolver.png",
     "icon": "Radio",
     "overview": "Monitor engineer for Velvet Revolver (USA 2007) across amphitheaters, arenas, and festivals, with coverage in Mix Magazine and related tour profiles.",
@@ -306,47 +462,907 @@
       "High-SPL rock stages",
       "FX balance for Scott Weiland’s vocal mix"
     ],
-    "gallery": [
-      "/images/projects/neil-young-2.jpg"
-    ],
+    "gallery": [],
     "videos": [],
-    "logo": "/images/logos/neil-young-velvet-revolver.png"
+    "logo": "/images/logos/neil-young-velvet-revolver.png",
+    "cardImage": "/images/projects/cards/velvet-revolver.jpg"
   },
   {
-    "slug": "european-festivals-early-tours",
-    "title": "Festivals & Early European Tours",
-    "artist": "Multi-Act · Gospel · Rock",
-    "year": "1997–2003",
-    "role": "Monitor / FOH Engineer",
+    "slug": "guns-n-roses",
+    "title": "Europe & USA Tours",
+    "artist": "Guns N' Roses",
+    "year": "2006",
+    "role": "Monitor Engineer",
     "category": [
+      "Arena",
+      "Clubs",
+      "Festivals",
+      "Theatres",
+      "Tours"
+    ],
+    "featured": true,
+    "heroImage": "/images/projects/gnr-hero.jpg",
+    "thumbnail": "/images/logos/guns-n-roses.png",
+    "icon": "Speaker",
+    "overview": "Monitor engineer for Guns N’ Roses across Europe and the USA in 2006 — arenas and festivals — covered in Mix Magazine’s January 2007 Guns N’ Roses tour profile and related Venue / Live Design press.",
+    "responsibilities": [
+      "Monitor mixes for a large rock production",
+      "RF coordination on touring packages",
+      "Show-file and cue management under high stage volume",
+      "Crew coordination across international routing"
+    ],
+    "technicalSetup": "Dual VENUE-era touring systems as documented in contemporary trade press.",
+    "equipment": [
+      "Analog Console",
+      "Digital Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Large channel counts and high SPL stage environments",
+      "International venue variability"
+    ],
+    "gallery": [
+      "/images/projects/gnr-1.jpg"
+    ],
+    "videos": [],
+    "logo": "/images/logos/guns-n-roses.png",
+    "cardImage": "/images/projects/cards/guns-n-roses.jpg"
+  },
+  {
+    "slug": "maroon-5",
+    "title": "Worldwide Tours",
+    "artist": "Maroon 5",
+    "year": "2004–2005",
+    "role": "Monitor Engineer",
+    "category": [
+      "Amphitheaters",
+      "Arena",
+      "Clubs",
+      "Corporate",
+      "Festivals",
+      "TV",
+      "Theatres",
+      "Tours"
+    ],
+    "featured": true,
+    "heroImage": "/images/projects/maroon5-hero.jpg",
+    "thumbnail": "/images/logos/maroon-5.png",
+    "icon": "Music",
+    "overview": "Monitor engineer for Maroon 5 worldwide (2004–2005) across clubs, arenas, amphitheaters, and festivals, including work covered in Live Design Magazine and the Live Friday The 13th DVD/CD credit as Monitor Engineer.",
+    "responsibilities": [
+      "Artist and band monitor mixes on worldwide dates",
+      "RF coordination on touring packages",
+      "Touring show consistency and cue discipline",
+      "Coordination with production and FOH"
+    ],
+    "technicalSetup": "Touring monitor console and wireless package with Rat Sound touring support noted in contemporary press.",
+    "equipment": [
+      "Touring Console",
+      "IEM / Wedges",
+      "Wireless Mics"
+    ],
+    "challenges": [
+      "Rapidly scaling pop arena production",
+      "Maintaining mix stability across international routing"
+    ],
+    "gallery": [
+      "/images/projects/maroon5-1.jpg"
+    ],
+    "videos": [],
+    "logo": "/images/logos/maroon-5.png",
+    "cardImage": "/images/projects/cards/maroon-5.jpg"
+  },
+  {
+    "slug": "red-hot-chili-peppers",
+    "title": "USA Tours",
+    "artist": "Red Hot Chili Peppers",
+    "year": "2004–2005",
+    "role": "Monitor Engineer",
+    "category": [
+      "Festivals",
+      "Stadiums"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/red-hot-chili-peppers.jpg",
+    "thumbnail": "/images/logos/red-hot-chili-peppers.png",
+    "icon": "Music",
+    "overview": "Monitor engineer for Red Hot Chili Peppers (2004–2005) on USA festival and stadium dates.",
+    "responsibilities": [
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/red-hot-chili-peppers.png",
+    "cardImage": "/images/projects/cards/red-hot-chili-peppers.jpg"
+  },
+  {
+    "slug": "foo-fighters",
+    "title": "Festival / One-off",
+    "artist": "Foo Fighters",
+    "year": "2004",
+    "role": "Monitor Engineer",
+    "category": [
+      "Festivals"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/foo-fighters.jpg",
+    "thumbnail": "/images/logos/foo-fighters.png",
+    "icon": "Speaker",
+    "overview": "Monitor engineer for Foo Fighters (2004) on a USA festival / one-off date.",
+    "responsibilities": [
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/foo-fighters.png",
+    "cardImage": "/images/projects/cards/foo-fighters.jpg"
+  },
+  {
+    "slug": "mariah-carey",
+    "title": "Worldwide Tours",
+    "artist": "Mariah Carey",
+    "year": "2003–2004",
+    "role": "Monitor Engineer",
+    "category": [
+      "Arena",
+      "Stadiums",
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/mariah-hero.jpg",
+    "thumbnail": "/images/logos/mariah-carey.png",
+    "icon": "AudioWaveform",
+    "overview": "Monitor engineer for Mariah Carey worldwide in 2003 and 2004 — arenas and stadiums, large-scale pop production with demanding vocal monitoring.",
+    "responsibilities": [
+      "Artist-focused monitor mixes",
+      "RF coordination on touring packages",
+      "Band and vocal cueing",
+      "Touring show consistency"
+    ],
+    "technicalSetup": "Arena touring monitor package for worldwide pop production.",
+    "equipment": [
+      "Analog Console",
+      "IEM / Wedges",
+      "Wireless Mics"
+    ],
+    "challenges": [
+      "Precision vocal monitoring under arena acoustics",
+      "High-production changeovers"
+    ],
+    "gallery": [
+      "/images/projects/mariah-1.jpg"
+    ],
+    "videos": [],
+    "logo": "/images/logos/mariah-carey.png",
+    "cardImage": "/images/projects/cards/mariah-carey.jpg"
+  },
+  {
+    "slug": "harlem-gospel-singers",
+    "title": "Europe Tours",
+    "artist": "Harlem Gospel Singers",
+    "year": "2000–2003",
+    "role": "Monitor Engineer",
+    "category": [
+      "Arena",
+      "Theatres",
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/harlem-gospel-singers.jpg",
+    "thumbnail": "/images/logos/harlem-gospel-singers.png",
+    "icon": "Music",
+    "overview": "Monitor engineer for the Harlem Gospel Singers (2000–2003) across European arenas, theatres, and tours.",
+    "responsibilities": [
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/harlem-gospel-singers.png",
+    "cardImage": "/images/projects/cards/harlem-gospel-singers.jpg"
+  },
+  {
+    "slug": "puddle-of-mudd",
+    "title": "Worldwide Tours",
+    "artist": "Puddle Of Mudd",
+    "year": "2002–2003",
+    "role": "Monitor Engineer",
+    "category": [
+      "Amphitheaters",
+      "Arena",
+      "Clubs",
+      "Festivals",
+      "TV",
+      "Theatres",
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/puddle-of-mudd.jpg",
+    "thumbnail": "/images/logos/puddle-of-mudd.png",
+    "icon": "Guitar",
+    "overview": "Monitor engineer for Puddle Of Mudd (2002–2003) on USA and worldwide amphitheater, arena, club, festival, TV, theatre, and tour dates.",
+    "responsibilities": [
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/puddle-of-mudd.png",
+    "cardImage": "/images/projects/cards/puddle-of-mudd.jpg"
+  },
+  {
+    "slug": "rem",
+    "title": "Europe Tours",
+    "artist": "REM",
+    "year": "2003",
+    "role": "Monitor Engineer",
+    "category": [
+      "Arena",
+      "Clubs",
+      "Festivals",
+      "Stadiums",
+      "Theatres",
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/rem.jpg",
+    "thumbnail": "/images/logos/rem.png",
+    "icon": "Music",
+    "overview": "Monitor engineer for R.E.M. (2003) across European arenas, clubs, festivals, stadiums, theatres, and tours.",
+    "responsibilities": [
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/rem.png",
+    "cardImage": "/images/projects/cards/rem.jpg"
+  },
+  {
+    "slug": "ute-lemper",
+    "title": "Philharmonie / Orchestral",
+    "artist": "Ute Lemper",
+    "year": "2003",
+    "role": "FOH Engineer",
+    "category": [
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/ute-lemper.jpg",
+    "thumbnail": "/images/logos/ute-lemper.png",
+    "icon": "AudioWaveform",
+    "overview": "FOH engineer for Ute Lemper with Tapiola Orchester (2003) — Philharmonie / orchestral dates in Europe.",
+    "responsibilities": [
+      "Front-of-house mix for artist and production",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "FOH PA"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/ute-lemper.png",
+    "technicalNotes": "Philharmonie / orchestral FOH.",
+    "cardImage": "/images/projects/cards/ute-lemper.jpg"
+  },
+  {
+    "slug": "zwan",
+    "title": "Europe Tours",
+    "artist": "Zwan",
+    "year": "2003",
+    "role": "Monitor Engineer",
+    "category": [
+      "Clubs",
       "Festivals",
       "Tours"
     ],
     "featured": false,
-    "heroImage": "/images/projects/festivals-hero.jpg",
-    "thumbnail": "/images/logos/festivals.png",
-    "icon": "Disc3",
-    "overview": "Career foundations across European Gospel touring (FOH from 1997), Modern Talking arena monitors (1999), Expo 2000, Rock am Ring, Wacken (local Festival monitor engineer), and monitor engineer for Dream Theater, R.E.M., Puddle of Mudd, Harlem Gospel Singers, and more — leading to Audio-Rent Clair work and his first US work visa in 2003.",
+    "heroImage": "/images/projects/cards/zwan.jpg",
+    "thumbnail": "/images/logos/zwan.png",
+    "icon": "Guitar",
+    "overview": "Monitor engineer for Zwan (2003) on European club, festival, and tour dates.",
     "responsibilities": [
-      "Festival and tour monitor / FOH mixing",
-      "RF coordination across festival and tour packages",
-      "Rapid changeovers on multi-act bills",
-      "Learning curve from churches to arenas"
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
     ],
-    "technicalSetup": "Vendor and festival-provided systems across German and European venues.",
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
     "equipment": [
-      "Analog / Digital Consoles",
-      "IEM / Wedges"
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
     ],
     "challenges": [
-      "Shared festival infrastructure and tight changeovers",
-      "Wide range of genres and stage plots"
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
     ],
-    "gallery": [
-      "/images/projects/festivals-1.jpg",
-      "/images/projects/festivals-2.jpg"
-    ],
+    "gallery": [],
     "videos": [],
-    "logo": "/images/logos/festivals.png"
+    "logo": "/images/logos/zwan.png",
+    "cardImage": "/images/projects/cards/zwan.jpg"
+  },
+  {
+    "slug": "dream-theater",
+    "title": "Europe Tours",
+    "artist": "Dream Theater",
+    "year": "2002",
+    "role": "Monitor Engineer",
+    "category": [
+      "Amphitheaters",
+      "Arena",
+      "Clubs",
+      "Festivals",
+      "Theatres",
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/dream-theater.jpg",
+    "thumbnail": "/images/logos/dream-theater.png",
+    "icon": "Disc3",
+    "overview": "Monitor engineer for Dream Theater (2002) across European amphitheaters, arenas, clubs, festivals, theatres, and tours.",
+    "responsibilities": [
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/dream-theater.png",
+    "cardImage": "/images/projects/cards/dream-theater.jpg"
+  },
+  {
+    "slug": "golden-gospel-singers",
+    "title": "Europe Gospel Tour",
+    "artist": "Golden Gospel Singers",
+    "year": "1997–2000",
+    "role": "FOH Engineer",
+    "category": [
+      "Theatres",
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/golden-gospel-singers.jpg",
+    "thumbnail": "/images/logos/golden-gospel-singers.png",
+    "icon": "Music",
+    "overview": "FOH engineer for the Golden Gospel Singers (1997–2000) on early European theatre and tour dates, including churches.",
+    "responsibilities": [
+      "Front-of-house mix for artist and production",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Analog Console",
+      "FOH PA"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/golden-gospel-singers.png",
+    "technicalNotes": "Churches and theatres on early European gospel tours.",
+    "cardImage": "/images/projects/cards/golden-gospel-singers.jpg"
+  },
+  {
+    "slug": "glenn-hughes",
+    "title": "Europe Tours",
+    "artist": "Glenn Hughes",
+    "year": "1999",
+    "role": "Monitor Engineer",
+    "category": [
+      "Clubs",
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/glenn-hughes.jpg",
+    "thumbnail": "/images/logos/glenn-hughes.png",
+    "icon": "Mic",
+    "overview": "Monitor engineer for Glenn Hughes (1999) on European club and tour dates.",
+    "responsibilities": [
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/glenn-hughes.png",
+    "cardImage": "/images/projects/cards/glenn-hughes.jpg"
+  },
+  {
+    "slug": "michael-schenker-group",
+    "title": "Europe Tours",
+    "artist": "Michael Schenker Group",
+    "year": "1999",
+    "role": "Monitor Engineer",
+    "category": [
+      "Clubs",
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/michael-schenker-group.jpg",
+    "thumbnail": "/images/logos/michael-schenker-group.png",
+    "icon": "Guitar",
+    "overview": "Monitor engineer for the Michael Schenker Group (1999) on European club and tour dates.",
+    "responsibilities": [
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/michael-schenker-group.png",
+    "cardImage": "/images/projects/cards/michael-schenker-group.jpg"
+  },
+  {
+    "slug": "modern-talking",
+    "title": "Europe Tours",
+    "artist": "Modern Talking",
+    "year": "1999",
+    "role": "Monitor Engineer",
+    "category": [
+      "Arena",
+      "Corporate",
+      "Theatres",
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/modern-talking.jpg",
+    "thumbnail": "/images/logos/modern-talking.png",
+    "icon": "Music",
+    "overview": "Monitor engineer for Modern Talking (1999) across European arenas, corporate, theatres, and tours.",
+    "responsibilities": [
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/modern-talking.png",
+    "cardImage": "/images/projects/cards/modern-talking.jpg"
+  },
+  {
+    "slug": "momix-tarkan",
+    "title": "Europe Dates",
+    "artist": "Momix · Tarkan",
+    "year": "1999",
+    "role": "Monitor / FOH Engineer",
+    "category": [
+      "Theatres",
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/momix-tarkan.jpg",
+    "thumbnail": "/images/logos/momix-tarkan.png",
+    "icon": "Disc3",
+    "overview": "Monitor / FOH engineer for Momix (FOH, Germany) and Tarkan (monitors, Europe) in 1999 — theatres and tours.",
+    "responsibilities": [
+      "Front-of-house mix for artist and production",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/momix-tarkan.png",
+    "cardImage": "/images/projects/cards/momix-tarkan.jpg"
+  },
+  {
+    "slug": "al-bano-carrisi",
+    "title": "Europe Tours",
+    "artist": "Al Bano Carrisi",
+    "year": "2002",
+    "role": "Monitor Engineer",
+    "category": [
+      "Arena",
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/al-bano-carrisi.jpg",
+    "thumbnail": "/images/logos/al-bano-carrisi.png",
+    "icon": "Mic",
+    "overview": "Monitor engineer for Al Bano Carrisi (2002) on European arena and tour dates.",
+    "responsibilities": [
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/al-bano-carrisi.png",
+    "cardImage": "/images/projects/cards/al-bano-carrisi.jpg"
+  },
+  {
+    "slug": "quantum-world",
+    "title": "USA Tours",
+    "artist": "Quantum World",
+    "year": "2004",
+    "role": "Monitor Engineer",
+    "category": [
+      "Clubs",
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/quantum-world.jpg",
+    "thumbnail": "/images/logos/quantum-world.png",
+    "icon": "Radio",
+    "overview": "Monitor engineer for Quantum World (2004) on USA club and tour dates.",
+    "responsibilities": [
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/quantum-world.png",
+    "cardImage": "/images/projects/cards/quantum-world.jpg"
+  },
+  {
+    "slug": "alice-in-chains",
+    "title": "Reunion Rehearsals",
+    "artist": "Alice In Chains",
+    "year": "2006",
+    "role": "Monitor Engineer",
+    "category": [
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/alice-in-chains.jpg",
+    "thumbnail": "/images/logos/alice-in-chains.png",
+    "icon": "Guitar",
+    "overview": "Monitor engineer for Alice In Chains (2006) — USA reunion rehearsal work.",
+    "responsibilities": [
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/alice-in-chains.png",
+    "technicalNotes": "Reunion rehearsals.",
+    "cardImage": "/images/projects/cards/alice-in-chains.jpg"
+  },
+  {
+    "slug": "sebastian-bach",
+    "title": "USA Tours",
+    "artist": "Sebastian Bach",
+    "year": "2006",
+    "role": "Monitor Engineer",
+    "category": [
+      "Arena",
+      "Clubs",
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/sebastian-bach.jpg",
+    "thumbnail": "/images/logos/sebastian-bach.png",
+    "icon": "Mic",
+    "overview": "Monitor engineer for Sebastian Bach (2006) on USA arena, club, and tour dates.",
+    "responsibilities": [
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/sebastian-bach.png",
+    "cardImage": "/images/projects/cards/sebastian-bach.jpg"
+  },
+  {
+    "slug": "enrique-iglesias",
+    "title": "TV / One-off",
+    "artist": "Enrique Iglesias",
+    "year": "2007",
+    "role": "Monitor Engineer",
+    "category": [
+      "TV"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/enrique-iglesias.jpg",
+    "thumbnail": "/images/logos/enrique-iglesias.png",
+    "icon": "Tv",
+    "overview": "Monitor engineer for Enrique Iglesias (2007) on a USA TV / one-off date.",
+    "responsibilities": [
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/enrique-iglesias.png",
+    "cardImage": "/images/projects/cards/enrique-iglesias.jpg"
+  },
+  {
+    "slug": "black-rebel-motorcycle-club",
+    "title": "USA Tours",
+    "artist": "Black Rebel Motorcycle Club",
+    "year": "2010",
+    "role": "Monitor Engineer",
+    "category": [
+      "Amphitheaters",
+      "Arena",
+      "Festivals",
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/black-rebel-motorcycle-club.jpg",
+    "thumbnail": "/images/logos/black-rebel-motorcycle-club.png",
+    "icon": "Guitar",
+    "overview": "Monitor engineer for Black Rebel Motorcycle Club (2010) across USA amphitheaters, arenas, festivals, and tours.",
+    "responsibilities": [
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/black-rebel-motorcycle-club.png",
+    "cardImage": "/images/projects/cards/black-rebel-motorcycle-club.jpg"
+  },
+  {
+    "slug": "local-natives",
+    "title": "USA Tours",
+    "artist": "Local Natives",
+    "year": "2013",
+    "role": "Monitor Consultant & Engineer",
+    "category": [
+      "Corporate",
+      "Festivals"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/local-natives.jpg",
+    "thumbnail": "/images/logos/local-natives.png",
+    "icon": "Headphones",
+    "overview": "Monitor consultant and engineer for Local Natives (2013) on USA corporate and festival dates.",
+    "responsibilities": [
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/local-natives.png",
+    "cardImage": "/images/projects/cards/local-natives.jpg"
+  },
+  {
+    "slug": "travis-scott",
+    "title": "USA Tours",
+    "artist": "Travis Scott",
+    "year": "2016",
+    "role": "Monitor Engineer",
+    "category": [
+      "Arena",
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/projects/cards/travis-scott.jpg",
+    "thumbnail": "/images/logos/travis-scott.png",
+    "icon": "Mic",
+    "overview": "Monitor engineer for Travis Scott (2016) on USA arena and tour dates.",
+    "responsibilities": [
+      "Artist and band monitor mixes",
+      "Show-file and cue management",
+      "Coordination with production and FOH / monitors",
+      "RF coordination on touring packages"
+    ],
+    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
+    "equipment": [
+      "Digital Mixing Console",
+      "IEM / Wedges",
+      "Wireless Package"
+    ],
+    "challenges": [
+      "Venue-to-venue consistency on touring schedules",
+      "Dense wireless and high-SPL stage environments"
+    ],
+    "gallery": [],
+    "videos": [],
+    "logo": "/images/logos/travis-scott.png",
+    "cardImage": "/images/projects/cards/travis-scott.jpg"
   }
 ]

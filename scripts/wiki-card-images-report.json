@@ -1,0 +1,176 @@
+[
+  {
+    "slug": "stone-temple-pilots",
+    "artist": "Stone Temple Pilots",
+    "ok": true,
+    "page": "Stone Temple Pilots"
+  },
+  {
+    "slug": "scott-weiland",
+    "artist": "Scott Weiland",
+    "ok": true,
+    "page": "Scott Weiland"
+  },
+  {
+    "slug": "shakira",
+    "artist": "Shakira",
+    "ok": true,
+    "page": "Shakira"
+  },
+  {
+    "slug": "neil-young",
+    "artist": "Neil Young",
+    "ok": true,
+    "page": "Neil Young"
+  },
+  {
+    "slug": "operator",
+    "artist": "Operator",
+    "ok": true,
+    "page": "Dan Boeckner"
+  },
+  {
+    "slug": "velvet-revolver",
+    "artist": "Velvet Revolver",
+    "ok": true,
+    "page": "Velvet Revolver"
+  },
+  {
+    "slug": "guns-n-roses",
+    "artist": "Guns N' Roses",
+    "ok": true,
+    "page": "Guns N' Roses"
+  },
+  {
+    "slug": "maroon-5",
+    "artist": "Maroon 5",
+    "ok": true,
+    "page": "Maroon 5"
+  },
+  {
+    "slug": "red-hot-chili-peppers",
+    "artist": "Red Hot Chili Peppers",
+    "ok": true,
+    "page": "Red Hot Chili Peppers"
+  },
+  {
+    "slug": "foo-fighters",
+    "artist": "Foo Fighters",
+    "ok": true,
+    "page": "Foo Fighters"
+  },
+  {
+    "slug": "harlem-gospel-singers",
+    "artist": "Harlem Gospel Singers",
+    "ok": false,
+    "reason": "no image"
+  },
+  {
+    "slug": "puddle-of-mudd",
+    "artist": "Puddle Of Mudd",
+    "ok": true,
+    "page": "Puddle of Mudd"
+  },
+  {
+    "slug": "rem",
+    "artist": "REM",
+    "ok": true,
+    "page": "R.E.M."
+  },
+  {
+    "slug": "ute-lemper",
+    "artist": "Ute Lemper",
+    "ok": true,
+    "page": "Ute Lemper"
+  },
+  {
+    "slug": "zwan",
+    "artist": "Zwan",
+    "ok": true,
+    "page": "Zwan"
+  },
+  {
+    "slug": "dream-theater",
+    "artist": "Dream Theater",
+    "ok": true,
+    "page": "Dream Theater"
+  },
+  {
+    "slug": "golden-gospel-singers",
+    "artist": "Golden Gospel Singers",
+    "ok": true,
+    "page": "Gospel music"
+  },
+  {
+    "slug": "glenn-hughes",
+    "artist": "Glenn Hughes",
+    "ok": true,
+    "page": "Glenn Hughes (musician)"
+  },
+  {
+    "slug": "michael-schenker-group",
+    "artist": "Michael Schenker Group",
+    "ok": true,
+    "page": "Michael Schenker"
+  },
+  {
+    "slug": "modern-talking",
+    "artist": "Modern Talking",
+    "ok": true,
+    "page": "Modern Talking"
+  },
+  {
+    "slug": "momix-tarkan",
+    "artist": "Momix · Tarkan",
+    "ok": true,
+    "page": "Momina Mustehsan"
+  },
+  {
+    "slug": "al-bano-carrisi",
+    "artist": "Al Bano Carrisi",
+    "ok": true,
+    "page": "Albano Carrisi"
+  },
+  {
+    "slug": "quantum-world",
+    "artist": "Quantum World",
+    "ok": true,
+    "page": "DJ Shadow"
+  },
+  {
+    "slug": "alice-in-chains",
+    "artist": "Alice In Chains",
+    "ok": true,
+    "page": "Alice in Chains"
+  },
+  {
+    "slug": "sebastian-bach",
+    "artist": "Sebastian Bach",
+    "ok": true,
+    "page": "Sebastian Bach"
+  },
+  {
+    "slug": "enrique-iglesias",
+    "artist": "Enrique Iglesias",
+    "ok": true,
+    "page": "Enrique Iglesias"
+  },
+  {
+    "slug": "black-rebel-motorcycle-club",
+    "artist": "Black Rebel Motorcycle Club",
+    "ok": true,
+    "page": "Black Rebel Motorcycle Club"
+  },
+  {
+    "slug": "local-natives",
+    "artist": "Local Natives",
+    "ok": true,
+    "page": "Local Natives"
+  },
+  {
+    "slug": "travis-scott",
+    "artist": "Travis Scott",
+    "ok": true,
+    "page": "Travis Scott"
+  }
+]

@@ -22,6 +22,8 @@ export interface Project {
   featured: boolean
   heroImage: string
   thumbnail: string
+  /** Local Wikipedia-sourced photo used as Project Spotlight card background. */
+  cardImage?: string
   /** Lucide icon name for featured / portfolio cards. */
   icon?: string
   /** Artist logo mark — shown on project detail pages only, not on cards. */

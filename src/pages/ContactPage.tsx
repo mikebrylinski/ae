@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { site } from '@/lib/content'
+import { submitContactForm } from '@/lib/contactApi'
 import { Container } from '@/components/ui/Container'
 import { Input } from '@/components/ui/Input'
 import { Textarea } from '@/components/ui/Textarea'
@@ -10,10 +11,6 @@ import { useSeo } from '@/hooks/useSeo'
 import { cn } from '@/lib/utils'
 import { VuPlate } from '@/components/ui/VuPlate'
 
-/**
- * Contact form is UI-only for now.
- * Future: POST to Contact API (see src/lib/cms.ts TODO).
- */
 export default function ContactPage() {
   useSeo({
     title: 'Contact',
@@ -24,15 +21,32 @@ export default function ContactPage() {
   const reduced = useReducedMotion()
   const [submitted, setSubmitted] = useState(false)
   const [pending, setPending] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    setError(null)
     setPending(true)
-    // Stub for future Contact API
-    window.setTimeout(() => {
-      setPending(false)
-      setSubmitted(true)
-    }, 600)
+
+    const form = e.currentTarget
+    const data = new FormData(form)
+
+    const result = await submitContactForm({
+      name: String(data.get('name') ?? ''),
+      email: String(data.get('email') ?? ''),
+      subject: String(data.get('subject') ?? ''),
+      message: String(data.get('message') ?? ''),
+    })
+
+    setPending(false)
+
+    if (!result.ok) {
+      setError(result.message ?? 'Could not send message. Please email directly.')
+      return
+    }
+
+    form.reset()
+    setSubmitted(true)
   }
 
   return (
@@ -89,11 +103,11 @@ export default function ContactPage() {
               {submitted ? (
                 <div role="status" className="py-12 text-center lg:text-left">
                   <p className="font-heading text-2xl tracking-[0.08em] text-primary">
-                    Message Ready
+                    Message Sent
                   </p>
                   <p className="mt-4 text-sm text-muted">
-                    Thanks for reaching out. This form is a UI preview — wire the
-                    Contact API to send messages live.
+                    Thanks for reaching out. Your message was sent to{' '}
+                    {site.email}. Andy will get back to you soon.
                   </p>
                   <Button
                     type="button"
@@ -157,12 +171,22 @@ export default function ContactPage() {
                       className="contact-field"
                     />
                   </div>
+
+                  {error ? (
+                    <p role="alert" className="text-sm text-red-400">
+                      {error}{' '}
+                      <a
+                        href={`mailto:${site.email}`}
+                        className="underline hover:text-primary"
+                      >
+                        Email {site.email}
+                      </a>
+                    </p>
+                  ) : null}
+
                   <Button type="submit" size="lg" className="w-full" disabled={pending}>
                     {pending ? 'Sending…' : 'Send Message'}
                   </Button>
-                  <p className="text-xs text-muted">
-                    Form is UI-only until the Contact API is connected.
-                  </p>
                 </form>
               )}
             </div>

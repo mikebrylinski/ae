@@ -2,6 +2,27 @@
   "intro": "You can download any list, layout and chart as a PDF file, free of charge.",
   "categories": [
     {
+      "id": "blank-templates",
+      "title": "Blank Templates",
+      "description": "Blank input and monitor output list templates ready to fill in.",
+      "items": [
+        {
+          "id": "blank-input-list",
+          "label": "Blank Input List",
+          "description": "Empty input list template.",
+          "href": "/downloads/AE-blank-Input-list.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "blank-monitor-outputs-list",
+          "label": "Blank Monitor Outputs List",
+          "description": "Empty monitor outputs list template.",
+          "href": "/downloads/AE-blank-Monitor-Outputs-list.pdf",
+          "type": "PDF"
+        }
+      ]
+    },
+    {
       "id": "input-lists",
       "title": "Input Lists",
       "description": "Channel input lists and stage plots for common console sizes.",

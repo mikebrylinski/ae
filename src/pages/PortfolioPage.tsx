@@ -1,10 +1,17 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { experience, getAllCategories, getProjectsByCategory } from '@/lib/content'
+import {
+  experience,
+  getProjectsByCategory,
+  SPOTLIGHT_FILTERS,
+} from '@/lib/content'
 import { Container } from '@/components/ui/Container'
 import { MediaImage } from '@/components/ui/MediaImage'
 import { ProjectCard } from '@/components/sections/ProjectCard'
-import { CreditsTimeline } from '@/components/sections/CreditsTimeline'
+import {
+  CAREER_CREDITS_SECTION_ID,
+  CreditsTimeline,
+} from '@/components/sections/CreditsTimeline'
 import { CTABanner } from '@/components/sections/CTABanner'
 import { fadeUp, reducedMotionVariants, staggerContainer } from '@/lib/motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
@@ -13,6 +20,7 @@ import { useSeo } from '@/hooks/useSeo'
 import { VuPlate } from '@/components/ui/VuPlate'
 
 const HERO_IMAGE_SRC = '/images/portfolio/console.jpg'
+const SPOTLIGHT_PREVIEW_COUNT = 20
 
 export default function PortfolioPage() {
   useSeo({
@@ -23,9 +31,16 @@ export default function PortfolioPage() {
 
   const reduced = useReducedMotion()
   const item = reduced ? reducedMotionVariants : fadeUp
-  const categories = useMemo(() => getAllCategories(), [])
-  const [active, setActive] = useState('All')
+  const [active, setActive] = useState<(typeof SPOTLIGHT_FILTERS)[number]>('All')
+  const [showAll, setShowAll] = useState(false)
   const filtered = getProjectsByCategory(active)
+  const hasMore = filtered.length > SPOTLIGHT_PREVIEW_COUNT
+  const visible = showAll ? filtered : filtered.slice(0, SPOTLIGHT_PREVIEW_COUNT)
+
+  function handleFilterChange(cat: (typeof SPOTLIGHT_FILTERS)[number]) {
+    setActive(cat)
+    setShowAll(false)
+  }
 
   return (
     <>
@@ -44,9 +59,8 @@ export default function PortfolioPage() {
               </h1>
               <p className="mt-4 max-w-2xl text-muted">
                 Selected arena, stadium, amphitheater, festival, TV, and
-                corporate credits — consecutive years collapsed into ranges.
-                Alanis Morissette, The Weeknd, Maroon 5, Guns N’ Roses, and
-                more.
+                corporate credits. Alanis Morissette, The Weeknd, Maroon 5,
+                Guns N’ Roses, and more.
               </p>
               {experience.award ? (
                 <p className="font-heading mt-6 max-w-2xl text-sm tracking-[0.12em] text-primary">
@@ -81,13 +95,13 @@ export default function PortfolioPage() {
               role="tablist"
               aria-label="Filter by category"
             >
-              {categories.map((cat) => (
+              {SPOTLIGHT_FILTERS.map((cat) => (
                 <button
                   key={cat}
                   type="button"
                   role="tab"
                   aria-selected={active === cat}
-                  onClick={() => setActive(cat)}
+                  onClick={() => handleFilterChange(cat)}
                   className={cn(
                     'font-heading border px-4 py-2 text-xs tracking-[0.14em] uppercase transition-colors',
                     active === cat
@@ -100,22 +114,50 @@ export default function PortfolioPage() {
               ))}
             </div>
 
-            <ul className="mt-8 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-5 lg:grid-cols-4">
-              {filtered.map((project) => (
-                <li key={project.slug}>
-                  <ProjectCard project={project} />
-                </li>
-              ))}
-            </ul>
+            {filtered.length > 0 ? (
+              <>
+                <ul className="mt-8 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-5 lg:grid-cols-4">
+                  {visible.map((project) => (
+                    <li key={project.slug}>
+                      <ProjectCard project={project} />
+                    </li>
+                  ))}
+                </ul>
 
-            {filtered.length === 0 ? (
-              <p className="mt-12 text-muted">No projects in this category yet.</p>
-            ) : null}
+                {hasMore ? (
+                  <div className="mt-8 flex justify-center sm:mt-10">
+                    <button
+                      type="button"
+                      onClick={() => setShowAll((current) => !current)}
+                      className="font-heading border border-primary px-5 py-2.5 text-xs tracking-[0.14em] text-primary uppercase transition-colors hover:bg-primary hover:text-primary-foreground"
+                      aria-expanded={showAll}
+                    >
+                      {showAll
+                        ? 'Show less'
+                        : `Show more (${filtered.length - SPOTLIGHT_PREVIEW_COUNT})`}
+                    </button>
+                  </div>
+                ) : null}
+              </>
+            ) : (
+              <div
+                className="spotlight-empty-grid mt-8 flex min-h-[18rem] items-center justify-center border border-border sm:mt-10 sm:min-h-[22rem]"
+                role="status"
+                aria-live="polite"
+              >
+                <p className="font-heading relative z-[1] px-6 text-center text-xs tracking-[0.14em] text-muted uppercase">
+                  No projects in {active} yet
+                </p>
+              </div>
+            )}
           </div>
         </Container>
       </section>
 
-      <section className="section-pad border-b border-border bg-black">
+      <section
+        id={CAREER_CREDITS_SECTION_ID}
+        className="section-pad scroll-mt-32 border-b border-border bg-black md:scroll-mt-40"
+      >
         <Container>
           <VuPlate className="mb-3">Timeline</VuPlate>
           <h2 className="font-heading text-3xl tracking-[0.08em] text-white sm:text-4xl">

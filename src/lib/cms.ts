@@ -9,8 +9,8 @@
  * TODO: Multiple languages (i18n)
  * TODO: Project search
  * TODO: Analytics
- * TODO: Contact API
  * TODO: Image CDN / optimization
+ * Contact form: POST /api/contact (Resend → CONTACT_TO_EMAIL)
  */
 
 export interface CmsClient {

@@ -19,5 +19,11 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.config.ts", "vite-plugin-admin.ts"]
+  "include": [
+    "vite.config.ts",
+    "vite-plugin-admin.ts",
+    "vite-plugin-contact.ts",
+    "server/sendContactEmail.ts",
+    "api/contact.ts"
+  ]
 }

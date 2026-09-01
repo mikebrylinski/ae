@@ -23,7 +23,12 @@ import { cn } from '@/lib/utils'
 
 type Draft = CreditEntry & { id: string }
 
-const ROLES = ['Monitor Engineer', 'FOH Engineer'] as const
+const ROLES = [
+  'Monitor Engineer',
+  'FOH Engineer',
+  'Monitor Consultant & Engineer',
+  'Local Monitor Engineer',
+] as const
 
 function toDraft(credits: CreditEntry[]): Draft[] {
   return credits.map((credit, index) => ({

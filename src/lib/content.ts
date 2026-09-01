@@ -7,6 +7,7 @@ import type {
   NavItem,
   PressItem,
   Project,
+  ProjectCategory,
   Service,
   SiteConfig,
   Testimonial,
@@ -66,6 +67,32 @@ export function getProjectBySlug(slug: string): Project | undefined {
 export function getProjectsByCategory(category: string): Project[] {
   if (category === 'All') return projects
   return projects.filter((p) => p.category.includes(category as Project['category'][number]))
+}
+
+/**
+ * Artist × venue chart columns (filter chips / card badges), left → right:
+ * AMPHITH. · ARENA · CLUBS · CORPORATE · FESTIVALS · STADIUMS · TV · THEATRES · TOURS
+ */
+export const CHART_VENUE_ORDER = [
+  'Amphitheaters',
+  'Arena',
+  'Clubs',
+  'Corporate',
+  'Festivals',
+  'Stadiums',
+  'TV',
+  'Theatres',
+  'Tours',
+] as const satisfies readonly ProjectCategory[]
+
+export const SPOTLIGHT_FILTERS = ['All', ...CHART_VENUE_ORDER] as const
+
+/** Venue chips for a project in chart column order. */
+export function getChartVenueChips(
+  categories: Project['category'],
+): ProjectCategory[] {
+  const set = new Set(categories)
+  return CHART_VENUE_ORDER.filter((venue) => set.has(venue))
 }
 
 export function getAllCategories(): string[] {
@@ -130,11 +157,22 @@ const PORTFOLIO_HIGHLIGHT_ARTISTS = new Set([
   'Momix',
   'Operator',
   'Ute Lemper and Tapiola Orchester',
+  'Travis Scott',
+  'Local Natives',
+  'Black Rebel Motorcycle Club',
+  'Alice In Chains',
+  'Enrique Iglesias',
+  'Sebastian Bach',
+  'Quantum World',
+  'Al Bano Carrisi',
+  'Countless artists',
 ])
 
 export type CreditRoleFilter = 'all' | 'monitors' | 'foh'
 
-function parseYearSpan(year: string): { start: number; end: number; open?: boolean } {
+type YearSpan = { start: number; end: number; open?: boolean; literal?: string }
+
+function parseYearSpan(year: string): YearSpan {
   const trimmed = year.trim()
   const now = new Date().getFullYear()
 
@@ -150,6 +188,9 @@ function parseYearSpan(year: string): { start: number; end: number; open?: boole
   const match = trimmed.match(/^(\d{4})(?:\s*[–-]\s*(\d{4}))?$/)
   if (!match) {
     const fallback = Number.parseInt(trimmed, 10)
+    if (Number.isNaN(fallback)) {
+      return { start: 0, end: 0, literal: trimmed || '—' }
+    }
     return { start: fallback, end: fallback }
   }
   const start = Number.parseInt(match[1], 10)
@@ -157,13 +198,15 @@ function parseYearSpan(year: string): { start: number; end: number; open?: boole
   return { start, end }
 }
 
-function formatYearRanges(spans: { start: number; end: number; open?: boolean }[]): string {
+function formatYearRanges(spans: YearSpan[]): string {
+  if (spans.length === 1 && spans[0].literal) return spans[0].literal
+
   const sorted = [...spans].sort((a, b) => a.start - b.start)
-  const merged: { start: number; end: number; open?: boolean }[] = []
+  const merged: YearSpan[] = []
 
   for (const span of sorted) {
     const prev = merged[merged.length - 1]
-    if (prev && span.start <= prev.end + 1) {
+    if (prev && !prev.literal && !span.literal && span.start <= prev.end + 1) {
       prev.end = Math.max(prev.end, span.end)
       prev.open = Boolean(prev.open || span.open)
     } else {
@@ -172,7 +215,8 @@ function formatYearRanges(spans: { start: number; end: number; open?: boolean }[
   }
 
   return merged
-    .map(({ start, end, open }) => {
+    .map(({ start, end, open, literal }) => {
+      if (literal) return literal
       if (open) return start === end ? 'Present' : `${start}–Present`
       return start === end ? `${start}` : `${start}–${end}`
     })
@@ -238,7 +282,7 @@ export function getPortfolioCredits(
   let credits = getCredits().filter(isCreditFeatured)
 
   if (role === 'monitors') {
-    credits = credits.filter((c) => c.role === 'Monitor Engineer')
+    credits = credits.filter((c) => /monitor/i.test(c.role))
   } else if (role === 'foh') {
     credits = credits.filter((c) => c.role === 'FOH Engineer')
   }

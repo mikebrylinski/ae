@@ -5,6 +5,7 @@ import {
   type CreditRoleFilter,
 } from '@/lib/content'
 import { CREDITS_UPDATED_EVENT } from '@/lib/admin'
+import { getLenis } from '@/hooks/useLenis'
 import { Badge } from '@/components/ui/Badge'
 import { fadeUp, reducedMotionVariants, staggerContainer } from '@/lib/motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
@@ -17,6 +18,31 @@ const ROLE_FILTERS: { id: CreditRoleFilter; label: string }[] = [
 ]
 
 const PAGE_SIZE = 10
+
+export const CAREER_CREDITS_SECTION_ID = 'career-credits'
+
+function roleBadgeLabel(role: string): string {
+  if (role === 'FOH Engineer') return 'FOH'
+  if (role === 'Monitor Engineer') return 'Monitors'
+  return role
+}
+
+function scrollCreditsSectionIntoView(reduced: boolean) {
+  const el = document.getElementById(CAREER_CREDITS_SECTION_ID)
+  if (!el) return
+
+  const header = document.querySelector<HTMLElement>('.rack-header')
+  const headerH = header?.getBoundingClientRect().height ?? 0
+  const lenis = getLenis()
+  const current = lenis ? lenis.scroll : window.scrollY
+  const top = Math.max(0, el.getBoundingClientRect().top + current - headerH - 8)
+
+  if (lenis) {
+    lenis.scrollTo(top, { immediate: reduced })
+  } else {
+    window.scrollTo({ top, behavior: reduced ? 'auto' : 'smooth' })
+  }
+}
 
 export function CreditsTimeline() {
   const [role, setRole] = useState<CreditRoleFilter>('all')
@@ -47,6 +73,13 @@ export function CreditsTimeline() {
   function handleRoleChange(next: CreditRoleFilter) {
     setRole(next)
     setPage(1)
+  }
+
+  function goToPage(next: number) {
+    const clamped = Math.min(totalPages, Math.max(1, next))
+    if (clamped === currentPage) return
+    setPage(clamped)
+    scrollCreditsSectionIntoView(reduced)
   }
 
   return (
@@ -110,7 +143,7 @@ export function CreditsTimeline() {
                 }
                 className="w-fit shrink-0"
               >
-                {credit.role === 'FOH Engineer' ? 'FOH' : 'Monitors'}
+                {roleBadgeLabel(credit.role)}
               </Badge>
             </div>
           </motion.li>
@@ -128,7 +161,7 @@ export function CreditsTimeline() {
         >
           <button
             type="button"
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            onClick={() => goToPage(currentPage - 1)}
             disabled={currentPage <= 1}
             className={cn(
               'font-heading border px-4 py-2 text-xs tracking-[0.14em] uppercase transition-colors',
@@ -146,7 +179,7 @@ export function CreditsTimeline() {
                 <button
                   key={pageNum}
                   type="button"
-                  onClick={() => setPage(pageNum)}
+                  onClick={() => goToPage(pageNum)}
                   aria-label={`Page ${pageNum}`}
                   aria-current={pageNum === currentPage ? 'page' : undefined}
                   className={cn(
@@ -164,7 +197,7 @@ export function CreditsTimeline() {
 
           <button
             type="button"
-            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            onClick={() => goToPage(currentPage + 1)}
             disabled={currentPage >= totalPages}
             className={cn(
               'font-heading border px-4 py-2 text-xs tracking-[0.14em] uppercase transition-colors',

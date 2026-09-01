@@ -188,6 +188,13 @@
     },
     {
       "year": "2016",
+      "artist": "Travis Scott",
+      "region": "USA",
+      "role": "Monitor Engineer",
+      "featured": true
+    },
+    {
+      "year": "2016",
       "artist": "The Weeknd",
       "region": "Worldwide",
       "role": "Monitor Engineer",
@@ -239,8 +246,8 @@
       "year": "2013",
       "artist": "Local Natives",
       "region": "USA",
-      "role": "Monitor Engineer",
-      "featured": false
+      "role": "Monitor Consultant & Engineer",
+      "featured": true
     },
     {
       "year": "2013",
@@ -294,6 +301,13 @@
     {
       "year": "2010",
       "artist": "Adam Lambert",
+      "region": "USA",
+      "role": "Monitor Engineer",
+      "featured": true
+    },
+    {
+      "year": "2010",
+      "artist": "Black Rebel Motorcycle Club",
       "region": "USA",
       "role": "Monitor Engineer",
       "featured": true
@@ -357,9 +371,9 @@
     {
       "year": "2007",
       "artist": "Enrique Iglesias",
-      "region": "One off, USA",
+      "region": "USA",
       "role": "Monitor Engineer",
-      "featured": false
+      "featured": true
     },
     {
       "year": "2007",
@@ -384,6 +398,13 @@
     },
     {
       "year": "2006",
+      "artist": "Alice In Chains",
+      "region": "USA",
+      "role": "Monitor Engineer",
+      "featured": true
+    },
+    {
+      "year": "2006",
       "artist": "Guns N' Roses",
       "region": "Europe, USA",
       "role": "Monitor Engineer",
@@ -394,7 +415,7 @@
       "artist": "Sebastian Bach",
       "region": "USA",
       "role": "Monitor Engineer",
-      "featured": false
+      "featured": true
     },
     {
       "year": "2005",
@@ -461,10 +482,10 @@
     },
     {
       "year": "2004",
-      "artist": "Quannum World feat. DJ Shadow a.o.",
+      "artist": "Quantum World",
       "region": "USA",
       "role": "Monitor Engineer",
-      "featured": false
+      "featured": true
     },
     {
       "year": "2004",
@@ -546,9 +567,9 @@
     {
       "year": "2002",
       "artist": "Al Bano Carrisi",
-      "region": "Austria",
+      "region": "Europe",
       "role": "Monitor Engineer",
-      "featured": false
+      "featured": true
     },
     {
       "year": "2002",
@@ -702,6 +723,13 @@
       "artist": "Golden Gospel Singers",
       "region": "Europe",
       "role": "FOH Engineer",
+      "featured": true
+    },
+    {
+      "year": "Ongoing",
+      "artist": "Countless artists",
+      "region": "Europe, USA",
+      "role": "Local Monitor Engineer",
       "featured": true
     }
   ]

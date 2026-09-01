@@ -116,7 +116,7 @@ export function CTABanner() {
           <img
             src={imageSrc}
             alt={imageAlt}
-            className="absolute inset-0 h-full w-full object-cover object-center"
+            className="absolute inset-0 h-full w-full object-cover object-center grayscale"
           />
           <div
             aria-hidden
