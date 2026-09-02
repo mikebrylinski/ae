@@ -18,6 +18,7 @@ import { ProjectCard } from '@/components/sections/ProjectCard'
 import { CTABanner } from '@/components/sections/CTABanner'
 import { useSeo } from '@/hooks/useSeo'
 import { cn } from '@/lib/utils'
+import { PortfolioAurora } from '@/components/ui/PortfolioAurora'
 
 /** Only renders gallery images that load; hides the section when none do. No placeholders. */
 function ProjectGallery({
@@ -83,13 +84,13 @@ function ProjectGallery({
           <li key={src} className="min-w-0">
             <button
               type="button"
-              className="group w-full max-w-full cursor-pointer text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              className="group w-full max-w-full cursor-pointer rounded-[1rem] text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               onClick={() => setLightboxIndex(i)}
               aria-label={`View ${artist} gallery image ${i + 1} larger`}
             >
               <div
                 className={cn(
-                  'relative aspect-video w-full overflow-hidden border border-border bg-black',
+                  'relative aspect-video w-full overflow-hidden rounded-[1rem] border border-border bg-black',
                   'transition-[border-color,box-shadow] duration-500',
                   'group-hover:border-primary/40 group-hover:shadow-[0_0_24px_rgba(184,255,0,0.06)]',
                 )}
@@ -137,8 +138,10 @@ export default function ProjectDetailPage() {
 
   return (
     <>
+      <div className="relative isolate min-w-0 overflow-hidden bg-black">
+        <PortfolioAurora />
       <section
-        className="relative w-full min-w-0 overflow-hidden border-b border-border bg-black"
+        className="relative z-10 w-full min-w-0 overflow-hidden border-b border-border"
         aria-label={`${project.artist} header`}
       >
         <div className="absolute inset-0" aria-hidden>
@@ -178,7 +181,7 @@ export default function ProjectDetailPage() {
             <div className="min-w-0 p-5 sm:p-7 md:p-8">
               <Link
                 to="/portfolio"
-                className="font-heading inline-flex max-w-full items-center gap-2 text-xs tracking-[0.14em] text-primary hover:opacity-80"
+                className="font-heading inline-flex max-w-full items-center gap-2 rounded-[1rem] border border-primary/40 px-3 py-1.5 text-xs tracking-[0.14em] text-primary transition-colors hover:border-primary hover:opacity-90"
               >
                 <ArrowLeft size={14} strokeWidth={1.5} className="shrink-0" aria-hidden />
                 <span className="min-w-0 truncate">Back to Portfolio</span>
@@ -213,7 +216,7 @@ export default function ProjectDetailPage() {
         </Container>
       </section>
 
-      <section className="min-w-0 overflow-x-hidden bg-black">
+      <section className="relative z-10 min-w-0 overflow-x-hidden">
         <Container className="section-pad min-w-0">
           <div className="grid min-w-0 gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:gap-12">
             <div className="min-w-0 space-y-10">
@@ -256,7 +259,7 @@ export default function ProjectDetailPage() {
               </div>
             </div>
 
-            <aside className="h-fit min-w-0 max-w-full space-y-8 border border-border bg-surface p-5 sm:p-6">
+            <aside className="h-fit min-w-0 max-w-full space-y-8 rounded-[1rem] border border-border bg-surface p-5 sm:p-6">
               <div className="min-w-0">
                 <h2 className="font-heading mb-3 text-sm tracking-[0.16em] text-primary">
                   Technical Setup
@@ -310,6 +313,7 @@ export default function ProjectDetailPage() {
           ) : null}
         </Container>
       </section>
+      </div>
       <CTABanner />
     </>
   )

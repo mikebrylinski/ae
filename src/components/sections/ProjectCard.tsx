@@ -15,11 +15,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link
       to={`/portfolio/${project.slug}`}
-      className="card-lift group block focus-visible:outline-none"
+      className="card-lift group block rounded-[1rem] focus-visible:outline-none"
     >
       <div
         className={cn(
-          'relative flex aspect-[5/4] flex-col items-center justify-center overflow-hidden border border-border bg-black px-2.5 py-3 text-center transition-[transform,box-shadow,border-color] duration-700 ease-out group-hover:-translate-y-1 group-hover:border-primary/35 group-hover:shadow-[0_0_28px_rgba(184,255,0,0.08)] sm:aspect-[4/3] sm:px-4 sm:py-5',
+          'relative flex aspect-[5/4] flex-col items-center justify-center overflow-hidden rounded-[1rem] border border-border bg-black px-2.5 py-3 text-center transition-[transform,box-shadow,border-color] duration-700 ease-out group-hover:-translate-y-1 group-hover:border-primary/35 group-hover:shadow-[0_0_28px_rgba(184,255,0,0.08)] sm:aspect-[4/3] sm:px-4 sm:py-5',
         )}
       >
         {bg ? (

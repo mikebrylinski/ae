@@ -9,6 +9,7 @@ import {
 import { CREDITS_UPDATED_EVENT } from '@/lib/admin'
 import { getLenis } from '@/hooks/useLenis'
 import { Badge } from '@/components/ui/Badge'
+import { VuPlate } from '@/components/ui/VuPlate'
 import { fadeUp, reducedMotionVariants, staggerContainer } from '@/lib/motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { cn } from '@/lib/utils'
@@ -287,44 +288,54 @@ export function CreditsTimeline() {
 
   return (
     <div>
-      <div className="mb-8 flex flex-col gap-3 sm:mb-10 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-        <div
-          className="flex min-w-0 flex-wrap gap-2"
-          role="tablist"
-          aria-label="Filter credits by role"
-        >
-          {ROLE_FILTERS.map((filter) => (
-            <button
-              key={filter.id}
-              type="button"
-              role="tab"
-              aria-selected={role === filter.id}
-              onClick={() => handleRoleChange(filter.id)}
-              className={cn(
-                'font-heading border px-4 py-2 text-xs tracking-[0.14em] uppercase transition-colors',
-                role === filter.id
-                  ? 'border-primary bg-primary text-primary-foreground'
-                  : 'border-border text-muted hover:border-primary hover:text-primary',
-              )}
-            >
-              {filter.label}
-            </button>
-          ))}
+      <div className="glass-card glass-card--aurora p-6 sm:p-8 md:p-10">
+        <span className="metal-overlay" aria-hidden />
+        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-8">
+          <VuPlate className="shrink-0">Timeline</VuPlate>
+          <h1 className="font-heading text-3xl tracking-[0.08em] text-white sm:text-4xl md:text-right">
+            Career Credits
+          </h1>
         </div>
 
-        {credits.length > PAGE_SIZE ? (
-          <CreditsPagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={goToPage}
-            label="Credits pagination top"
-            variant="rail"
-            className="shrink-0 self-end sm:self-auto"
-          />
-        ) : null}
+        <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+          <div
+            className="flex min-w-0 flex-wrap gap-2"
+            role="tablist"
+            aria-label="Filter credits by role"
+          >
+            {ROLE_FILTERS.map((filter) => (
+              <button
+                key={filter.id}
+                type="button"
+                role="tab"
+                aria-selected={role === filter.id}
+                onClick={() => handleRoleChange(filter.id)}
+                className={cn(
+                  'font-heading border px-4 py-2 text-xs tracking-[0.14em] uppercase transition-colors',
+                  role === filter.id
+                    ? 'border-primary bg-primary text-primary-foreground'
+                    : 'border-border text-muted hover:border-primary hover:text-primary',
+                )}
+              >
+                {filter.label}
+              </button>
+            ))}
+          </div>
+
+          {credits.length > PAGE_SIZE ? (
+            <CreditsPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={goToPage}
+              label="Credits pagination top"
+              variant="rail"
+              className="shrink-0 self-end sm:self-auto"
+            />
+          ) : null}
+        </div>
       </div>
 
-      <div className="relative">
+      <div className="relative mt-10">
         {/* Mobile left rail */}
         <span
           className="pointer-events-none absolute top-8 bottom-8 left-[6px] w-px -translate-x-1/2 bg-white/20 md:hidden"

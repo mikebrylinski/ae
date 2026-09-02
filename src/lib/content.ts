@@ -239,6 +239,14 @@ const CREDIT_ONLY_IMAGES: Record<string, string> = {
   'Countless artists': '/images/portfolio/console.jpg',
 }
 
+/**
+ * Role-specific timeline photos when one artist has multiple credit cards
+ * that would otherwise share the same project image.
+ */
+const CREDIT_ROLE_IMAGES: Record<string, string> = {
+  'Adam Lambert::FOH Engineer': '/images/projects/cards/adam-lambert-2.jpg',
+}
+
 function findProjectForCreditArtist(artist: string): Project | undefined {
   const exact = projects.find((p) => p.artist === artist)
   if (exact) return exact
@@ -252,8 +260,12 @@ function findProjectForCreditArtist(artist: string): Project | undefined {
 
 function enrichGroupedCredit(credit: GroupedCredit): GroupedCredit {
   const project = findProjectForCreditArtist(credit.artist)
+  const roleKey = `${credit.artist}::${credit.role}`
   const cardImage =
-    project?.cardImage || CREDIT_ONLY_IMAGES[credit.artist] || undefined
+    CREDIT_ROLE_IMAGES[roleKey] ||
+    project?.cardImage ||
+    CREDIT_ONLY_IMAGES[credit.artist] ||
+    undefined
   return {
     ...credit,
     cardImage,

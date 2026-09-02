@@ -107,7 +107,7 @@ export function GalleryLightbox({
             type="button"
             onClick={onClose}
             className={cn(
-              'inline-flex h-11 w-11 items-center justify-center border border-primary text-primary',
+              'inline-flex h-11 w-11 items-center justify-center rounded-[1rem] border border-primary text-primary',
               'transition-colors hover:bg-primary hover:text-primary-foreground',
               'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
             )}
@@ -117,11 +117,11 @@ export function GalleryLightbox({
           </button>
         </div>
 
-        <div className="relative flex min-h-0 flex-1 items-center justify-center border border-border bg-black">
+        <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden rounded-[1rem] border border-border bg-black">
           <img
             src={item.src}
             alt={item.alt}
-            className="max-h-[min(80vh,900px)] w-full object-contain"
+            className="max-h-[min(80vh,900px)] w-full rounded-[1rem] object-contain"
           />
 
           {showNav ? (
@@ -133,7 +133,7 @@ export function GalleryLightbox({
                 }
                 className={cn(
                   'absolute top-1/2 left-2 flex h-11 w-11 -translate-y-1/2 items-center justify-center',
-                  'border border-primary bg-black/70 text-primary sm:left-3',
+                  'rounded-[1rem] border border-primary bg-black/70 text-primary sm:left-3',
                   'transition-colors hover:bg-primary hover:text-primary-foreground',
                   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
                 )}
@@ -146,7 +146,7 @@ export function GalleryLightbox({
                 onClick={() => onIndexChange((activeIndex + 1) % items.length)}
                 className={cn(
                   'absolute top-1/2 right-2 flex h-11 w-11 -translate-y-1/2 items-center justify-center',
-                  'border border-primary bg-black/70 text-primary sm:right-3',
+                  'rounded-[1rem] border border-primary bg-black/70 text-primary sm:right-3',
                   'transition-colors hover:bg-primary hover:text-primary-foreground',
                   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
                 )}
