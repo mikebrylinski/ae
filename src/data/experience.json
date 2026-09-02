@@ -8,7 +8,7 @@
       "photo": "/images/experience/alanis-2020s.jpg"
     },
     {
-      "year": "2015–2019",
+      "year": "2015–2020",
       "tour": "Worldwide Tours",
       "artist": "The Weeknd",
       "description": "Monitor engineer for The Weeknd worldwide. Concurrent USA dates with Alanis Morissette (2015, 2016, 2019). 2017 Parnelli Award nominee for Monitor Engineer of the Year.",
@@ -150,6 +150,13 @@
       "region": "Worldwide",
       "role": "Monitor Engineer",
       "featured": false
+    },
+    {
+      "year": "2020",
+      "artist": "The Weeknd",
+      "region": "Worldwide",
+      "role": "Monitor Engineer",
+      "featured": true
     },
     {
       "year": "2019",
