@@ -232,6 +232,35 @@ function mergeRegions(regions: string[]): string {
   return unique.join(' · ')
 }
 
+/** Credit-only artists without a project page — local Wikipedia / site photos. */
+const CREDIT_ONLY_IMAGES: Record<string, string> = {
+  'Rock am Ring Festival': '/images/projects/cards/rock-am-ring-festival.jpg',
+  'Expo 2000': '/images/portfolio/console.jpg',
+  'Countless artists': '/images/portfolio/console.jpg',
+}
+
+function findProjectForCreditArtist(artist: string): Project | undefined {
+  const exact = projects.find((p) => p.artist === artist)
+  if (exact) return exact
+
+  const lower = artist.toLowerCase()
+  return projects.find((p) => {
+    const name = p.artist.toLowerCase()
+    return lower.includes(name) || name.includes(lower)
+  })
+}
+
+function enrichGroupedCredit(credit: GroupedCredit): GroupedCredit {
+  const project = findProjectForCreditArtist(credit.artist)
+  const cardImage =
+    project?.cardImage || CREDIT_ONLY_IMAGES[credit.artist] || undefined
+  return {
+    ...credit,
+    cardImage,
+    projectSlug: project?.slug,
+  }
+}
+
 /** Collapse consecutive years for the same artist + role into range labels. */
 export function collapseCredits(credits: CreditEntry[]): GroupedCredit[] {
   const byKey = new Map<string, CreditEntry[]>()
@@ -250,23 +279,27 @@ export function collapseCredits(credits: CreditEntry[]): GroupedCredit[] {
     const endYear = Math.max(...spans.map((s) => s.end))
 
     if (entries[0].artist === 'Alanis Morissette') {
-      grouped.push({
-        yearLabel: '2012–Present',
-        artist: entries[0].artist,
-        region: 'Worldwide',
-        role: entries[0].role,
-        endYear,
-      })
+      grouped.push(
+        enrichGroupedCredit({
+          yearLabel: '2012–Present',
+          artist: entries[0].artist,
+          region: 'Worldwide',
+          role: entries[0].role,
+          endYear,
+        }),
+      )
       continue
     }
 
-    grouped.push({
-      yearLabel: formatYearRanges(spans),
-      artist: entries[0].artist,
-      region: mergeRegions(entries.map((e) => e.region)),
-      role: entries[0].role,
-      endYear,
-    })
+    grouped.push(
+      enrichGroupedCredit({
+        yearLabel: formatYearRanges(spans),
+        artist: entries[0].artist,
+        region: mergeRegions(entries.map((e) => e.region)),
+        role: entries[0].role,
+        endYear,
+      }),
+    )
   }
 
   return grouped.sort((a, b) => {

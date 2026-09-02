@@ -134,8 +134,6 @@ export default function AboutPage() {
 
       <section className="section-divider-top bg-black py-16 sm:py-20 md:py-24 lg:py-28">
         <Container>
-          <VuPlate className="mx-auto mb-8 md:mb-10">About</VuPlate>
-
           <div className="space-y-8 md:space-y-10">
             {CHAPTERS.map((chapter) => {
               const paras = about.story.slice(chapter.from, chapter.to)

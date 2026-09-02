@@ -157,16 +157,16 @@ export default function ProjectDetailPage() {
         <Container className="relative z-10 min-w-0 py-6 sm:py-8 md:py-10 lg:py-12">
           <GlassCard
             className={cn(
-              'w-full min-w-0 max-w-4xl overflow-hidden p-0',
+              'mx-auto w-full min-w-0 max-w-4xl overflow-hidden p-0',
               project.cardImage && 'sm:grid sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.2fr)] sm:items-stretch',
             )}
           >
             {project.cardImage ? (
-              <div className="relative min-h-[12rem] w-full overflow-hidden border-b border-white/10 sm:min-h-0 sm:border-b-0 sm:border-r">
+              <div className="relative aspect-[5/4] w-full overflow-hidden border-b border-white/10 sm:aspect-auto sm:min-h-0 sm:self-stretch sm:border-b-0 sm:border-r">
                 <img
                   src={project.cardImage}
                   alt=""
-                  className="absolute inset-0 h-full w-full object-cover object-center"
+                  className="absolute inset-0 h-full w-full object-cover object-top sm:object-[center_12%]"
                 />
                 <div
                   className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20 sm:bg-gradient-to-r sm:from-transparent sm:via-transparent sm:to-black/40"
@@ -185,7 +185,7 @@ export default function ProjectDetailPage() {
               </Link>
 
               {venueChips.length > 0 ? (
-                <div className="mt-4 flex max-w-full flex-wrap gap-2 sm:mt-5">
+                <div className="mt-4 flex max-w-full flex-wrap justify-center gap-2 sm:mt-5 sm:justify-start">
                   {venueChips.map((c) => (
                     <Badge key={c} className="max-w-full shrink">
                       {c}

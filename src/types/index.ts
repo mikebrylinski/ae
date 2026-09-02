@@ -65,6 +65,10 @@ export interface GroupedCredit {
   role: CreditEntry['role']
   /** Latest year in the span — used for sorting */
   endYear: number
+  /** Wikipedia / local card photo when available */
+  cardImage?: string
+  /** Portfolio project detail slug when a matching project exists */
+  projectSlug?: string
 }
 
 export interface SkillGroup {
