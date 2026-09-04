@@ -15,6 +15,7 @@ import {
   CAREER_CREDITS_SECTION_ID,
   CreditsTimeline,
 } from '@/components/sections/CreditsTimeline'
+import { PhotoHeader } from '@/components/sections/PhotoHeader'
 import { CTABanner } from '@/components/sections/CTABanner'
 import { buttonVariants } from '@/components/ui/Button'
 import { fadeUp, reducedMotionVariants, staggerContainer } from '@/lib/motion'
@@ -25,7 +26,7 @@ import { FilterAccordion } from '@/components/ui/FilterAccordion'
 import { VuPlate } from '@/components/ui/VuPlate'
 import { PortfolioAurora } from '@/components/ui/PortfolioAurora'
 
-const HERO_IMAGE_SRC = '/images/portfolio/console.jpg'
+const HERO_IMAGE_SRC = '/images/portfolio/andys-work.jpg'
 const SPOTLIGHT_PREVIEW_COUNT = 20
 
 export default function PortfolioPage() {
@@ -49,16 +50,24 @@ export default function PortfolioPage() {
   }
 
   return (
-    <>
+    <CreditsTimeline>
+      <PhotoHeader
+        src="/images/portfolio/header-bg.jpg"
+        alt={t.portfolio.headerAlt}
+        heading={t.credits.title}
+      >
+        <CreditsTimeline.Header />
+      </PhotoHeader>
+
       <div className="relative isolate overflow-hidden bg-black">
         <PortfolioAurora />
 
         <section
           id={CAREER_CREDITS_SECTION_ID}
-          className="relative z-10 scroll-mt-32 border-b border-border pb-[clamp(4rem,8vw,7rem)] pt-0 md:scroll-mt-40"
+          className="relative z-10 scroll-mt-32 border-b border-border pb-[clamp(4rem,8vw,7rem)] pt-10 md:scroll-mt-40 md:pt-14"
         >
           <Container>
-            <CreditsTimeline />
+            <CreditsTimeline.List />
           </Container>
         </section>
 
@@ -188,9 +197,9 @@ export default function PortfolioPage() {
               <motion.div variants={item} className="min-h-[18rem] sm:min-h-[22rem] lg:min-h-[28rem]">
                 <MediaImage
                   src={HERO_IMAGE_SRC}
-                  alt="Andy Ebert at a mixing console in an arena"
+                  alt="Andy in Times Square with in-ear monitors"
                   aspect="h-full min-h-[18rem] aspect-[4/5] sm:min-h-[22rem] sm:aspect-[5/4] lg:aspect-auto lg:min-h-full"
-                  className="object-cover object-[center_30%]"
+                  className="object-cover object-[center_42%]"
                   wrapperClassName="h-full border-0"
                   fallbackLabel="Andy Ebert"
                 />
@@ -200,6 +209,6 @@ export default function PortfolioPage() {
         </section>
       </div>
       <CTABanner />
-    </>
+    </CreditsTimeline>
   )
 }

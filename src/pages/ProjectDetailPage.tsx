@@ -315,6 +315,20 @@ export default function ProjectDetailPage() {
               </ul>
             </div>
           ) : null}
+
+          {project.slug === 'alanis-morissette' ? (
+            <div className="mt-16 overflow-hidden rounded-[1rem] sm:mt-20">
+              <MediaImage
+                src="/images/projects/alanis-stage.jpg"
+                alt={`${project.artist} on stage`}
+                fit="contain"
+                aspect="aspect-[500/752]"
+                wrapperClassName="mx-auto w-full max-w-md rounded-none border-0 bg-black"
+                className="object-contain object-center"
+                fallbackLabel={project.artist}
+              />
+            </div>
+          ) : null}
         </Container>
       </section>
       </div>

@@ -1,5 +1,211 @@
 [
   {
+    "id": "andys-work",
+    "src": "/images/portfolio/andys-work.jpg",
+    "alt": "Andy in Times Square with in-ear monitors",
+    "category": "Headshot",
+    "tags": [
+      "Headshot",
+      "Tour",
+      "2026"
+    ],
+    "year": 2026,
+    "width": 751,
+    "height": 1024
+  },
+  {
+    "id": "alanis-stage",
+    "src": "/images/projects/alanis-stage.jpg",
+    "alt": "Alanis Morissette performing on stage",
+    "category": "Arena",
+    "tags": [
+      "Alanis Morissette",
+      "Tour",
+      "Arena",
+      "2025"
+    ],
+    "year": 2025,
+    "width": 500,
+    "height": 752
+  },
+  {
+    "id": "on-the-road-foh",
+    "src": "/images/about/on-the-road-foh.jpg",
+    "alt": "Mixing FOH at an outdoor concert",
+    "category": "FOH",
+    "tags": [
+      "FOH",
+      "Console",
+      "Festivals",
+      "Tour",
+      "2024"
+    ],
+    "year": 2024,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "los-angeles",
+    "src": "/images/about/los-angeles.jpg",
+    "alt": "Andy in front of the Hollywood sign, Los Angeles",
+    "category": "Los Angeles",
+    "tags": [
+      "Los Angeles",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 1024,
+    "height": 765
+  },
+  {
+    "id": "on-the-road",
+    "src": "/images/about/on-the-road.jpg",
+    "alt": "Andy at a Midas Heritage console on tour",
+    "category": "Monitor World",
+    "tags": [
+      "Monitor World",
+      "Console",
+      "Tour",
+      "2006"
+    ],
+    "year": 2006,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "cta-portrait",
+    "src": "/images/sections/cta-portrait.jpg",
+    "alt": "Andy in profile with in-ear monitors under stage lights",
+    "category": "Headshot",
+    "tags": [
+      "Headshot",
+      "Tour",
+      "2024"
+    ],
+    "year": 2024,
+    "width": 1024,
+    "height": 682
+  },
+  {
+    "id": "basement-live",
+    "src": "/images/about/basement-live.jpg",
+    "alt": "Andy mixing a live show beside rack cases",
+    "category": "FOH",
+    "tags": [
+      "FOH",
+      "Tour",
+      "Console",
+      "1997"
+    ],
+    "year": 1997,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "west-berlin",
+    "src": "/images/about/west-berlin.jpg",
+    "alt": "Young Andy at a mixing console in West Berlin",
+    "category": "Berlin",
+    "tags": [
+      "Berlin",
+      "Console",
+      "1992"
+    ],
+    "year": 1992,
+    "width": 1024,
+    "height": 704
+  },
+  {
+    "id": "basement",
+    "src": "/images/about/basement.jpg",
+    "alt": "Tascam mixer and Pioneer cassette deck in the basement studio",
+    "category": "Equipment",
+    "tags": [
+      "Equipment",
+      "Console",
+      "Berlin",
+      "1991"
+    ],
+    "year": 1991,
+    "width": 1024,
+    "height": 651
+  },
+  {
+    "id": "basement-bell",
+    "src": "/images/about/basement-bell.jpg",
+    "alt": "Bell analog mixer on the basement workbench",
+    "category": "Equipment",
+    "tags": [
+      "Equipment",
+      "Console",
+      "Berlin",
+      "1991"
+    ],
+    "year": 1991,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "basement-ns10",
+    "src": "/images/about/basement-ns10.jpg",
+    "alt": "Mixing console and Yamaha NS-10 in the basement studio",
+    "category": "Equipment",
+    "tags": [
+      "Equipment",
+      "Console",
+      "Berlin",
+      "1992"
+    ],
+    "year": 1992,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "basement-marshall",
+    "src": "/images/about/basement-marshall.jpg",
+    "alt": "Marshall amp and studio microphone in the basement",
+    "category": "Equipment",
+    "tags": [
+      "Equipment",
+      "Berlin",
+      "Rehearsals",
+      "1992"
+    ],
+    "year": 1992,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "id": "basement-signing",
+    "src": "/images/about/basement-signing.jpg",
+    "alt": "Signing a Tal Bergman poster backstage",
+    "category": "Backstage",
+    "tags": [
+      "Backstage",
+      "Crew",
+      "1993"
+    ],
+    "year": 1993,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "basement-album",
+    "src": "/images/about/basement-album.jpg",
+    "alt": "Photo album of mixing, rehearsal, and the basement studio",
+    "category": "Rehearsals",
+    "tags": [
+      "Rehearsals",
+      "Console",
+      "Berlin",
+      "1991"
+    ],
+    "year": 1991,
+    "width": 768,
+    "height": 1024
+  },
+  {
     "id": "g1",
     "src": "/images/gallery/arena-foh.jpg",
     "alt": "Andy at FOH looking toward a packed arena stage",
@@ -345,5 +551,415 @@
     "year": 2020,
     "width": 768,
     "height": 1024
+  },
+  {
+    "id": "working-with-alanis",
+    "src": "/images/about/working-with-alanis.jpg",
+    "alt": "Andy and crew at a laptop backstage with Alanis Morissette",
+    "category": "Backstage",
+    "tags": [
+      "Backstage",
+      "Alanis Morissette",
+      "Crew",
+      "Tour"
+    ],
+    "width": 1024,
+    "height": 1012
+  },
+  {
+    "id": "alanis-4",
+    "src": "/images/projects/alanis-4.jpg",
+    "alt": "Alanis Morissette tour — 2026",
+    "category": "Arena",
+    "tags": [
+      "Alanis Morissette",
+      "Arena",
+      "Tour",
+      "2026"
+    ],
+    "year": 2026,
+    "width": 2000,
+    "height": 1500
+  },
+  {
+    "id": "alanis-5",
+    "src": "/images/projects/alanis-5.jpg",
+    "alt": "Monitor world — Alanis Morissette tour, 2026",
+    "category": "Monitor World",
+    "tags": [
+      "Alanis Morissette",
+      "Monitor World",
+      "Console",
+      "Arena",
+      "Tour",
+      "2026"
+    ],
+    "year": 2026,
+    "width": 2000,
+    "height": 1500
+  },
+  {
+    "id": "alanis-6",
+    "src": "/images/projects/alanis-6.jpg",
+    "alt": "Alanis Morissette tour — 2026",
+    "category": "Arena",
+    "tags": [
+      "Alanis Morissette",
+      "Arena",
+      "Tour",
+      "2026"
+    ],
+    "year": 2026,
+    "width": 2000,
+    "height": 1500
+  },
+  {
+    "id": "alanis-7",
+    "src": "/images/projects/alanis-7.jpg",
+    "alt": "Alanis Morissette tour — 2026",
+    "category": "Arena",
+    "tags": [
+      "Alanis Morissette",
+      "Arena",
+      "Tour",
+      "2026"
+    ],
+    "year": 2026,
+    "width": 2000,
+    "height": 1500
+  },
+  {
+    "id": "alanis-8",
+    "src": "/images/projects/alanis-8.jpg",
+    "alt": "Alanis Morissette tour — 2025",
+    "category": "Arena",
+    "tags": [
+      "Alanis Morissette",
+      "Arena",
+      "Tour",
+      "2025"
+    ],
+    "year": 2025,
+    "width": 2000,
+    "height": 1500
+  },
+  {
+    "id": "alanis-9",
+    "src": "/images/projects/alanis-9.jpg",
+    "alt": "Andy with the Freddie Mercury statue — Montreux",
+    "category": "Crew",
+    "tags": [
+      "Alanis Morissette",
+      "Crew",
+      "Tour",
+      "2025"
+    ],
+    "year": 2025,
+    "width": 2000,
+    "height": 1500
+  },
+  {
+    "id": "alanis-10",
+    "src": "/images/projects/alanis-10.jpg",
+    "alt": "Monitor world — Alanis Morissette tour, 2024",
+    "category": "Monitor World",
+    "tags": [
+      "Alanis Morissette",
+      "Monitor World",
+      "Console",
+      "Arena",
+      "Tour",
+      "2024"
+    ],
+    "year": 2024,
+    "width": 2000,
+    "height": 1500
+  },
+  {
+    "id": "alanis-11",
+    "src": "/images/projects/alanis-11.jpg",
+    "alt": "Monitor world — Alanis Morissette tour, 2025",
+    "category": "Monitor World",
+    "tags": [
+      "Alanis Morissette",
+      "Monitor World",
+      "Console",
+      "Arena",
+      "Tour",
+      "2025"
+    ],
+    "year": 2025,
+    "width": 2000,
+    "height": 1500
+  },
+  {
+    "id": "alanis-12",
+    "src": "/images/projects/alanis-12.jpg",
+    "alt": "Alanis Morissette tour — 2025",
+    "category": "Arena",
+    "tags": [
+      "Alanis Morissette",
+      "Arena",
+      "Tour",
+      "2025"
+    ],
+    "year": 2025,
+    "width": 2000,
+    "height": 1500
+  },
+  {
+    "id": "alanis-13",
+    "src": "/images/projects/alanis-13.jpg",
+    "alt": "Alanis Morissette tour — 2026",
+    "category": "Arena",
+    "tags": [
+      "Alanis Morissette",
+      "Arena",
+      "Tour",
+      "2026"
+    ],
+    "year": 2026,
+    "width": 1500,
+    "height": 2000
+  },
+  {
+    "id": "alanis-14",
+    "src": "/images/projects/alanis-14.jpg",
+    "alt": "Alanis Morissette tour — 2026",
+    "category": "Arena",
+    "tags": [
+      "Alanis Morissette",
+      "Arena",
+      "Tour",
+      "2026"
+    ],
+    "year": 2026,
+    "width": 2000,
+    "height": 1500
+  },
+  {
+    "id": "alanis-15",
+    "src": "/images/projects/alanis-15.jpg",
+    "alt": "Alanis Morissette tour — 2026",
+    "category": "Arena",
+    "tags": [
+      "Alanis Morissette",
+      "Arena",
+      "Tour",
+      "2026"
+    ],
+    "year": 2026,
+    "width": 2000,
+    "height": 1500
+  },
+  {
+    "id": "alanis-16",
+    "src": "/images/projects/alanis-16.jpg",
+    "alt": "Monitor world — Alanis Morissette tour, 2026",
+    "category": "Monitor World",
+    "tags": [
+      "Alanis Morissette",
+      "Monitor World",
+      "Console",
+      "Arena",
+      "Tour",
+      "2026"
+    ],
+    "year": 2026,
+    "width": 2000,
+    "height": 1500
+  },
+  {
+    "id": "alanis-17",
+    "src": "/images/projects/alanis-17.jpg",
+    "alt": "Monitor world — Alanis Morissette tour, 2026",
+    "category": "Monitor World",
+    "tags": [
+      "Alanis Morissette",
+      "Monitor World",
+      "Console",
+      "Arena",
+      "Tour",
+      "2026"
+    ],
+    "year": 2026,
+    "width": 1500,
+    "height": 2000
+  },
+  {
+    "id": "alanis-18",
+    "src": "/images/projects/alanis-18.jpg",
+    "alt": "IMAG close-up of Alanis Morissette on the production monitor",
+    "category": "Arena",
+    "tags": [
+      "Alanis Morissette",
+      "Arena",
+      "Console",
+      "Tour",
+      "2025"
+    ],
+    "year": 2025,
+    "width": 2000,
+    "height": 1500
+  },
+  {
+    "id": "alanis-19",
+    "src": "/images/projects/alanis-19.jpg",
+    "alt": "Alanis Morissette tour — 2026",
+    "category": "Arena",
+    "tags": [
+      "Alanis Morissette",
+      "Arena",
+      "Tour",
+      "2026"
+    ],
+    "year": 2026,
+    "width": 2000,
+    "height": 1500
+  },
+  {
+    "id": "alanis-20",
+    "src": "/images/projects/alanis-20.jpg",
+    "alt": "Alanis Morissette tour — 2025",
+    "category": "Arena",
+    "tags": [
+      "Alanis Morissette",
+      "Arena",
+      "Tour",
+      "2025"
+    ],
+    "year": 2025,
+    "width": 2000,
+    "height": 1500
+  },
+  {
+    "id": "alanis-21",
+    "src": "/images/projects/alanis-21.jpg",
+    "alt": "Monitor world — Alanis Morissette tour, 2025",
+    "category": "Monitor World",
+    "tags": [
+      "Alanis Morissette",
+      "Monitor World",
+      "Console",
+      "Arena",
+      "Tour",
+      "2025"
+    ],
+    "year": 2025,
+    "width": 2000,
+    "height": 1500
+  },
+  {
+    "id": "alanis-22",
+    "src": "/images/projects/alanis-22.jpg",
+    "alt": "Monitor world — Alanis Morissette tour, 2025",
+    "category": "Monitor World",
+    "tags": [
+      "Alanis Morissette",
+      "Monitor World",
+      "Console",
+      "Arena",
+      "Tour",
+      "2025"
+    ],
+    "year": 2025,
+    "width": 1500,
+    "height": 2000
+  },
+  {
+    "id": "alanis-23",
+    "src": "/images/projects/alanis-23.jpg",
+    "alt": "Packed stadium from FOH — Alanis Morissette tour",
+    "category": "Arena",
+    "tags": [
+      "Alanis Morissette",
+      "Arena",
+      "FOH",
+      "Tour",
+      "2025"
+    ],
+    "year": 2025,
+    "width": 2000,
+    "height": 1500
+  },
+  {
+    "id": "alanis-24",
+    "src": "/images/projects/alanis-24.jpg",
+    "alt": "Alanis Morissette tour — 2025",
+    "category": "Arena",
+    "tags": [
+      "Alanis Morissette",
+      "Arena",
+      "Tour",
+      "2025"
+    ],
+    "year": 2025,
+    "width": 1500,
+    "height": 2000
+  },
+  {
+    "id": "alanis-25",
+    "src": "/images/projects/alanis-25.jpg",
+    "alt": "Tour crew behind the monitor console — Alanis Morissette",
+    "category": "Crew",
+    "tags": [
+      "Alanis Morissette",
+      "Crew",
+      "Console",
+      "Monitor World",
+      "Tour",
+      "2025"
+    ],
+    "year": 2025,
+    "width": 1493,
+    "height": 1120
+  },
+  {
+    "id": "alanis-26",
+    "src": "/images/projects/alanis-26.jpg",
+    "alt": "Alanis Morissette on stage from the floor",
+    "category": "Arena",
+    "tags": [
+      "Alanis Morissette",
+      "Arena",
+      "Tour",
+      "2025"
+    ],
+    "year": 2025,
+    "width": 1500,
+    "height": 2000
+  },
+  {
+    "id": "alanis-27",
+    "src": "/images/projects/alanis-27.jpg",
+    "alt": "Monitor world — Alanis Morissette tour, 2025",
+    "category": "Monitor World",
+    "tags": [
+      "Alanis Morissette",
+      "Monitor World",
+      "Console",
+      "Arena",
+      "Tour",
+      "2025"
+    ],
+    "year": 2025,
+    "width": 2000,
+    "height": 1500
+  },
+  {
+    "id": "alanis-28",
+    "src": "/images/projects/alanis-28.jpg",
+    "alt": "Night stadium crowd from FOH — Alanis Morissette tour",
+    "category": "Arena",
+    "tags": [
+      "Alanis Morissette",
+      "Arena",
+      "FOH",
+      "Tour",
+      "2025"
+    ],
+    "year": 2025,
+    "width": 1500,
+    "height": 2000
   }
 ]

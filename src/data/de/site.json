@@ -27,8 +27,8 @@
     "title": "Die nächste Produktion planen?",
     "subtitle": "",
     "button": { "label": "Kontakt aufnehmen", "href": "/contact" },
-    "image": "/images/media/headshot-2.jpg",
-    "imageAlt": "Andy Ebert am Pult — Digidesign Venue hinter der Bühne"
+    "image": "/images/sections/cta-portrait.jpg",
+    "imageAlt": "Andy im Profil mit In-Ears unter Bühnenlicht"
   },
   "about": {
     "portrait": "/images/about/portrait.jpg",

@@ -95,6 +95,7 @@ const en = {
       'His credits include Alanis Morissette, The Weeknd, Maroon 5, Guns N’ Roses, Mariah Carey, Stone Temple Pilots, Neil Young, and many more. In 2017 he was nominated for the Parnelli Award for Monitor Engineer of the Year.',
     learnMore: 'Learn more',
     heroAlt: 'Andy Ebert at a mixing console in an arena',
+    headerAlt: 'Mixing console and arena from monitor world',
   },
   credits: {
     eyebrow: 'Timeline',
@@ -113,25 +114,39 @@ const en = {
     seoDescription:
       'Andy Ebert — sound engineer and plant powered roadie, born in West Berlin in 1971. Professionally touring since 1997.',
     chapters: [
-      { eyebrow: 'West Berlin', alts: ['Analog mixer'] },
-      { eyebrow: 'The basement', alts: ['Basement mixer'] },
+      { eyebrow: 'West Berlin', alts: ['Young Andy at a mixing console in West Berlin'] },
+      {
+        eyebrow: 'The basement',
+        alts: [
+          'Tascam mixer and Pioneer cassette deck in the basement studio',
+          'Andy mixing a live show beside rack cases',
+          'Bell analog mixer on the basement workbench',
+          'Mixing console and Yamaha NS-10 in the basement studio',
+          'Signing a Tal Bergman poster backstage',
+          'Marshall amp and studio microphone in the basement',
+          'Photo album of mixing, rehearsal, and the basement studio',
+        ],
+      },
       {
         eyebrow: 'On the road',
-        alts: ['Analog console', 'Live console', 'Digital surface'],
+        alts: [
+          'Andy at a Midas Heritage console on tour',
+          'Mixing FOH at an outdoor concert',
+        ],
       },
       {
         eyebrow: 'Los Angeles',
-        alts: [
-          'View from the console over an arena crowd',
-          'View from the console toward an outdoor stage',
-        ],
+        alts: ['Andy in front of the Hollywood sign, Los Angeles'],
       },
     ],
     venice: {
       eyebrow: 'Venice FL',
       body: 'Since then he has been growing his portfolio of clients and has predominantly worked as a monitor engineer. Andy now resides in Venice, FL.',
     },
+    alanisStageAlt: 'Alanis Morissette performing on stage',
+    eyebrow: 'About',
     skylineLabel: 'Berlin, Germany — Charlottenburg',
+    headerAlt: 'Berlin skyline, Charlottenburg',
   },
   map: {
     eyebrow: 'Venice FL',
@@ -441,6 +456,7 @@ const de = {
       'Zu seinen Credits gehören Alanis Morissette, The Weeknd, Maroon 5, Guns N’ Roses, Mariah Carey, Stone Temple Pilots, Neil Young und viele mehr. 2017 wurde er für den Parnelli Award als Monitor Engineer of the Year nominiert.',
     learnMore: 'Mehr erfahren',
     heroAlt: 'Andy Ebert am Mischpult in einer Arena',
+    headerAlt: 'Mischpult und Arena aus der Monitor World',
   },
   credits: {
     eyebrow: 'Zeitachse',
@@ -459,25 +475,39 @@ const de = {
     seoDescription:
       'Andy Ebert — Tontechniker und Plant-Powered Roadie, geboren 1971 in West-Berlin. Professionell auf Tour seit 1997.',
     chapters: [
-      { eyebrow: 'West-Berlin', alts: ['Analogmixer'] },
-      { eyebrow: 'Der Keller', alts: ['Kellermischer'] },
+      { eyebrow: 'West-Berlin', alts: ['Andy als junger Mann am Mischpult in West-Berlin'] },
+      {
+        eyebrow: 'Der Keller',
+        alts: [
+          'Tascam-Mischpult und Pioneer-Kassettendeck im Kellerstudio',
+          'Andy mischt eine Live-Show neben Rackcases',
+          'Bell-Analogmixer auf der Kellerwerkbank',
+          'Mischpult und Yamaha NS-10 im Kellerstudio',
+          'Autogramm auf einem Tal-Bergman-Poster hinter der Bühne',
+          'Marshall-Verstärker und Studiomikrofon im Keller',
+          'Fotoalbum: Mischen, Probe und das Kellerstudio',
+        ],
+      },
       {
         eyebrow: 'Unterwegs',
-        alts: ['Analogpult', 'Live-Pult', 'Digitale Konsole'],
+        alts: [
+          'Andy am Midas-Heritage-Pult auf Tour',
+          'FOH-Mischung bei einem Open-Air-Konzert',
+        ],
       },
       {
         eyebrow: 'Los Angeles',
-        alts: [
-          'Blick vom Pult über das Arena-Publikum',
-          'Blick vom Pult auf die Open-Air-Bühne',
-        ],
+        alts: ['Andy vor dem Hollywood-Schriftzug, Los Angeles'],
       },
     ],
     venice: {
       eyebrow: 'Venice FL',
       body: 'Seitdem wächst sein Klientenstamm; er arbeitet vor allem als Monitor Engineer. Heute lebt Andy in Venice, Florida.',
     },
+    alanisStageAlt: 'Alanis Morissette auf der Bühne',
+    eyebrow: 'Über mich',
     skylineLabel: 'Berlin — Charlottenburg',
+    headerAlt: 'Berliner Skyline, Charlottenburg',
   },
   map: {
     eyebrow: 'Venice FL',

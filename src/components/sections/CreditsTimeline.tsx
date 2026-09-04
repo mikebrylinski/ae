@@ -1,4 +1,11 @@
-import { useEffect, useMemo, useState } from 'react'
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
@@ -249,95 +256,100 @@ function CreditCard({
   return <div className={cardClass}>{body}</div>
 }
 
-export function CreditsTimeline() {
-  const { t } = useLanguage()
-  const [role, setRole] = useState<CreditRoleFilter>('all')
-  const [page, setPage] = useState(1)
-  const [version, setVersion] = useState(0)
-  const credits = useMemo(() => getPortfolioCredits(role), [role, version])
+type CreditsTimelineContextValue = {
+  role: CreditRoleFilter
+  credits: GroupedCredit[]
+  pageCredits: GroupedCredit[]
+  currentPage: number
+  totalPages: number
+  handleRoleChange: (next: CreditRoleFilter) => void
+  goToPage: (next: number) => void
+}
 
-  useEffect(() => {
-    const refresh = () => setVersion((current) => current + 1)
-    window.addEventListener(CREDITS_UPDATED_EVENT, refresh)
-    window.addEventListener('storage', refresh)
-    return () => {
-      window.removeEventListener(CREDITS_UPDATED_EVENT, refresh)
-      window.removeEventListener('storage', refresh)
-    }
-  }, [])
+const CreditsTimelineContext = createContext<CreditsTimelineContextValue | null>(
+  null,
+)
+
+function useCreditsTimeline() {
+  const ctx = useContext(CreditsTimelineContext)
+  if (!ctx) {
+    throw new Error('CreditsTimeline parts must be rendered inside CreditsTimeline')
+  }
+  return ctx
+}
+
+export function CreditsTimelineHeader() {
+  const {
+    role,
+    credits,
+    currentPage,
+    totalPages,
+    handleRoleChange,
+    goToPage,
+  } = useCreditsTimeline()
+  const { t } = useLanguage()
+
+  return (
+    <div className="glass-card glass-card--aurora p-6 sm:p-8 md:p-10">
+      <span className="metal-overlay" aria-hidden />
+      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-8">
+        <VuPlate className="shrink-0">{t.credits.eyebrow}</VuPlate>
+        <h1 className="font-heading text-3xl tracking-[0.08em] text-white sm:text-4xl md:text-right">
+          {t.credits.title}
+        </h1>
+      </div>
+
+      <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+        <div
+          className="flex min-w-0 flex-wrap gap-2"
+          role="tablist"
+          aria-label={t.a11y.filterCredits}
+        >
+          {ROLE_FILTER_IDS.map((id) => (
+            <button
+              key={id}
+              type="button"
+              role="tab"
+              aria-selected={role === id}
+              onClick={() => handleRoleChange(id)}
+              className={cn(
+                'font-heading border px-4 py-2 text-xs tracking-[0.14em] uppercase transition-colors',
+                role === id
+                  ? 'border-primary bg-primary text-primary-foreground'
+                  : 'border-border text-muted hover:border-primary hover:text-primary',
+              )}
+            >
+              {id === 'all' ? t.credits.all : id === 'monitors' ? t.credits.monitors : t.credits.foh}
+            </button>
+          ))}
+        </div>
+
+        {credits.length > PAGE_SIZE ? (
+          <CreditsPagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={goToPage}
+            label={t.a11y.creditsPageTop}
+            variant="rail"
+            className="shrink-0 self-end sm:self-auto"
+          />
+        ) : null}
+      </div>
+    </div>
+  )
+}
+
+export function CreditsTimelineList({ className }: { className?: string }) {
+  const { role, credits, pageCredits, currentPage, totalPages, goToPage } =
+    useCreditsTimeline()
+  const { t } = useLanguage()
   const reduced = useReducedMotion()
   const item = reduced ? reducedMotionVariants : fadeUp
   const container = reduced ? undefined : staggerContainer
 
-  const totalPages = Math.max(1, Math.ceil(credits.length / PAGE_SIZE))
-  const currentPage = Math.min(page, totalPages)
-  const pageCredits = credits.slice(
-    (currentPage - 1) * PAGE_SIZE,
-    currentPage * PAGE_SIZE,
-  )
-
-  function handleRoleChange(next: CreditRoleFilter) {
-    setRole(next)
-    setPage(1)
-  }
-
-  function goToPage(next: number) {
-    const clamped = Math.min(totalPages, Math.max(1, next))
-    if (clamped === currentPage) return
-    setPage(clamped)
-    scrollCreditsSectionIntoView(reduced)
-  }
-
   return (
-    <div>
-      <div className="glass-card glass-card--aurora p-6 sm:p-8 md:p-10">
-        <span className="metal-overlay" aria-hidden />
-        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-8">
-          <VuPlate className="shrink-0">{t.credits.eyebrow}</VuPlate>
-          <h1 className="font-heading text-3xl tracking-[0.08em] text-white sm:text-4xl md:text-right">
-            {t.credits.title}
-          </h1>
-        </div>
-
-        <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-          <div
-            className="flex min-w-0 flex-wrap gap-2"
-            role="tablist"
-            aria-label={t.a11y.filterCredits}
-          >
-            {ROLE_FILTER_IDS.map((id) => (
-              <button
-                key={id}
-                type="button"
-                role="tab"
-                aria-selected={role === id}
-                onClick={() => handleRoleChange(id)}
-                className={cn(
-                  'font-heading border px-4 py-2 text-xs tracking-[0.14em] uppercase transition-colors',
-                  role === id
-                    ? 'border-primary bg-primary text-primary-foreground'
-                    : 'border-border text-muted hover:border-primary hover:text-primary',
-                )}
-              >
-                {id === 'all' ? t.credits.all : id === 'monitors' ? t.credits.monitors : t.credits.foh}
-              </button>
-            ))}
-          </div>
-
-          {credits.length > PAGE_SIZE ? (
-            <CreditsPagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={goToPage}
-              label={t.a11y.creditsPageTop}
-              variant="rail"
-              className="shrink-0 self-end sm:self-auto"
-            />
-          ) : null}
-        </div>
-      </div>
-
-      <div className="relative mt-10">
+    <div className={className}>
+      <div className="relative">
         {/* Mobile left rail */}
         <span
           className="pointer-events-none absolute top-8 bottom-8 left-[6px] w-px -translate-x-1/2 bg-white/20 md:hidden"
@@ -427,3 +439,64 @@ export function CreditsTimeline() {
     </div>
   )
 }
+
+export function CreditsTimeline({ children }: { children?: ReactNode }) {
+  const [role, setRole] = useState<CreditRoleFilter>('all')
+  const [page, setPage] = useState(1)
+  const [version, setVersion] = useState(0)
+  const credits = useMemo(() => getPortfolioCredits(role), [role, version])
+
+  useEffect(() => {
+    const refresh = () => setVersion((current) => current + 1)
+    window.addEventListener(CREDITS_UPDATED_EVENT, refresh)
+    window.addEventListener('storage', refresh)
+    return () => {
+      window.removeEventListener(CREDITS_UPDATED_EVENT, refresh)
+      window.removeEventListener('storage', refresh)
+    }
+  }, [])
+  const reduced = useReducedMotion()
+
+  const totalPages = Math.max(1, Math.ceil(credits.length / PAGE_SIZE))
+  const currentPage = Math.min(page, totalPages)
+  const pageCredits = credits.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE,
+  )
+
+  function handleRoleChange(next: CreditRoleFilter) {
+    setRole(next)
+    setPage(1)
+  }
+
+  function goToPage(next: number) {
+    const clamped = Math.min(totalPages, Math.max(1, next))
+    if (clamped === currentPage) return
+    setPage(clamped)
+    scrollCreditsSectionIntoView(reduced)
+  }
+
+  return (
+    <CreditsTimelineContext.Provider
+      value={{
+        role,
+        credits,
+        pageCredits,
+        currentPage,
+        totalPages,
+        handleRoleChange,
+        goToPage,
+      }}
+    >
+      {children ?? (
+        <>
+          <CreditsTimelineHeader />
+          <CreditsTimelineList className="mt-10" />
+        </>
+      )}
+    </CreditsTimelineContext.Provider>
+  )
+}
+
+CreditsTimeline.Header = CreditsTimelineHeader
+CreditsTimeline.List = CreditsTimelineList

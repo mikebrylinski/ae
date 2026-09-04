@@ -27,8 +27,8 @@
     "title": "Planning Your Next Production?",
     "subtitle": "",
     "button": { "label": "Get In Touch", "href": "/contact" },
-    "image": "/images/media/headshot-2.jpg",
-    "imageAlt": "Andy Ebert at the console — Digidesign Venue backstage"
+    "image": "/images/sections/cta-portrait.jpg",
+    "imageAlt": "Andy in profile with in-ear monitors under stage lights"
   },
   "about": {
     "portrait": "/images/about/portrait.jpg",
