@@ -1,0 +1,87 @@
+{
+  "resumeSummary": "Monitor- und FOH-Tontechniker mit weltweiten Tourcredits seit 1997 — darunter Alanis Morissette, The Weeknd, Maroon 5, Guns N’ Roses, Mariah Carey, Stone Temple Pilots, Neil Young und viele mehr. 2017 nominiert für den Parnelli Award als Monitor Engineer of the Year.",
+  "award": "2017 Parnelli Award nominiert — Monitor Engineer of the Year",
+  "timeline": [
+    {
+      "year": "2012–Present",
+      "tour": "Weltweite Tourneen",
+      "description": "Monitor Engineer für Alanis Morissettes laufende Welttournee — aktuell in Arenen, Stadien, Amphitheatern, Festivals, TV und Corporate-Dates."
+    },
+    {
+      "year": "2015–2020",
+      "tour": "Weltweite Tourneen",
+      "description": "Monitor Engineer für The Weeknd weltweit. Parallel USA-Dates mit Alanis Morissette (2015, 2016, 2019). 2017 Parnelli-Award-Nominierung als Monitor Engineer of the Year."
+    },
+    {
+      "year": "2012–2014",
+      "tour": "Arena- und Welttourneen",
+      "description": "Monitor-Tontechnik für The Weeknd (weltweit), Adam Lambert (USA / weltweit), Alanis Morissette (weltweit, 2012), Usher (MTV Music Awards) und Local Natives (USA). FOH für Adam Lambert in Asien (2012)."
+    },
+    {
+      "year": "2010–2011",
+      "tour": "Weltweite Tourneen",
+      "description": "Monitor Engineer für Carrie Underwood und Stone Temple Pilots weltweit, plus Adam Lambert (USA, 2010)."
+    },
+    {
+      "year": "2007–2009",
+      "tour": "Arena- und Festivaltourneen",
+      "description": "Monitor Engineer für Neil Young (USA / Europa), Velvet Revolver (USA), Stone Temple Pilots, Shakira (USA), Scott Weiland (USA), Sugar Ray (One-offs, USA) und Enrique Iglesias (One-off, USA). FOH für Operator (USA, 2007)."
+    },
+    {
+      "year": "2004–2006",
+      "tour": "Weltweit und Festivals",
+      "description": "Monitor Engineer für Maroon 5 (weltweit), Guns N’ Roses (Europa, USA), Mariah Carey (weltweit), Red Hot Chili Peppers (USA), Foo Fighters (One-off, USA), Beck, Sugar Ray, Quannum World feat. DJ Shadow, Pointer Sisters, Blackalicious, Sebastian Bach und das KROQ Inland Invasion Festival."
+    },
+    {
+      "year": "1999–2003",
+      "tour": "Europa und weltweite Anfänge",
+      "description": "Monitor Engineer für Mariah Carey, R.E.M. (Europa), Puddle of Mudd, Dream Theater, Zwan, Harlem Gospel Singers, Modern Talking, Tarkan, Glenn Hughes, Michael Schenker Group, Al Bano Carrisi, Die Prinzen, Element of Crime, Scooter, Seeed, Expo 2000 (Hannover), Rock am Ring und große deutsche Festivals. Kontakt zu Audio-Rent Clair in Europa (2001); erstes US-Arbeitsvisum 2003. FOH für Ute Lemper und das Tapiola Orchester (Europa, 2003)."
+    },
+    {
+      "year": "1997–2000",
+      "tour": "FOH und frühe Tourjahre",
+      "description": "Professioneller Tourstart im Januar 1997 als FOH-Techniker einer europäischen Gospel-Tour. Ab 1998 Monitor-Mischung; erster großer Arena-Monitorjob 1999. FOH für die Golden Gospel Singers (Europa, 1997–2000) und Momix (Deutschland, 1999)."
+    }
+  ],
+  "skills": [
+    {
+      "title": "Monitor-Tontechnik",
+      "items": [
+        "IEM-Mischung",
+        "Wedge-Mischung",
+        "Artist-Cueing",
+        "Showfile-Management"
+      ]
+    },
+    {
+      "title": "FOH-Tontechnik",
+      "items": [
+        "Arena-Mischung",
+        "Festivalbühnen",
+        "Tourkonsolen",
+        "Systemkenntnis",
+        "Show-Konsistenz"
+      ]
+    },
+    {
+      "title": "Produktion",
+      "items": [
+        "Tour-Advancing",
+        "Technische Leitung",
+        "Crew-Kommunikation",
+        "Vendor-Koordination",
+        "Internationales Touring"
+      ]
+    },
+    {
+      "title": "Tools & Systeme",
+      "items": [
+        "Digitale Konsolen",
+        "Analoge Konsolen",
+        "Funksysteme",
+        "Bühnenpläne & Inputlisten",
+        "Rack-Layouts"
+      ]
+    }
+  ]
+}

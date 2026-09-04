@@ -1,7 +1,12 @@
 import { Link } from 'react-router-dom'
 import type { Project } from '@/types'
 import { Badge } from '@/components/ui/Badge'
-import { getChartVenueChips } from '@/lib/content'
+import {
+  getChartVenueChips,
+  localizeCategory,
+  localizeProject,
+} from '@/lib/content'
+import { useLanguage } from '@/i18n/LanguageProvider'
 import { cn } from '@/lib/utils'
 
 interface ProjectCardProps {
@@ -9,6 +14,8 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
+  const { lang } = useLanguage()
+  const localized = localizeProject(project, lang)
   const chips = getChartVenueChips(project.category)
   const bg = project.cardImage
 
@@ -29,6 +36,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
               alt=""
               aria-hidden
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              loading="lazy"
+              decoding="async"
             />
             <div
               className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/35"
@@ -42,11 +51,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
             {project.artist}
           </h3>
           <p className="mt-1 text-[9px] leading-snug tracking-[0.1em] text-white/75 uppercase sm:mt-2 sm:text-[11px] sm:tracking-[0.12em]">
-            {project.year}
+            {localized.year}
             <span className="mx-1 text-white/35 sm:mx-1.5" aria-hidden>
               ·
             </span>
-            {project.role}
+            {localized.role}
           </p>
         </div>
       </div>
@@ -58,7 +67,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               variant="muted"
               className="px-1.5 py-0.5 text-[8px] tracking-[0.1em] sm:px-2 sm:py-0.5 sm:text-[10px] sm:tracking-[0.12em]"
             >
-              {c}
+              {localizeCategory(c, lang)}
             </Badge>
           ))}
         </div>

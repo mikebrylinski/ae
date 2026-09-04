@@ -1,22 +1,31 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { FileText, Mic, Newspaper, Star, type LucideIcon } from 'lucide-react'
-import { press } from '@/lib/content'
+import { FileText } from 'lucide-react'
+import { getPressItems, localizePressType, pressHref } from '@/lib/content'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Badge } from '@/components/ui/Badge'
-import { GlassIcon } from '@/components/ui/GlassCard'
 import { fadeUp, reducedMotionVariants, staggerContainer } from '@/lib/motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
+import { useLanguage } from '@/i18n/LanguageProvider'
+import type { PressItem } from '@/types'
 
-const typeIcon: Record<string, LucideIcon> = {
-  Interview: Mic,
-  Article: Newspaper,
-  Review: Star,
+const PREVIEW_COUNT = 3
+
+function getPreviewPressItems(limit = PREVIEW_COUNT): PressItem[] {
+  const items = getPressItems()
+  const withHref = items.filter((item) => pressHref(item))
+  if (withHref.length >= limit) return withHref.slice(0, limit)
+  const seen = new Set(withHref.map((item) => item.id))
+  return [...withHref, ...items.filter((item) => !seen.has(item.id))].slice(
+    0,
+    limit,
+  )
 }
 
 export function PressPreview() {
-  const items = press.slice(0, 3)
+  const { lang, t } = useLanguage()
+  const items = getPreviewPressItems()
   const reduced = useReducedMotion()
   const item = reduced ? reducedMotionVariants : fadeUp
 
@@ -28,15 +37,15 @@ export function PressPreview() {
       <Container>
         <SectionHeading
           id="press-heading"
-          eyebrow="Press"
-          title="Press & Media"
+          eyebrow={t.pressPreview.eyebrow}
+          title={t.pressPreview.title}
           align="left"
           action={
             <Link
               to="/media"
               className="font-heading text-xs tracking-[0.16em] text-primary transition-opacity duration-500 hover:opacity-80"
             >
-              View All Press
+              {t.pressPreview.viewAll}
             </Link>
           }
         />
@@ -49,39 +58,64 @@ export function PressPreview() {
           viewport={{ once: true, margin: '-60px' }}
         >
           {items.map((pressItem) => {
-            const hasLink = Boolean(pressItem.url && pressItem.url !== '#')
+            const href = pressHref(pressItem)
             const meta = [pressItem.publication, pressItem.date]
               .filter(Boolean)
               .join(' · ')
-            const Icon = typeIcon[pressItem.type] ?? FileText
             const body = (
-              <div className="p-5 md:p-6">
-                <div className="mb-4 flex items-center gap-3">
-                  <GlassIcon className="h-10 w-10">
-                    <Icon size={18} strokeWidth={1.6} className="icon-glow-soft" aria-hidden />
-                  </GlassIcon>
-                  <Badge variant="muted">{pressItem.type}</Badge>
+              <>
+                {pressItem.image ? (
+                  <div className="relative aspect-[16/10] overflow-hidden border-b border-white/10 bg-black">
+                    <img
+                      src={pressItem.image}
+                      alt=""
+                      className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div
+                      className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/15"
+                      aria-hidden
+                    />
+                  </div>
+                ) : (
+                  <div
+                    className="relative flex aspect-[16/10] items-center justify-center overflow-hidden border-b border-white/10 bg-black"
+                    aria-hidden
+                  >
+                    <div className="spotlight-empty-grid absolute inset-0 opacity-70" />
+                    <FileText
+                      size={28}
+                      strokeWidth={1.4}
+                      className="relative text-white/25"
+                    />
+                  </div>
+                )}
+                <div className="p-5 md:p-6">
+                  <Badge variant="muted">{localizePressType(pressItem.type, lang)}</Badge>
+                  <h3 className="mt-3 font-heading text-lg tracking-[0.06em] text-white transition-colors duration-500 group-hover:text-primary">
+                    {pressItem.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-muted">{meta}</p>
+                  <p className="mt-3 text-sm text-foreground/80">
+                    {pressItem.excerpt}
+                  </p>
                 </div>
-                <h3 className="font-heading text-lg tracking-[0.06em] text-white transition-colors duration-500 group-hover:text-primary">
-                  {pressItem.title}
-                </h3>
-                <p className="mt-2 text-sm text-muted">{meta}</p>
-                <p className="mt-3 text-sm text-foreground/80">{pressItem.excerpt}</p>
-              </div>
+              </>
             )
 
             return (
               <motion.li
                 key={pressItem.id}
                 variants={item}
-                className="glass-card"
+                className="glass-card overflow-hidden transition-[border-color,box-shadow] duration-500 hover:border-primary/30 hover:shadow-[0_0_24px_rgba(184,255,0,0.06)]"
               >
-                {hasLink ? (
+                {href ? (
                   <a
-                    href={pressItem.url}
+                    href={href}
                     target="_blank"
                     rel="noreferrer"
-                    className="group block h-full transition-[border-color,box-shadow] duration-500 hover:border-primary/30 hover:shadow-[0_0_24px_rgba(184,255,0,0.06)]"
+                    className="group block h-full"
                   >
                     {body}
                   </a>

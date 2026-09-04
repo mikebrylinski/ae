@@ -90,9 +90,16 @@ export interface GalleryItem {
   id: string
   src: string
   alt: string
-  category: 'Arena' | 'Backstage' | 'Monitor World' | 'Rehearsals' | 'Crew' | 'Equipment'
+  /** Scene grouping used by teasers and fallback filters. */
+  category: string
+  /** Filterable meta tags: venue, artist, year, crew / console, etc. */
+  tags: string[]
+  /** Sort key — latest year when the photo is from a range. */
+  year?: number
   width: number
   height: number
+  /** When true, included in the Press & Media gallery teaser. */
+  teaser?: boolean
 }
 
 export interface PressItem {
@@ -104,6 +111,12 @@ export interface PressItem {
   excerpt: string
   /** External article URL when available; empty/omitted means no outbound link. */
   url?: string
+  /** Local stamped PDF in /public/press. */
+  pdf?: string
+  /** First-page preview used on the press timeline. */
+  image?: string
+  /** YYYY-MM sort key, newest first. */
+  sortDate: string
 }
 
 export interface Testimonial {

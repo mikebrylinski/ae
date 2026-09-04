@@ -1,29 +1,24 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { gallery, press, site } from '@/lib/content'
+import { getGalleryTeaser, site } from '@/lib/content'
 import { Container } from '@/components/ui/Container'
 import { MediaImage } from '@/components/ui/MediaImage'
 import {
   GalleryLightbox,
   type GalleryLightboxItem,
 } from '@/components/ui/GalleryLightbox'
-import { Badge } from '@/components/ui/Badge'
 import { buttonVariants } from '@/components/ui/Button'
 import { CTABanner } from '@/components/sections/CTABanner'
 import { PhotoHeader } from '@/components/sections/PhotoHeader'
+import {
+  PRESS_SECTION_ID,
+  PressTimeline,
+} from '@/components/sections/PressTimeline'
+import { PortfolioAurora } from '@/components/ui/PortfolioAurora'
 import { cn } from '@/lib/utils'
 import { useSeo } from '@/hooks/useSeo'
+import { useLanguage } from '@/i18n/LanguageProvider'
 import { VuPlate } from '@/components/ui/VuPlate'
-
-const galleryFilters = [
-  'All',
-  'Arena',
-  'Backstage',
-  'Monitor World',
-  'Rehearsals',
-  'Crew',
-  'Equipment',
-] as const
 
 type LightboxState = {
   items: GalleryLightboxItem[]
@@ -31,21 +26,15 @@ type LightboxState = {
 }
 
 export default function MediaPage() {
+  const { t } = useLanguage()
   useSeo({
     title: 'Press & Media',
     description:
       'Press coverage, biography, headshots, and media downloads for Andy Ebert.',
   })
 
-  const [filter, setFilter] = useState<(typeof galleryFilters)[number]>('All')
   const [lightbox, setLightbox] = useState<LightboxState | null>(null)
-  const filteredGallery = useMemo(
-    () =>
-      filter === 'All'
-        ? gallery
-        : gallery.filter((g) => g.category === filter),
-    [filter],
-  )
+  const teaser = useMemo(() => getGalleryTeaser(6), [])
 
   const headshotItems: GalleryLightboxItem[] = site.media.headshots.map(
     (src, i) => ({
@@ -54,22 +43,35 @@ export default function MediaPage() {
     }),
   )
 
-  const galleryItems: GalleryLightboxItem[] = filteredGallery.map((item) => ({
+  const teaserItems: GalleryLightboxItem[] = teaser.map((item) => ({
     src: item.src,
     alt: item.alt,
   }))
 
   return (
-    <>
+    <PressTimeline>
       <PhotoHeader
         src="/images/media/header-bg.jpg"
         alt="Arena concert stage from the press pit"
-        heading="Press & Media"
-        subheading="Media Kit"
-      />
+        heading="Press"
+      >
+        <PressTimeline.Header />
+      </PhotoHeader>
 
-      <section className="bg-black py-16 sm:py-20 md:py-24 lg:py-28">
-        <Container>
+      <div className="relative isolate overflow-hidden bg-black">
+        <PortfolioAurora />
+
+        <section
+          id={PRESS_SECTION_ID}
+          className="relative z-10 scroll-mt-32 border-b border-border pb-[clamp(4rem,8vw,7rem)] pt-10 md:scroll-mt-40 md:pt-14"
+        >
+          <Container>
+            <PressTimeline.List />
+          </Container>
+        </section>
+
+        <section className="relative z-10 bg-black py-16 sm:py-20 md:py-24 lg:py-28">
+          <Container>
           <VuPlate className="mb-8">Media Kit</VuPlate>
 
           <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr]">
@@ -155,75 +157,25 @@ export default function MediaPage() {
           </div>
 
           <div className="mt-24 md:mt-28">
-            <h2 className="font-heading mb-8 md:mb-10 text-2xl tracking-[0.08em] text-white">
-              Press
-            </h2>
-            <ul className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {press.map((item) => {
-                const hasLink = Boolean(item.url && item.url !== '#')
-                const meta = [item.publication, item.date].filter(Boolean).join(' · ')
-                const body = (
-                  <div className="p-5 md:p-6">
-                    <Badge variant="muted">{item.type}</Badge>
-                    <h3 className="font-heading mt-3 text-lg tracking-[0.06em] text-white group-hover:text-primary">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-muted">{meta}</p>
-                    <p className="mt-3 text-sm text-foreground/80">{item.excerpt}</p>
-                  </div>
-                )
-
-                return (
-                  <li key={item.id} className="border border-border bg-surface">
-                    {hasLink ? (
-                      <a
-                        href={item.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="group block h-full transition-[border-color,box-shadow] duration-500 hover:border-primary/30 hover:shadow-[0_0_24px_rgba(184,255,0,0.06)]"
-                      >
-                        {body}
-                      </a>
-                    ) : (
-                      <div>{body}</div>
-                    )}
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-
-          <div className="mt-24 md:mt-28">
-            <h2 className="font-heading mb-6 md:mb-8 text-2xl tracking-[0.08em] text-white">
-              Gallery
-            </h2>
-            <div className="mb-8 flex flex-wrap gap-2" role="tablist">
-              {galleryFilters.map((cat) => (
-                <button
-                  key={cat}
-                  type="button"
-                  role="tab"
-                  aria-selected={filter === cat}
-                  onClick={() => setFilter(cat)}
-                  className={cn(
-                    'font-heading border px-3 py-2 text-[11px] tracking-[0.12em] uppercase',
-                    filter === cat
-                      ? 'border-primary bg-primary text-primary-foreground'
-                      : 'border-border text-muted hover:text-primary',
-                  )}
-                >
-                  {cat}
-                </button>
-              ))}
+            <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-end sm:justify-between">
+              <h2 className="font-heading text-2xl tracking-[0.08em] text-white">
+                {t.media.gallery}
+              </h2>
+              <Link
+                to="/gallery"
+                className="font-heading text-xs tracking-[0.16em] text-primary uppercase transition-opacity duration-500 hover:opacity-80"
+              >
+                {t.media.viewFullGallery}
+              </Link>
             </div>
             <ul className="columns-1 gap-4 sm:columns-2 lg:columns-3">
-              {filteredGallery.map((item, i) => (
+              {teaser.map((item, i) => (
                 <li key={item.id} className="mb-4 break-inside-avoid">
                   <button
                     type="button"
                     className="group w-full cursor-pointer text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                     onClick={() =>
-                      setLightbox({ items: galleryItems, index: i })
+                      setLightbox({ items: teaserItems, index: i })
                     }
                     aria-label={`View ${item.alt} larger`}
                   >
@@ -242,8 +194,9 @@ export default function MediaPage() {
               ))}
             </ul>
           </div>
-        </Container>
-      </section>
+          </Container>
+        </section>
+      </div>
       <CTABanner />
       <GalleryLightbox
         items={lightbox?.items ?? []}
@@ -253,6 +206,6 @@ export default function MediaPage() {
           setLightbox((current) => (current ? { ...current, index } : current))
         }
       />
-    </>
+    </PressTimeline>
   )
 }

@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowUp } from 'lucide-react'
-import { flattenNav } from '@/lib/content'
+import { flattenNav, getNav } from '@/lib/content'
+import { useLanguage } from '@/i18n/LanguageProvider'
 import { Container } from '@/components/ui/Container'
 import { VuPair } from '@/components/ui/VuPair'
 import { VeganSeal } from '@/components/ui/VeganSeal'
@@ -14,6 +15,8 @@ export function Footer() {
   const year = new Date().getFullYear()
   const reduced = useReducedMotion()
   const item = reduced ? reducedMotionVariants : fadeUp
+  const { lang, t } = useLanguage()
+  const links = flattenNav(getNav(lang))
 
   const scrollTop = () => {
     window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' })
@@ -65,19 +68,19 @@ export function Footer() {
                       <span className="text-primary">EBERT</span>
                     </span>
                     <span className="rack-brand__sub w-full font-heading text-[0.7rem] uppercase text-muted sm:text-xs">
-                      Sound Engineer
+                      {t.brand.subtitle}
                     </span>
                   </Link>
                 </span>
               </div>
               <p className="rack-brand-caption font-heading text-[0.65rem] tracking-[0.18em] text-muted sm:text-[0.7rem]">
-                proudly powered by plants
+                {t.brand.plants}
               </p>
             </div>
 
-            <nav aria-label="Footer">
+            <nav aria-label={t.a11y.footerNav}>
               <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 md:justify-start">
-                {flattenNav().map((link) => (
+                {links.map((link) => (
                   <li key={link.href}>
                     <Link
                       to={link.href}
@@ -97,18 +100,18 @@ export function Footer() {
               type="button"
               onClick={scrollTop}
               className="rack-footer__link font-heading inline-flex min-h-11 items-center gap-2 text-[0.65rem] tracking-[0.16em] text-muted transition-colors duration-500 hover:text-primary"
-              aria-label="Back to top"
+              aria-label={t.a11y.backToTop}
             >
-              BACK TO TOP
+              {t.footer.backToTop.toUpperCase()}
               <ArrowUp size={14} strokeWidth={1.5} className="text-primary" />
             </button>
           </div>
         </motion.div>
 
         <div className="mt-8 flex flex-col items-center gap-2 border-t border-white/10 pt-5 text-center text-xs text-muted lg:flex-row lg:items-center lg:justify-between lg:text-left">
-          <p>© {year} Andy Ebert. All Rights Reserved.</p>
+          <p>© {year} Andy Ebert. {t.footer.rights}</p>
           <p className="font-heading w-full tracking-[0.14em] lg:w-auto lg:text-right">
-            Site by Pixel Palisade
+            {t.footer.siteBy}
           </p>
         </div>
       </Container>

@@ -1,13 +1,16 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { ChevronDown, Menu, X } from 'lucide-react'
-import { AnimatePresence, motion } from 'framer-motion'
-import { nav } from '@/lib/content'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { getNav } from '@/lib/content'
 import type { NavItem } from '@/types'
 import { cn } from '@/lib/utils'
 import { Container } from '@/components/ui/Container'
 import { MeshBackdrop } from '@/components/ui/MeshBackdrop'
 import { RackScrew } from '@/components/ui/Screws'
+import { LanguageSwitch } from '@/components/layout/LanguageSwitch'
+import { interpolate } from '@/i18n/ui'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 /** Hash links only light when the section hash matches. */
 function isNavActive(
@@ -184,6 +187,45 @@ function DesktopDropdown({ item }: { item: NavItem }) {
   )
 }
 
+function MobileRackItem({
+  href,
+  label,
+  end,
+  active,
+  onNavigate,
+  chevron,
+  expanded,
+}: {
+  href?: string
+  label: string
+  end?: boolean
+  active?: boolean
+  onNavigate?: () => void
+  chevron?: boolean
+  expanded?: boolean
+}) {
+  const className = cn('rack-btn', active && 'rack-btn--active')
+  const face = <RackNavFace label={label} chevron={chevron} expanded={expanded} />
+
+  return (
+    <div className={cn('rack-menu__item', active && 'rack-menu__item--active')}>
+      <RackNavLed />
+      {href ? (
+        <NavLink
+          to={href}
+          end={end}
+          onClick={onNavigate}
+          className={className}
+        >
+          {face}
+        </NavLink>
+      ) : (
+        <span className={className}>{face}</span>
+      )}
+    </div>
+  )
+}
+
 function MobileSubmenu({
   item,
   onNavigate,
@@ -194,40 +236,35 @@ function MobileSubmenu({
   const [expanded, setExpanded] = useState(false)
   const panelId = useId()
   const location = useLocation()
+  const { t } = useLanguage()
   const children = item.children ?? []
   const branchActive = isBranchActive(item, location.pathname, location.hash)
 
   return (
-    <div className="w-full max-w-xs">
-      <div className="flex items-center justify-center gap-1">
-        <NavLink
-          to={item.href}
-          onClick={onNavigate}
-          className={cn(
-            'font-heading py-3 text-sm tracking-[0.16em] text-white hover:text-primary',
-            branchActive && 'text-primary',
-          )}
-        >
-          {item.label.toUpperCase()}
-        </NavLink>
-        <button
-          type="button"
-          className="inline-flex h-11 w-11 items-center justify-center text-primary"
-          aria-expanded={expanded}
-          aria-controls={panelId}
-          aria-label={`${expanded ? 'Collapse' : 'Expand'} ${item.label} menu`}
-          onClick={() => setExpanded((v) => !v)}
-        >
-          <ChevronDown
-            size={18}
-            strokeWidth={1.75}
-            className={cn(
-              'transition-transform duration-200',
-              expanded && 'rotate-180',
+    <div className="flex w-full flex-col items-stretch">
+      <div className="rack-menu__branch">
+        <MobileRackItem
+          href={item.href}
+          label={item.label}
+          active={branchActive}
+          onNavigate={onNavigate}
+        />
+        <div className="rack-menu__expand">
+          <RackNavLed />
+          <button
+            type="button"
+            className="rack-btn"
+            aria-expanded={expanded}
+            aria-controls={panelId}
+            aria-label={interpolate(
+              expanded ? t.a11y.collapseMenu : t.a11y.expandMenu,
+              { label: item.label },
             )}
-            aria-hidden
-          />
-        </button>
+            onClick={() => setExpanded((v) => !v)}
+          >
+            <RackNavFace label="" chevron expanded={expanded} />
+          </button>
+        </div>
       </div>
 
       <AnimatePresence initial={false}>
@@ -237,27 +274,21 @@ function MobileSubmenu({
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden border-t border-white/10"
+            className="rack-menu__children overflow-hidden"
           >
             {children.map((child) => (
               <li key={child.href}>
-                <NavLink
-                  to={child.href}
-                  onClick={onNavigate}
-                  className={({ isActive }) =>
-                    cn(
-                      'font-heading block py-2.5 text-xs tracking-[0.16em] text-muted hover:text-primary',
-                      isNavActive(
-                        child.href,
-                        location.pathname,
-                        location.hash,
-                        isActive,
-                      ) && 'text-primary',
-                    )
-                  }
-                >
-                  {child.label.toUpperCase()}
-                </NavLink>
+                <MobileRackItem
+                  href={child.href}
+                  label={child.label}
+                  active={isNavActive(
+                    child.href,
+                    location.pathname,
+                    location.hash,
+                    location.pathname === child.href,
+                  )}
+                  onNavigate={onNavigate}
+                />
               </li>
             ))}
           </motion.ul>
@@ -270,148 +301,178 @@ function MobileSubmenu({
 export function Navbar() {
   const [open, setOpen] = useState(false)
   const location = useLocation()
+  const { lang, t } = useLanguage()
+  const nav = getNav(lang)
+  const reduceMotion = useReducedMotion()
+  const menuMotion = reduceMotion
+    ? { duration: 0 }
+    : { height: { duration: 0.36, ease: [0.22, 1, 0.36, 1] }, opacity: { duration: 0.22 } }
 
   useEffect(() => {
     setOpen(false)
   }, [location.pathname, location.hash])
 
   return (
-    <header className="rack-header fixed inset-x-0 top-0 z-50 overflow-x-hidden lg:overflow-visible">
+    <>
+      <AnimatePresence>
+        {open ? (
+          <motion.button
+            key="rack-menu-overlay"
+            type="button"
+            className="rack-menu-overlay lg:hidden"
+            aria-label={t.a11y.closeMenu}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={reduceMotion ? { duration: 0 } : { duration: 0.22 }}
+            onClick={() => setOpen(false)}
+          />
+        ) : null}
+      </AnimatePresence>
+
+      <header className="rack-header fixed inset-x-0 top-0 z-50 overflow-x-hidden lg:overflow-visible">
       <MeshBackdrop className="rack-header__mesh" />
 
       {/* Desktop rack faceplate + mounting ears */}
       <div className="rack-faceplate" aria-hidden>
         <div className="rack-ear rack-ear--left">
           <RackScrew angle={14} />
-          <RackScrew drive="phillips" angle={-48} />
           <RackScrew angle={67} />
         </div>
         <div className="rack-ear rack-ear--right">
           <RackScrew drive="phillips" angle={22} />
-          <RackScrew angle={-33} />
           <RackScrew drive="phillips" angle={81} />
         </div>
         <div className="rack-faceplate__edge" />
       </div>
 
-      <Container className="relative z-10 flex h-28 min-w-0 items-center justify-between md:h-32">
-        {/* Full brand block on all viewports — name above Sound Engineer, soft glow, no LED */}
-        <div className="rack-brand-wrap rack-brand-wrap--no-seal rack-brand-glow mr-2 min-w-0 sm:mr-4">
-          <Link
-            to="/"
-            className="rack-brand rack-brand--glow inline-flex max-w-full min-w-0 shrink flex-col items-center gap-0.5 text-center sm:max-w-none"
-            onClick={() => setOpen(false)}
-          >
-            <span className="rack-brand__shine" aria-hidden />
-            <span className="rack-brand__name whitespace-nowrap font-heading text-[clamp(1.44rem,6vw,1.84rem)] tracking-[0.08em] sm:text-[2.16rem] sm:tracking-[0.1em] lg:text-[2.24rem] xl:text-[2.59rem]">
-              <span className="text-white">ANDY</span>{' '}
-              <span className="text-primary">EBERT</span>
-            </span>
-            <span className="rack-brand__sub w-full font-heading text-[0.71rem] uppercase sm:text-[0.83rem] lg:text-[0.9rem]">
-              Sound Engineer
-            </span>
-          </Link>
+      <Container className="relative z-10 flex h-28 min-w-0 items-center justify-between gap-3 md:h-32">
+        {/* Logo + language — lang sits immediately right of the brand on all viewports */}
+        <div className="flex min-w-0 items-center gap-2.5 sm:gap-3 lg:gap-4">
+          <div className="rack-brand-wrap rack-brand-wrap--no-seal rack-brand-glow min-w-0">
+            <Link
+              to="/"
+              className="rack-brand rack-brand--glow inline-flex max-w-full min-w-0 shrink flex-col items-center gap-0.5 text-center sm:max-w-none"
+              onClick={() => setOpen(false)}
+            >
+              <span className="rack-brand__shine" aria-hidden />
+              <span className="rack-brand__name whitespace-nowrap font-heading text-[clamp(1.44rem,6vw,1.84rem)] tracking-[0.08em] sm:text-[2.16rem] sm:tracking-[0.1em] lg:text-[2.24rem] xl:text-[2.59rem]">
+                <span className="text-white">ANDY</span>{' '}
+                <span className="text-primary">EBERT</span>
+              </span>
+              <span className="rack-brand__sub w-full font-heading text-[0.71rem] uppercase sm:text-[0.83rem] lg:text-[0.9rem]">
+                {t.brand.subtitle}
+              </span>
+            </Link>
+          </div>
+
+          <LanguageSwitch />
         </div>
 
-        <nav
-          className="rack-nav hidden items-center gap-1.5 lg:flex xl:gap-2.5"
-          aria-label="Primary"
-        >
-          {nav.map((item) =>
-            item.children?.length ? (
-              <DesktopDropdown key={item.href} item={item} />
-            ) : (
-              <div
-                key={item.href}
-                className={cn(
-                  'rack-nav__item',
-                  isNavActive(
-                    item.href,
-                    location.pathname,
-                    location.hash,
-                    location.pathname === item.href,
-                  ) && 'rack-nav__item--active',
-                )}
-              >
-                <RackNavLed />
-                <NavLink
-                  to={item.href}
-                  end={item.href === '/'}
-                  className={({ isActive }) =>
-                    cn(
-                      'rack-btn',
-                      isNavActive(
-                        item.href,
-                        location.pathname,
-                        location.hash,
-                        isActive,
-                      ) && 'rack-btn--active',
-                    )
-                  }
-                >
-                  <RackNavFace label={item.label} />
-                </NavLink>
-              </div>
-            ),
-          )}
-        </nav>
-
-        <button
-          type="button"
-          className="rack-menu-toggle inline-flex h-11 w-11 items-center justify-center text-primary lg:hidden"
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
-        </button>
-      </Container>
-
-      <AnimatePresence>
-        {open ? (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            className="relative z-10 border-t border-border bg-black/90 lg:hidden"
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3 lg:gap-4 xl:gap-5">
+          <nav
+            className="rack-nav hidden items-center gap-1.5 lg:flex xl:gap-2.5"
+            aria-label={t.a11y.primaryNav}
           >
-            <nav
-              className="flex flex-col items-center gap-1 px-5 py-6 text-center"
-              aria-label="Mobile"
-            >
-              {nav.map((item) =>
-                item.children?.length ? (
-                  <MobileSubmenu
-                    key={item.href}
-                    item={item}
-                    onNavigate={() => setOpen(false)}
-                  />
-                ) : (
+            {nav.map((item) =>
+              item.children?.length ? (
+                <DesktopDropdown key={item.href} item={item} />
+              ) : (
+                <div
+                  key={item.href}
+                  className={cn(
+                    'rack-nav__item',
+                    isNavActive(
+                      item.href,
+                      location.pathname,
+                      location.hash,
+                      location.pathname === item.href,
+                    ) && 'rack-nav__item--active',
+                  )}
+                >
+                  <RackNavLed />
                   <NavLink
-                    key={item.href}
                     to={item.href}
                     end={item.href === '/'}
-                    onClick={() => setOpen(false)}
                     className={({ isActive }) =>
                       cn(
-                        'font-heading py-3 text-sm tracking-[0.16em] text-white hover:text-primary',
+                        'rack-btn',
                         isNavActive(
                           item.href,
                           location.pathname,
                           location.hash,
                           isActive,
-                        ) && 'text-primary',
+                        ) && 'rack-btn--active',
                       )
                     }
                   >
-                    {item.label.toUpperCase()}
+                    <RackNavFace label={item.label} />
                   </NavLink>
-                ),
-              )}
+                </div>
+              ),
+            )}
+          </nav>
+
+          <button
+            type="button"
+            className="rack-menu-toggle inline-flex h-11 w-11 shrink-0 items-center justify-center text-primary lg:hidden"
+            aria-label={open ? t.a11y.closeMenu : t.a11y.openMenu}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
+          </button>
+        </div>
+      </Container>
+
+      <AnimatePresence>
+        {open ? (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={menuMotion}
+            className="rack-menu-panel relative z-10 lg:hidden"
+          >
+            <nav
+              className="rack-menu"
+              aria-label={t.a11y.mobileNav}
+            >
+              <span className="metal-overlay" aria-hidden />
+              <span className="rack-rivet rack-rivet--tl" aria-hidden />
+              <span className="rack-rivet rack-rivet--tr" aria-hidden />
+              <span className="rack-rivet rack-rivet--bl" aria-hidden />
+              <span className="rack-rivet rack-rivet--br" aria-hidden />
+              <div className="rack-menu__bay">
+                {nav.map((item) =>
+                  item.children?.length ? (
+                    <MobileSubmenu
+                      key={item.href}
+                      item={item}
+                      onNavigate={() => setOpen(false)}
+                    />
+                  ) : (
+                    <MobileRackItem
+                      key={item.href}
+                      href={item.href}
+                      label={item.label}
+                      end={item.href === '/'}
+                      active={isNavActive(
+                        item.href,
+                        location.pathname,
+                        location.hash,
+                        location.pathname === item.href,
+                      )}
+                      onNavigate={() => setOpen(false)}
+                    />
+                  ),
+                )}
+              </div>
             </nav>
           </motion.div>
         ) : null}
       </AnimatePresence>
     </header>
+    </>
   )
 }

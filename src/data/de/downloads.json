@@ -1,0 +1,180 @@
+{
+  "intro": "Listen, Layouts und Charts als PDF — kostenlos zum Download.",
+  "categories": [
+    {
+      "id": "blank-templates",
+      "title": "Leere Vorlagen",
+      "description": "Leere Input- und Monitor-Output-Listen, bereit zum Ausfüllen.",
+      "items": [
+        {
+          "id": "blank-input-list",
+          "label": "Leere Inputliste",
+          "description": "Leere Vorlage für die Inputliste.",
+          "href": "/downloads/AE-blank-Input-list.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "blank-monitor-outputs-list",
+          "label": "Leere Monitor-Output-Liste",
+          "description": "Leere Vorlage für Monitor-Ausgänge.",
+          "href": "/downloads/AE-blank-Monitor-Outputs-list.pdf",
+          "type": "PDF"
+        }
+      ]
+    },
+    {
+      "id": "input-lists",
+      "title": "Inputlisten",
+      "description": "Kanal-Inputlisten und Bühnenpläne für gängige Konsolengrößen.",
+      "items": [
+        {
+          "id": "inputlist-40ch",
+          "label": "Inputliste — 40ch",
+          "description": "40-Kanal-Inputliste als Vorlage.",
+          "href": "/downloads/Inputlist-40ch.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "inputlist-stageplot-40ch",
+          "label": "Inputliste + Bühnenplan — 40ch",
+          "description": "40-Kanal-Inputliste mit Bühnenplan.",
+          "href": "/downloads/Inputlist+Stageplot-40ch.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "inputlist-stageplot-48ch",
+          "label": "Inputliste + Bühnenplan — 48ch",
+          "description": "48-Kanal-Inputliste mit Bühnenplan.",
+          "href": "/downloads/Inputlist+Stageplot-48ch.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "inputlist-52ch",
+          "label": "Inputliste — 52ch",
+          "description": "52-Kanal-Inputliste als Vorlage.",
+          "href": "/downloads/Inputlist-52ch.pdf",
+          "type": "PDF"
+        }
+      ]
+    },
+    {
+      "id": "rack-layouts",
+      "title": "Rack-Layouts",
+      "description": "Outboard-Rack-Layouts für die Tourproduktion.",
+      "items": [
+        {
+          "id": "rack-16-13",
+          "label": "16 HE & 13 HE",
+          "description": "Kombiniertes 16-HE- und 13-HE-Rack-Layout.",
+          "href": "/downloads/Rack-Layout-16+13.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "rack-18-12",
+          "label": "18 HE & 12 HE",
+          "description": "Kombiniertes 18-HE- und 12-HE-Rack-Layout.",
+          "href": "/downloads/Rack-Layout-18+12.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "rack-36",
+          "label": "36 HE",
+          "description": "Volles 36-HE-Rack-Layout.",
+          "href": "/downloads/Rack-Layout-36.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "rack-3-10",
+          "label": "3 × 10 HE",
+          "description": "Dreifaches 10-HE-Rack-Layout.",
+          "href": "/downloads/Rack-Layout-3-10.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "rack-3-12",
+          "label": "3 × 12 HE",
+          "description": "Dreifaches 12-HE-Rack-Layout.",
+          "href": "/downloads/Rack-Layout-3-12.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "rack-3-10-18",
+          "label": "3 × 10 HE & 18 HE",
+          "description": "Dreifaches 10-HE- plus 18-HE-Rack-Layout.",
+          "href": "/downloads/Rack-Layout-3-10+18.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "rack-3-12-18",
+          "label": "3 × 12 HE & 18 HE",
+          "description": "Dreifaches 12-HE- plus 18-HE-Rack-Layout.",
+          "href": "/downloads/Rack-Layout-3-12+18.pdf",
+          "type": "PDF"
+        }
+      ]
+    },
+    {
+      "id": "console-charts",
+      "title": "Konsolencharts",
+      "description": "Kanalcharts für klassische und universelle Konsolen.",
+      "items": [
+        {
+          "id": "midas-h2000",
+          "label": "Midas H-2000",
+          "description": "Konsolenchart für die Midas H-2000.",
+          "href": "/downloads/Midas-H2000-chart.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "midas-h3000",
+          "label": "Midas H-3000",
+          "description": "Konsolenchart für die Midas H-3000.",
+          "href": "/downloads/Midas-H3000-chart.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "midas-xl4",
+          "label": "Midas XL-4",
+          "description": "Konsolenchart für die Midas XL-4.",
+          "href": "/downloads/Midas-XL4-chart.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "midas-xl250",
+          "label": "Midas XL-250",
+          "description": "Konsolenchart für die Midas XL-250.",
+          "href": "/downloads/Midas-XL250-chart.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "universal-32ch",
+          "label": "Universal-Konsole — 32ch",
+          "description": "Universelles 32-Kanal-Konsolenchart.",
+          "href": "/downloads/Universal-console-chart-32ch.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "yamaha-pm3500m",
+          "label": "Yamaha PM-3500M",
+          "description": "Konsolenchart für die Yamaha PM-3500M.",
+          "href": "/downloads/Yamaha-PM3500M-chart.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "yamaha-pm4000",
+          "label": "Yamaha PM-4000",
+          "description": "Konsolenchart für die Yamaha PM-4000.",
+          "href": "/downloads/Yamaha-PM4000-chart.pdf",
+          "type": "PDF"
+        },
+        {
+          "id": "yamaha-pm4000m",
+          "label": "Yamaha PM-4000M",
+          "description": "Konsolenchart für die Yamaha PM-4000M.",
+          "href": "/downloads/Yamaha-PM4000M-chart.pdf",
+          "type": "PDF"
+        }
+      ]
+    }
+  ]
+}

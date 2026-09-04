@@ -2,7 +2,8 @@ import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Mail } from 'lucide-react'
-import { site } from '@/lib/content'
+import { getSite } from '@/lib/content'
+import { useLanguage } from '@/i18n/LanguageProvider'
 import { Container } from '@/components/ui/Container'
 import { buttonVariants } from '@/components/ui/Button'
 import { GlassCard } from '@/components/ui/GlassCard'
@@ -215,7 +216,8 @@ function CtaSpectrum({ reduced }: { reduced: boolean }) {
 }
 
 export function CTABanner() {
-  const { cta } = site
+  const { lang, t } = useLanguage()
+  const { cta } = getSite(lang)
   const reduced = useReducedMotion()
   const safari = hasSafariClass()
   const item = reduced ? reducedMotionVariants : fadeUp
@@ -223,7 +225,7 @@ export function CTABanner() {
   const imageAlt = cta.imageAlt ?? 'Andy Ebert at the console'
 
   return (
-    <section className="section-divider-top section-pad bg-black" aria-label="Call to action">
+    <section className="section-divider-top section-pad bg-black" aria-label={t.a11y.cta}>
       <Container>
         <motion.div
           className="relative min-h-[22rem] overflow-hidden rounded-[1rem] border border-white/16 md:min-h-[28rem] lg:min-h-[32rem]"
@@ -236,6 +238,8 @@ export function CTABanner() {
             src={imageSrc}
             alt={imageAlt}
             className="absolute inset-0 h-full w-full object-cover object-center grayscale"
+            loading="lazy"
+            decoding="async"
           />
           <div
             aria-hidden

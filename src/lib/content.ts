@@ -22,10 +22,22 @@ import projectsData from '@/data/projects.json'
 import experienceData from '@/data/experience.json'
 import galleryData from '@/data/gallery.json'
 import downloadsData from '@/data/downloads.json'
+import siteDeData from '@/data/de/site.json'
+import navDeData from '@/data/de/nav.json'
+import servicesDeData from '@/data/de/services.json'
+import downloadsDeData from '@/data/de/downloads.json'
+import experienceDeCopy from '@/data/de/experience-copy.json'
+import projectOverviewsDe from '@/data/de/project-overviews.json'
 import { loadStoredCredits } from '@/lib/admin'
+import type { Language } from '@/i18n/types'
+import { getUiCopy } from '@/i18n/ui'
 
 export const site = siteData as SiteConfig
 export const nav = navData as NavItem[]
+export const siteDe = siteDeData as SiteConfig
+export const navDe = navDeData as NavItem[]
+export const servicesDe = servicesDeData as Service[]
+export const downloadsDe = downloadsDeData as DownloadsData
 
 /** Flat list for footer / simple menus: parents then unique children. */
 export function flattenNav(items: NavItem[] = nav): NavItem[] {
@@ -51,10 +63,194 @@ export function flattenNav(items: NavItem[] = nav): NavItem[] {
 export const services = servicesData as Service[]
 export const testimonials = testimonialsData as Testimonial[]
 export const press = pressData as PressItem[]
+
+export function getSite(lang: Language): SiteConfig {
+  return lang === 'de' ? siteDe : site
+}
+
+export function getNav(lang: Language): NavItem[] {
+  return lang === 'de' ? navDe : nav
+}
+
+export function getServices(lang: Language): Service[] {
+  return lang === 'de' ? servicesDe : services
+}
+
+export function getDownloads(lang: Language): DownloadsData {
+  return lang === 'de' ? downloadsDe : downloads
+}
+
+export function getExperience(lang: Language): ExperienceData {
+  if (lang !== 'de') return experience
+  const copy = experienceDeCopy
+  return {
+    ...experience,
+    resumeSummary: copy.resumeSummary,
+    award: copy.award,
+    timeline: experience.timeline.map((entry, i) => ({
+      ...entry,
+      tour: copy.timeline[i]?.tour ?? entry.tour,
+      description: copy.timeline[i]?.description ?? entry.description,
+    })),
+    skills: experience.skills.map((group, i) => ({
+      title: copy.skills[i]?.title ?? group.title,
+      items: copy.skills[i]?.items ?? group.items,
+    })),
+  }
+}
+
+export function localizeYearLabel(label: string, lang: Language): string {
+  if (lang !== 'de') return label
+  return label.replace(/Present/gi, getUiCopy('de').year.present)
+}
+
+export function localizeRegion(region: string, lang: Language): string {
+  if (lang !== 'de') return region
+  const t = getUiCopy('de')
+  return region
+    .split(' · ')
+    .map((part) => {
+      const key = part as keyof typeof t.regions
+      return t.regions[key] ?? part.replace(/Worldwide/gi, t.regions.Worldwide)
+    })
+    .join(' · ')
+}
+
+export function localizeRole(role: string, lang: Language): string {
+  if (lang !== 'de') return role
+  const t = getUiCopy('de')
+  const key = role as keyof typeof t.roles
+  return t.roles[key] ?? role
+}
+
+export function localizeCategory(category: string, lang: Language): string {
+  const t = getUiCopy(lang)
+  if (category === 'All') return t.filters.all
+  const key = category as keyof typeof t.filters
+  return t.filters[key] ?? category
+}
+
+export function localizeProjectTitle(title: string, lang: Language): string {
+  if (lang !== 'de') return title
+  const t = getUiCopy('de')
+  const key = title as keyof typeof t.titles
+  return t.titles[key] ?? title
+}
+
+export function localizePressType(type: PressItem['type'], lang: Language): string {
+  const t = getUiCopy(lang)
+  return t.press.types[type] ?? type
+}
+
+export function localizeProject(project: Project, lang: Language): Project {
+  if (lang !== 'de') return project
+  const overview =
+    (projectOverviewsDe as Record<string, string>)[project.slug] ?? project.overview
+  return {
+    ...project,
+    title: localizeProjectTitle(project.title, lang),
+    role: localizeRole(project.role, lang),
+    year: localizeYearLabel(project.year, lang),
+    overview,
+  }
+}
+
+export function localizeGroupedCredit(
+  credit: GroupedCredit,
+  lang: Language,
+): GroupedCredit {
+  if (lang !== 'de') return credit
+  return {
+    ...credit,
+    yearLabel: localizeYearLabel(credit.yearLabel, lang),
+    region: localizeRegion(credit.region, lang),
+    role: localizeRole(credit.role, lang),
+  }
+}
+
+export type PressTypeFilter = 'all' | PressItem['type']
+
+export function pressHref(item: PressItem): string | undefined {
+  if (item.pdf) return item.pdf
+  if (item.url && item.url !== '#') return item.url
+  return undefined
+}
+
+export function getPressItems(type: PressTypeFilter = 'all'): PressItem[] {
+  const items = [...press].sort((a, b) => b.sortDate.localeCompare(a.sortDate))
+  if (type === 'all') return items
+  return items.filter((item) => item.type === type)
+}
 export const projects = projectsData as Project[]
 export const experience = experienceData as ExperienceData
 export const gallery = galleryData as GalleryItem[]
 export const downloads = downloadsData as DownloadsData
+
+/** Scene / venue chips shown first on the Gallery page. */
+export const GALLERY_SCENE_TAGS = [
+  'Arena',
+  'Backstage',
+  'Monitor World',
+  'Rehearsals',
+  'Crew',
+  'Equipment',
+  'Console',
+  'FOH',
+  'Headshot',
+  'Festivals',
+  'Amphitheaters',
+  'Tour',
+  'Berlin',
+  'Los Angeles',
+] as const
+
+const GALLERY_YEAR_RE = /^\d{4}$/
+
+export type GallerySort = 'newest' | 'oldest' | 'tag'
+
+export function getGalleryTeaser(limit = 6): GalleryItem[] {
+  const flagged = gallery.filter((item) => item.teaser)
+  return (flagged.length ? flagged : gallery).slice(0, limit)
+}
+
+export function getGallerySceneTags(): string[] {
+  const present = new Set(gallery.flatMap((item) => item.tags))
+  return GALLERY_SCENE_TAGS.filter((tag) => present.has(tag))
+}
+
+export function getGalleryYearTags(): string[] {
+  const years = new Set<string>()
+  for (const item of gallery) {
+    for (const tag of item.tags) {
+      if (GALLERY_YEAR_RE.test(tag)) years.add(tag)
+    }
+  }
+  return Array.from(years).sort((a, b) => b.localeCompare(a))
+}
+
+export function filterGallery(
+  selected: string[],
+  sort: GallerySort = 'newest',
+): GalleryItem[] {
+  const items =
+    selected.length === 0
+      ? [...gallery]
+      : gallery.filter((item) => selected.every((tag) => item.tags.includes(tag)))
+
+  items.sort((a, b) => {
+    if (sort === 'newest') {
+      return (b.year ?? 0) - (a.year ?? 0) || a.id.localeCompare(b.id)
+    }
+    if (sort === 'oldest') {
+      return (a.year ?? 0) - (b.year ?? 0) || a.id.localeCompare(b.id)
+    }
+    const tagA = a.tags.find((tag) => !GALLERY_YEAR_RE.test(tag)) ?? a.tags[0] ?? ''
+    const tagB = b.tags.find((tag) => !GALLERY_YEAR_RE.test(tag)) ?? b.tags[0] ?? ''
+    return tagA.localeCompare(tagB) || a.alt.localeCompare(b.alt)
+  })
+
+  return items
+}
 
 export function getFeaturedProjects(): Project[] {
   return projects.filter((p) => p.featured)

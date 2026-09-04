@@ -6,7 +6,8 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import { motion } from 'framer-motion'
-import { site } from '@/lib/content'
+import { getSite } from '@/lib/content'
+import { useLanguage } from '@/i18n/LanguageProvider'
 import { Container } from '@/components/ui/Container'
 import { GlassIcon } from '@/components/ui/GlassCard'
 import { fadeUp, reducedMotionVariants, staggerContainer } from '@/lib/motion'
@@ -20,13 +21,15 @@ const iconMap: Record<string, LucideIcon> = {
 }
 
 export function StatsBar() {
+  const { lang, t } = useLanguage()
+  const { stats } = getSite(lang)
   const reduced = useReducedMotion()
   const item = reduced ? reducedMotionVariants : fadeUp
 
   return (
     <section
       className="stats-bar section-divider-top relative overflow-hidden"
-      aria-label="Career highlights"
+      aria-label={t.a11y.stats}
     >
       <Container className="relative z-[2] py-16 sm:py-20 md:py-24 lg:py-28">
         <motion.ul
@@ -36,7 +39,7 @@ export function StatsBar() {
           whileInView="visible"
           viewport={{ once: true, margin: '-40px' }}
         >
-          {site.stats.map((stat) => {
+          {stats.map((stat) => {
             const Icon = (stat.icon && iconMap[stat.icon]) || Briefcase
             const label =
               stat.value > 0

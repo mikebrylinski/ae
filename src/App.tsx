@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { LanguageProvider } from '@/i18n/LanguageProvider'
 import { RootLayout } from '@/components/layout/RootLayout'
 import { LoadingLine, LoadingMeter } from '@/components/ui/LoadingMeter'
 
@@ -8,6 +9,7 @@ const PortfolioPage = lazy(() => import('@/pages/PortfolioPage'))
 const ProjectDetailPage = lazy(() => import('@/pages/ProjectDetailPage'))
 const ExperiencePage = lazy(() => import('@/pages/ExperiencePage'))
 const MediaPage = lazy(() => import('@/pages/MediaPage'))
+const GalleryPage = lazy(() => import('@/pages/GalleryPage'))
 const DownloadsPage = lazy(() => import('@/pages/DownloadsPage'))
 const AboutPage = lazy(() => import('@/pages/AboutPage'))
 const ContactPage = lazy(() => import('@/pages/ContactPage'))
@@ -17,6 +19,7 @@ const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'))
 export default function App() {
   return (
     <BrowserRouter>
+      <LanguageProvider>
       <Routes>
         <Route
           path="admin"
@@ -39,12 +42,14 @@ export default function App() {
           <Route path="portfolio/:slug" element={<ProjectDetailPage />} />
           <Route path="experience" element={<ExperiencePage />} />
           <Route path="media" element={<MediaPage />} />
+          <Route path="gallery" element={<GalleryPage />} />
           <Route path="downloads" element={<DownloadsPage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="contact" element={<ContactPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
+      </LanguageProvider>
     </BrowserRouter>
   )
 }

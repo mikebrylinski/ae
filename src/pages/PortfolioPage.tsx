@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
   getProjectsByCategory,
+  localizeCategory,
   SPOTLIGHT_FILTERS,
 } from '@/lib/content'
+import { interpolate } from '@/i18n/ui'
+import { useLanguage } from '@/i18n/LanguageProvider'
 import { Container } from '@/components/ui/Container'
 import { MediaImage } from '@/components/ui/MediaImage'
 import { ProjectCard } from '@/components/sections/ProjectCard'
@@ -18,6 +21,7 @@ import { fadeUp, reducedMotionVariants, staggerContainer } from '@/lib/motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { cn } from '@/lib/utils'
 import { useSeo } from '@/hooks/useSeo'
+import { FilterAccordion } from '@/components/ui/FilterAccordion'
 import { VuPlate } from '@/components/ui/VuPlate'
 import { PortfolioAurora } from '@/components/ui/PortfolioAurora'
 
@@ -25,10 +29,10 @@ const HERO_IMAGE_SRC = '/images/portfolio/console.jpg'
 const SPOTLIGHT_PREVIEW_COUNT = 20
 
 export default function PortfolioPage() {
+  const { lang, t } = useLanguage()
   useSeo({
-    title: 'Portfolio',
-    description:
-      'Selected career credits for monitor engineer Andy Ebert — arena, stadium, amphitheater, festival, TV, and corporate work with year ranges from 1997 to today.',
+    title: t.portfolio.seoTitle,
+    description: t.portfolio.seoDescription,
   })
 
   const reduced = useReducedMotion()
@@ -63,35 +67,44 @@ export default function PortfolioPage() {
             <div className="glass-card glass-card--aurora p-6 sm:p-8 md:p-10">
               <span className="metal-overlay" aria-hidden />
               <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-8">
-                <VuPlate className="shrink-0">Spotlights</VuPlate>
+                <VuPlate className="shrink-0">{t.portfolio.spotlightsEyebrow}</VuPlate>
                 <h2 className="font-heading text-3xl tracking-[0.08em] text-white sm:text-4xl md:text-right">
-                  Project Spotlights
+                  {t.portfolio.spotlightsTitle}
                 </h2>
               </div>
 
-              <div
-                className="mt-8 flex flex-wrap justify-center gap-2 sm:mt-10"
-                role="tablist"
-                aria-label="Filter by category"
+              <FilterAccordion
+                className="mt-8 sm:mt-10"
+                label={t.portfolio.filters}
+                toggleLabel={t.a11y.toggleFilters}
+                summary={
+                  active !== 'All' ? localizeCategory(active, lang) : undefined
+                }
               >
-                {SPOTLIGHT_FILTERS.map((cat) => (
-                  <button
-                    key={cat}
-                    type="button"
-                    role="tab"
-                    aria-selected={active === cat}
-                    onClick={() => handleFilterChange(cat)}
-                    className={cn(
-                      'font-heading border px-4 py-2 text-xs tracking-[0.14em] uppercase transition-colors',
-                      active === cat
-                        ? 'border-primary bg-primary text-primary-foreground'
-                        : 'border-border text-muted hover:border-primary hover:text-primary',
-                    )}
-                  >
-                    {cat}
-                  </button>
-                ))}
-              </div>
+                <div
+                  className="flex flex-wrap justify-center gap-2"
+                  role="tablist"
+                  aria-label={t.a11y.filterCategory}
+                >
+                  {SPOTLIGHT_FILTERS.map((cat) => (
+                    <button
+                      key={cat}
+                      type="button"
+                      role="tab"
+                      aria-selected={active === cat}
+                      onClick={() => handleFilterChange(cat)}
+                      className={cn(
+                        'font-heading border px-4 py-2 text-xs tracking-[0.14em] uppercase transition-colors',
+                        active === cat
+                          ? 'border-primary bg-primary text-primary-foreground'
+                          : 'border-border text-muted hover:border-primary hover:text-primary',
+                      )}
+                    >
+                      {localizeCategory(cat, lang)}
+                    </button>
+                  ))}
+                </div>
+              </FilterAccordion>
             </div>
 
             {filtered.length > 0 ? (

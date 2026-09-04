@@ -6,8 +6,10 @@ import { SectionHeading } from '@/components/ui/SectionHeading'
 import { GlassIcon } from '@/components/ui/GlassCard'
 import { fadeUp, reducedMotionVariants, staggerContainer } from '@/lib/motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 export function Testimonials() {
+  const { t } = useLanguage()
   const reduced = useReducedMotion()
   const item = reduced ? reducedMotionVariants : fadeUp
 
@@ -21,8 +23,8 @@ export function Testimonials() {
       <Container>
         <SectionHeading
           id="testimonials-heading"
-          eyebrow="Tour"
-          title="Trusted On Tour"
+          eyebrow={t.testimonials.eyebrow}
+          title={t.testimonials.title}
         />
 
         <motion.ul

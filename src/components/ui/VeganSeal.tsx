@@ -29,6 +29,8 @@ export function VeganSeal() {
         width={135}
         height={135}
         className="rack-brand__vegan-icon"
+        loading="lazy"
+        decoding="async"
       />
     </span>
   )

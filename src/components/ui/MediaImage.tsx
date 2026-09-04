@@ -20,6 +20,8 @@ export function MediaImage({
   fit = 'cover',
   wrapperClassName,
   wrapperStyle,
+  loading = 'lazy',
+  decoding = 'async',
   ...props
 }: MediaImageProps) {
   const [failed, setFailed] = useState(false)
@@ -52,7 +54,8 @@ export function MediaImage({
       <img
         src={src}
         alt={alt}
-        loading="lazy"
+        loading={loading}
+        decoding={decoding}
         onLoad={() => setLoaded(true)}
         onError={() => setFailed(true)}
         className={cn(

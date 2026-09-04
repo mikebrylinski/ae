@@ -99,6 +99,8 @@ function ProjectGallery({
                   src={src}
                   alt={`${artist} gallery image ${i + 1}`}
                   className="h-full w-full object-cover"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             </button>
@@ -170,6 +172,8 @@ export default function ProjectDetailPage() {
                   src={project.cardImage}
                   alt=""
                   className="absolute inset-0 h-full w-full object-cover object-top sm:object-[center_12%]"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div
                   className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20 sm:bg-gradient-to-r sm:from-transparent sm:via-transparent sm:to-black/40"

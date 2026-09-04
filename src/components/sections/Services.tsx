@@ -5,7 +5,8 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import { motion } from 'framer-motion'
-import { services } from '@/lib/content'
+import { getServices } from '@/lib/content'
+import { useLanguage } from '@/i18n/LanguageProvider'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { GlassIcon } from '@/components/ui/GlassCard'
@@ -19,6 +20,8 @@ const iconMap: Record<string, LucideIcon> = {
 }
 
 export function Services() {
+  const { lang, t } = useLanguage()
+  const services = getServices(lang)
   const reduced = useReducedMotion()
   const item = reduced ? reducedMotionVariants : fadeUp
 
@@ -31,8 +34,8 @@ export function Services() {
       <Container className="relative z-[2] py-16 sm:py-20 md:py-24 lg:py-28">
         <SectionHeading
           id="services-heading"
-          eyebrow="Services"
-          title="What Andy Brings"
+          eyebrow={t.services.eyebrow}
+          title={t.services.title}
           className="[&_h2]:text-black"
         />
 

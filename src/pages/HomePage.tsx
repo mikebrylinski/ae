@@ -6,12 +6,13 @@ import { Testimonials } from '@/components/sections/Testimonials'
 import { PressPreview } from '@/components/sections/PressPreview'
 import { CTABanner } from '@/components/sections/CTABanner'
 import { useSeo } from '@/hooks/useSeo'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 export default function HomePage() {
+  const { t } = useLanguage()
   useSeo({
-    title: 'Andy Ebert | Monitor Engineer & Live Production',
-    description:
-      'When artists need to hear perfection. Worldwide touring sound engineer, professionally since ’97 — Alanis Morissette, The Weeknd, Neil Young, Guns N’ Roses, Maroon 5, Mariah Carey, and more.',
+    title: t.home.seoTitle,
+    description: t.home.seoDescription,
   })
 
   return (

@@ -4,79 +4,346 @@
     "src": "/images/gallery/arena-foh.jpg",
     "alt": "Andy at FOH looking toward a packed arena stage",
     "category": "Arena",
+    "tags": [
+      "Arena",
+      "FOH",
+      "Console",
+      "Tour",
+      "2022"
+    ],
+    "year": 2022,
     "width": 1536,
-    "height": 1024
+    "height": 1024,
+    "teaser": true
   },
   {
     "id": "g2",
     "src": "/images/gallery/arena-1.jpg",
     "alt": "Alanis Morissette stage from the wings — Tel Aviv",
     "category": "Arena",
+    "tags": [
+      "Arena",
+      "Alanis Morissette",
+      "Tour",
+      "2014"
+    ],
+    "year": 2014,
     "width": 709,
-    "height": 532
+    "height": 532,
+    "teaser": true
   },
   {
     "id": "g3",
     "src": "/images/gallery/monitor-world-1.jpg",
     "alt": "Andy behind a large analog mixing console",
     "category": "Monitor World",
+    "tags": [
+      "Monitor World",
+      "Console",
+      "Equipment",
+      "2004"
+    ],
+    "year": 2004,
     "width": 583,
-    "height": 437
+    "height": 437,
+    "teaser": true
   },
   {
     "id": "g4",
     "src": "/images/gallery/monitor-world-2.jpg",
     "alt": "Andy at a Midas H3000 — Guns N' Roses, Prague",
     "category": "Monitor World",
+    "tags": [
+      "Monitor World",
+      "Console",
+      "Guns N' Roses",
+      "Tour",
+      "2006"
+    ],
+    "year": 2006,
     "width": 709,
-    "height": 532
+    "height": 532,
+    "teaser": true
   },
   {
     "id": "g5",
     "src": "/images/gallery/backstage-1.jpg",
     "alt": "Andy and colleague at the console",
     "category": "Backstage",
+    "tags": [
+      "Backstage",
+      "Console",
+      "Crew",
+      "2008"
+    ],
+    "year": 2008,
     "width": 709,
-    "height": 531
+    "height": 531,
+    "teaser": true
   },
   {
     "id": "g6",
     "src": "/images/gallery/backstage-2.jpg",
     "alt": "Tour bus crew — Puddle of Mudd era, 2002",
     "category": "Backstage",
+    "tags": [
+      "Backstage",
+      "Crew",
+      "Puddle Of Mudd",
+      "Tour",
+      "2002"
+    ],
+    "year": 2002,
     "width": 741,
-    "height": 465
+    "height": 465,
+    "teaser": true
   },
   {
     "id": "g7",
     "src": "/images/gallery/crew-1.jpg",
     "alt": "The Weeknd production crew on stage",
     "category": "Crew",
+    "tags": [
+      "Crew",
+      "The Weeknd",
+      "Arena",
+      "Tour",
+      "2017"
+    ],
+    "year": 2017,
     "width": 709,
-    "height": 532
+    "height": 532,
+    "teaser": true
   },
   {
     "id": "g8",
     "src": "/images/gallery/rehearsal-1.jpg",
     "alt": "Dream Theater World Turbulence Tour crew, 2002",
-    "category": "Crew",
+    "category": "Rehearsals",
+    "tags": [
+      "Rehearsals",
+      "Crew",
+      "Dream Theater",
+      "Tour",
+      "2002"
+    ],
+    "year": 2002,
     "width": 709,
-    "height": 531
+    "height": 531,
+    "teaser": true
   },
   {
     "id": "g9",
     "src": "/images/gallery/arena-2.jpg",
     "alt": "Andy at console — Stone Temple Pilots, Australia",
     "category": "Arena",
+    "tags": [
+      "Arena",
+      "Console",
+      "Stone Temple Pilots",
+      "Monitor World",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
     "width": 709,
-    "height": 532
+    "height": 532,
+    "teaser": true
   },
   {
     "id": "g10",
     "src": "/images/gallery/equipment-1.jpg",
     "alt": "Collection of tour laminates and backstage passes",
     "category": "Equipment",
+    "tags": [
+      "Equipment",
+      "Backstage",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
     "width": 380,
-    "height": 289
+    "height": 289,
+    "teaser": true
+  },
+  {
+    "id": "contact-loadout",
+    "src": "/images/contact/loadout.jpg",
+    "alt": "Load-out and touring cases",
+    "category": "Crew",
+    "tags": [
+      "Crew",
+      "Equipment",
+      "Tour",
+      "2015"
+    ],
+    "year": 2015,
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "media-header",
+    "src": "/images/media/header-bg.jpg",
+    "alt": "Arena concert stage from the press pit",
+    "category": "Arena",
+    "tags": [
+      "Arena",
+      "Tour",
+      "Festivals",
+      "2016"
+    ],
+    "year": 2016,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "id": "headshot-1",
+    "src": "/images/media/headshot-1.jpg",
+    "alt": "Andy Ebert headshot 1",
+    "category": "Crew",
+    "tags": [
+      "Headshot",
+      "Portrait",
+      "2018"
+    ],
+    "year": 2018,
+    "width": 709,
+    "height": 532
+  },
+  {
+    "id": "portfolio-console",
+    "src": "/images/portfolio/console.jpg",
+    "alt": "Andy at a mixing console in an arena",
+    "category": "Monitor World",
+    "tags": [
+      "Monitor World",
+      "Console",
+      "Arena",
+      "Tour",
+      "2019"
+    ],
+    "year": 2019,
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "portfolio-header",
+    "src": "/images/portfolio/header-bg.jpg",
+    "alt": "Arena production from the house",
+    "category": "Arena",
+    "tags": [
+      "Arena",
+      "Tour",
+      "2019"
+    ],
+    "year": 2019,
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "id": "section-cta",
+    "src": "/images/sections/cta-bg.jpg",
+    "alt": "Console and stage wash",
+    "category": "Monitor World",
+    "tags": [
+      "Console",
+      "Monitor World",
+      "Tour",
+      "2017"
+    ],
+    "year": 2017,
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "section-featured",
+    "src": "/images/sections/featured-bg.jpg",
+    "alt": "Live production lighting and stage",
+    "category": "Arena",
+    "tags": [
+      "Arena",
+      "Tour",
+      "2017"
+    ],
+    "year": 2017,
+    "width": 1536,
+    "height": 1024
+  },
+  {
+    "id": "section-services",
+    "src": "/images/sections/services-bg.jpg",
+    "alt": "Alanis Morissette tour production",
+    "category": "Arena",
+    "tags": [
+      "Arena",
+      "Alanis Morissette",
+      "Tour",
+      "Console",
+      "2016"
+    ],
+    "year": 2016,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "section-stats",
+    "src": "/images/sections/stats-bg.jpg",
+    "alt": "Crowd and stage from FOH",
+    "category": "Arena",
+    "tags": [
+      "Arena",
+      "FOH",
+      "Tour",
+      "2015"
+    ],
+    "year": 2015,
+    "width": 1004,
+    "height": 540
+  },
+  {
+    "id": "exp-maroon",
+    "src": "/images/experience/maroon5-gnr.jpg",
+    "alt": "Maroon 5, Guns N' Roses, and Mariah Carey era",
+    "category": "Arena",
+    "tags": [
+      "Maroon 5",
+      "Guns N' Roses",
+      "Mariah Carey",
+      "Tour",
+      "2005"
+    ],
+    "year": 2005,
+    "width": 709,
+    "height": 532
+  },
+  {
+    "id": "alanis-2",
+    "src": "/images/projects/alanis-2.jpg",
+    "alt": "Alanis Morissette tour — on stage",
+    "category": "Arena",
+    "tags": [
+      "Alanis Morissette",
+      "Arena",
+      "Tour",
+      "2018"
+    ],
+    "year": 2018,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "alanis-3",
+    "src": "/images/projects/alanis-3.jpg",
+    "alt": "Alanis Morissette tour — portrait crop",
+    "category": "Arena",
+    "tags": [
+      "Alanis Morissette",
+      "Tour",
+      "Portrait",
+      "2020"
+    ],
+    "year": 2020,
+    "width": 768,
+    "height": 1024
   }
 ]

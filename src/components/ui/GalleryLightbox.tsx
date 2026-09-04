@@ -2,6 +2,7 @@ import { useEffect, useId, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 export type GalleryLightboxItem = {
   src: string
@@ -79,6 +80,7 @@ export function GalleryLightbox({
 
   if (!open || !item) return null
 
+  const { t } = useLanguage()
   const showNav = items.length > 1
 
   return createPortal(
@@ -100,7 +102,7 @@ export function GalleryLightbox({
 
         <div className="mb-3 flex items-center justify-between gap-3">
           <p className="font-heading text-[11px] tracking-[0.16em] text-primary uppercase">
-            {showNav ? `${activeIndex + 1} / ${items.length}` : 'View'}
+            {showNav ? `${activeIndex + 1} / ${items.length}` : t.a11y.lightboxView}
           </p>
           <button
             ref={closeRef}
@@ -111,7 +113,7 @@ export function GalleryLightbox({
               'transition-colors hover:bg-primary hover:text-primary-foreground',
               'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
             )}
-            aria-label="Close image viewer"
+            aria-label={t.a11y.closeLightbox}
           >
             <X className="h-5 w-5" aria-hidden />
           </button>
@@ -122,6 +124,8 @@ export function GalleryLightbox({
             src={item.src}
             alt={item.alt}
             className="max-h-[min(80vh,900px)] w-full rounded-[1rem] object-contain"
+            loading="lazy"
+            decoding="async"
           />
 
           {showNav ? (
@@ -137,7 +141,7 @@ export function GalleryLightbox({
                   'transition-colors hover:bg-primary hover:text-primary-foreground',
                   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
                 )}
-                aria-label="Previous image"
+                aria-label={t.a11y.prevImage}
               >
                 <ChevronLeft className="h-5 w-5" aria-hidden />
               </button>
@@ -150,7 +154,7 @@ export function GalleryLightbox({
                   'transition-colors hover:bg-primary hover:text-primary-foreground',
                   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
                 )}
-                aria-label="Next image"
+                aria-label={t.a11y.nextImage}
               >
                 <ChevronRight className="h-5 w-5" aria-hidden />
               </button>

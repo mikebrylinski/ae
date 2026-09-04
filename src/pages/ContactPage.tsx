@@ -1,6 +1,8 @@
 import { useState, type FormEvent } from 'react'
-import { site } from '@/lib/content'
+import { getSite } from '@/lib/content'
 import { submitContactForm } from '@/lib/contactApi'
+import { interpolate } from '@/i18n/ui'
+import { useLanguage } from '@/i18n/LanguageProvider'
 import { Container } from '@/components/ui/Container'
 import { Input } from '@/components/ui/Input'
 import { Textarea } from '@/components/ui/Textarea'
@@ -10,12 +12,15 @@ import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { useSeo } from '@/hooks/useSeo'
 import { cn } from '@/lib/utils'
 import { VuPlate } from '@/components/ui/VuPlate'
+import { VeniceMap } from '@/components/sections/VeniceMap'
 
 export default function ContactPage() {
+  const { lang, t } = useLanguage()
+  const site = getSite(lang)
+
   useSeo({
-    title: 'Contact',
-    description:
-      'Start a conversation with Andy Ebert about your next tour, broadcast, or production.',
+    title: t.contact.seoTitle,
+    description: t.contact.seoDescription,
   })
 
   const reduced = useReducedMotion()
@@ -41,7 +46,7 @@ export default function ContactPage() {
     setPending(false)
 
     if (!result.ok) {
-      setError(result.message ?? 'Could not send message. Please email directly.')
+      setError(result.message ?? t.contact.error)
       return
     }
 
@@ -52,7 +57,7 @@ export default function ContactPage() {
   return (
     <section
       className={cn('contact-stage', reduced && 'contact-stage--static')}
-      aria-label="Contact"
+      aria-label={t.contact.eyebrow}
     >
       <div className="contact-stage__frame" aria-hidden>
         <img
@@ -61,6 +66,8 @@ export default function ContactPage() {
           width={1536}
           height={1024}
           className="contact-stage__photo"
+          loading="lazy"
+          decoding="async"
         />
         <div className="contact-stage__shade" />
         <NoiseOverlay opacity={0.04} />
@@ -70,19 +77,18 @@ export default function ContactPage() {
         <div className="glass-card p-6 sm:p-8 md:p-10 lg:p-12">
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-14">
             <div>
-              <VuPlate className="mb-3">Contact</VuPlate>
+              <VuPlate className="mb-3">{t.contact.eyebrow}</VuPlate>
               <h1 className="font-heading text-4xl tracking-[0.08em] text-white sm:text-5xl">
-                Start A Conversation
+                {t.contact.title}
               </h1>
               <p className="mt-4 max-w-md text-muted">
-                Planning a tour, broadcast, or production? Reach out — Andy is
-                available for select engagements worldwide.
+                {t.contact.intro}
               </p>
 
               <ul className="mt-10 space-y-3 text-sm text-muted">
                 <li>
                   <span className="font-heading text-xs tracking-[0.14em] text-primary">
-                    Email
+                    {t.contact.email}
                   </span>
                   <br />
                   <a href={`mailto:${site.email}`} className="text-white hover:text-primary">
@@ -91,7 +97,7 @@ export default function ContactPage() {
                 </li>
                 <li>
                   <span className="font-heading text-xs tracking-[0.14em] text-primary">
-                    Location
+                    {t.contact.location}
                   </span>
                   <br />
                   {site.location}
@@ -103,11 +109,10 @@ export default function ContactPage() {
               {submitted ? (
                 <div role="status" className="py-12 text-center lg:text-left">
                   <p className="font-heading text-2xl tracking-[0.08em] text-primary">
-                    Message Sent
+                    {t.contact.sent}
                   </p>
                   <p className="mt-4 text-sm text-muted">
-                    Thanks for reaching out. Your message was sent to{' '}
-                    {site.email}. Andy will get back to you soon.
+                    {interpolate(t.contact.sentBody, { email: site.email })}
                   </p>
                   <Button
                     type="button"
@@ -115,27 +120,27 @@ export default function ContactPage() {
                     className="mt-8"
                     onClick={() => setSubmitted(false)}
                   >
-                    Send Another
+                    {t.contact.sendAnother}
                   </Button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5" noValidate>
                   <div>
                     <label htmlFor="name" className="font-heading mb-2 block text-xs tracking-[0.14em] text-primary">
-                      Name
+                      {t.contact.name}
                     </label>
                     <Input
                       id="name"
                       name="name"
                       required
                       autoComplete="name"
-                      placeholder="Your name"
+                      placeholder={t.contact.namePlaceholder}
                       className="contact-field"
                     />
                   </div>
                   <div>
                     <label htmlFor="email" className="font-heading mb-2 block text-xs tracking-[0.14em] text-primary">
-                      Email
+                      {t.contact.email}
                     </label>
                     <Input
                       id="email"
@@ -143,31 +148,31 @@ export default function ContactPage() {
                       type="email"
                       required
                       autoComplete="email"
-                      placeholder="you@example.com"
+                      placeholder={t.contact.emailPlaceholder}
                       className="contact-field"
                     />
                   </div>
                   <div>
                     <label htmlFor="subject" className="font-heading mb-2 block text-xs tracking-[0.14em] text-primary">
-                      Subject
+                      {t.contact.subject}
                     </label>
                     <Input
                       id="subject"
                       name="subject"
                       required
-                      placeholder="Tour / Broadcast / Production"
+                      placeholder={t.contact.subjectPlaceholder}
                       className="contact-field"
                     />
                   </div>
                   <div>
                     <label htmlFor="message" className="font-heading mb-2 block text-xs tracking-[0.14em] text-primary">
-                      Message
+                      {t.contact.message}
                     </label>
                     <Textarea
                       id="message"
                       name="message"
                       required
-                      placeholder="Tell Andy about the project…"
+                      placeholder={t.contact.messagePlaceholder}
                       className="contact-field"
                     />
                   </div>
@@ -179,18 +184,19 @@ export default function ContactPage() {
                         href={`mailto:${site.email}`}
                         className="underline hover:text-primary"
                       >
-                        Email {site.email}
+                        {interpolate(t.contact.emailLink, { email: site.email })}
                       </a>
                     </p>
                   ) : null}
 
                   <Button type="submit" size="lg" className="w-full" disabled={pending}>
-                    {pending ? 'Sending…' : 'Send Message'}
+                    {pending ? t.contact.sending : t.contact.send}
                   </Button>
                 </form>
               )}
             </div>
           </div>
+          <VeniceMap className="mt-8" />
         </div>
       </Container>
     </section>

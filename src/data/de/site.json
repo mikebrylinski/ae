@@ -1,0 +1,82 @@
+{
+  "name": "Andy Ebert",
+  "tagline": "Wenn Künstler Perfektion hören müssen.",
+  "email": "info@andyebert.com",
+  "location": "Weltweit auf Tour",
+  "linkedin": "https://www.linkedin.com/in/andyebert",
+  "social": [
+    { "label": "LinkedIn", "href": "https://www.linkedin.com/in/andyebert" },
+    { "label": "Instagram", "href": "https://instagram.com/andyebert" }
+  ],
+  "hero": {
+    "headline": "WENN KÜNSTLER PERFEKTION HÖREN MÜSSEN.",
+    "headlineAccent": "PERFEKTION.",
+    "subheadline": [],
+    "body": "Weltweit tourender Tontechniker, professionell seit ’97 — auf Arena-, Stadion- und Festivalbühnen mit Künstlern wie Alanis Morissette, The Weeknd, Neil Young, Guns N’ Roses, Maroon 5 und Mariah Carey.",
+    "ctaPrimary": { "label": "PORTFOLIO ANSEHEN", "href": "/portfolio" },
+    "ctaSecondary": { "label": "GESPRÄCH STARTEN", "href": "/contact" },
+    "backgroundImage": "/images/hero/arena.jpg"
+  },
+  "stats": [
+    { "value": 29, "label": "Jahre auf Tour", "icon": "Briefcase" },
+    { "value": 40, "suffix": "+", "label": "Jahre im Musikgeschäft", "icon": "Users" },
+    { "value": 0, "label": "Arena · Stadion · Festival", "icon": "Globe" },
+    { "value": 2017, "label": "Parnelli-Award-Nominierung", "icon": "SlidersHorizontal" }
+  ],
+  "cta": {
+    "title": "Die nächste Produktion planen?",
+    "subtitle": "",
+    "button": { "label": "Kontakt aufnehmen", "href": "/contact" },
+    "image": "/images/media/headshot-2.jpg",
+    "imageAlt": "Andy Ebert am Pult — Digidesign Venue hinter der Bühne"
+  },
+  "about": {
+    "portrait": "/images/about/portrait.jpg",
+    "headline": "Andy Ebert",
+    "subhead": "Tontechniker & Plant-Powered Roadie",
+    "story": [
+      "Andy wurde im November 1971 in der Mauerstadt West-Berlin geboren.",
+      "Seine Begeisterung für Musik zeigte sich früh. Er spielte jedes dekorative, aber echte Schlagzeug im Haus der Großeltern und Rockstar auf einer Plastikgitarre. Kurz darauf entdeckte er ein richtiges Mikrofon seiner Eltern und nahm seine Stimme auf Kassette auf. Orgel und ein paar andere Instrumente langweilten ihn — er wollte Gitarre spielen. Zum zehnten Geburtstag bekam er eine Konzertgitarre und nahm sofort Unterricht.",
+      "Zur gleichen Zeit kaufte er die ersten Rock- und Hardrock-Platten und verliebte sich in den Sound der E-Gitarre. Damit war der Weg ins Musikgeschäft vorgezeichnet.",
+      "Wenige Monate später spielte er mit anderen Musikern auf einer geliehenen E-Gitarre in der ersten Band.",
+      "Angeregt durch Väter von Freunden, die selbst Gitarre spielten und Equipment besaßen, wuchs sein Interesse an allen Instrumenten und an Audiotechnik. Mit einem Drummer-Freund zog er durch die großen Musikläden West-Berlins, kaufte seine erste Stratocaster und einen kleinen Amp. Ein Buch über Homerecording faszinierte ihn; er holte sich ein kleines 6-Kanal-Mischpult und ein paar Mikrofone. Zusammen mit einem Tapedeck wurde daraus das Studio im Keller der Eltern — Live-to-Tape, Probe und erste Demo. Die Band brauchte bald eine Gesangs-PA. Er verkaufte das 6-Kanal-Pult und kaufte ein 12-Kanal-Pult mit Endstufen und zwei Wedges, die auch als PA für die Konzerte dienten.",
+      "Ein Praktikum im Musikfachhandel und der Wunsch der Eltern nach einer „richtigen“ Ausbildung führten mit 15 zur Lehre im Musikalien-Einzelhandel. Die Kundschaft reichte vom Amateur bis zum Profi.",
+      "In den Jahren hinter der Ladentheke wuchs das Homestudio: 16-Kanal-Pult, 8-Spur-Bandmaschine, ein zweiter Kellerraum — zwei Aufnahmeräume und ein Regieraum. Später 24-Kanal-Konsole, 16-Spur auf ½-Zoll und eine größere Auswahl an Mikrofonen und Outboard.",
+      "1995 wechselte er in den Großhandel für Sonor-Drums und Zildjian-Becken. Nebenbei mischte er zum ersten Mal FOH für die Band eines Freundes — der Einstieg als Live-Tontechniker. Sein Chef bei Sonor betrieb nebenbei eine lokale Licht- und Tonfirma; Andy fuhr nach Feierabend und am Wochenende deren Gigs und nahm weiter Bands im eigenen Studio auf.",
+      "Der 30. Januar 1997 war sein erster Tag als professioneller tourender FOH-Techniker, mit zwei AUX-Wegen als Monitorausgänge. Die Golden Gospel Singers (& Band) spielten vor allem in Kirchen in Deutschland und den Nachbarländern. Kirchenakustik mit lauter Band und wenigen Lautsprechern ist kaum zu bändigen. Steiles Learning by Doing.",
+      "Nach der Tour arbeitete er als Backline-Tech und landete schließlich als Tontechniker — gelegentlich auch PA- und Bühnentechniker — bei TSE, einer großen Berliner Audiofirma. Von Corporate-Shows mit Rednermikros über Hotelkonferenzen bis zu größeren Rockshows: alles dabei. Daraus wurden Monitorjobs auf größeren Events. Er machte das gut und wurde dafür häufiger gebucht.",
+      "Es folgten nationale und europäische Touren als Monitor Engineer. Im Frühjahr 1999 seine erste Arena-Tour — Monitor-Mischung für einen der größten deutschen Pop-Acts, Modern Talking. Darüber kam der Kontakt zu Rocksound, der Soundfirma der Scorpions. Deren „World Wide Live“-Video hatte Andy 1985 den Wunsch gegeben, Tontechniker zu werden. Die Arbeit für Rocksound und andere große deutsche Vendoren fiel Audio Rent / Clair Europe auf. Sie holten ihn als Monitor Engineer und Monitor-Tech, vor allem mit US-Bands. Oft sprang er ein oder übernahm den Monitorplatz der Tour.",
+      "2003 sponserte Puddle Of Mudd sein erstes US-Arbeitsvisum. Beim ersten Mal in LA verliebte er sich in das Wetter, die Leute und die Szene. Zum Glück traf er dort Menschen, die Karriere und Persönlichkeit weiterbrachten.",
+      "Seitdem wächst sein Klientenstamm; er arbeitet vor allem als Monitor Engineer. Heute lebt Andy in Venice, Florida."
+    ],
+    "philosophy": "Bei manchen Shows durfte ich den Monitorsound mischen. Das war ein weiterer Einschnitt — ich wusste: das will ich weiter machen. Von der Psychologie der Monitor-Mischung hatte ich schon eine Ahnung, aber ich hätte nicht gedacht, dass es einen Herrn Bohlen geben würde, der so entscheidend dafür verantwortlich war, wie schnell und wie weit mein Wissen wuchs.",
+    "travel": "Um als Monitor Engineer für Rocksound auf der Weltausstellung Expo 2000 zu arbeiten, musste ich fünf Monate nach Hannover ziehen. Direkt danach tourte ich vier Monate mit einer Gospel-Show durch halb Europa. Im Sommer 2001 arbeitete ich für verschiedene Firmen als lokaler Monitor Engineer auf großen Festivals in Deutschland — und hatte die Ehre, ein paar meiner Helden aus den Teenagerjahren zu mischen.",
+    "behindTheScenes": "Von da an ging es schnell nach oben. Neben der Arbeit bei TSE tourte ich als Backliner für deutsche Acts und durfte bei manchen Shows den Monitorsound mischen. Seit Audio Rent arbeite ich mit den angesehensten FOH-Technikern, Production Managern und Tour Managern weltweit.",
+    "funFacts": [
+      "Geboren am 27. November 1971 in Berlin-Charlottenburg",
+      "Erste Gitarre zum 10. Geburtstag — Rock ’n’ Roll fürs Leben",
+      "Erster Live-Sound-Job als FOH 1995; Golden-Gospel-Singers-Tour Anfang 1997",
+      "Erster großer professioneller PA-Load-in: frühe Robbie-Williams-Solo-Show, Frühjahr 1998",
+      "Monitor Engineer für Modern Talking, 1999; Audio Rent – Clair Brothers Europe ab 2002"
+    ]
+  },
+  "media": {
+    "biography": "Andy Ebert ist Monitor- und FOH-Tontechniker in der weltweiten Tourproduktion. Seit er 1997 auf die Straße gegangen ist, hat er Monitore für Künstlerinnen und Künstler wie Alanis Morissette, The Weeknd, Maroon 5, Guns N’ Roses, Mariah Carey, Stone Temple Pilots, Neil Young, Velvet Revolver, Carrie Underwood, Adam Lambert, R.E.M., Dream Theater und viele mehr gemischt. 2017 wurde er für den Parnelli Award als Monitor Engineer of the Year nominiert.",
+    "headshots": [
+      "/images/media/headshot-1.jpg",
+      "/images/media/headshot-2.jpg",
+      "/images/media/headshot-3.jpg"
+    ],
+    "logos": [
+      "/images/media/logo-black.svg",
+      "/images/media/logo-white.svg"
+    ],
+    "downloads": [
+      { "label": "Alle technischen Downloads", "href": "/downloads", "type": "Seite" },
+      { "label": "Inputliste + Bühnenplan — 48ch", "href": "/downloads/Inputlist+Stageplot-48ch.pdf", "type": "PDF" },
+      { "label": "Universal-Konsolenchart — 32ch", "href": "/downloads/Universal-console-chart-32ch.pdf", "type": "PDF" },
+      { "label": "Midas H-3000 Chart", "href": "/downloads/Midas-H3000-chart.pdf", "type": "PDF" }
+    ]
+  },
+  "contactPhoto": "/images/contact/loadout.jpg"
+}

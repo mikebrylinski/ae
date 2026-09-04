@@ -38,13 +38,7 @@ export function BerlinSkyline({ heading, subheading }: BerlinSkylineProps) {
       aria-label={heading ?? 'Berlin, Germany — Charlottenburg'}
     >
       <div className="berlin-skyline__frame">
-        <img
-          src="/images/about/berlin.jpg"
-          alt="Berlin at night, Fernsehturm over the skyline"
-          width={2400}
-          height={1310}
-          className="berlin-skyline__photo"
-        />
+        <div className="berlin-skyline__photo spotlight-empty-grid" aria-hidden />
 
         <div className="berlin-skyline__shade" aria-hidden />
         <div className="berlin-skyline__scan" aria-hidden />

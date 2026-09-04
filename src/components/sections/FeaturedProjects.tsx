@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { getFeaturedProjects } from '@/lib/content'
+import { getFeaturedProjects, localizeProject } from '@/lib/content'
+import { useLanguage } from '@/i18n/LanguageProvider'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { fadeUp, staggerContainer, reducedMotionVariants } from '@/lib/motion'
@@ -9,7 +10,10 @@ import { useReducedMotion } from '@/hooks/useReducedMotion'
 const FEATURED_BG = '/images/sections/featured-bg.png'
 
 export function FeaturedProjects() {
-  const projects = getFeaturedProjects().slice(0, 6)
+  const { lang, t } = useLanguage()
+  const projects = getFeaturedProjects().slice(0, 6).map((p) =>
+    localizeProject(p, lang),
+  )
   const reduced = useReducedMotion()
   const item = reduced ? reducedMotionVariants : fadeUp
   const container = reduced ? undefined : staggerContainer
@@ -33,15 +37,15 @@ export function FeaturedProjects() {
       <Container className="relative z-10">
         <SectionHeading
           id="featured-heading"
-          eyebrow="Featured"
-          title="Featured Projects"
+          eyebrow={t.featured.eyebrow}
+          title={t.featured.title}
           align="left"
           action={
             <Link
               to="/portfolio"
               className="font-heading text-xs tracking-[0.16em] text-primary transition-opacity duration-500 hover:opacity-80"
             >
-              View All Projects
+              {t.featured.viewAll}
             </Link>
           }
         />

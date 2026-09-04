@@ -1,10 +1,12 @@
-import { site } from '@/lib/content'
+import { getSite } from '@/lib/content'
 import { Container } from '@/components/ui/Container'
-import { MediaImage } from '@/components/ui/MediaImage'
+import { PlaceholderMedia } from '@/components/ui/PlaceholderMedia'
 import { CTABanner } from '@/components/sections/CTABanner'
+import { VeniceMap } from '@/components/sections/VeniceMap'
 import { BerlinSkyline } from '@/components/sections/BerlinSkyline'
 import { VuPlate } from '@/components/ui/VuPlate'
 import { useSeo } from '@/hooks/useSeo'
+import { useLanguage } from '@/i18n/LanguageProvider'
 import { cn } from '@/lib/utils'
 
 const CHAPTERS = [
@@ -16,7 +18,6 @@ const CHAPTERS = [
     imageSide: 'right' as const,
     images: [
       {
-        src: '/images/about/west-berlin.jpg',
         label: 'Analog mixer',
         aspect: 'aspect-[4/5] lg:aspect-auto lg:h-full lg:min-h-[28rem]',
       },
@@ -29,7 +30,6 @@ const CHAPTERS = [
     layout: 'stack' as const,
     images: [
       {
-        src: '/images/about/basement-studio.jpg',
         label: 'Basement mixer',
         aspect: 'aspect-[16/9]',
       },
@@ -42,17 +42,14 @@ const CHAPTERS = [
     layout: 'stack' as const,
     images: [
       {
-        src: '/images/about/gospel-tour.jpg',
         label: 'Analog console',
         aspect: 'aspect-[4/3]',
       },
       {
-        src: '/images/about/tse-berlin.jpg',
         label: 'Live console',
         aspect: 'aspect-[4/3]',
       },
       {
-        src: '/images/about/monitor-world.jpg',
         label: 'Digital surface',
         aspect: 'aspect-[16/9]',
       },
@@ -61,17 +58,15 @@ const CHAPTERS = [
   {
     eyebrow: 'Los Angeles',
     from: 10,
-    to: 13,
+    to: 12,
     layout: 'split' as const,
     imageSide: 'left' as const,
     images: [
       {
-        src: '/images/about/ots-arena.jpg',
         label: 'View from the console over an arena crowd',
         aspect: 'aspect-[16/9]',
       },
       {
-        src: '/images/about/ots-amphitheater.jpg',
         label: 'View from the console toward an outdoor stage',
         aspect: 'aspect-[16/9]',
       },
@@ -83,7 +78,7 @@ function ChapterImages({
   images,
   layout,
 }: {
-  images: (typeof CHAPTERS)[number]['images']
+  images: readonly { label: string; aspect: string }[]
   layout: (typeof CHAPTERS)[number]['layout']
 }) {
   const many = images.length > 1
@@ -98,15 +93,12 @@ function ChapterImages({
       )}
     >
       {images.map((img, i) => (
-        <MediaImage
+        <PlaceholderMedia
           key={img.label}
-          src={img.src}
-          alt={img.label}
-          fallbackLabel={img.label}
+          label={img.label}
           aspect={img.aspect}
-          className="object-cover"
-          wrapperClassName={cn(
-            'w-full border-0',
+          className={cn(
+            'spotlight-empty-grid w-full border-0',
             !many && 'h-full',
             layout === 'stack' && images.length === 3 && i === 2 && 'sm:col-span-2',
           )}
@@ -117,13 +109,13 @@ function ChapterImages({
 }
 
 export default function AboutPage() {
-  useSeo({
-    title: 'About',
-    description:
-      'Andy Ebert — sound engineer and plant powered roadie, born in West Berlin in 1971. Professionally touring since 1997.',
-  })
+  const { lang, t } = useLanguage()
+  const { about } = getSite(lang)
 
-  const { about } = site
+  useSeo({
+    title: t.about.seoTitle,
+    description: t.about.seoDescription,
+  })
 
   return (
     <>
@@ -135,11 +127,18 @@ export default function AboutPage() {
       <section className="section-divider-top bg-black py-16 sm:py-20 md:py-24 lg:py-28">
         <Container>
           <div className="space-y-8 md:space-y-10">
-            {CHAPTERS.map((chapter) => {
+            {CHAPTERS.map((chapter, chapterIndex) => {
+              const localized = t.about.chapters[chapterIndex]
               const paras = about.story.slice(chapter.from, chapter.to)
+              const images = chapter.images.map((img, i) => ({
+                ...img,
+                label: localized?.alts[i] ?? img.label,
+              }))
               const copy = (
                 <div className="flex min-w-0 flex-col justify-center p-6 sm:p-8 md:p-10 lg:p-12">
-                  <VuPlate className="mb-5 max-w-full">{chapter.eyebrow}</VuPlate>
+                  <VuPlate className="mb-5 max-w-full">
+                    {localized?.eyebrow ?? chapter.eyebrow}
+                  </VuPlate>
                   <div className="min-w-0 space-y-5 text-[0.9375rem] leading-relaxed break-words text-foreground/90 md:space-y-6 md:text-[0.98rem] md:leading-[1.8]">
                     {paras.map((p) => (
                       <p key={p.slice(0, 36)}>{p}</p>
@@ -151,7 +150,7 @@ export default function AboutPage() {
               if (chapter.layout === 'stack') {
                 return (
                   <article key={chapter.eyebrow} className="glass-card overflow-hidden p-0">
-                    <ChapterImages images={chapter.images} layout={chapter.layout} />
+                    <ChapterImages images={images} layout={chapter.layout} />
                     {copy}
                   </article>
                 )
@@ -165,7 +164,7 @@ export default function AboutPage() {
                   className="glass-card grid overflow-hidden p-0 lg:grid-cols-2 lg:items-start"
                 >
                   <div className={cn('min-w-0 overflow-hidden', imageFirst ? 'lg:order-1' : 'lg:order-2')}>
-                    <ChapterImages images={chapter.images} layout={chapter.layout} />
+                    <ChapterImages images={images} layout={chapter.layout} />
                   </div>
                   <div className={cn('min-w-0', imageFirst ? 'lg:order-2' : 'lg:order-1')}>
                     {copy}
@@ -173,6 +172,18 @@ export default function AboutPage() {
                 </article>
               )
             })}
+
+            <article className="glass-card grid overflow-hidden p-0 lg:grid-cols-2 lg:items-center">
+              <div className="flex min-w-0 flex-col justify-center p-6 sm:p-8 md:p-10 lg:p-12">
+                <VuPlate className="mb-5 max-w-full">{t.about.venice.eyebrow}</VuPlate>
+                <div className="min-w-0 space-y-5 text-[0.9375rem] leading-relaxed break-words text-foreground/90 md:space-y-6 md:text-[0.98rem] md:leading-[1.8]">
+                  <p>{t.about.venice.body}</p>
+                </div>
+              </div>
+              <div className="min-w-0 p-4 sm:p-5 lg:p-6">
+                <VeniceMap />
+              </div>
+            </article>
           </div>
 
           {about.next ? (

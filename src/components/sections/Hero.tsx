@@ -2,7 +2,8 @@ import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { LayoutGrid, Mail } from 'lucide-react'
 import gsap from 'gsap'
-import { site } from '@/lib/content'
+import { getSite } from '@/lib/content'
+import { useLanguage } from '@/i18n/LanguageProvider'
 import { Container } from '@/components/ui/Container'
 import { buttonVariants } from '@/components/ui/Button'
 import { NoiseOverlay } from '@/components/ui/NoiseOverlay'
@@ -11,7 +12,8 @@ import { cn } from '@/lib/utils'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 
 export function Hero() {
-  const { hero } = site
+  const { lang, t } = useLanguage()
+  const { hero } = getSite(lang)
   const reduced = useReducedMotion()
   const rootRef = useRef<HTMLElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
@@ -54,7 +56,7 @@ export function Hero() {
     <section
       ref={rootRef}
       className="relative flex min-h-[100svh] items-center overflow-hidden"
-      aria-label="Hero"
+      aria-label={t.a11y.hero}
     >
       <div className="absolute inset-0">
         <img
@@ -62,6 +64,8 @@ export function Hero() {
           src={hero.backgroundImage}
           alt=""
           className="h-full w-full object-cover object-[70%_center] will-change-transform md:object-[75%_center]"
+          loading="eager"
+          decoding="async"
           fetchPriority="high"
         />
         <div className="hero-overlay absolute inset-0" aria-hidden />

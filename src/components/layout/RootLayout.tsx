@@ -6,6 +6,7 @@ import { ScrollToTop } from './ScrollToTop'
 import { NoiseOverlay } from '@/components/ui/NoiseOverlay'
 import { LoadingLine, LoadingMeter } from '@/components/ui/LoadingMeter'
 import { useLenis } from '@/hooks/useLenis'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 function PageFallback() {
   return (
@@ -20,6 +21,7 @@ function PageFallback() {
 
 export function RootLayout() {
   useLenis()
+  const { t } = useLanguage()
 
   return (
     <div className="relative flex min-h-screen min-w-0 flex-col overflow-x-hidden bg-background text-foreground">
@@ -28,7 +30,7 @@ export function RootLayout() {
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
       >
-        Skip to content
+        {t.a11y.skip}
       </a>
       <ScrollToTop />
       <Navbar />
