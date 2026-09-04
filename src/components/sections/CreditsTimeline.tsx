@@ -205,7 +205,7 @@ function CreditCard({
           </p>
           <Badge
             variant={credit.role === 'FOH Engineer' ? 'muted' : 'default'}
-            className="w-fit shrink-0 px-1.5 py-0.5 text-[9px] sm:px-2.5 sm:py-1 sm:text-[11px]"
+            className="w-fit shrink-0 px-1.5 pt-[3px] pb-px text-[9px] leading-none sm:px-2.5 sm:pt-1 sm:pb-[3px] sm:text-[11px]"
           >
             {roleBadgeLabel(credit.role, t.credits.foh, t.credits.monitors)}
           </Badge>

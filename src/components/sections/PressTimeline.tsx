@@ -202,7 +202,7 @@ function PressCard({
           <p className="font-heading text-[10px] tracking-[0.12em] text-primary sm:text-xs sm:tracking-[0.14em]">
             {item.date || item.publication}
           </p>
-          <Badge variant="muted" className="w-fit shrink-0 px-1.5 py-0.5 text-[9px] sm:px-2.5 sm:py-1 sm:text-[11px]">
+          <Badge variant="muted" className="w-fit shrink-0 px-1.5 pt-[3px] pb-px text-[9px] leading-none sm:px-2.5 sm:pt-1 sm:pb-[3px] sm:text-[11px]">
             {localizePressType(item.type, lang)}
           </Badge>
         </div>

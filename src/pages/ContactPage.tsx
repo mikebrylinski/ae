@@ -12,7 +12,6 @@ import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { useSeo } from '@/hooks/useSeo'
 import { cn } from '@/lib/utils'
 import { VuPlate } from '@/components/ui/VuPlate'
-import { VeniceMap } from '@/components/sections/VeniceMap'
 
 export default function ContactPage() {
   const { lang, t } = useLanguage()
@@ -196,7 +195,6 @@ export default function ContactPage() {
               )}
             </div>
           </div>
-          <VeniceMap className="mt-8" />
         </div>
       </Container>
     </section>
