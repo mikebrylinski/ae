@@ -120,11 +120,6 @@ const en = {
         alts: [
           'Tascam mixer and Pioneer cassette deck in the basement studio',
           'Andy mixing a live show beside rack cases',
-          'Bell analog mixer on the basement workbench',
-          'Mixing console and Yamaha NS-10 in the basement studio',
-          'Signing a Tal Bergman poster backstage',
-          'Marshall amp and studio microphone in the basement',
-          'Photo album of mixing, rehearsal, and the basement studio',
         ],
       },
       {
@@ -136,7 +131,10 @@ const en = {
       },
       {
         eyebrow: 'Los Angeles',
-        alts: ['Andy in front of the Hollywood sign, Los Angeles'],
+        alts: [
+          'Andy in front of the Hollywood sign, Los Angeles',
+          'Alanis Morissette performing on stage',
+        ],
       },
     ],
     venice: {
@@ -481,11 +479,6 @@ const de = {
         alts: [
           'Tascam-Mischpult und Pioneer-Kassettendeck im Kellerstudio',
           'Andy mischt eine Live-Show neben Rackcases',
-          'Bell-Analogmixer auf der Kellerwerkbank',
-          'Mischpult und Yamaha NS-10 im Kellerstudio',
-          'Autogramm auf einem Tal-Bergman-Poster hinter der Bühne',
-          'Marshall-Verstärker und Studiomikrofon im Keller',
-          'Fotoalbum: Mischen, Probe und das Kellerstudio',
         ],
       },
       {
@@ -497,7 +490,10 @@ const de = {
       },
       {
         eyebrow: 'Los Angeles',
-        alts: ['Andy vor dem Hollywood-Schriftzug, Los Angeles'],
+        alts: [
+          'Andy vor dem Hollywood-Schriftzug, Los Angeles',
+          'Alanis Morissette auf der Bühne',
+        ],
       },
     ],
     venice: {

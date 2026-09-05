@@ -40,37 +40,6 @@ const CHAPTERS = [
         aspect: 'aspect-[4/3]',
         src: '/images/about/basement-live.jpg',
       },
-      {
-        label: 'Bell analog mixer on the basement workbench',
-        aspect: 'aspect-[4/3]',
-        src: '/images/about/basement-bell.jpg',
-        place: 'end' as const,
-      },
-      {
-        label: 'Mixing console and Yamaha NS-10 in the basement studio',
-        aspect: 'aspect-[4/3]',
-        src: '/images/about/basement-ns10.jpg',
-        place: 'end' as const,
-      },
-      {
-        label: 'Signing a Tal Bergman poster backstage',
-        aspect: 'aspect-[4/3]',
-        src: '/images/about/basement-signing.jpg',
-        place: 'end' as const,
-      },
-      {
-        label: 'Marshall amp and studio microphone in the basement',
-        aspect: 'aspect-[4/3]',
-        src: '/images/about/basement-marshall.jpg',
-        place: 'end' as const,
-      },
-      {
-        label: 'Photo album of mixing, rehearsal, and the basement studio',
-        aspect: 'aspect-[16/9]',
-        src: '/images/about/basement-album.jpg',
-        place: 'end' as const,
-        span: 2 as const,
-      },
     ],
   },
   {
@@ -83,11 +52,14 @@ const CHAPTERS = [
         label: 'Andy at a Midas Heritage console on tour',
         aspect: 'aspect-[4/3]',
         src: '/images/about/on-the-road.jpg',
+        tall: true,
       },
       {
         label: 'Mixing FOH at an outdoor concert',
         aspect: 'aspect-[4/3]',
         src: '/images/about/on-the-road-foh.jpg',
+        place: 'end' as const,
+        tall: true,
       },
     ],
   },
@@ -95,13 +67,21 @@ const CHAPTERS = [
     eyebrow: 'Los Angeles',
     from: 10,
     to: 12,
-    layout: 'split' as const,
-    imageSide: 'left' as const,
+    layout: 'stack' as const,
+    copyBeside: 'right' as const,
     images: [
       {
         label: 'Andy in front of the Hollywood sign, Los Angeles',
         aspect: 'aspect-[4/3]',
         src: '/images/about/los-angeles.jpg',
+        tall: true,
+      },
+      {
+        label: 'Alanis Morissette performing on stage',
+        aspect: 'aspect-auto',
+        src: '/images/projects/alanis-stage.jpg',
+        place: 'end' as const,
+        fillColumn: true,
       },
     ],
   },
@@ -111,7 +91,17 @@ function ChapterImages({
   images,
   layout,
 }: {
-  images: readonly { label: string; aspect: string; src?: string; place?: 'end'; span?: 2 }[]
+  images: readonly {
+    label: string
+    aspect: string
+    src?: string
+    place?: 'end'
+    span?: 2
+    showFull?: boolean
+    centered?: boolean
+    tall?: boolean
+    fillColumn?: boolean
+  }[]
   layout: (typeof CHAPTERS)[number]['layout']
 }) {
   const many = images.length > 1
@@ -121,8 +111,10 @@ function ChapterImages({
       className={cn(
         'min-w-0 overflow-hidden',
         many && layout === 'stack' && 'grid gap-px sm:grid-cols-2',
+        many && layout === 'stack' && images.some((img) => img.showFull) && 'items-start',
         many && layout === 'split' && 'grid gap-px',
-        !many && layout === 'split' && 'h-full min-h-[12rem]',
+        !many && 'h-full',
+        !many && layout === 'split' && 'min-h-[12rem]',
       )}
     >
       {images.map((img, i) =>
@@ -133,10 +125,26 @@ function ChapterImages({
             alt={img.label}
             aspect={img.aspect}
             wrapperClassName={cn(
-              'w-full max-h-48 rounded-none border-0 sm:max-h-56 lg:max-h-64',
+              'w-full rounded-none border-0',
+              img.fillColumn && 'relative h-72 sm:h-80 lg:h-full lg:min-h-0',
+              img.showFull
+                ? 'max-h-none'
+                : img.tall
+                  ? 'max-h-72 sm:max-h-96 lg:max-h-[30rem]'
+                  : img.fillColumn
+                    ? 'max-h-none'
+                    : 'max-h-48 sm:max-h-56 lg:max-h-64',
               img.span === 2 && 'col-span-full',
+              img.centered && 'mx-auto max-w-md bg-black',
             )}
-            className="object-cover object-[center_35%]"
+            fit={img.centered ? 'contain' : 'cover'}
+            className={
+              img.fillColumn
+                ? 'absolute inset-0 h-full w-full object-cover object-[center_18%]'
+                : img.showFull
+                  ? 'object-cover object-center'
+                  : 'object-cover object-[center_35%]'
+            }
             fallbackLabel={img.label}
           />
         ) : (
@@ -209,13 +217,27 @@ export default function AboutPage() {
               )
 
               if (chapter.layout === 'stack') {
+                const copyOnRight =
+                  'copyBeside' in chapter && chapter.copyBeside === 'right'
+
                 return (
                   <article key={chapter.eyebrow} className="glass-card overflow-hidden p-0">
                     <ChapterImages images={topImages} layout={chapter.layout} />
-                    {copy}
-                    {endImages.length > 0 ? (
-                      <ChapterImages images={endImages} layout={chapter.layout} />
-                    ) : null}
+                    {copyOnRight && endImages.length > 0 ? (
+                      <div className="grid lg:grid-cols-2 lg:items-stretch">
+                        <div className="h-72 min-h-0 min-w-0 overflow-hidden sm:h-80 lg:h-auto">
+                          <ChapterImages images={endImages} layout={chapter.layout} />
+                        </div>
+                        {copy}
+                      </div>
+                    ) : (
+                      <>
+                        {copy}
+                        {endImages.length > 0 ? (
+                          <ChapterImages images={endImages} layout={chapter.layout} />
+                        ) : null}
+                      </>
+                    )}
                   </article>
                 )
               }
@@ -247,18 +269,6 @@ export default function AboutPage() {
               <div className="min-w-0 p-4 sm:p-5 lg:p-6">
                 <VeniceMap />
               </div>
-            </article>
-
-            <article className="glass-card mx-auto w-full max-w-md overflow-hidden p-0">
-              <MediaImage
-                src="/images/projects/alanis-stage.jpg"
-                alt={t.about.alanisStageAlt}
-                fit="contain"
-                aspect="aspect-[500/752]"
-                wrapperClassName="w-full rounded-none border-0 bg-black"
-                className="object-contain object-center"
-                fallbackLabel="Alanis Morissette"
-              />
             </article>
           </div>
 
