@@ -363,6 +363,12 @@ const en = {
   },
 } as const
 
+type DeepStringify<T> = T extends string
+  ? string
+  : { [K in keyof T]: DeepStringify<T[K]> }
+
+export type UiCopy = DeepStringify<typeof en>
+
 const de = {
   lang: {
     label: 'Sprache',
@@ -724,11 +730,9 @@ const de = {
     g9: 'Andy am Pult — Stone Temple Pilots, Australien',
     g10: 'Sammlung von Tour-Laminates und Backstage-Pässen',
   },
-} as const satisfies typeof en
+} as const satisfies UiCopy
 
 export const uiCopy = { en, de } as const
-
-export type UiCopy = typeof en
 
 export function getUiCopy(lang: Language): UiCopy {
   return uiCopy[lang]

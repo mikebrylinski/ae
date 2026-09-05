@@ -10,12 +10,34 @@ import { useSeo } from '@/hooks/useSeo'
 import { useLanguage } from '@/i18n/LanguageProvider'
 import { cn } from '@/lib/utils'
 
-const CHAPTERS = [
+type ChapterImage = {
+  label: string
+  aspect: string
+  src?: string
+  place?: 'end'
+  span?: 2
+  showFull?: boolean
+  centered?: boolean
+  tall?: boolean
+  fillColumn?: boolean
+  focus?: string
+}
+
+type Chapter = {
+  eyebrow: string
+  from: number
+  to: number
+  layout: 'stack'
+  copyBeside?: 'right'
+  images: ChapterImage[]
+}
+
+const CHAPTERS: Chapter[] = [
   {
     eyebrow: 'West Berlin',
     from: 0,
     to: 4,
-    layout: 'stack' as const,
+    layout: 'stack',
     images: [
       {
         label: 'Young Andy at a mixing console in West Berlin',
@@ -28,7 +50,7 @@ const CHAPTERS = [
     eyebrow: 'The basement',
     from: 4,
     to: 7,
-    layout: 'stack' as const,
+    layout: 'stack',
     images: [
       {
         label: 'Tascam mixer and Pioneer cassette deck in the basement studio',
@@ -46,7 +68,7 @@ const CHAPTERS = [
     eyebrow: 'On the road',
     from: 7,
     to: 10,
-    layout: 'stack' as const,
+    layout: 'stack',
     images: [
       {
         label: 'Andy at a Midas Heritage console on tour',
@@ -59,7 +81,7 @@ const CHAPTERS = [
         label: 'Mixing FOH at an outdoor concert',
         aspect: 'aspect-[4/3]',
         src: '/images/about/on-the-road-foh.jpg',
-        place: 'end' as const,
+        place: 'end',
         tall: true,
       },
     ],
@@ -68,8 +90,8 @@ const CHAPTERS = [
     eyebrow: 'Los Angeles',
     from: 10,
     to: 12,
-    layout: 'stack' as const,
-    copyBeside: 'right' as const,
+    layout: 'stack',
+    copyBeside: 'right',
     images: [
       {
         label: 'Andy in front of the Hollywood sign, Los Angeles',
@@ -81,42 +103,23 @@ const CHAPTERS = [
         label: 'Alanis Morissette performing on stage',
         aspect: 'aspect-auto',
         src: '/images/projects/alanis-stage.jpg',
-        place: 'end' as const,
+        place: 'end',
         fillColumn: true,
       },
     ],
   },
-] as const
+]
 
-function ChapterImages({
-  images,
-  layout,
-}: {
-  images: readonly {
-    label: string
-    aspect: string
-    src?: string
-    place?: 'end'
-    span?: 2
-    showFull?: boolean
-    centered?: boolean
-    tall?: boolean
-    fillColumn?: boolean
-    focus?: string
-  }[]
-  layout: (typeof CHAPTERS)[number]['layout']
-}) {
+function ChapterImages({ images }: { images: readonly ChapterImage[] }) {
   const many = images.length > 1
 
   return (
     <div
       className={cn(
         'min-w-0 overflow-hidden',
-        many && layout === 'stack' && 'grid gap-px sm:grid-cols-2',
-        many && layout === 'stack' && images.some((img) => img.showFull) && 'items-start',
-        many && layout === 'split' && 'grid gap-px',
+        many && 'grid gap-px sm:grid-cols-2',
+        many && images.some((img) => img.showFull) && 'items-start',
         !many && 'h-full',
-        !many && layout === 'split' && 'min-h-[12rem]',
       )}
     >
       {images.map((img, i) =>
@@ -157,7 +160,7 @@ function ChapterImages({
             className={cn(
               'spotlight-empty-grid w-full border-0',
               !many && 'h-full',
-              layout === 'stack' && images.length === 3 && i === 2 && 'sm:col-span-2',
+              images.length === 3 && i === 2 && 'sm:col-span-2',
             )}
           />
         ),
@@ -218,45 +221,26 @@ export default function AboutPage() {
                 </div>
               )
 
-              if (chapter.layout === 'stack') {
-                const copyOnRight =
-                  'copyBeside' in chapter && chapter.copyBeside === 'right'
-
-                return (
-                  <article key={chapter.eyebrow} className="glass-card overflow-hidden p-0">
-                    <ChapterImages images={topImages} layout={chapter.layout} />
-                    {copyOnRight && endImages.length > 0 ? (
-                      <div className="grid lg:grid-cols-2 lg:items-stretch">
-                        <div className="order-2 h-72 min-h-0 min-w-0 overflow-hidden sm:h-80 lg:order-1 lg:h-auto">
-                          <ChapterImages images={endImages} layout={chapter.layout} />
-                        </div>
-                        <div className="order-1 min-w-0 lg:order-2">{copy}</div>
-                      </div>
-                    ) : (
-                      <>
-                        {copy}
-                        {endImages.length > 0 ? (
-                          <ChapterImages images={endImages} layout={chapter.layout} />
-                        ) : null}
-                      </>
-                    )}
-                  </article>
-                )
-              }
-
-              const imageFirst = chapter.imageSide === 'left'
+              const copyOnRight = chapter.copyBeside === 'right'
 
               return (
-                <article
-                  key={chapter.eyebrow}
-                  className="glass-card grid overflow-hidden p-0 lg:grid-cols-2 lg:items-start"
-                >
-                  <div className={cn('min-w-0 h-full overflow-hidden', imageFirst ? 'lg:order-1' : 'lg:order-2')}>
-                    <ChapterImages images={images} layout={chapter.layout} />
-                  </div>
-                  <div className={cn('min-w-0', imageFirst ? 'lg:order-2' : 'lg:order-1')}>
-                    {copy}
-                  </div>
+                <article key={chapter.eyebrow} className="glass-card overflow-hidden p-0">
+                  <ChapterImages images={topImages} />
+                  {copyOnRight && endImages.length > 0 ? (
+                    <div className="grid lg:grid-cols-2 lg:items-stretch">
+                      <div className="order-2 h-72 min-h-0 min-w-0 overflow-hidden sm:h-80 lg:order-1 lg:h-auto">
+                        <ChapterImages images={endImages} />
+                      </div>
+                      <div className="order-1 min-w-0 lg:order-2">{copy}</div>
+                    </div>
+                  ) : (
+                    <>
+                      {copy}
+                      {endImages.length > 0 ? (
+                        <ChapterImages images={endImages} />
+                      ) : null}
+                    </>
+                  )}
                 </article>
               )
             })}
