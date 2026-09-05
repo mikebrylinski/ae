@@ -53,6 +53,7 @@ const CHAPTERS = [
         aspect: 'aspect-[4/3]',
         src: '/images/about/on-the-road.jpg',
         tall: true,
+        focus: 'object-[22%_top]',
       },
       {
         label: 'Mixing FOH at an outdoor concert',
@@ -101,6 +102,7 @@ function ChapterImages({
     centered?: boolean
     tall?: boolean
     fillColumn?: boolean
+    focus?: string
   }[]
   layout: (typeof CHAPTERS)[number]['layout']
 }) {
@@ -143,7 +145,7 @@ function ChapterImages({
                 ? 'absolute inset-0 h-full w-full object-cover object-[center_18%]'
                 : img.showFull
                   ? 'object-cover object-center'
-                  : 'object-cover object-[center_35%]'
+                  : cn('object-cover', img.focus ?? 'object-[center_35%]')
             }
             fallbackLabel={img.label}
           />
@@ -182,9 +184,9 @@ export default function AboutPage() {
       >
         <div className="glass-card glass-card--aurora p-6 sm:p-8 md:p-10">
           <span className="metal-overlay" aria-hidden />
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-8">
+          <div className="flex flex-col items-center gap-4 text-center md:flex-row md:items-end md:justify-between md:gap-8 md:text-left">
             <VuPlate className="shrink-0">{t.about.eyebrow}</VuPlate>
-            <h1 className="font-heading text-3xl tracking-[0.08em] text-white sm:text-4xl md:text-right">
+            <h1 className="font-heading min-w-0 text-center text-3xl tracking-[0.08em] text-white sm:text-4xl md:text-right">
               {about.headline ?? 'Andy Ebert'}
             </h1>
           </div>
@@ -225,10 +227,10 @@ export default function AboutPage() {
                     <ChapterImages images={topImages} layout={chapter.layout} />
                     {copyOnRight && endImages.length > 0 ? (
                       <div className="grid lg:grid-cols-2 lg:items-stretch">
-                        <div className="h-72 min-h-0 min-w-0 overflow-hidden sm:h-80 lg:h-auto">
+                        <div className="order-2 h-72 min-h-0 min-w-0 overflow-hidden sm:h-80 lg:order-1 lg:h-auto">
                           <ChapterImages images={endImages} layout={chapter.layout} />
                         </div>
-                        {copy}
+                        <div className="order-1 min-w-0 lg:order-2">{copy}</div>
                       </div>
                     ) : (
                       <>

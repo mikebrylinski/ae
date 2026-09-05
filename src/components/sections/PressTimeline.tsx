@@ -4,12 +4,14 @@ import {
   useState,
   type ReactNode,
 } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowUpRight, FileText } from 'lucide-react'
 import {
   getPressItems,
+  getProjectBySlug,
   localizePressType,
-  pressHref,
+  pressAnchorProps,
   type PressTypeFilter,
 } from '@/lib/content'
 import { interpolate } from '@/i18n/ui'
@@ -72,7 +74,7 @@ function PressPagination({
     <nav
       className={cn(
         'flex flex-nowrap items-center',
-        isRail ? 'justify-end gap-1' : 'justify-between gap-2 sm:gap-4',
+        isRail ? 'justify-center gap-1 sm:justify-end' : 'justify-center gap-2 sm:justify-between sm:gap-4',
         className,
       )}
       aria-label={label}
@@ -159,95 +161,128 @@ function PressCard({
   className?: string
 }) {
   const { lang, t } = useLanguage()
-  const href = pressHref(item)
-  const cta = item.pdf ? t.press.openPdf : href ? t.press.readArticle : null
+  const link = pressAnchorProps(item)
+  const cta = item.pdf ? t.press.openPdf : link ? t.press.readArticle : null
+  const [imageFailed, setImageFailed] = useState(false)
+  const showImage = Boolean(item.image) && !imageFailed
+  const artists = (item.projectSlugs ?? []).flatMap((slug) => {
+    const project = getProjectBySlug(slug)
+    return project ? [project] : []
+  })
   const imageShell = cn(
-    'relative w-[5.25rem] min-h-[5.75rem] shrink-0 self-stretch overflow-hidden border-r border-white/10',
+    'relative w-[5.25rem] min-h-[5.75rem] shrink-0 self-stretch overflow-hidden border-r border-white/10 bg-black',
     'sm:w-[42%] sm:min-h-[10.5rem] md:w-[44%]',
     mirror && 'md:border-r-0 md:border-l',
   )
 
-  const body = (
+  const imageInner = showImage ? (
     <>
-      {item.image ? (
-        <div className={cn(imageShell, 'bg-black')}>
-          <img
-            src={item.image}
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-            loading="lazy"
-            decoding="async"
-          />
-          <div
-            className={cn(
-              'absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/20 sm:bg-gradient-to-r sm:from-transparent sm:to-black/45',
-              mirror && 'md:bg-gradient-to-l md:from-transparent md:to-black/45',
-            )}
-            aria-hidden
-          />
-        </div>
-      ) : (
-        <div className={cn(imageShell, 'bg-black')} aria-hidden>
-          <div className="spotlight-empty-grid absolute inset-0 opacity-70" />
-          <FileText
-            size={28}
-            strokeWidth={1.4}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/25"
-          />
-        </div>
-      )}
-
-      <div className="flex min-w-0 flex-1 flex-col justify-center gap-1.5 p-2.5 sm:gap-2.5 sm:p-4 md:gap-2">
-        <div className="flex flex-wrap items-start justify-between gap-1.5 sm:gap-3">
-          <p className="font-heading text-[10px] tracking-[0.12em] text-primary sm:text-xs sm:tracking-[0.14em]">
-            {item.date || item.publication}
-          </p>
-          <Badge variant="muted" className="w-fit shrink-0 px-1.5 pt-[3px] pb-px text-[9px] leading-none sm:px-2.5 sm:pt-1 sm:pb-[3px] sm:text-[11px]">
-            {localizePressType(item.type, lang)}
-          </Badge>
-        </div>
-
-        <div className="min-w-0">
-          <p className="font-heading text-[0.95rem] leading-tight tracking-[0.05em] text-white transition-colors duration-500 group-hover:text-primary sm:text-xl sm:leading-normal sm:tracking-[0.06em] md:text-lg lg:text-xl">
-            {item.title}
-          </p>
-          <p className="mt-0.5 text-xs text-muted sm:mt-1 sm:text-sm md:mt-0.5 md:text-xs lg:text-sm">
-            {item.publication}
-          </p>
-        </div>
-
-        {cta ? (
-          <p className="font-heading inline-flex items-center gap-1.5 text-[10px] tracking-[0.14em] text-primary/80 uppercase transition-colors group-hover:text-primary">
-            {cta}
-            <ArrowUpRight size={12} strokeWidth={1.8} aria-hidden />
-          </p>
-        ) : null}
-      </div>
+      <img
+        src={item.image}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+        loading="lazy"
+        decoding="async"
+        onError={() => setImageFailed(true)}
+      />
+      <div
+        className={cn(
+          'absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/20 sm:bg-gradient-to-r sm:from-transparent sm:to-black/45',
+          mirror && 'md:bg-gradient-to-l md:from-transparent md:to-black/45',
+        )}
+        aria-hidden
+      />
+    </>
+  ) : (
+    <>
+      <div className="spotlight-empty-grid absolute inset-0 opacity-70" />
+      <FileText
+        size={28}
+        strokeWidth={1.4}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/25"
+      />
     </>
   )
+
+  const copy = (
+    <>
+      <div className="flex flex-wrap items-start justify-between gap-1.5 sm:gap-3">
+        <p className="font-heading text-[10px] tracking-[0.12em] text-primary sm:text-xs sm:tracking-[0.14em]">
+          {item.date || item.publication}
+        </p>
+        <Badge variant="muted" className="w-fit shrink-0 px-1.5 pt-[3px] pb-px text-[9px] leading-none sm:px-2.5 sm:pt-1 sm:pb-[3px] sm:text-[11px]">
+          {localizePressType(item.type, lang)}
+        </Badge>
+      </div>
+
+      <div className="min-w-0">
+        <p className="font-heading text-[0.95rem] leading-tight tracking-[0.05em] text-white transition-colors duration-500 group-hover:text-primary sm:text-xl sm:leading-normal sm:tracking-[0.06em] md:text-lg lg:text-xl">
+          {item.title}
+        </p>
+        <p className="mt-0.5 text-xs text-muted sm:mt-1 sm:text-sm md:mt-0.5 md:text-xs lg:text-sm">
+          {item.publication}
+        </p>
+      </div>
+
+      {cta ? (
+        <p className="font-heading inline-flex items-center gap-1.5 text-[10px] tracking-[0.14em] text-primary/80 uppercase transition-colors group-hover:text-primary">
+          {cta}
+          <ArrowUpRight size={12} strokeWidth={1.8} aria-hidden />
+        </p>
+      ) : null}
+    </>
+  )
+
+  const artistLinks =
+    artists.length > 0 ? (
+      <div className="mt-auto flex flex-wrap gap-x-3 gap-y-1">
+        {artists.map((project) => (
+          <Link
+            key={project.slug}
+            to={`/portfolio/${project.slug}`}
+            className="font-heading text-[10px] tracking-[0.14em] text-primary/80 uppercase transition-colors hover:text-primary"
+          >
+            {project.artist}
+          </Link>
+        ))}
+      </div>
+    ) : null
 
   const cardClass = cn(
     'glass-card group flex h-full w-full min-w-0 flex-row items-stretch overflow-hidden p-0 transition-[transform,box-shadow,border-color] duration-700 ease-out',
     mirror && 'md:flex-row-reverse',
-    href &&
+    (link || artists.length > 0) &&
       'card-lift hover:-translate-y-1 hover:border-primary/35 hover:shadow-[0_0_28px_rgba(184,255,0,0.08)]',
     className,
   )
 
-  if (href) {
-    return (
-      <a
-        href={href}
-        target="_blank"
-        rel="noreferrer"
-        className={cn(cardClass, 'focus-visible:outline-none')}
-      >
-        {body}
-      </a>
-    )
-  }
+  return (
+    <div className={cardClass}>
+      {link ? (
+        <a {...link} tabIndex={-1} className={imageShell}>
+          {imageInner}
+        </a>
+      ) : (
+        <div className={imageShell} aria-hidden>
+          {imageInner}
+        </div>
+      )}
 
-  return <div className={cardClass}>{body}</div>
+      <div className="flex min-w-0 flex-1 flex-col justify-center gap-1.5 p-2.5 sm:gap-2.5 sm:p-4 md:gap-2">
+        {link ? (
+          <a
+            {...link}
+            className="flex min-w-0 flex-col gap-1.5 focus-visible:outline-none sm:gap-2.5 md:gap-2"
+          >
+            {copy}
+          </a>
+        ) : (
+          copy
+        )}
+        {artistLinks}
+      </div>
+    </div>
+  )
 }
 
 type PressTimelineContextValue = {
@@ -291,16 +326,16 @@ export function PressTimelineHeader() {
   return (
     <div className="glass-card glass-card--aurora p-6 sm:p-8 md:p-10">
       <span className="metal-overlay" aria-hidden />
-      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-8">
+      <div className="flex flex-col items-center gap-4 text-center md:flex-row md:items-end md:justify-between md:gap-8 md:text-left">
         <VuPlate className="shrink-0">{t.press.eyebrow}</VuPlate>
-        <h1 className="font-heading text-3xl tracking-[0.08em] text-white sm:text-4xl md:text-right">
+        <h1 className="font-heading min-w-0 text-center text-3xl tracking-[0.08em] text-white sm:text-4xl md:text-right">
           {t.press.title}
         </h1>
       </div>
 
-      <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+      <div className="mt-8 flex flex-col items-center gap-3 sm:mt-10 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
         <div
-          className="flex min-w-0 flex-wrap gap-2"
+          className="flex min-w-0 flex-wrap justify-center gap-2 sm:justify-start"
           role="tablist"
           aria-label={t.a11y.filterPress}
         >
@@ -330,7 +365,7 @@ export function PressTimelineHeader() {
             onPageChange={goToPage}
             label={t.a11y.pressPageTop}
             variant="rail"
-            className="shrink-0 self-end sm:self-auto"
+            className="shrink-0"
           />
         ) : null}
       </div>
@@ -374,7 +409,7 @@ export function PressTimelineList({ className }: { className?: string }) {
                 variants={item}
                 className={cn(
                   'group/press relative flex min-w-0 gap-2.5 sm:gap-4',
-                  'md:grid md:grid-cols-[minmax(0,1fr)_3.25rem_minmax(0,1fr)] md:items-start md:gap-x-4',
+                  'pointer-events-none md:grid md:grid-cols-[minmax(0,1fr)_3.25rem_minmax(0,1fr)] md:items-start md:gap-x-4',
                   !alignLeft && 'md:-mt-20 lg:-mt-24',
                 )}
                 style={{ zIndex: index + 1 }}
@@ -401,7 +436,7 @@ export function PressTimelineList({ className }: { className?: string }) {
 
                 <div
                   className={cn(
-                    'min-w-0 flex-1 md:row-start-1',
+                    'pointer-events-auto min-w-0 flex-1 md:row-start-1',
                     alignLeft ? 'md:col-start-1' : 'md:col-start-3',
                   )}
                 >

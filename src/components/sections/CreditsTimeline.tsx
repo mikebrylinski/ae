@@ -78,8 +78,8 @@ function CreditsPagination({
       className={cn(
         'flex flex-nowrap items-center',
         isRail
-          ? 'justify-end gap-1'
-          : 'justify-between gap-2 sm:gap-4',
+          ? 'justify-center gap-1 sm:justify-end'
+          : 'justify-center gap-2 sm:justify-between sm:gap-4',
         className,
       )}
       aria-label={label}
@@ -205,18 +205,10 @@ function CreditCard({
         </div>
       )}
 
-      <div className="flex min-w-0 flex-1 flex-col justify-center gap-1.5 p-2.5 sm:gap-2.5 sm:p-4 md:gap-2">
-        <div className="flex flex-wrap items-start justify-between gap-1.5 sm:gap-3">
-          <p className="font-heading text-[10px] tracking-[0.12em] text-primary sm:text-xs sm:tracking-[0.14em]">
-            {localized.yearLabel}
-          </p>
-          <Badge
-            variant={credit.role === 'FOH Engineer' ? 'muted' : 'default'}
-            className="w-fit shrink-0 px-1.5 pt-[3px] pb-px text-[9px] leading-none sm:px-2.5 sm:pt-1 sm:pb-[3px] sm:text-[11px]"
-          >
-            {roleBadgeLabel(credit.role, t.credits.foh, t.credits.monitors)}
-          </Badge>
-        </div>
+      <div className="flex min-w-0 flex-1 flex-col gap-1.5 p-2.5 sm:gap-2.5 sm:p-4 md:gap-2">
+        <p className="font-heading text-[10px] tracking-[0.12em] text-primary sm:text-xs sm:tracking-[0.14em]">
+          {localized.yearLabel}
+        </p>
 
         <div className="min-w-0">
           <p className="font-heading text-[0.95rem] leading-tight tracking-[0.05em] text-white transition-colors duration-500 group-hover:text-primary sm:text-xl sm:leading-normal sm:tracking-[0.06em] md:text-lg lg:text-xl">
@@ -227,12 +219,21 @@ function CreditCard({
           </p>
         </div>
 
-        {href ? (
-          <p className="font-heading inline-flex items-center gap-1.5 text-[10px] tracking-[0.14em] text-primary/80 uppercase transition-colors group-hover:text-primary">
-            {t.credits.viewProject}
-            <ArrowUpRight size={12} strokeWidth={1.8} aria-hidden />
-          </p>
-        ) : null}
+        <div className="mt-auto flex items-end gap-1.5">
+          {href ? (
+            <p className="font-heading mr-auto inline-flex items-center gap-1.5 text-[10px] tracking-[0.14em] text-primary/80 uppercase transition-colors group-hover:text-primary">
+              {t.credits.viewProject}
+              <ArrowUpRight size={12} strokeWidth={1.8} aria-hidden />
+            </p>
+          ) : null}
+
+          <Badge
+            variant={credit.role === 'FOH Engineer' ? 'muted' : 'default'}
+            className="ml-auto w-fit shrink-0 px-1.5 pt-[3px] pb-px text-[9px] leading-none sm:px-2.5 sm:pt-1 sm:pb-[3px] sm:text-[11px]"
+          >
+            {roleBadgeLabel(credit.role, t.credits.foh, t.credits.monitors)}
+          </Badge>
+        </div>
       </div>
     </>
   )
@@ -292,16 +293,16 @@ export function CreditsTimelineHeader() {
   return (
     <div className="glass-card glass-card--aurora p-6 sm:p-8 md:p-10">
       <span className="metal-overlay" aria-hidden />
-      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-8">
+      <div className="flex flex-col items-center gap-4 text-center md:flex-row md:items-end md:justify-between md:gap-8 md:text-left">
         <VuPlate className="shrink-0">{t.credits.eyebrow}</VuPlate>
-        <h1 className="font-heading text-3xl tracking-[0.08em] text-white sm:text-4xl md:text-right">
+        <h1 className="font-heading min-w-0 text-center text-3xl tracking-[0.08em] text-white sm:text-4xl md:text-right">
           {t.credits.title}
         </h1>
       </div>
 
-      <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+      <div className="mt-8 flex flex-col items-center gap-3 sm:mt-10 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
         <div
-          className="flex min-w-0 flex-wrap gap-2"
+          className="flex min-w-0 flex-wrap justify-center gap-2 sm:justify-start"
           role="tablist"
           aria-label={t.a11y.filterCredits}
         >
@@ -331,7 +332,7 @@ export function CreditsTimelineHeader() {
             onPageChange={goToPage}
             label={t.a11y.creditsPageTop}
             variant="rail"
-            className="shrink-0 self-end sm:self-auto"
+            className="shrink-0"
           />
         ) : null}
       </div>
@@ -377,7 +378,7 @@ export function CreditsTimelineList({ className }: { className?: string }) {
                 variants={item}
                 className={cn(
                   'group/credit relative flex min-w-0 gap-2.5 sm:gap-4',
-                  'md:grid md:grid-cols-[minmax(0,1fr)_3.25rem_minmax(0,1fr)] md:items-start md:gap-x-4',
+                  'pointer-events-none md:grid md:grid-cols-[minmax(0,1fr)_3.25rem_minmax(0,1fr)] md:items-start md:gap-x-4',
                   // Only opposite (right) column tucks up beside the previous left card
                   !alignLeft && 'md:-mt-20 lg:-mt-24',
                 )}
@@ -407,7 +408,7 @@ export function CreditsTimelineList({ className }: { className?: string }) {
 
                 <div
                   className={cn(
-                    'min-w-0 flex-1 md:row-start-1',
+                    'pointer-events-auto min-w-0 flex-1 md:row-start-1',
                     alignLeft ? 'md:col-start-1' : 'md:col-start-3',
                   )}
                 >

@@ -3,11 +3,13 @@ import { Container } from '@/components/ui/Container'
 import { buttonVariants } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
 import { useSeo } from '@/hooks/useSeo'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 export default function NotFoundPage() {
+  const { t } = useLanguage()
   useSeo({
-    title: 'Page Not Found',
-    description: 'The page you requested could not be found.',
+    title: t.notFound.seoTitle,
+    description: t.notFound.seoDescription,
   })
 
   return (
@@ -15,17 +17,17 @@ export default function NotFoundPage() {
       <Container className="text-center">
         <p className="font-heading text-xs tracking-[0.2em] text-primary">404</p>
         <h1 className="font-heading mt-4 text-5xl tracking-[0.08em] text-white md:text-7xl">
-          Lost In Monitor World
+          {t.notFound.title}
         </h1>
         <p className="mx-auto mt-4 max-w-md text-muted">
-          That page isn’t on the set list. Head back to the main stage.
+          {t.notFound.body}
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-3">
           <Link to="/" className={cn(buttonVariants())}>
-            Go Home
+            {t.notFound.home}
           </Link>
           <Link to="/portfolio" className={cn(buttonVariants({ variant: 'outline' }))}>
-            View Portfolio
+            {t.notFound.portfolio}
           </Link>
         </div>
       </Container>

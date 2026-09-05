@@ -41,7 +41,7 @@ export default function GalleryPage() {
   return (
     <GalleryGrid>
       <PhotoHeader
-        src="/images/gallery/arena-foh.jpg"
+        src="/images/about/on-the-road-foh.jpg"
         alt={t.galleryPage.headerAlt}
         heading={t.galleryPage.heading}
       >

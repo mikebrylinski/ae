@@ -105,6 +105,9 @@
       "Consistency across worldwide venue infrastructures"
     ],
     "gallery": [
+      "/images/projects/weeknd-3.jpg",
+      "/images/projects/weeknd-4.jpg",
+      "/images/projects/weeknd-2.jpg",
       "/images/projects/weeknd-1.jpg"
     ],
     "videos": [],
@@ -146,7 +149,10 @@
       "Venue-to-venue consistency on touring schedules",
       "Dense wireless and high-SPL stage environments"
     ],
-    "gallery": [],
+    "gallery": [
+      "/images/projects/adam-lambert-1.jpg",
+      "/images/projects/adam-lambert-2.jpg"
+    ],
     "videos": [],
     "logo": "/images/logos/adam-lambert.png",
     "cardImage": "/images/projects/cards/adam-lambert.jpg"
@@ -240,7 +246,7 @@
       "Theatres",
       "Tours"
     ],
-    "featured": true,
+    "featured": false,
     "heroImage": "/images/projects/stp-hero.jpg",
     "thumbnail": "/images/logos/stone-temple-pilots.png",
     "icon": "Radio",
@@ -261,7 +267,34 @@
       "Multi-year touring consistency"
     ],
     "gallery": [
-      "/images/projects/stp-1.jpg"
+      "/images/projects/stp-2.jpg",
+      "/images/projects/stp-3.jpg",
+      "/images/projects/stp-4.jpg",
+      "/images/projects/stp-5.jpg",
+      "/images/projects/stp-6.jpg",
+      "/images/projects/stp-7.jpg",
+      "/images/projects/stp-8.jpg",
+      "/images/projects/stp-9.jpg",
+      "/images/projects/stp-10.jpg",
+      "/images/projects/stp-11.jpg",
+      "/images/projects/stp-12.jpg",
+      "/images/projects/stp-13.jpg",
+      "/images/projects/stp-14.jpg",
+      "/images/projects/stp-15.jpg",
+      "/images/projects/stp-16.jpg",
+      "/images/projects/stp-17.jpg",
+      "/images/projects/stp-18.jpg",
+      "/images/projects/stp-19.jpg",
+      "/images/projects/stp-20.jpg",
+      "/images/projects/stp-21.jpg",
+      "/images/projects/stp-22.jpg",
+      "/images/projects/stp-23.jpg",
+      "/images/projects/stp-24.jpg",
+      "/images/projects/stp-25.jpg",
+      "/images/projects/stp-26.jpg",
+      "/images/projects/stp-27.jpg",
+      "/images/projects/stp-28.jpg",
+      "/images/projects/stp-29.jpg"
     ],
     "videos": [],
     "logo": "/images/logos/stone-temple-pilots.png",
@@ -376,7 +409,9 @@
       "Venue-to-venue consistency on touring schedules",
       "Dense wireless and high-SPL stage environments"
     ],
-    "gallery": [],
+    "gallery": [
+      "/images/projects/sugar-ray-1.jpg"
+    ],
     "videos": [],
     "logo": "/images/logos/sugar-ray.png",
     "cardImage": "/images/projects/cards/sugar-ray.jpg"
@@ -392,7 +427,7 @@
       "Theatres",
       "Tours"
     ],
-    "featured": false,
+    "featured": true,
     "heroImage": "/images/projects/neil-young-hero.jpg",
     "thumbnail": "/images/logos/neil-young-velvet-revolver.png",
     "icon": "Guitar",
@@ -413,7 +448,15 @@
       "Artist-specific placement and coverage night to night"
     ],
     "gallery": [
-      "/images/projects/neil-young-1.jpg"
+      "/images/projects/neil-young-1.jpg",
+      "/images/projects/neil-young-2.jpg",
+      "/images/projects/neil-young-3.jpg",
+      "/images/projects/neil-young-4.jpg",
+      "/images/projects/neil-young-5.jpg",
+      "/images/projects/neil-young-6.jpg",
+      "/images/projects/neil-young-7.jpg",
+      "/images/projects/neil-young-8.jpg",
+      "/images/projects/neil-young-9.jpg"
     ],
     "videos": [],
     "technicalNotes": "Flown SF in precise position were Neil’s only monitors.",
@@ -488,7 +531,10 @@
       "High-SPL rock stages",
       "FX balance for Scott Weiland’s vocal mix"
     ],
-    "gallery": [],
+    "gallery": [
+      "/images/projects/velvet-revolver-1.jpg",
+      "/images/projects/velvet-revolver-2.jpg"
+    ],
     "videos": [],
     "logo": "/images/logos/neil-young-velvet-revolver.png",
     "cardImage": "/images/projects/cards/velvet-revolver.jpg"
@@ -529,7 +575,21 @@
       "International venue variability"
     ],
     "gallery": [
-      "/images/projects/gnr-1.jpg"
+      "/images/projects/gnr-1.jpg",
+      "/images/projects/gnr-2.jpg",
+      "/images/projects/gnr-3.jpg",
+      "/images/projects/gnr-4.jpg",
+      "/images/projects/gnr-5.jpg",
+      "/images/projects/gnr-6.jpg",
+      "/images/projects/gnr-7.jpg",
+      "/images/projects/gnr-8.jpg",
+      "/images/projects/gnr-9.jpg",
+      "/images/projects/gnr-10.jpg",
+      "/images/projects/gnr-11.jpg",
+      "/images/projects/gnr-12.jpg",
+      "/images/projects/gnr-13.jpg",
+      "/images/projects/gnr-14.jpg",
+      "/images/projects/gnr-15.jpg"
     ],
     "videos": [],
     "logo": "/images/logos/guns-n-roses.png",
@@ -573,7 +633,13 @@
       "Maintaining mix stability across international routing"
     ],
     "gallery": [
-      "/images/projects/maroon5-1.jpg"
+      "/images/projects/maroon5-1.jpg",
+      "/images/projects/maroon5-2.jpg",
+      "/images/projects/maroon5-3.jpg",
+      "/images/projects/maroon5-4.jpg",
+      "/images/projects/maroon5-5.jpg",
+      "/images/projects/maroon5-6.jpg",
+      "/images/projects/maroon5-7.jpg"
     ],
     "videos": [],
     "logo": "/images/logos/maroon-5.png",
@@ -610,7 +676,11 @@
       "Venue-to-venue consistency on touring schedules",
       "Dense wireless and high-SPL stage environments"
     ],
-    "gallery": [],
+    "gallery": [
+      "/images/projects/rhcp-1.jpg",
+      "/images/projects/rhcp-2.jpg",
+      "/images/projects/rhcp-3.jpg"
+    ],
     "videos": [],
     "logo": "/images/logos/red-hot-chili-peppers.png",
     "cardImage": "/images/projects/cards/red-hot-chili-peppers.jpg"
@@ -661,7 +731,7 @@
       "Stadiums",
       "Tours"
     ],
-    "featured": false,
+    "featured": true,
     "heroImage": "/images/projects/mariah-hero.jpg",
     "thumbnail": "/images/logos/mariah-carey.png",
     "icon": "AudioWaveform",
@@ -683,6 +753,12 @@
       "High-production changeovers"
     ],
     "gallery": [
+      "/images/projects/mariah-2.jpg",
+      "/images/projects/mariah-3.jpg",
+      "/images/projects/mariah-4.jpg",
+      "/images/projects/mariah-5.jpg",
+      "/images/projects/mariah-6.jpg",
+      "/images/projects/mariah-7.jpg",
       "/images/projects/mariah-1.jpg"
     ],
     "videos": [],
@@ -802,7 +878,13 @@
       "Venue-to-venue consistency on touring schedules",
       "Dense wireless and high-SPL stage environments"
     ],
-    "gallery": [],
+    "gallery": [
+      "/images/projects/rem-1.jpg",
+      "/images/projects/rem-2.jpg",
+      "/images/projects/rem-3.jpg",
+      "/images/projects/rem-4.jpg",
+      "/images/projects/rem-5.jpg"
+    ],
     "videos": [],
     "logo": "/images/logos/rem.png",
     "cardImage": "/images/projects/cards/rem.jpg"
@@ -914,7 +996,16 @@
       "Venue-to-venue consistency on touring schedules",
       "Dense wireless and high-SPL stage environments"
     ],
-    "gallery": [],
+    "gallery": [
+      "/images/projects/dream-theater-1.jpg",
+      "/images/projects/dream-theater-2.jpg",
+      "/images/projects/dream-theater-3.jpg",
+      "/images/projects/dream-theater-4.jpg",
+      "/images/projects/dream-theater-5.jpg",
+      "/images/projects/dream-theater-6.jpg",
+      "/images/projects/dream-theater-7.jpg",
+      "/images/projects/dream-theater-8.jpg"
+    ],
     "videos": [],
     "logo": "/images/logos/dream-theater.png",
     "cardImage": "/images/projects/cards/dream-theater.jpg"
@@ -1096,7 +1187,9 @@
       "Venue-to-venue consistency on touring schedules",
       "Dense wireless and high-SPL stage environments"
     ],
-    "gallery": [],
+    "gallery": [
+      "/images/projects/momix-1.jpg"
+    ],
     "videos": [],
     "logo": "/images/logos/momix-tarkan.png",
     "cardImage": "/images/projects/cards/momix-tarkan.jpg"

@@ -206,23 +206,6 @@
     "height": 1024
   },
   {
-    "id": "g1",
-    "src": "/images/gallery/arena-foh.jpg",
-    "alt": "Andy at FOH looking toward a packed arena stage",
-    "category": "Arena",
-    "tags": [
-      "Arena",
-      "FOH",
-      "Console",
-      "Tour",
-      "2022"
-    ],
-    "year": 2022,
-    "width": 1536,
-    "height": 1024,
-    "teaser": true
-  },
-  {
     "id": "g2",
     "src": "/images/gallery/arena-1.jpg",
     "alt": "Alanis Morissette stage from the wings — Tel Aviv",
@@ -373,36 +356,6 @@
     "teaser": true
   },
   {
-    "id": "contact-loadout",
-    "src": "/images/contact/loadout.jpg",
-    "alt": "Load-out and touring cases",
-    "category": "Crew",
-    "tags": [
-      "Crew",
-      "Equipment",
-      "Tour",
-      "2015"
-    ],
-    "year": 2015,
-    "width": 1536,
-    "height": 1024
-  },
-  {
-    "id": "media-header",
-    "src": "/images/media/header-bg.jpg",
-    "alt": "Arena concert stage from the press pit",
-    "category": "Arena",
-    "tags": [
-      "Arena",
-      "Tour",
-      "Festivals",
-      "2016"
-    ],
-    "year": 2016,
-    "width": 1920,
-    "height": 1080
-  },
-  {
     "id": "headshot-1",
     "src": "/images/media/headshot-1.jpg",
     "alt": "Andy Ebert headshot 1",
@@ -415,65 +368,6 @@
     "year": 2018,
     "width": 709,
     "height": 532
-  },
-  {
-    "id": "portfolio-console",
-    "src": "/images/portfolio/console.jpg",
-    "alt": "Andy at a mixing console in an arena",
-    "category": "Monitor World",
-    "tags": [
-      "Monitor World",
-      "Console",
-      "Arena",
-      "Tour",
-      "2019"
-    ],
-    "year": 2019,
-    "width": 1536,
-    "height": 1024
-  },
-  {
-    "id": "portfolio-header",
-    "src": "/images/portfolio/header-bg.jpg",
-    "alt": "Arena production from the house",
-    "category": "Arena",
-    "tags": [
-      "Arena",
-      "Tour",
-      "2019"
-    ],
-    "year": 2019,
-    "width": 1920,
-    "height": 1080
-  },
-  {
-    "id": "section-cta",
-    "src": "/images/sections/cta-bg.jpg",
-    "alt": "Console and stage wash",
-    "category": "Monitor World",
-    "tags": [
-      "Console",
-      "Monitor World",
-      "Tour",
-      "2017"
-    ],
-    "year": 2017,
-    "width": 1536,
-    "height": 1024
-  },
-  {
-    "id": "section-featured",
-    "src": "/images/sections/featured-bg.jpg",
-    "alt": "Live production lighting and stage",
-    "category": "Arena",
-    "tags": [
-      "Arena",
-      "Tour",
-      "2017"
-    ],
-    "year": 2017,
-    "width": 1536,
-    "height": 1024
   },
   {
     "id": "section-services",
@@ -961,5 +855,1783 @@
     "year": 2025,
     "width": 1500,
     "height": 2000
+  },
+  {
+    "id": "weeknd-2",
+    "src": "/images/projects/weeknd-2.jpg",
+    "alt": "The Weeknd performing live, pointing toward a crowd under red concert lighting",
+    "category": "Arena",
+    "tags": [
+      "The Weeknd",
+      "Arena",
+      "Tour",
+      "2017"
+    ],
+    "year": 2017,
+    "width": 640,
+    "height": 418
+  },
+  {
+    "id": "weeknd-3",
+    "src": "/images/projects/weeknd-3.jpg",
+    "alt": "The Weeknd backstage in a patched denim vest, 2017",
+    "category": "Backstage",
+    "tags": [
+      "The Weeknd",
+      "Backstage",
+      "Tour",
+      "2017"
+    ],
+    "year": 2017,
+    "width": 600,
+    "height": 580
+  },
+  {
+    "id": "weeknd-4",
+    "src": "/images/projects/weeknd-4.jpg",
+    "alt": "Monitor mix view of The Weeknd on stage from an Avid VENUE console",
+    "category": "Monitor World",
+    "tags": [
+      "The Weeknd",
+      "Monitor World",
+      "Console",
+      "Festivals",
+      "Tour",
+      "2012"
+    ],
+    "year": 2012,
+    "width": 1024,
+    "height": 576
+  },
+  {
+    "id": "adam-lambert-1",
+    "src": "/images/projects/adam-lambert-1.jpg",
+    "alt": "Adam Lambert performing on a red-lit B-stage at Hennessy Artistry Night, surrounded by the crowd",
+    "category": "Festivals",
+    "tags": [
+      "Adam Lambert",
+      "Festivals",
+      "Tour",
+      "2012"
+    ],
+    "year": 2012,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "adam-lambert-2",
+    "src": "/images/projects/adam-lambert-2.jpg",
+    "alt": "FOH console covered in confetti during an Adam Lambert show, with the setlist on the monitor",
+    "category": "FOH",
+    "tags": [
+      "Adam Lambert",
+      "FOH",
+      "Console",
+      "Tour",
+      "2012"
+    ],
+    "year": 2012,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "stp-2",
+    "src": "/images/projects/stp-2.jpg",
+    "alt": "Dean and Robert DeLeo on stage in haze during a Stone Temple Pilots show",
+    "category": "Arena",
+    "tags": [
+      "Stone Temple Pilots",
+      "Arena",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "id": "stp-3",
+    "src": "/images/projects/stp-3.jpg",
+    "alt": "Scott Weiland performing in front of a dotted STP backdrop",
+    "category": "Arena",
+    "tags": [
+      "Stone Temple Pilots",
+      "Arena",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 800,
+    "height": 600
+  },
+  {
+    "id": "stp-4",
+    "src": "/images/projects/stp-4.jpg",
+    "alt": "Andy at Red Rocks Amphitheatre before a Stone Temple Pilots date",
+    "category": "Amphitheaters",
+    "tags": [
+      "Stone Temple Pilots",
+      "Amphitheaters",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "stp-5",
+    "src": "/images/projects/stp-5.jpg",
+    "alt": "Jones Beach Theater from the bowl, looking toward the Nikon stage",
+    "category": "Amphitheaters",
+    "tags": [
+      "Stone Temple Pilots",
+      "Amphitheaters",
+      "FOH",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "stp-6",
+    "src": "/images/projects/stp-6.jpg",
+    "alt": "Hollywood Bowl shell during Stone Temple Pilots load-in",
+    "category": "Amphitheaters",
+    "tags": [
+      "Stone Temple Pilots",
+      "Amphitheaters",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "stp-7",
+    "src": "/images/projects/stp-7.jpg",
+    "alt": "Andy at an Avid VENUE console on a Stone Temple Pilots tour",
+    "category": "Monitor World",
+    "tags": [
+      "Stone Temple Pilots",
+      "Monitor World",
+      "Console",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "stp-8",
+    "src": "/images/projects/stp-8.jpg",
+    "alt": "Scott Weiland singing through a megaphone under blue stage light",
+    "category": "Arena",
+    "tags": [
+      "Stone Temple Pilots",
+      "Arena",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "stp-9",
+    "src": "/images/projects/stp-9.jpg",
+    "alt": "Stone Temple Pilots setlist taped to a Clair Bros IEM antenna case",
+    "category": "Backstage",
+    "tags": [
+      "Stone Temple Pilots",
+      "Backstage",
+      "Equipment",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "id": "stp-10",
+    "src": "/images/projects/stp-10.jpg",
+    "alt": "Outdoor PA and lighting stacks during Stone Temple Pilots load-in",
+    "category": "Equipment",
+    "tags": [
+      "Stone Temple Pilots",
+      "Equipment",
+      "FOH",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "stp-11",
+    "src": "/images/projects/stp-11.jpg",
+    "alt": "Outdoor amphitheater seating facing the Stone Temple Pilots stage",
+    "category": "Amphitheaters",
+    "tags": [
+      "Stone Temple Pilots",
+      "Amphitheaters",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 1024,
+    "height": 743
+  },
+  {
+    "id": "stp-12",
+    "src": "/images/projects/stp-12.jpg",
+    "alt": "Monitor engineer at the console with in-ears during an STP show",
+    "category": "Monitor World",
+    "tags": [
+      "Stone Temple Pilots",
+      "Monitor World",
+      "Console",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "id": "stp-13",
+    "src": "/images/projects/stp-13.jpg",
+    "alt": "Outdoor FOH mix position under a tent at a Stone Temple Pilots date",
+    "category": "FOH",
+    "tags": [
+      "Stone Temple Pilots",
+      "FOH",
+      "Console",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "stp-14",
+    "src": "/images/projects/stp-14.jpg",
+    "alt": "Jeff Gutt singing on stage with the STP logo on the bass drum",
+    "category": "Arena",
+    "tags": [
+      "Stone Temple Pilots",
+      "Arena",
+      "Tour",
+      "2018"
+    ],
+    "year": 2018,
+    "width": 998,
+    "height": 1024
+  },
+  {
+    "id": "stp-15",
+    "src": "/images/projects/stp-15.jpg",
+    "alt": "Tour crew working on a road case backstage",
+    "category": "Crew",
+    "tags": [
+      "Stone Temple Pilots",
+      "Crew",
+      "Backstage",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "stp-16",
+    "src": "/images/projects/stp-16.jpg",
+    "alt": "Monitor engineer at the console with in-ear packs clipped on",
+    "category": "Monitor World",
+    "tags": [
+      "Stone Temple Pilots",
+      "Monitor World",
+      "Console",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 761,
+    "height": 1024
+  },
+  {
+    "id": "stp-17",
+    "src": "/images/projects/stp-17.jpg",
+    "alt": "Avid VENUE Profile monitor world with racks and cable looms",
+    "category": "Monitor World",
+    "tags": [
+      "Stone Temple Pilots",
+      "Monitor World",
+      "Console",
+      "Equipment",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "stp-18",
+    "src": "/images/projects/stp-18.jpg",
+    "alt": "Stone Temple Pilots stage with green kit and STP bass drum logo",
+    "category": "Arena",
+    "tags": [
+      "Stone Temple Pilots",
+      "Arena",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "stp-19",
+    "src": "/images/projects/stp-19.jpg",
+    "alt": "Monitor engineer at a VENUE console on a Stone Temple Pilots tour",
+    "category": "Monitor World",
+    "tags": [
+      "Stone Temple Pilots",
+      "Monitor World",
+      "Console",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 1024,
+    "height": 682
+  },
+  {
+    "id": "stp-20",
+    "src": "/images/projects/stp-20.jpg",
+    "alt": "Monitor engineer holding wireless mics at the STP console",
+    "category": "Monitor World",
+    "tags": [
+      "Stone Temple Pilots",
+      "Monitor World",
+      "Console",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 1024,
+    "height": 682
+  },
+  {
+    "id": "stp-21",
+    "src": "/images/projects/stp-21.jpg",
+    "alt": "Stage power and cabling behind a Stone Temple Pilots road case",
+    "category": "Equipment",
+    "tags": [
+      "Stone Temple Pilots",
+      "Equipment",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "stp-22",
+    "src": "/images/projects/stp-22.jpg",
+    "alt": "STP LED backdrop and Marshall stacks from the stage",
+    "category": "Arena",
+    "tags": [
+      "Stone Temple Pilots",
+      "Arena",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "stp-23",
+    "src": "/images/projects/stp-23.jpg",
+    "alt": "Scott Weiland on stage with a megaphone, paisley backdrop, and STP kit",
+    "category": "Arena",
+    "tags": [
+      "Stone Temple Pilots",
+      "Arena",
+      "Tour",
+      "2008"
+    ],
+    "year": 2008,
+    "width": 566,
+    "height": 367
+  },
+  {
+    "id": "stp-24",
+    "src": "/images/projects/stp-24.jpg",
+    "alt": "Side-stage monitor world with dual consoles and an STP flight case",
+    "category": "Monitor World",
+    "tags": [
+      "Stone Temple Pilots",
+      "Monitor World",
+      "Console",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "stp-25",
+    "src": "/images/projects/stp-25.jpg",
+    "alt": "Monitor engineer mixing STP on an Avid VENUE Profile",
+    "category": "Monitor World",
+    "tags": [
+      "Stone Temple Pilots",
+      "Monitor World",
+      "Console",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 1024,
+    "height": 690
+  },
+  {
+    "id": "stp-26",
+    "src": "/images/projects/stp-26.jpg",
+    "alt": "DiGiCo console at side stage with Marshall stacks and exit doors",
+    "category": "Monitor World",
+    "tags": [
+      "Stone Temple Pilots",
+      "Monitor World",
+      "Console",
+      "Tour",
+      "2008"
+    ],
+    "year": 2008,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "stp-27",
+    "src": "/images/projects/stp-27.jpg",
+    "alt": "Outdoor PA racks and Stone Temple Pilots cases under a tent",
+    "category": "Equipment",
+    "tags": [
+      "Stone Temple Pilots",
+      "Equipment",
+      "FOH",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "stp-28",
+    "src": "/images/projects/stp-28.jpg",
+    "alt": "STP drum kit with peace-sign bass drum head on a circular riser",
+    "category": "Arena",
+    "tags": [
+      "Stone Temple Pilots",
+      "Arena",
+      "Tour",
+      "2008"
+    ],
+    "year": 2008,
+    "width": 988,
+    "height": 795
+  },
+  {
+    "id": "stp-29",
+    "src": "/images/projects/stp-29.jpg",
+    "alt": "Monitor engineer at the console with Ultimate Ears cases side-stage",
+    "category": "Monitor World",
+    "tags": [
+      "Stone Temple Pilots",
+      "Monitor World",
+      "Console",
+      "Tour",
+      "2008"
+    ],
+    "year": 2008,
+    "width": 959,
+    "height": 820
+  },
+  {
+    "id": "dream-theater-1",
+    "src": "/images/projects/dream-theater-1.jpg",
+    "alt": "Monitor world on a Dream Theater date — analog consoles, racks, and haze",
+    "category": "Monitor World",
+    "tags": [
+      "Dream Theater",
+      "Monitor World",
+      "Console",
+      "Tour",
+      "2002"
+    ],
+    "year": 2002,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "id": "dream-theater-2",
+    "src": "/images/projects/dream-theater-2.jpg",
+    "alt": "Andy at a Midas analog console on the Dream Theater tour",
+    "category": "Monitor World",
+    "tags": [
+      "Dream Theater",
+      "Monitor World",
+      "Console",
+      "Tour",
+      "2002"
+    ],
+    "year": 2002,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "dream-theater-3",
+    "src": "/images/projects/dream-theater-3.jpg",
+    "alt": "Mike Portnoy’s TAMA kit with custom bass drums on a riser",
+    "category": "Rehearsals",
+    "tags": [
+      "Dream Theater",
+      "Rehearsals",
+      "Equipment",
+      "Tour",
+      "2002"
+    ],
+    "year": 2002,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "dream-theater-4",
+    "src": "/images/projects/dream-theater-4.jpg",
+    "alt": "Monitor console with a Dream Theater World Tourbulence setlist taped at center",
+    "category": "Monitor World",
+    "tags": [
+      "Dream Theater",
+      "Monitor World",
+      "Console",
+      "Tour",
+      "2002"
+    ],
+    "year": 2002,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "dream-theater-5",
+    "src": "/images/projects/dream-theater-5.jpg",
+    "alt": "Mackie d8b and HDR rack package on the Dream Theater tour",
+    "category": "Equipment",
+    "tags": [
+      "Dream Theater",
+      "Equipment",
+      "Console",
+      "Tour",
+      "2002"
+    ],
+    "year": 2002,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "id": "dream-theater-6",
+    "src": "/images/projects/dream-theater-6.jpg",
+    "alt": "Outdoor soundcheck with Mike Portnoy, James LaBrie, and the TAMA kit",
+    "category": "Festivals",
+    "tags": [
+      "Dream Theater",
+      "Festivals",
+      "Tour",
+      "2002"
+    ],
+    "year": 2002,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "dream-theater-7",
+    "src": "/images/projects/dream-theater-7.jpg",
+    "alt": "Outboard racks and a laptop showing Dream Theater World Tourbulence ’02",
+    "category": "Equipment",
+    "tags": [
+      "Dream Theater",
+      "Equipment",
+      "Tour",
+      "2002"
+    ],
+    "year": 2002,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "id": "dream-theater-8",
+    "src": "/images/projects/dream-theater-8.jpg",
+    "alt": "Overhead view of the Dream Theater drum kit from behind the throne",
+    "category": "Arena",
+    "tags": [
+      "Dream Theater",
+      "Arena",
+      "Equipment",
+      "Tour",
+      "2002"
+    ],
+    "year": 2002,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "mariah-2",
+    "src": "/images/projects/mariah-2.jpg",
+    "alt": "Monitor engineer at analog console with Audio Rent racks and wireless antennas",
+    "category": "Monitor World",
+    "tags": [
+      "Mariah Carey",
+      "Monitor World",
+      "Console",
+      "Tour",
+      "2003"
+    ],
+    "year": 2003,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "mariah-3",
+    "src": "/images/projects/mariah-3.jpg",
+    "alt": "Poster for Mariah Carey Live in Concert, Shanghai Hongkou Stadium, 12 November 2003",
+    "category": "Arena",
+    "tags": [
+      "Mariah Carey",
+      "Arena",
+      "Tour",
+      "2003"
+    ],
+    "year": 2003,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "id": "mariah-4",
+    "src": "/images/projects/mariah-4.jpg",
+    "alt": "Charmbracelet 2003 stadium stage with butterfly truss and floor seating",
+    "category": "Arena",
+    "tags": [
+      "Mariah Carey",
+      "Arena",
+      "Tour",
+      "2003"
+    ],
+    "year": 2003,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "mariah-5",
+    "src": "/images/projects/mariah-5.jpg",
+    "alt": "FOH analog console and Clair outboard racks at a Mariah Carey stadium date",
+    "category": "FOH",
+    "tags": [
+      "Mariah Carey",
+      "FOH",
+      "Console",
+      "Tour",
+      "2003"
+    ],
+    "year": 2003,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "mariah-6",
+    "src": "/images/projects/mariah-6.jpg",
+    "alt": "Stadium floor seating and security before a Mariah Carey show in China",
+    "category": "Arena",
+    "tags": [
+      "Mariah Carey",
+      "Arena",
+      "Tour",
+      "2003"
+    ],
+    "year": 2003,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "mariah-7",
+    "src": "/images/projects/mariah-7.jpg",
+    "alt": "Andy in an Audio Rent Clair Brothers Europe shirt at the Mariah Carey console",
+    "category": "Monitor World",
+    "tags": [
+      "Mariah Carey",
+      "Monitor World",
+      "Console",
+      "Tour",
+      "2003"
+    ],
+    "year": 2003,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "rhcp-1",
+    "src": "/images/projects/rhcp-1.jpg",
+    "alt": "Andy with in-ears backstage on a Red Hot Chili Peppers date",
+    "category": "Backstage",
+    "tags": [
+      "Red Hot Chili Peppers",
+      "Backstage",
+      "Tour",
+      "2005"
+    ],
+    "year": 2005,
+    "width": 1024,
+    "height": 681
+  },
+  {
+    "id": "rhcp-2",
+    "src": "/images/projects/rhcp-2.jpg",
+    "alt": "Red Hot Chili Peppers live with VU-meter video wall and crowd in the foreground",
+    "category": "Arena",
+    "tags": [
+      "Red Hot Chili Peppers",
+      "Arena",
+      "Festivals",
+      "Tour",
+      "2005"
+    ],
+    "year": 2005,
+    "width": 1024,
+    "height": 681
+  },
+  {
+    "id": "rhcp-3",
+    "src": "/images/projects/rhcp-3.jpg",
+    "alt": "Side-stage racks, cables, and gold records in the RHCP production area",
+    "category": "Monitor World",
+    "tags": [
+      "Red Hot Chili Peppers",
+      "Monitor World",
+      "Equipment",
+      "Tour",
+      "2005"
+    ],
+    "year": 2005,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "gnr-1",
+    "src": "/images/projects/gnr-1.jpg",
+    "alt": "Axl Rose and Bumblefoot on stage during the Chinese Democracy tour",
+    "category": "Arena",
+    "tags": [
+      "Guns N' Roses",
+      "Arena",
+      "Tour",
+      "2006"
+    ],
+    "year": 2006,
+    "width": 640,
+    "height": 427
+  },
+  {
+    "id": "gnr-2",
+    "src": "/images/projects/gnr-2.jpg",
+    "alt": "Guns N' Roses rehearsal room with wedges, Marshalls, and PA stacks",
+    "category": "Rehearsals",
+    "tags": [
+      "Guns N' Roses",
+      "Rehearsals",
+      "Equipment",
+      "Tour",
+      "2006"
+    ],
+    "year": 2006,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "gnr-3",
+    "src": "/images/projects/gnr-3.jpg",
+    "alt": "FOH mix view over the crowd toward a blue-lit outdoor Guns N' Roses stage",
+    "category": "FOH",
+    "tags": [
+      "Guns N' Roses",
+      "FOH",
+      "Console",
+      "Festivals",
+      "Tour",
+      "2006"
+    ],
+    "year": 2006,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "gnr-4",
+    "src": "/images/projects/gnr-4.jpg",
+    "alt": "Audio-Rent FOH consoles and outboard racks on a Guns N' Roses date",
+    "category": "FOH",
+    "tags": [
+      "Guns N' Roses",
+      "FOH",
+      "Console",
+      "Tour",
+      "2006"
+    ],
+    "year": 2006,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "id": "gnr-5",
+    "src": "/images/projects/gnr-5.jpg",
+    "alt": "Andy mixing Guns N' Roses on a Midas Heritage 3000",
+    "category": "Monitor World",
+    "tags": [
+      "Guns N' Roses",
+      "Monitor World",
+      "Console",
+      "Tour",
+      "2006"
+    ],
+    "year": 2006,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "gnr-6",
+    "src": "/images/projects/gnr-6.jpg",
+    "alt": "Monitor mix view across an empty arena from the Guns N' Roses console",
+    "category": "Monitor World",
+    "tags": [
+      "Guns N' Roses",
+      "Monitor World",
+      "Console",
+      "Arena",
+      "Tour",
+      "2006"
+    ],
+    "year": 2006,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "gnr-7",
+    "src": "/images/projects/gnr-7.jpg",
+    "alt": "Chinese Democracy stage load-in with red banners, Marshalls, and crew",
+    "category": "Festivals",
+    "tags": [
+      "Guns N' Roses",
+      "Festivals",
+      "Crew",
+      "Tour",
+      "2006"
+    ],
+    "year": 2006,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "gnr-8",
+    "src": "/images/projects/gnr-8.jpg",
+    "alt": "Side-stage pyro and Chinese Democracy banners on a Guns N' Roses show",
+    "category": "Arena",
+    "tags": [
+      "Guns N' Roses",
+      "Arena",
+      "Tour",
+      "2006"
+    ],
+    "year": 2006,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "gnr-9",
+    "src": "/images/projects/gnr-9.jpg",
+    "alt": "Talkback mic and laser pointer at Guns N' Roses monitor world",
+    "category": "Monitor World",
+    "tags": [
+      "Guns N' Roses",
+      "Monitor World",
+      "Equipment",
+      "Tour",
+      "2006"
+    ],
+    "year": 2006,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "gnr-10",
+    "src": "/images/projects/gnr-10.jpg",
+    "alt": "FOH consoles with an Audio-Rent rack and a GNR-labeled flight case",
+    "category": "FOH",
+    "tags": [
+      "Guns N' Roses",
+      "FOH",
+      "Console",
+      "Tour",
+      "2006"
+    ],
+    "year": 2006,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "gnr-11",
+    "src": "/images/projects/gnr-11.jpg",
+    "alt": "Festival FOH view of Guns N' Roses with pyro, video walls, and the crowd",
+    "category": "Festivals",
+    "tags": [
+      "Guns N' Roses",
+      "Festivals",
+      "FOH",
+      "Tour",
+      "2006"
+    ],
+    "year": 2006,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "gnr-12",
+    "src": "/images/projects/gnr-12.jpg",
+    "alt": "Guns N' Roses at Rock in Rio Lisboa from FOH, with pyro and the crowd",
+    "category": "Festivals",
+    "tags": [
+      "Guns N' Roses",
+      "Festivals",
+      "FOH",
+      "Tour",
+      "2006"
+    ],
+    "year": 2006,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "gnr-13",
+    "src": "/images/projects/gnr-13.jpg",
+    "alt": "Daytime FOH setup with Midas consoles, Sennheiser racks, and Audio-Rent",
+    "category": "FOH",
+    "tags": [
+      "Guns N' Roses",
+      "FOH",
+      "Console",
+      "Tour",
+      "2006"
+    ],
+    "year": 2006,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "gnr-14",
+    "src": "/images/projects/gnr-14.jpg",
+    "alt": "Guns N' Roses red kit with G&R star bass drum and a GNR Chicago case",
+    "category": "Equipment",
+    "tags": [
+      "Guns N' Roses",
+      "Equipment",
+      "Arena",
+      "Tour",
+      "2006"
+    ],
+    "year": 2006,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "gnr-15",
+    "src": "/images/projects/gnr-15.jpg",
+    "alt": "FX rack with SPX990, Eventide, and Sennheiser receivers — Marcus mix",
+    "category": "Equipment",
+    "tags": [
+      "Guns N' Roses",
+      "Equipment",
+      "Monitor World",
+      "Tour",
+      "2006"
+    ],
+    "year": 2006,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "id": "maroon5-1",
+    "src": "/images/projects/maroon5-1.jpg",
+    "alt": "Andy mixing Maroon 5 at a large analog console with the stage behind him",
+    "category": "Monitor World",
+    "tags": [
+      "Maroon 5",
+      "Monitor World",
+      "Console",
+      "Tour",
+      "2005"
+    ],
+    "year": 2005,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "maroon5-2",
+    "src": "/images/projects/maroon5-2.jpg",
+    "alt": "Maroon 5 mix position with a Midas console, EQ racks, and arena house beyond",
+    "category": "Monitor World",
+    "tags": [
+      "Maroon 5",
+      "Monitor World",
+      "Console",
+      "Arena",
+      "Tour",
+      "2005"
+    ],
+    "year": 2005,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "maroon5-3",
+    "src": "/images/projects/maroon5-3.jpg",
+    "alt": "Maroon 5 on stage from the mix position, with yellow beams and a silhouetted engineer",
+    "category": "FOH",
+    "tags": [
+      "Maroon 5",
+      "FOH",
+      "Console",
+      "Arena",
+      "Tour",
+      "2005"
+    ],
+    "year": 2005,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "id": "maroon5-4",
+    "src": "/images/projects/maroon5-4.jpg",
+    "alt": "Midas Heritage 3000 channel labels for kick, snare, bass, guitar, and vocals",
+    "category": "Console",
+    "tags": [
+      "Maroon 5",
+      "Console",
+      "Monitor World",
+      "Tour",
+      "2005"
+    ],
+    "year": 2005,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "maroon5-5",
+    "src": "/images/projects/maroon5-5.jpg",
+    "alt": "Maroon 5 live under blue and magenta lights with the MV logo backdrop",
+    "category": "Arena",
+    "tags": [
+      "Maroon 5",
+      "Arena",
+      "Tour",
+      "2005"
+    ],
+    "year": 2005,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "maroon5-6",
+    "src": "/images/projects/maroon5-6.jpg",
+    "alt": "Analog console and outboard racks at the Maroon 5 mix position",
+    "category": "Monitor World",
+    "tags": [
+      "Maroon 5",
+      "Monitor World",
+      "Console",
+      "Equipment",
+      "Tour",
+      "2005"
+    ],
+    "year": 2005,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "maroon5-7",
+    "src": "/images/projects/maroon5-7.jpg",
+    "alt": "Adam Levine with a wireless mic next to Andy at the Maroon 5 mix position",
+    "category": "Backstage",
+    "tags": [
+      "Maroon 5",
+      "Backstage",
+      "Monitor World",
+      "Console",
+      "Tour",
+      "2005"
+    ],
+    "year": 2005,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "rem-1",
+    "src": "/images/projects/rem-1.jpg",
+    "alt": "R.E.M. on an outdoor festival stage, looking out at the crowd from behind the band",
+    "category": "Festivals",
+    "tags": [
+      "R.E.M.",
+      "Festivals",
+      "Tour",
+      "2003"
+    ],
+    "year": 2003,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "rem-2",
+    "src": "/images/projects/rem-2.jpg",
+    "alt": "Outdoor amphitheater crowd facing the stage on the R.E.M. European tour",
+    "category": "Amphitheaters",
+    "tags": [
+      "R.E.M.",
+      "Amphitheaters",
+      "Festivals",
+      "Tour",
+      "2003"
+    ],
+    "year": 2003,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "rem-3",
+    "src": "/images/projects/rem-3.jpg",
+    "alt": "Analog mixing console and wireless racks on the R.E.M. European tour",
+    "category": "Monitor World",
+    "tags": [
+      "R.E.M.",
+      "Monitor World",
+      "Console",
+      "Tour",
+      "2003"
+    ],
+    "year": 2003,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "rem-4",
+    "src": "/images/projects/rem-4.jpg",
+    "alt": "Brixton Academy marquee reading R.E.M. sold out",
+    "category": "Arena",
+    "tags": [
+      "R.E.M.",
+      "Arena",
+      "Tour",
+      "2003"
+    ],
+    "year": 2003,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "rem-5",
+    "src": "/images/projects/rem-5.jpg",
+    "alt": "FOH mix view of R.E.M. on an outdoor stage with piano, guitar, and the crowd beyond",
+    "category": "FOH",
+    "tags": [
+      "R.E.M.",
+      "FOH",
+      "Console",
+      "Festivals",
+      "Tour",
+      "2003"
+    ],
+    "year": 2003,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "velvet-revolver-1",
+    "src": "/images/projects/velvet-revolver-1.jpg",
+    "alt": "Monitor mix view toward the Velvet Revolver Libertad stage, with digital console and RF paddles",
+    "category": "Monitor World",
+    "tags": [
+      "Velvet Revolver",
+      "Monitor World",
+      "Console",
+      "Tour",
+      "2007"
+    ],
+    "year": 2007,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "velvet-revolver-2",
+    "src": "/images/projects/velvet-revolver-2.jpg",
+    "alt": "Velvet Revolver live on the Libertad tour with circular logos, screens, and crowd silhouettes",
+    "category": "Arena",
+    "tags": [
+      "Velvet Revolver",
+      "Arena",
+      "Tour",
+      "2007"
+    ],
+    "year": 2007,
+    "width": 1024,
+    "height": 596
+  },
+  {
+    "id": "neil-young-1",
+    "src": "/images/projects/neil-young-1.jpg",
+    "alt": "Paired digital mixing consoles and show-file screen on a Neil Young date",
+    "category": "Monitor World",
+    "tags": [
+      "Neil Young",
+      "Monitor World",
+      "Console",
+      "Tour",
+      "2007"
+    ],
+    "year": 2007,
+    "width": 1024,
+    "height": 666
+  },
+  {
+    "id": "neil-young-2",
+    "src": "/images/projects/neil-young-2.jpg",
+    "alt": "Neil Young drum kit with hat-and-guitar bass drum, red telephone, and Jolly Roger",
+    "category": "Equipment",
+    "tags": [
+      "Neil Young",
+      "Equipment",
+      "Arena",
+      "Tour",
+      "2007"
+    ],
+    "year": 2007,
+    "width": 990,
+    "height": 794
+  },
+  {
+    "id": "neil-young-3",
+    "src": "/images/projects/neil-young-3.jpg",
+    "alt": "Bridge School Benefit stage at Shoreline Amphitheatre, with piano and empty seats",
+    "category": "Amphitheaters",
+    "tags": [
+      "Neil Young",
+      "Amphitheaters",
+      "Tour",
+      "2007"
+    ],
+    "year": 2007,
+    "width": 1024,
+    "height": 555
+  },
+  {
+    "id": "neil-young-4",
+    "src": "/images/projects/neil-young-4.jpg",
+    "alt": "Neil Young at a painted piano with pedal steel and drums under stage lights",
+    "category": "Arena",
+    "tags": [
+      "Neil Young",
+      "Arena",
+      "Tour",
+      "2007"
+    ],
+    "year": 2007,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "neil-young-5",
+    "src": "/images/projects/neil-young-5.jpg",
+    "alt": "Neil Young playing a Les Paul on stage under warm orange lights",
+    "category": "Arena",
+    "tags": [
+      "Neil Young",
+      "Arena",
+      "Tour",
+      "2007"
+    ],
+    "year": 2007,
+    "width": 1024,
+    "height": 689
+  },
+  {
+    "id": "neil-young-6",
+    "src": "/images/projects/neil-young-6.jpg",
+    "alt": "Neil Young at the organ, looking toward the camera during a live set",
+    "category": "Arena",
+    "tags": [
+      "Neil Young",
+      "Arena",
+      "Tour",
+      "2007"
+    ],
+    "year": 2007,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "neil-young-7",
+    "src": "/images/projects/neil-young-7.jpg",
+    "alt": "Greendale-era Neil Young stage with letter frames, piano, and hanging PA",
+    "category": "Arena",
+    "tags": [
+      "Neil Young",
+      "Arena",
+      "Tour",
+      "2007"
+    ],
+    "year": 2007,
+    "width": 1024,
+    "height": 595
+  },
+  {
+    "id": "neil-young-8",
+    "src": "/images/projects/neil-young-8.jpg",
+    "alt": "Neil Young tweed Fender Deluxe amps, Hammond organ, and industrial stage fan",
+    "category": "Equipment",
+    "tags": [
+      "Neil Young",
+      "Equipment",
+      "Tour",
+      "2007"
+    ],
+    "year": 2007,
+    "width": 1024,
+    "height": 681
+  },
+  {
+    "id": "neil-young-9",
+    "src": "/images/projects/neil-young-9.jpg",
+    "alt": "Neil Young band from the organ, with a digital mix screen in the foreground",
+    "category": "Monitor World",
+    "tags": [
+      "Neil Young",
+      "Monitor World",
+      "Console",
+      "Arena",
+      "Tour",
+      "2007"
+    ],
+    "year": 2007,
+    "width": 1024,
+    "height": 666
+  },
+  {
+    "id": "sugar-ray-1",
+    "src": "/images/projects/sugar-ray-1.jpg",
+    "alt": "Sugar Ray marquee sign with blue cursive lettering and light bulbs",
+    "category": "Equipment",
+    "tags": [
+      "Sugar Ray",
+      "Equipment",
+      "Arena",
+      "Tour",
+      "2004"
+    ],
+    "year": 2004,
+    "width": 1024,
+    "height": 694
+  },
+  {
+    "id": "road-1",
+    "src": "/images/gallery/road-1.jpg",
+    "alt": "Tonight Show with Jay Leno interstate sign and Welcome to California",
+    "category": "Los Angeles",
+    "tags": [
+      "Los Angeles",
+      "Tour",
+      "2005"
+    ],
+    "year": 2005,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "road-2",
+    "src": "/images/gallery/road-2.jpg",
+    "alt": "Marshall cabinet on an outdoor stage with a Sugar Ray bass drum",
+    "category": "Equipment",
+    "tags": [
+      "Sugar Ray",
+      "Equipment",
+      "Festivals",
+      "Tour",
+      "2004"
+    ],
+    "year": 2004,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "road-3",
+    "src": "/images/gallery/road-3.jpg",
+    "alt": "Analog mixing console in a flight case at an outdoor venue",
+    "category": "FOH",
+    "tags": [
+      "FOH",
+      "Console",
+      "Festivals",
+      "Tour",
+      "2005"
+    ],
+    "year": 2005,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "road-4",
+    "src": "/images/gallery/road-4.jpg",
+    "alt": "Andy under the Andreas Ranch sign in the desert",
+    "category": "Headshot",
+    "tags": [
+      "Headshot",
+      "Tour",
+      "2010"
+    ],
+    "year": 2010,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "id": "road-5",
+    "src": "/images/gallery/road-5.jpg",
+    "alt": "Andy Ebert Ultimate Ears case and in-ear receiver pack",
+    "category": "Equipment",
+    "tags": [
+      "Equipment",
+      "Tour",
+      "2008"
+    ],
+    "year": 2008,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "id": "road-6",
+    "src": "/images/gallery/road-6.jpg",
+    "alt": "Honda Civic Tour cars under Maroon 5 promotional arches",
+    "category": "Tour",
+    "tags": [
+      "Maroon 5",
+      "Tour",
+      "2005"
+    ],
+    "year": 2005,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "road-7",
+    "src": "/images/gallery/road-7.jpg",
+    "alt": "FOH analog console looking into Reliant Stadium at RodeoHouston",
+    "category": "FOH",
+    "tags": [
+      "FOH",
+      "Console",
+      "Arena",
+      "Tour",
+      "2008"
+    ],
+    "year": 2008,
+    "width": 953,
+    "height": 615
+  },
+  {
+    "id": "road-8",
+    "src": "/images/gallery/road-8.jpg",
+    "alt": "Packed Reliant Stadium with a circular stage and hanging PA",
+    "category": "Arena",
+    "tags": [
+      "Arena",
+      "Tour",
+      "2008"
+    ],
+    "year": 2008,
+    "width": 952,
+    "height": 623
+  },
+  {
+    "id": "road-9",
+    "src": "/images/gallery/road-9.jpg",
+    "alt": "Andy at a digital console looking out over empty stadium seats",
+    "category": "FOH",
+    "tags": [
+      "FOH",
+      "Console",
+      "Arena",
+      "Tour",
+      "2012"
+    ],
+    "year": 2012,
+    "width": 600,
+    "height": 741
+  },
+  {
+    "id": "road-10",
+    "src": "/images/gallery/road-10.jpg",
+    "alt": "Andy beside an Eventide rack and Sennheiser receivers labeled for Guns N' Roses",
+    "category": "Equipment",
+    "tags": [
+      "Guns N' Roses",
+      "Equipment",
+      "Monitor World",
+      "Tour",
+      "2006"
+    ],
+    "year": 2006,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "road-11",
+    "src": "/images/gallery/road-11.jpg",
+    "alt": "Andy backstage at the Oscars in front of a giant Oscar statue, Dolby Theatre",
+    "category": "Headshot",
+    "tags": [
+      "Headshot",
+      "Backstage",
+      "Tour",
+      "2019"
+    ],
+    "year": 2019,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "id": "road-12",
+    "src": "/images/gallery/road-12.jpg",
+    "alt": "Andy with friends outside The Bulldog in Amsterdam",
+    "category": "Crew",
+    "tags": [
+      "Crew",
+      "Tour",
+      "2015"
+    ],
+    "year": 2015,
+    "width": 972,
+    "height": 808
+  },
+  {
+    "id": "road-13",
+    "src": "/images/gallery/road-13.jpg",
+    "alt": "Young Andy kneeling beside a keyboard during event load-in",
+    "category": "Crew",
+    "tags": [
+      "Crew",
+      "Equipment",
+      "Tour",
+      "1999"
+    ],
+    "year": 1999,
+    "width": 441,
+    "height": 640
+  },
+  {
+    "id": "road-14",
+    "src": "/images/gallery/road-14.jpg",
+    "alt": "Vintage studio desk with analog console, Yamaha NS-10s, and a reel-to-reel",
+    "category": "Equipment",
+    "tags": [
+      "Equipment",
+      "Console",
+      "Berlin",
+      "1996"
+    ],
+    "year": 1996,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "road-15",
+    "src": "/images/gallery/road-15.jpg",
+    "alt": "Andy posing with a Studio Giftig mural in a conference room",
+    "category": "Crew",
+    "tags": [
+      "Crew",
+      "Tour",
+      "2016"
+    ],
+    "year": 2016,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "road-16",
+    "src": "/images/gallery/road-16.jpg",
+    "alt": "Load-in on the floor of Rogers Arena with truss, cases, and crew",
+    "category": "Crew",
+    "tags": [
+      "Crew",
+      "Arena",
+      "Tour",
+      "2014"
+    ],
+    "year": 2014,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "road-17",
+    "src": "/images/gallery/road-17.jpg",
+    "alt": "Andy on stage with a Neumann microphone under magenta lights",
+    "category": "Headshot",
+    "tags": [
+      "Headshot",
+      "Arena",
+      "Tour",
+      "2022"
+    ],
+    "year": 2022,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "road-18",
+    "src": "/images/gallery/road-18.jpg",
+    "alt": "Three crew members at an outdoor FOH mix position",
+    "category": "Crew",
+    "tags": [
+      "Crew",
+      "FOH",
+      "Console",
+      "Festivals",
+      "Tour",
+      "2012"
+    ],
+    "year": 2012,
+    "width": 1014,
+    "height": 774
+  },
+  {
+    "id": "road-19",
+    "src": "/images/gallery/road-19.jpg",
+    "alt": "Two engineers working a digital mixing console during a show",
+    "category": "Monitor World",
+    "tags": [
+      "Monitor World",
+      "Console",
+      "Crew",
+      "Tour",
+      "2023"
+    ],
+    "year": 2023,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "id": "road-20",
+    "src": "/images/gallery/road-20.jpg",
+    "alt": "Andy backstage at a DiGiCo console with in-ears around his neck",
+    "category": "Monitor World",
+    "tags": [
+      "Monitor World",
+      "Console",
+      "Headshot",
+      "Tour",
+      "2023"
+    ],
+    "year": 2023,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "road-21",
+    "src": "/images/gallery/road-21.jpg",
+    "alt": "Album page of early studio photos — console, live room, and tape machine",
+    "category": "Equipment",
+    "tags": [
+      "Equipment",
+      "Console",
+      "Berlin",
+      "1995"
+    ],
+    "year": 1995,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "id": "road-22",
+    "src": "/images/gallery/road-22.jpg",
+    "alt": "Album page of studio gear — analog desk, NS-10s, and an Ampex 456 reel",
+    "category": "Equipment",
+    "tags": [
+      "Equipment",
+      "Console",
+      "Berlin",
+      "1995"
+    ],
+    "year": 1995,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "id": "road-23",
+    "src": "/images/gallery/road-23.jpg",
+    "alt": "Two engineers at an analog console in a club or rehearsal room",
+    "category": "Crew",
+    "tags": [
+      "Crew",
+      "Console",
+      "Monitor World",
+      "1998"
+    ],
+    "year": 1998,
+    "width": 1024,
+    "height": 768
+  },
+  {
+    "id": "road-24",
+    "src": "/images/gallery/road-24.jpg",
+    "alt": "Young Andy mixing on a large analog console in a Tarkan hoodie",
+    "category": "Monitor World",
+    "tags": [
+      "Tarkan",
+      "Monitor World",
+      "Console",
+      "Tour",
+      "2000"
+    ],
+    "year": 2000,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "id": "momix-1",
+    "src": "/images/projects/momix-1.jpg",
+    "alt": "MOMIX graphic — pinwheel figure on a black and white grid",
+    "category": "Tour",
+    "tags": [
+      "Momix",
+      "Tour",
+      "1999"
+    ],
+    "year": 1999,
+    "width": 610,
+    "height": 594
   }
 ]

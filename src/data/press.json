@@ -9,7 +9,12 @@
     "excerpt": "German feature on Andy’s monitor work in the USA — Guns N’ Roses, The Weeknd, Alanis Morissette, and the craft of mixing for artists.",
     "url": "https://www.production-partner.de/story/so-sieht-das-monitoring-fuer-top-acts-in-den-usa-aus/",
     "pdf": "/press/production-partner-2017-04.pdf",
-    "image": "/images/press/cards/production-partner-2017-04.jpg"
+    "image": "/images/press/cards/production-partner-2017-04.jpg",
+    "projectSlugs": [
+      "guns-n-roses",
+      "the-weeknd",
+      "alanis-morissette"
+    ]
   },
   {
     "id": "p21",
@@ -20,7 +25,24 @@
     "sortDate": "2016-01",
     "excerpt": "Touring audio crew feature on The Weeknd — Andy listed among the Clair Global monitor and PA team.",
     "pdf": "/press/mix-magazine-2016-01.pdf",
-    "image": "/images/press/cards/mix-magazine-2016-01.jpg"
+    "image": "/images/press/cards/mix-magazine-2016-01.jpg",
+    "projectSlugs": [
+      "the-weeknd"
+    ]
+  },
+  {
+    "id": "p24",
+    "title": "Weeknd Update with Andy Ebert",
+    "type": "Article",
+    "publication": "Mix Magazine",
+    "date": "May 2012",
+    "sortDate": "2012-05",
+    "excerpt": "Andy on The Weeknd’s 2012 world tour — Clair Global audio, Avid Venue Profile monitors, sold-out shows, and Coachella.",
+    "url": "https://www.mixonline.com/blog/2059",
+    "image": "/images/press/cards/mix-magazine-2012-05.jpg",
+    "projectSlugs": [
+      "the-weeknd"
+    ]
   },
   {
     "id": "p1",
@@ -32,7 +54,10 @@
     "excerpt": "Hot Seat interview covering Andy’s path from West Berlin to major-tour monitor engineering with Stone Temple Pilots.",
     "url": "https://fohonline.com/articles/features/from-the-wall-to-the-monitors-hot-seat/",
     "pdf": "/press/foh-magazine-2011-05.pdf",
-    "image": "/images/press/cards/foh-magazine-2011-05.jpg"
+    "image": "/images/press/cards/foh-magazine-2011-05.jpg",
+    "projectSlugs": [
+      "stone-temple-pilots"
+    ]
   },
   {
     "id": "p3",
@@ -43,7 +68,10 @@
     "sortDate": "2010-11",
     "excerpt": "Stone Temple Pilots tour coverage featuring Andy’s monitor work and Clair production.",
     "pdf": "/press/pro-sound-news-2010-11.pdf",
-    "image": "/images/press/cards/pro-sound-news-2010-11.jpg"
+    "image": "/images/press/cards/pro-sound-news-2010-11.jpg",
+    "projectSlugs": [
+      "stone-temple-pilots"
+    ]
   },
   {
     "id": "p22",
@@ -54,7 +82,10 @@
     "sortDate": "2010-09",
     "excerpt": "Clive Young on venue noise ordinances, with Andy Ebert and Eddie Mapp on Stone Temple Pilots.",
     "pdf": "/press/pro-sound-news-2010-09.pdf",
-    "image": "/images/press/cards/pro-sound-news-2010-09.jpg"
+    "image": "/images/press/cards/pro-sound-news-2010-09.jpg",
+    "projectSlugs": [
+      "stone-temple-pilots"
+    ]
   },
   {
     "id": "p2",
@@ -66,7 +97,12 @@
     "excerpt": "Feature interview on Andy’s work as a monitor engineer for Neil Young, Shakira, and Stone Temple Pilots.",
     "url": "https://news.musicstore.de/wp-content/uploads/PPV_Tipps_Tricks/PA/PAH_interview-andy-ebert-der-mann-fuer-den-monitor_SC1002028.pdf",
     "pdf": "/press/soundcheck-2010-02.pdf",
-    "image": "/images/press/cards/soundcheck-2010-02.jpg"
+    "image": "/images/press/cards/soundcheck-2010-02.jpg",
+    "projectSlugs": [
+      "neil-young",
+      "shakira",
+      "stone-temple-pilots"
+    ]
   },
   {
     "id": "p19",
@@ -77,7 +113,13 @@
     "sortDate": "2009-06",
     "excerpt": "German profile of Andy’s arena and stadium monitor work with Guns N’ Roses, R.E.M., Neil Young, and Mariah Carey.",
     "pdf": "/press/tools4music.pdf",
-    "image": "/images/press/cards/tools4music.jpg"
+    "image": "/images/press/cards/tools4music.jpg",
+    "projectSlugs": [
+      "guns-n-roses",
+      "rem",
+      "neil-young",
+      "mariah-carey"
+    ]
   },
   {
     "id": "p12",
@@ -89,7 +131,10 @@
     "excerpt": "Heil Sound press release on Stone Temple Pilots adding Heil microphones, with comments from Andy.",
     "url": "https://heilsound.com/press/stp-adds-heil-to-mixture-2/",
     "pdf": "/press/heil-sound-2009-08.pdf",
-    "image": "/images/press/cards/heil-sound-2009-08.jpg"
+    "image": "/images/press/cards/heil-sound-2009-08.jpg",
+    "projectSlugs": [
+      "stone-temple-pilots"
+    ]
   },
   {
     "id": "p4",
@@ -100,7 +145,10 @@
     "sortDate": "2008-12",
     "excerpt": "Tour profile on Stone Temple Pilots’ return to the road.",
     "pdf": "/press/pro-sound-news-2008-12.pdf",
-    "image": "/images/press/cards/pro-sound-news-2008-12.jpg"
+    "image": "/images/press/cards/pro-sound-news-2008-12.jpg",
+    "projectSlugs": [
+      "stone-temple-pilots"
+    ]
   },
   {
     "id": "p20",
@@ -111,7 +159,10 @@
     "sortDate": "2008-10",
     "excerpt": "Showcase profile of Andy mixing STP monitors on a Digidesign D-Show, after Neil Young, Velvet Revolver, and Guns N’ Roses.",
     "pdf": "/press/live-sound-international-2008-10.pdf",
-    "image": "/images/press/cards/live-sound-international-2008-10.jpg"
+    "image": "/images/press/cards/live-sound-international-2008-10.jpg",
+    "projectSlugs": [
+      "stone-temple-pilots"
+    ]
   },
   {
     "id": "p5",
@@ -121,7 +172,10 @@
     "date": "Jul 2008",
     "sortDate": "2008-07",
     "excerpt": "FOH coverage of dual VENUE systems on the STP tour, with Andy on monitors.",
-    "url": "https://fohonline.com/newsroom/news/stone-temple-pilots-take-flight-with-digidesign/"
+    "url": "https://fohonline.com/newsroom/news/stone-temple-pilots-take-flight-with-digidesign/",
+    "projectSlugs": [
+      "stone-temple-pilots"
+    ]
   },
   {
     "id": "p6",
@@ -132,7 +186,10 @@
     "sortDate": "2008-04",
     "excerpt": "Production coverage of Neil Young’s Chrome Dreams II touring.",
     "pdf": "/press/total-production-2008-04.pdf",
-    "image": "/images/press/cards/total-production-2008-04.jpg"
+    "image": "/images/press/cards/total-production-2008-04.jpg",
+    "projectSlugs": [
+      "neil-young"
+    ]
   },
   {
     "id": "p7",
@@ -141,7 +198,10 @@
     "publication": "Pro Sound News",
     "date": "Feb 2008",
     "sortDate": "2008-02",
-    "excerpt": "Pro Sound News monthly top tours feature including Neil Young."
+    "excerpt": "Pro Sound News monthly top tours feature including Neil Young.",
+    "projectSlugs": [
+      "neil-young"
+    ]
   },
   {
     "id": "p8",
@@ -151,7 +211,10 @@
     "date": "Jan 2008",
     "sortDate": "2008-01",
     "excerpt": "Now Playing tour profile covering Velvet Revolver live sound, with Andy on monitors.",
-    "url": "https://www.mixonline.com/live-sound/now-playing-velvet-revolver-368049"
+    "url": "https://www.mixonline.com/live-sound/now-playing-velvet-revolver-368049",
+    "projectSlugs": [
+      "velvet-revolver"
+    ]
   },
   {
     "id": "p9",
@@ -163,7 +226,10 @@
     "excerpt": "Title-story tour profile on Guns N’ Roses live production, with Andy on band monitors.",
     "url": "https://www.mixonline.com/live-sound/tour-profile-guns-n-roses-367943",
     "pdf": "/press/mix-magazine-2007-01.pdf",
-    "image": "/images/press/cards/mix-magazine-2007-01.jpg"
+    "image": "/images/press/cards/mix-magazine-2007-01.jpg",
+    "projectSlugs": [
+      "guns-n-roses"
+    ]
   },
   {
     "id": "p10",
@@ -174,7 +240,10 @@
     "sortDate": "2006-12",
     "excerpt": "Coverage of dual Digidesign VENUE systems on Guns N’ Roses live shows.",
     "pdf": "/press/lighting-sound-america-2006-12.pdf",
-    "image": "/images/press/cards/lighting-sound-america-2006-12.jpg"
+    "image": "/images/press/cards/lighting-sound-america-2006-12.jpg",
+    "projectSlugs": [
+      "guns-n-roses"
+    ]
   },
   {
     "id": "p15",
@@ -185,7 +254,10 @@
     "sortDate": "2006-06",
     "excerpt": "Digidesign Venue On The Road install listing Andy Ebert on Guns N’ Roses monitors.",
     "pdf": "/press/venue-on-the-road-gnr.pdf",
-    "image": "/images/press/cards/venue-on-the-road-gnr.jpg"
+    "image": "/images/press/cards/venue-on-the-road-gnr.jpg",
+    "projectSlugs": [
+      "guns-n-roses"
+    ]
   },
   {
     "id": "p11",
@@ -196,7 +268,10 @@
     "sortDate": "2005-04",
     "excerpt": "Coverage of Maroon 5 touring sound with Rat Sound.",
     "pdf": "/press/live-design-2005-04.pdf",
-    "image": "/images/press/cards/live-design-2005-04.jpg"
+    "image": "/images/press/cards/live-design-2005-04.jpg",
+    "projectSlugs": [
+      "maroon-5"
+    ]
   },
   {
     "id": "p16",
@@ -206,7 +281,10 @@
     "date": "2005",
     "sortDate": "2005-03",
     "excerpt": "Rat Sound tour page listing Andy as band monitor engineer on the Honda Civic Tour.",
-    "url": "https://ratsound.com/tours/maroon5/index.htm"
+    "url": "https://ratsound.com/tours/maroon5/index.htm",
+    "projectSlugs": [
+      "maroon-5"
+    ]
   },
   {
     "id": "p18",
@@ -215,7 +293,10 @@
     "publication": "DVD / CD Credit",
     "date": "2005",
     "sortDate": "2005-01",
-    "excerpt": "Credited as Monitor Engineer on Maroon 5’s Live Friday The 13th DVD + CD."
+    "excerpt": "Credited as Monitor Engineer on Maroon 5’s Live Friday The 13th DVD + CD.",
+    "projectSlugs": [
+      "maroon-5"
+    ]
   },
   {
     "id": "p17",
@@ -226,7 +307,10 @@
     "sortDate": "1999-05",
     "excerpt": "JBL HLA tour news covering R.E.L. Musik / Modern Talking.",
     "pdf": "/press/jbl-hla-news-1999-05.pdf",
-    "image": "/images/press/cards/jbl-hla-news-1999-05.jpg"
+    "image": "/images/press/cards/jbl-hla-news-1999-05.jpg",
+    "projectSlugs": [
+      "modern-talking"
+    ]
   },
   {
     "id": "p13",

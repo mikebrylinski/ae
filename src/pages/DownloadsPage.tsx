@@ -1,27 +1,29 @@
 import { Download } from 'lucide-react'
-import { downloads } from '@/lib/content'
+import { getDownloads } from '@/lib/content'
 import { Container } from '@/components/ui/Container'
 import { Badge } from '@/components/ui/Badge'
 import { buttonVariants } from '@/components/ui/Button'
 import { CTABanner } from '@/components/sections/CTABanner'
 import { cn } from '@/lib/utils'
 import { useSeo } from '@/hooks/useSeo'
+import { useLanguage } from '@/i18n/LanguageProvider'
 import { VuPlate } from '@/components/ui/VuPlate'
 
 export default function DownloadsPage() {
+  const { lang, t } = useLanguage()
+  const downloads = getDownloads(lang)
   useSeo({
-    title: 'Downloads',
-    description:
-      'Free PDF input lists, rack layouts, and console charts from monitor engineer Andy Ebert.',
+    title: t.downloads.seoTitle,
+    description: t.downloads.seoDescription,
   })
 
   return (
     <>
       <section className="section-pad bg-black">
         <Container>
-          <VuPlate className="mb-3">Resources</VuPlate>
+          <VuPlate className="mb-3">{t.downloads.eyebrow}</VuPlate>
           <h1 className="font-heading text-4xl tracking-[0.08em] text-white sm:text-5xl md:text-6xl">
-            Downloads
+            {t.downloads.title}
           </h1>
           <p className="mt-4 max-w-2xl text-muted">{downloads.intro}</p>
 
@@ -67,7 +69,7 @@ export default function DownloadsPage() {
                           )}
                         >
                           <Download size={14} strokeWidth={1.75} aria-hidden />
-                          Download
+                          {t.downloads.download}
                         </a>
                       </li>
                     )
@@ -82,8 +84,7 @@ export default function DownloadsPage() {
       <section className="paper-surface section-divider-top relative overflow-hidden py-10 md:py-12">
         <Container className="relative z-10">
           <p className="w-full text-center text-sm leading-relaxed text-black/70">
-            All charts and layouts are provided free of charge. A PDF reader such
-            as Adobe Acrobat Reader is required to open the files.
+            {t.downloads.footnote}
           </p>
         </Container>
       </section>

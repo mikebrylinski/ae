@@ -176,10 +176,25 @@ export function pressHref(item: PressItem): string | undefined {
   return undefined
 }
 
+export function pressAnchorProps(item: PressItem) {
+  const href = pressHref(item)
+  if (!href) return undefined
+  return {
+    href,
+    target: '_blank' as const,
+    rel: 'noreferrer',
+    ...(item.pdf ? { type: 'application/pdf' as const } : {}),
+  }
+}
+
 export function getPressItems(type: PressTypeFilter = 'all'): PressItem[] {
   const items = [...press].sort((a, b) => b.sortDate.localeCompare(a.sortDate))
   if (type === 'all') return items
   return items.filter((item) => item.type === type)
+}
+
+export function getPressForProject(slug: string): PressItem[] {
+  return getPressItems().filter((item) => item.projectSlugs?.includes(slug))
 }
 export const projects = projectsData as Project[]
 export const experience = experienceData as ExperienceData
@@ -206,7 +221,7 @@ export const GALLERY_SCENE_TAGS = [
 
 const GALLERY_YEAR_RE = /^\d{4}$/
 
-export type GallerySort = 'newest' | 'oldest' | 'tag'
+export type GallerySort = 'shuffle' | 'newest' | 'oldest' | 'tag'
 
 export function getGalleryTeaser(limit = 6): GalleryItem[] {
   const flagged = gallery.filter((item) => item.teaser)
@@ -216,6 +231,19 @@ export function getGalleryTeaser(limit = 6): GalleryItem[] {
 export function getGallerySceneTags(): string[] {
   const present = new Set(gallery.flatMap((item) => item.tags))
   return GALLERY_SCENE_TAGS.filter((tag) => present.has(tag))
+}
+
+const GALLERY_NON_ARTIST_TAGS = new Set<string>(['Portrait', ...GALLERY_SCENE_TAGS])
+
+export function getGalleryArtistTags(): string[] {
+  const artists = new Set<string>()
+  for (const item of gallery) {
+    for (const tag of item.tags) {
+      if (GALLERY_NON_ARTIST_TAGS.has(tag) || GALLERY_YEAR_RE.test(tag)) continue
+      artists.add(tag)
+    }
+  }
+  return Array.from(artists).sort((a, b) => a.localeCompare(b))
 }
 
 export function getGalleryYearTags(): string[] {
@@ -228,14 +256,41 @@ export function getGalleryYearTags(): string[] {
   return Array.from(years).sort((a, b) => b.localeCompare(a))
 }
 
+/** Mulberry32 — stable shuffle for one page load. */
+function mulberry32(seed: number) {
+  let t = seed >>> 0
+  return () => {
+    t += 0x6d2b79f5
+    let r = Math.imul(t ^ (t >>> 15), 1 | t)
+    r ^= r + Math.imul(r ^ (r >>> 7), 61 | r)
+    return ((r ^ (r >>> 14)) >>> 0) / 4294967296
+  }
+}
+
+export function createGalleryShuffleSeed(): number {
+  return (Math.random() * 0xffffffff) >>> 0
+}
+
 export function filterGallery(
   selected: string[],
-  sort: GallerySort = 'newest',
+  sort: GallerySort = 'shuffle',
+  shuffleSeed = 1,
 ): GalleryItem[] {
   const items =
     selected.length === 0
       ? [...gallery]
       : gallery.filter((item) => selected.every((tag) => item.tags.includes(tag)))
+
+  if (sort === 'shuffle') {
+    const rand = mulberry32(shuffleSeed || 1)
+    for (let i = items.length - 1; i > 0; i--) {
+      const j = Math.floor(rand() * (i + 1))
+      const swap = items[i]
+      items[i] = items[j]!
+      items[j] = swap!
+    }
+    return items
+  }
 
   items.sort((a, b) => {
     if (sort === 'newest') {
@@ -441,6 +496,7 @@ const CREDIT_ONLY_IMAGES: Record<string, string> = {
  */
 const CREDIT_ROLE_IMAGES: Record<string, string> = {
   'Adam Lambert::FOH Engineer': '/images/projects/cards/adam-lambert-2.jpg',
+  'Momix::FOH Engineer': '/images/projects/cards/momix.jpg',
 }
 
 function findProjectForCreditArtist(artist: string): Project | undefined {

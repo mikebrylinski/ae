@@ -39,7 +39,7 @@ export function StatsBar() {
           whileInView="visible"
           viewport={{ once: true, margin: '-40px' }}
         >
-          {stats.map((stat) => {
+          {stats.map((stat, i) => {
             const Icon = (stat.icon && iconMap[stat.icon]) || Briefcase
             const label =
               stat.value > 0
@@ -48,7 +48,7 @@ export function StatsBar() {
 
             return (
               <motion.li
-                key={stat.label}
+                key={stat.icon ?? i}
                 variants={item}
                 className="glass-card glass-card--matte flex flex-col items-center justify-center gap-3.5 px-5 py-7 text-center sm:px-6 sm:py-8"
               >

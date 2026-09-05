@@ -1,4 +1,4 @@
-import { experience } from '@/lib/content'
+import { getExperience, localizeYearLabel } from '@/lib/content'
 import { Container } from '@/components/ui/Container'
 import { MediaImage } from '@/components/ui/MediaImage'
 import { Badge } from '@/components/ui/Badge'
@@ -6,22 +6,24 @@ import { buttonVariants } from '@/components/ui/Button'
 import { CTABanner } from '@/components/sections/CTABanner'
 import { cn } from '@/lib/utils'
 import { useSeo } from '@/hooks/useSeo'
+import { useLanguage } from '@/i18n/LanguageProvider'
 import { VuPlate } from '@/components/ui/VuPlate'
 
 export default function ExperiencePage() {
+  const { lang, t } = useLanguage()
+  const experience = getExperience(lang)
   useSeo({
-    title: 'Experience',
-    description:
-      'Career timeline and resume for monitor engineer Andy Ebert — Alanis Morissette, The Weeknd, Maroon 5, Guns N’ Roses, and more.',
+    title: t.experience.seoTitle,
+    description: t.experience.seoDescription,
   })
 
   return (
     <>
       <section className="section-pad bg-black">
         <Container>
-          <VuPlate className="mb-3">Career</VuPlate>
+          <VuPlate className="mb-3">{t.experience.eyebrow}</VuPlate>
           <h1 className="font-heading text-4xl tracking-[0.08em] text-white sm:text-5xl md:text-6xl">
-            Experience
+            {t.experience.title}
           </h1>
           <p className="mt-4 max-w-2xl text-muted">{experience.resumeSummary}</p>
           {experience.award ? (
@@ -33,7 +35,7 @@ export default function ExperiencePage() {
             href={experience.resumePdf}
             className={cn(buttonVariants({ variant: 'outline' }), 'mt-8 inline-flex')}
           >
-            Download Resume
+            {t.experience.downloadResume}
           </a>
 
           <div className="mt-16 space-y-0 border-l border-border">
@@ -48,7 +50,7 @@ export default function ExperiencePage() {
                 />
                 <div>
                   <p className="font-heading text-sm tracking-[0.16em] text-primary">
-                    {entry.year}
+                    {localizeYearLabel(entry.year, lang)}
                   </p>
                   <h2 className="font-heading mt-2 text-2xl tracking-[0.06em] text-white">
                     {entry.tour}
@@ -70,7 +72,7 @@ export default function ExperiencePage() {
 
           <div className="mt-20">
             <h2 className="font-heading mb-10 text-3xl tracking-[0.08em] text-white">
-              Skills
+              {t.experience.skills}
             </h2>
             <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
               {experience.skills.map((group) => (

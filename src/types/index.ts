@@ -117,6 +117,8 @@ export interface PressItem {
   image?: string
   /** YYYY-MM sort key, newest first. */
   sortDate: string
+  /** Project slugs this clip belongs to — shown as links on artist detail pages. */
+  projectSlugs?: string[]
 }
 
 export interface Testimonial {

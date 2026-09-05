@@ -75,9 +75,9 @@ export default function PortfolioPage() {
           <Container>
             <div className="glass-card glass-card--aurora p-6 sm:p-8 md:p-10">
               <span className="metal-overlay" aria-hidden />
-              <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-8">
+              <div className="flex flex-col items-center gap-4 text-center md:flex-row md:items-end md:justify-between md:gap-8 md:text-left">
                 <VuPlate className="shrink-0">{t.portfolio.spotlightsEyebrow}</VuPlate>
-                <h2 className="font-heading text-3xl tracking-[0.08em] text-white sm:text-4xl md:text-right">
+                <h2 className="font-heading min-w-0 text-center text-3xl tracking-[0.08em] text-white sm:text-4xl md:text-right">
                   {t.portfolio.spotlightsTitle}
                 </h2>
               </div>
@@ -135,8 +135,10 @@ export default function PortfolioPage() {
                       aria-expanded={showAll}
                     >
                       {showAll
-                        ? 'Show less'
-                        : `Show more (${filtered.length - SPOTLIGHT_PREVIEW_COUNT})`}
+                        ? t.portfolio.showLess
+                        : interpolate(t.portfolio.showMore, {
+                            n: filtered.length - SPOTLIGHT_PREVIEW_COUNT,
+                          })}
                     </button>
                   </div>
                 ) : null}
@@ -148,7 +150,9 @@ export default function PortfolioPage() {
                 aria-live="polite"
               >
                 <p className="font-heading relative z-[1] px-6 text-center text-xs tracking-[0.14em] text-muted uppercase">
-                  No projects in {active} yet
+                  {interpolate(t.portfolio.empty, {
+                    category: localizeCategory(active, lang),
+                  })}
                 </p>
               </div>
             )}
@@ -165,23 +169,13 @@ export default function PortfolioPage() {
               viewport={{ once: true, margin: '-40px' }}
             >
               <motion.div variants={item} className="flex flex-col justify-center p-6 sm:p-8 md:p-10 lg:p-12">
-                <VuPlate className="mb-3">Credits</VuPlate>
+                <VuPlate className="mb-3">{t.portfolio.workEyebrow}</VuPlate>
                 <h2 className="font-heading text-3xl tracking-[0.08em] text-white sm:text-4xl md:text-5xl">
-                  Andy's Work
+                  {t.portfolio.workTitle}
                 </h2>
                 <div className="mt-4 max-w-2xl space-y-4 text-muted">
-                  <p>
-                    Andy Ebert is a worldwide touring monitor and FOH engineer,
-                    on the road since 1997. From clubs and theatres to arenas,
-                    stadiums, festivals, TV, and corporate stages, he mixes for
-                    artists who need to hear every detail with confidence.
-                  </p>
-                  <p>
-                    His credits include Alanis Morissette, The Weeknd, Maroon 5,
-                    Guns N’ Roses, Mariah Carey, Stone Temple Pilots, Neil Young,
-                    and many more. In 2017 he was nominated for the Parnelli Award
-                    for Monitor Engineer of the Year.
-                  </p>
+                  <p>{t.portfolio.workP1}</p>
+                  <p>{t.portfolio.workP2}</p>
                 </div>
                 <Link
                   to="/about"
@@ -190,14 +184,14 @@ export default function PortfolioPage() {
                     'mt-8 inline-flex w-fit',
                   )}
                 >
-                  Learn more
+                  {t.portfolio.learnMore}
                 </Link>
               </motion.div>
 
               <motion.div variants={item} className="min-h-[18rem] sm:min-h-[22rem] lg:min-h-[28rem]">
                 <MediaImage
                   src={HERO_IMAGE_SRC}
-                  alt="Andy in Times Square with in-ear monitors"
+                  alt={t.portfolio.heroAlt}
                   aspect="h-full min-h-[18rem] aspect-[4/5] sm:min-h-[22rem] sm:aspect-[5/4] lg:aspect-auto lg:min-h-full"
                   className="object-cover object-[center_42%]"
                   wrapperClassName="h-full border-0"

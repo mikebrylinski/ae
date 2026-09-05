@@ -1,11 +1,17 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import {
   getChartVenueChips,
+  getPressForProject,
   getProjectBySlug,
   getRelatedProjects,
+  localizeCategory,
+  localizePressType,
+  localizeProject,
+  pressAnchorProps,
 } from '@/lib/content'
+import { interpolate } from '@/i18n/ui'
 import { Container } from '@/components/ui/Container'
 import { Badge } from '@/components/ui/Badge'
 import { GlassCard } from '@/components/ui/GlassCard'
@@ -19,6 +25,11 @@ import { CTABanner } from '@/components/sections/CTABanner'
 import { useSeo } from '@/hooks/useSeo'
 import { cn } from '@/lib/utils'
 import { PortfolioAurora } from '@/components/ui/PortfolioAurora'
+import { useLanguage } from '@/i18n/LanguageProvider'
+
+const CARD_IMAGE_FOCUS: Record<string, string> = {
+  'maroon-5': 'object-[center_58%]',
+}
 
 /** Only renders gallery images that load; hides the section when none do. No placeholders. */
 function ProjectGallery({
@@ -28,6 +39,7 @@ function ProjectGallery({
   artist: string
   sources: string[]
 }) {
+  const { t } = useLanguage()
   const [visible, setVisible] = useState<string[]>([])
   const [ready, setReady] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
@@ -67,9 +79,9 @@ function ProjectGallery({
     () =>
       visible.map((src, i) => ({
         src,
-        alt: `${artist} gallery image ${i + 1}`,
+        alt: interpolate(t.project.galleryAlt, { artist, n: i + 1 }),
       })),
-    [artist, visible],
+    [artist, t, visible],
   )
 
   if (!ready || visible.length === 0) return null
@@ -77,7 +89,7 @@ function ProjectGallery({
   return (
     <div className="mt-14 min-w-0 sm:mt-16">
       <h2 className="font-heading mb-6 text-sm tracking-[0.16em] text-primary">
-        Gallery
+        {t.project.gallery}
       </h2>
       <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {visible.map((src, i) => (
@@ -86,7 +98,10 @@ function ProjectGallery({
               type="button"
               className="group w-full max-w-full cursor-pointer rounded-[1rem] text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               onClick={() => setLightboxIndex(i)}
-              aria-label={`View ${artist} gallery image ${i + 1} larger`}
+              aria-label={interpolate(t.a11y.viewProjectGallery, {
+                artist,
+                n: i + 1,
+              })}
             >
               <div
                 className={cn(
@@ -97,7 +112,7 @@ function ProjectGallery({
               >
                 <img
                   src={src}
-                  alt={`${artist} gallery image ${i + 1}`}
+                  alt={interpolate(t.project.galleryAlt, { artist, n: i + 1 })}
                   className="h-full w-full object-cover"
                   loading="lazy"
                   decoding="async"
@@ -120,10 +135,12 @@ function ProjectGallery({
 
 export default function ProjectDetailPage() {
   const { slug = '' } = useParams()
-  const project = getProjectBySlug(slug)
+  const { lang, t } = useLanguage()
+  const projectRaw = getProjectBySlug(slug)
+  const project = projectRaw ? localizeProject(projectRaw, lang) : undefined
 
   useSeo({
-    title: project ? `${project.artist} — ${project.title}` : 'Project',
+    title: project ? `${project.artist} — ${project.title}` : t.project.seoFallback,
     description: project?.overview,
   })
 
@@ -137,6 +154,7 @@ export default function ProjectDetailPage() {
 
   const related = getRelatedProjects(project.slug)
   const venueChips = getChartVenueChips(project.category)
+  const pressItems = getPressForProject(project.slug)
 
   return (
     <>
@@ -171,7 +189,11 @@ export default function ProjectDetailPage() {
                 <img
                   src={project.cardImage}
                   alt=""
-                  className="absolute inset-0 h-full w-full object-cover object-top sm:object-[center_12%]"
+                  className={cn(
+                    'absolute inset-0 h-full w-full object-cover',
+                    CARD_IMAGE_FOCUS[project.slug] ??
+                      'object-top sm:object-[center_12%]',
+                  )}
                   loading="lazy"
                   decoding="async"
                 />
@@ -188,14 +210,14 @@ export default function ProjectDetailPage() {
                 className="font-heading inline-flex max-w-full items-center gap-2 rounded-[1rem] border border-primary/40 px-3 py-1.5 text-xs tracking-[0.14em] text-primary transition-colors hover:border-primary hover:opacity-90"
               >
                 <ArrowLeft size={14} strokeWidth={1.5} className="shrink-0" aria-hidden />
-                <span className="min-w-0 truncate">Back to Portfolio</span>
+                <span className="min-w-0 truncate">{t.project.back}</span>
               </Link>
 
               {venueChips.length > 0 ? (
                 <div className="mt-4 flex max-w-full flex-wrap justify-center gap-2 sm:mt-5 sm:justify-start">
                   {venueChips.map((c) => (
                     <Badge key={c} className="max-w-full shrink">
-                      {c}
+                      {localizeCategory(c, lang)}
                     </Badge>
                   ))}
                 </div>
@@ -226,7 +248,7 @@ export default function ProjectDetailPage() {
             <div className="min-w-0 space-y-10">
               <div className="min-w-0">
                 <h2 className="font-heading mb-4 text-sm tracking-[0.16em] text-primary">
-                  Overview
+                  {t.project.overview}
                 </h2>
                 <p className="text-base leading-relaxed break-words text-foreground/90">
                   {project.overview}
@@ -235,7 +257,7 @@ export default function ProjectDetailPage() {
 
               <div className="min-w-0">
                 <h2 className="font-heading mb-4 text-sm tracking-[0.16em] text-primary">
-                  Responsibilities
+                  {t.project.responsibilities}
                 </h2>
                 <ul className="space-y-2">
                   {project.responsibilities.map((item) => (
@@ -251,7 +273,7 @@ export default function ProjectDetailPage() {
 
               <div className="min-w-0">
                 <h2 className="font-heading mb-4 text-sm tracking-[0.16em] text-primary">
-                  Challenges
+                  {t.project.challenges}
                 </h2>
                 <ul className="space-y-2">
                   {project.challenges.map((item) => (
@@ -266,7 +288,7 @@ export default function ProjectDetailPage() {
             <aside className="h-fit min-w-0 max-w-full space-y-8 rounded-[1rem] border border-border bg-surface p-5 sm:p-6">
               <div className="min-w-0">
                 <h2 className="font-heading mb-3 text-sm tracking-[0.16em] text-primary">
-                  Technical Setup
+                  {t.project.technicalSetup}
                 </h2>
                 <p className="text-sm leading-relaxed break-words text-muted">
                   {project.technicalSetup}
@@ -274,7 +296,7 @@ export default function ProjectDetailPage() {
               </div>
               <div className="min-w-0">
                 <h2 className="font-heading mb-3 text-sm tracking-[0.16em] text-primary">
-                  Equipment
+                  {t.project.equipment}
                 </h2>
                 <ul className="flex flex-wrap gap-2">
                   {project.equipment.map((eq) => (
@@ -289,7 +311,7 @@ export default function ProjectDetailPage() {
               {project.technicalNotes ? (
                 <div className="min-w-0">
                   <h2 className="font-heading mb-3 text-sm tracking-[0.16em] text-primary">
-                    Notes
+                    {t.project.notes}
                   </h2>
                   <p className="text-sm break-words text-muted">
                     {project.technicalNotes}
@@ -301,10 +323,85 @@ export default function ProjectDetailPage() {
 
           <ProjectGallery artist={project.artist} sources={project.gallery} />
 
+          {pressItems.length > 0 ? (
+            <div className="mt-14 min-w-0 sm:mt-16">
+              <h2 className="font-heading mb-6 text-sm tracking-[0.16em] text-primary">
+                {t.project.press}
+              </h2>
+              <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
+                {pressItems.map((item) => {
+                  const link = pressAnchorProps(item)
+                  const meta = [item.publication, item.date]
+                    .filter(Boolean)
+                    .join(' · ')
+                  const cta = item.pdf
+                    ? t.press.openPdf
+                    : link
+                      ? t.press.readArticle
+                      : null
+                  const inner = (
+                    <>
+                      {item.image ? (
+                        <div className="relative aspect-[16/10] overflow-hidden border-b border-white/10 bg-black">
+                          <img
+                            src={item.image}
+                            alt=""
+                            className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                          <div
+                            className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/15"
+                            aria-hidden
+                          />
+                        </div>
+                      ) : null}
+                      <div className="flex min-w-0 flex-1 flex-col p-4 sm:p-5">
+                        <Badge variant="muted" className="w-fit">
+                          {localizePressType(item.type, lang)}
+                        </Badge>
+                        <p className="font-heading mt-3 text-sm tracking-[0.04em] text-white transition-colors group-hover:text-primary sm:text-base">
+                          {item.title}
+                        </p>
+                        {meta ? (
+                          <p className="mt-1 text-xs text-muted sm:text-sm">{meta}</p>
+                        ) : null}
+                        {cta ? (
+                          <p className="font-heading mt-auto pt-3 inline-flex items-center gap-1.5 text-[10px] tracking-[0.14em] text-primary/80 uppercase transition-colors group-hover:text-primary">
+                            {cta}
+                            <ArrowUpRight size={12} strokeWidth={1.8} aria-hidden />
+                          </p>
+                        ) : null}
+                      </div>
+                    </>
+                  )
+
+                  return (
+                    <li
+                      key={item.id}
+                      className="glass-card min-w-0 overflow-hidden transition-[border-color,box-shadow] duration-500 hover:border-primary/30 hover:shadow-[0_0_24px_rgba(184,255,0,0.06)]"
+                    >
+                      {link ? (
+                        <a
+                          {...link}
+                          className="group flex h-full min-w-0 flex-col focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                        >
+                          {inner}
+                        </a>
+                      ) : (
+                        <div className="flex h-full min-w-0 flex-col">{inner}</div>
+                      )}
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          ) : null}
+
           {related.length > 0 ? (
             <div className="mt-16 min-w-0 sm:mt-20">
               <h2 className="font-heading mb-6 text-xl tracking-[0.08em] break-words text-white sm:mb-8 sm:text-2xl">
-                Related Projects
+                {t.project.related}
               </h2>
               <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
                 {related.map((p) => (
@@ -320,7 +417,7 @@ export default function ProjectDetailPage() {
             <div className="mt-16 overflow-hidden rounded-[1rem] sm:mt-20">
               <MediaImage
                 src="/images/projects/alanis-stage.jpg"
-                alt={`${project.artist} on stage`}
+                alt={interpolate(t.project.stageAlt, { artist: project.artist })}
                 fit="contain"
                 aspect="aspect-[500/752]"
                 wrapperClassName="mx-auto w-full max-w-md rounded-none border-0 bg-black"

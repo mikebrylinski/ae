@@ -3769,6 +3769,9 @@ html.is-safari .berlin-skyline__particles {
 
 /* ——— Filter accordion (gallery / spotlight chip rows) ——— */
 .filter-accordion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   --rack-face-metal:
     repeating-linear-gradient(
       0deg,
@@ -3840,7 +3843,8 @@ html.is-safari .berlin-skyline__particles {
 
 .filter-accordion__toggle {
   display: flex;
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   flex-direction: column;
   align-items: stretch;
   gap: 0.28rem;
@@ -3955,6 +3959,7 @@ html.is-safari .berlin-skyline__particles {
 }
 
 .filter-accordion__panel {
+  width: 100%;
   margin-top: 0.85rem;
 }
 
@@ -3963,6 +3968,10 @@ html.is-safari .berlin-skyline__particles {
 }
 
 @media (min-width: 640px) {
+  .filter-accordion {
+    align-items: stretch;
+  }
+
   .filter-accordion__toggle {
     width: auto;
     min-width: 12.5rem;

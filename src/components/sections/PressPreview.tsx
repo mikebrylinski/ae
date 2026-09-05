@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FileText } from 'lucide-react'
-import { getPressItems, localizePressType, pressHref } from '@/lib/content'
+import { getPressItems, localizePressType, pressAnchorProps, pressHref } from '@/lib/content'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Badge } from '@/components/ui/Badge'
@@ -58,7 +58,7 @@ export function PressPreview() {
           viewport={{ once: true, margin: '-60px' }}
         >
           {items.map((pressItem) => {
-            const href = pressHref(pressItem)
+            const link = pressAnchorProps(pressItem)
             const meta = [pressItem.publication, pressItem.date]
               .filter(Boolean)
               .join(' · ')
@@ -110,13 +110,8 @@ export function PressPreview() {
                 variants={item}
                 className="glass-card overflow-hidden transition-[border-color,box-shadow] duration-500 hover:border-primary/30 hover:shadow-[0_0_24px_rgba(184,255,0,0.06)]"
               >
-                {href ? (
-                  <a
-                    href={href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="group block h-full"
-                  >
+                {link ? (
+                  <a {...link} className="group block h-full">
                     {body}
                   </a>
                 ) : (

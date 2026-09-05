@@ -6,8 +6,15 @@ import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { fadeUp, staggerContainer, reducedMotionVariants } from '@/lib/motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
+import { cn } from '@/lib/utils'
+import { buttonVariants } from '@/components/ui/Button'
 
 const FEATURED_BG = '/images/sections/featured-bg.png'
+
+const CARD_IMAGE_FOCUS: Record<string, string> = {
+  'guns-n-roses': 'object-[68%_center]',
+  'maroon-5': 'object-[center_58%]',
+}
 
 export function FeaturedProjects() {
   const { lang, t } = useLanguage()
@@ -74,7 +81,10 @@ export function FeaturedProjects() {
                         src={project.cardImage}
                         alt=""
                         aria-hidden
-                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                        className={cn(
+                          'absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]',
+                          CARD_IMAGE_FOCUS[project.slug] ?? 'object-center',
+                        )}
                         loading="lazy"
                         decoding="async"
                       />
@@ -84,7 +94,7 @@ export function FeaturedProjects() {
                       />
                     </>
                   ) : null}
-                  <div className="relative z-[1] min-w-0 max-w-full">
+                  <div className="relative z-[1] flex min-w-0 max-w-full flex-col items-center">
                     <h3 className="font-heading text-xl leading-tight tracking-[0.04em] text-white transition-colors duration-500 group-hover:text-primary sm:text-2xl lg:text-[1.75rem]">
                       {project.artist}
                     </h3>
@@ -95,6 +105,14 @@ export function FeaturedProjects() {
                       </span>
                       {project.role}
                     </p>
+                    <span
+                      className={cn(
+                        buttonVariants({ variant: 'outline', size: 'sm' }),
+                        'mt-4 pointer-events-none',
+                      )}
+                    >
+                      {t.featured.details}
+                    </span>
                   </div>
                 </div>
               </Link>
