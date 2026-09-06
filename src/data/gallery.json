@@ -14,6 +14,21 @@
     "height": 1024
   },
   {
+    "id": "harlem-gospel-stage",
+    "src": "/images/projects/harlem-gospel-stage.jpg",
+    "alt": "Stage set for The Harlem Gospel Singers — blue glitter risers, instruments, and a glowing sign",
+    "category": "Arena",
+    "tags": [
+      "Harlem Gospel Singers",
+      "Tour",
+      "Arena",
+      "2003"
+    ],
+    "year": 2003,
+    "width": 1024,
+    "height": 768
+  },
+  {
     "id": "alanis-stage",
     "src": "/images/projects/alanis-stage.jpg",
     "alt": "Alanis Morissette performing on stage",

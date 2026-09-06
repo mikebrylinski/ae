@@ -152,7 +152,11 @@ const artistIntroByLang: Record<Language, Record<string, ArtistIntro>> = {
 }
 
 export function getArtistIntro(slug: string, lang: Language): ArtistIntro | undefined {
-  return artistIntroByLang[lang]?.[slug] ?? artistIntroByLang.en[slug]
+  const intro = artistIntroByLang[lang]?.[slug] ?? artistIntroByLang.en[slug]
+  if (intro?.paragraphs?.length) return intro
+  const project = getProjectBySlug(slug)
+  if (!project?.overview) return undefined
+  return { paragraphs: [project.overview], sources: [] }
 }
 
 const projectPhrases = projectPhrasesDe as Record<string, string>
