@@ -542,28 +542,6 @@
     }
   }
 
-  /* ——— CTA: live VU spectrum (full-bleed background) ——— */
-
-  .cta-spectrum {
-    pointer-events: none;
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    overflow: hidden;
-    opacity: 0.3;
-    mix-blend-mode: screen;
-  }
-
-  .cta-spectrum__canvas {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  .cta-spectrum--static {
-    opacity: 0.22;
-  }
-
   /* ——— Console / mixer panel (CTA overlay + reusable) ——— */
 
   .console-panel__bank {
@@ -3314,11 +3292,6 @@ html.is-safari .berlin-skyline__scan,
 html.is-safari .berlin-skyline__particle {
   animation: none !important;
   will-change: auto;
-}
-
-html.is-safari .cta-spectrum {
-  mix-blend-mode: normal;
-  opacity: 0.2;
 }
 
 html.is-safari .berlin-skyline__particles {

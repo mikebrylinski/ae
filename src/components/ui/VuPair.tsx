@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils'
 import { useInView } from '@/hooks/useInView'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { isSafariBrowser } from '@/lib/safari'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 function clamp(n: number, min: number, max: number) {
   return Math.min(max, Math.max(min, n))
@@ -206,11 +207,13 @@ function SubmixMix({
 }
 
 function Submix({ mixes }: { mixes: [number, number][] }) {
+  const { t } = useLanguage()
+
   return (
     <div className="vu-submix" aria-hidden>
       <p className="vu-pair__plate">
-        <span className="vu-pair__plate-vu">IN</span>
-        <span className="vu-pair__plate-name">Submix</span>
+        <span className="vu-pair__plate-vu">{t.footer.vu.in}</span>
+        <span className="vu-pair__plate-name">{t.footer.vu.submix}</span>
       </p>
       <div className="vu-submix__feeds">
         {mixes.map(([left, right], i) => (
@@ -219,13 +222,14 @@ function Submix({ mixes }: { mixes: [number, number][] }) {
       </div>
       <p className="vu-pair__plate">
         <span className="vu-pair__plate-vu">4</span>
-        <span className="vu-pair__plate-name">Mixes</span>
+        <span className="vu-pair__plate-name">{t.footer.vu.mixes}</span>
       </p>
     </div>
   )
 }
 
 export function VuPair() {
+  const { t } = useLanguage()
   const rootRef = useRef<HTMLDivElement>(null)
   const inView = useInView(rootRef)
   const reduced = useReducedMotion()
@@ -340,10 +344,10 @@ export function VuPair() {
       <div
         className="vu-pair"
         role="img"
-        aria-label="Main stereo out analog VU, gain reduction, and digital meters"
+        aria-label={t.footer.vu.aria}
       >
         <p className="vu-pair__plate">
-          <span className="vu-pair__plate-name">Main Stereo Out</span>
+          <span className="vu-pair__plate-name">{t.footer.vu.mainOut}</span>
         </p>
         <div className="vu-pair__row">
           <div className="vu-pair__analog">
@@ -352,8 +356,8 @@ export function VuPair() {
               <GainReduction amount={grR} label="R" showScale />
             </div>
             <div className="vu-pair__faces">
-              <VuFace angle={-48 + levelL * 92} label="Left" />
-              <VuFace angle={-48 + levelR * 92} label="Right" />
+              <VuFace angle={-48 + levelL * 92} label={t.footer.vu.left} />
+              <VuFace angle={-48 + levelR * 92} label={t.footer.vu.right} />
             </div>
           </div>
           <div className="vu-digi-bank">

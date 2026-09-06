@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import {
+  getArtistIntro,
   getChartVenueChips,
   getPressForProject,
   getProjectBySlug,
@@ -155,6 +156,7 @@ export default function ProjectDetailPage() {
   const related = getRelatedProjects(project.slug)
   const venueChips = getChartVenueChips(project.category)
   const pressItems = getPressForProject(project.slug)
+  const artistIntro = getArtistIntro(project.slug, lang)
 
   return (
     <>
@@ -246,6 +248,43 @@ export default function ProjectDetailPage() {
         <Container className="section-pad min-w-0">
           <div className="grid min-w-0 gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:gap-12">
             <div className="min-w-0 space-y-10">
+              {artistIntro ? (
+                <article className="min-w-0 rounded-[1rem] border border-border bg-surface/70 p-5 sm:p-6">
+                  <h2 className="font-heading mb-4 text-sm tracking-[0.16em] text-primary">
+                    {t.project.artistIntro}
+                  </h2>
+                  <div className="space-y-3">
+                    {artistIntro.paragraphs.map((paragraph) => (
+                      <p
+                        key={paragraph}
+                        className="text-sm leading-relaxed break-words text-foreground/85 sm:text-base"
+                      >
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                  {artistIntro.sources.length > 0 ? (
+                    <p className="mt-4 flex max-w-full flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted">
+                      <span className="font-heading tracking-[0.12em] uppercase">
+                        {t.project.wikiSource}
+                      </span>
+                      {artistIntro.sources.map((source) => (
+                        <a
+                          key={source.href}
+                          href={source.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex min-w-0 items-center gap-1 text-primary/85 transition-colors hover:text-primary"
+                        >
+                          <span className="min-w-0 truncate">{source.label}</span>
+                          <ArrowUpRight size={12} strokeWidth={1.8} aria-hidden />
+                        </a>
+                      ))}
+                    </p>
+                  ) : null}
+                </article>
+              ) : null}
+
               <div className="min-w-0">
                 <h2 className="font-heading mb-4 text-sm tracking-[0.16em] text-primary">
                   {t.project.overview}

@@ -74,27 +74,23 @@ export function FeaturedProjects() {
                 to={`/portfolio/${project.slug}`}
                 className="card-lift group block focus-visible:outline-none"
               >
-                <div className="glass-card card-lift__frame relative flex aspect-[3/4] flex-col items-center justify-end overflow-hidden px-5 py-6 text-center transition-[transform,box-shadow,border-color] duration-700 ease-out group-hover:-translate-y-1.5 group-hover:border-primary/35 group-hover:shadow-[0_0_36px_rgba(184,255,0,0.1)] sm:px-6 sm:py-7 lg:px-7 lg:py-8">
-                  {project.cardImage ? (
-                    <>
+                <div className="glass-card card-lift__frame relative flex flex-col overflow-hidden bg-black transition-[transform,box-shadow,border-color] duration-700 ease-out group-hover:-translate-y-1.5 group-hover:border-primary/35 group-hover:shadow-[0_0_36px_rgba(184,255,0,0.1)]">
+                  <div className="relative z-[1] aspect-[3/4] w-full overflow-hidden bg-black">
+                    {project.cardImage ? (
                       <img
                         src={project.cardImage}
                         alt=""
                         aria-hidden
                         className={cn(
-                          'absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]',
+                          'absolute inset-0 h-full w-full object-cover brightness-100 transition-transform duration-700 ease-out group-hover:scale-[1.04]',
                           CARD_IMAGE_FOCUS[project.slug] ?? 'object-center',
                         )}
                         loading="lazy"
                         decoding="async"
                       />
-                      <div
-                        className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/30"
-                        aria-hidden
-                      />
-                    </>
-                  ) : null}
-                  <div className="relative z-[1] flex min-w-0 max-w-full flex-col items-center">
+                    ) : null}
+                  </div>
+                  <div className="relative z-[1] flex min-w-0 flex-col items-center bg-black px-5 py-5 text-center sm:px-6 sm:py-6">
                     <h3 className="font-heading text-xl leading-tight tracking-[0.04em] text-white transition-colors duration-500 group-hover:text-primary sm:text-2xl lg:text-[1.75rem]">
                       {project.artist}
                     </h3>

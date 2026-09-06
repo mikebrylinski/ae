@@ -50,12 +50,13 @@ export function Hero() {
   }, [reduced, eyebrow])
 
   const accent = hero.headlineAccent ?? 'PERFECTION.'
-  const headlineParts = hero.headline.split(accent)
+  const canSplit = hero.headline.includes(accent)
+  const headlineParts = canSplit ? hero.headline.split(accent) : [hero.headline]
 
   return (
     <section
       ref={rootRef}
-      className="relative flex min-h-[100svh] items-center overflow-hidden"
+      className="relative flex min-h-[calc(100svh-7rem)] items-center overflow-hidden md:min-h-[calc(100svh-8rem)]"
       aria-label={t.a11y.hero}
     >
       <div className="absolute inset-0">
@@ -72,7 +73,7 @@ export function Hero() {
         <NoiseOverlay opacity={0.07} className="z-[1]" />
       </div>
 
-      <Container className="relative z-10 py-28 md:py-32">
+      <Container className="relative z-10 flex w-full items-center py-16 md:py-20">
         <div
           ref={contentRef}
           className="mx-auto max-w-xl text-center lg:mx-0 lg:max-w-2xl lg:text-left"
@@ -87,9 +88,15 @@ export function Hero() {
             data-hero="headline"
             className="font-heading text-[clamp(2.4rem,7vw,5.25rem)] leading-[0.95] tracking-[0.04em] text-white"
           >
-            {headlineParts[0]}
-            <span className="text-primary">{accent}</span>
-            {headlineParts[1] ?? ''}
+            {canSplit ? (
+              <>
+                {headlineParts[0]}
+                <span className="text-primary">{accent}</span>
+                {headlineParts.slice(1).join(accent)}
+              </>
+            ) : (
+              hero.headline
+            )}
           </h1>
 
           <p

@@ -3,7 +3,6 @@ import { Container } from '@/components/ui/Container'
 import { PlaceholderMedia } from '@/components/ui/PlaceholderMedia'
 import { MediaImage } from '@/components/ui/MediaImage'
 import { CTABanner } from '@/components/sections/CTABanner'
-import { VeniceMap } from '@/components/sections/VeniceMap'
 import { PhotoHeader } from '@/components/sections/PhotoHeader'
 import { VuPlate } from '@/components/ui/VuPlate'
 import { useSeo } from '@/hooks/useSeo'
@@ -14,7 +13,7 @@ type ChapterImage = {
   label: string
   aspect: string
   src?: string
-  place?: 'end'
+  place?: 'end' | 'below'
   span?: 2
   showFull?: boolean
   centered?: boolean
@@ -28,7 +27,7 @@ type Chapter = {
   from: number
   to: number
   layout: 'stack'
-  copyBeside?: 'right'
+  copyBeside?: 'left' | 'right'
   images: ChapterImage[]
 }
 
@@ -36,7 +35,7 @@ const CHAPTERS: Chapter[] = [
   {
     eyebrow: 'West Berlin',
     from: 0,
-    to: 4,
+    to: 5,
     layout: 'stack',
     images: [
       {
@@ -47,10 +46,11 @@ const CHAPTERS: Chapter[] = [
     ],
   },
   {
-    eyebrow: 'The basement',
-    from: 4,
-    to: 7,
+    eyebrow: 'The Basement',
+    from: 5,
+    to: 12,
     layout: 'stack',
+    copyBeside: 'right',
     images: [
       {
         label: 'Tascam mixer and Pioneer cassette deck in the basement studio',
@@ -62,13 +62,36 @@ const CHAPTERS: Chapter[] = [
         aspect: 'aspect-[4/3]',
         src: '/images/about/basement-live.jpg',
       },
+      {
+        label: 'Andy kneeling at a keyboard during an event setup',
+        aspect: 'aspect-auto',
+        src: '/images/about/basement-event.jpg',
+        place: 'end',
+        fillColumn: true,
+        focus: 'object-[center_20%]',
+      },
+      {
+        label: 'Andy at a mixing console with a friend in a basement venue',
+        aspect: 'aspect-[4/3]',
+        src: '/images/about/basement-crew.jpg',
+        place: 'below',
+        tall: true,
+      },
+      {
+        label: 'Basement studio with mixing desk, NS-10s, and a CRT workstation',
+        aspect: 'aspect-[4/3]',
+        src: '/images/about/basement-workstation.jpg',
+        place: 'below',
+        tall: true,
+      },
     ],
   },
   {
-    eyebrow: 'On the road',
-    from: 7,
-    to: 10,
+    eyebrow: 'On the Road',
+    from: 12,
+    to: 19,
     layout: 'stack',
+    copyBeside: 'left',
     images: [
       {
         label: 'Andy at a Midas Heritage console on tour',
@@ -78,18 +101,26 @@ const CHAPTERS: Chapter[] = [
         focus: 'object-[22%_top]',
       },
       {
+        label: 'Andy mixing a live show from a touring console',
+        aspect: 'aspect-auto',
+        src: '/images/about/on-the-road-console.jpg',
+        place: 'end',
+        fillColumn: true,
+        focus: 'object-[72%_center]',
+      },
+      {
         label: 'Mixing FOH at an outdoor concert',
         aspect: 'aspect-[4/3]',
         src: '/images/about/on-the-road-foh.jpg',
-        place: 'end',
+        place: 'below',
         tall: true,
       },
     ],
   },
   {
     eyebrow: 'Los Angeles',
-    from: 10,
-    to: 12,
+    from: 19,
+    to: 27,
     layout: 'stack',
     copyBeside: 'right',
     images: [
@@ -145,7 +176,10 @@ function ChapterImages({ images }: { images: readonly ChapterImage[] }) {
             fit={img.centered ? 'contain' : 'cover'}
             className={
               img.fillColumn
-                ? 'absolute inset-0 h-full w-full object-cover object-[center_18%]'
+                ? cn(
+                    'absolute inset-0 h-full w-full object-cover',
+                    img.focus ?? 'object-[center_18%]',
+                  )
                 : img.showFull
                   ? 'object-cover object-center'
                   : cn('object-cover', img.focus ?? 'object-[center_35%]')
@@ -206,13 +240,21 @@ export default function AboutPage() {
                 ...img,
                 label: localized?.alts[i] ?? img.label,
               }))
-              const topImages = images.filter((img) => img.place !== 'end')
+              const topImages = images.filter((img) => !img.place)
               const endImages = images.filter((img) => img.place === 'end')
+              const belowImages = images.filter((img) => img.place === 'below')
               const copy = (
                 <div className="flex min-w-0 flex-col justify-center p-6 sm:p-8 md:p-10 lg:p-12">
-                  <VuPlate className="mb-5 max-w-full">
+                <div className="mb-5 flex min-w-0 flex-wrap items-center gap-x-4 gap-y-2">
+                  <VuPlate className="max-w-full shrink-0">
                     {localized?.eyebrow ?? chapter.eyebrow}
                   </VuPlate>
+                  {localized?.dek ? (
+                    <p className="font-heading min-w-0 flex-1 text-base tracking-[0.04em] text-primary italic !font-light sm:text-lg">
+                      {localized.dek}
+                    </p>
+                  ) : null}
+                </div>
                   <div className="min-w-0 space-y-5 text-[0.9375rem] leading-relaxed break-words text-foreground/90 md:space-y-6 md:text-[0.98rem] md:leading-[1.8]">
                     {paras.map((p) => (
                       <p key={p.slice(0, 36)}>{p}</p>
@@ -222,6 +264,7 @@ export default function AboutPage() {
               )
 
               const copyOnRight = chapter.copyBeside === 'right'
+              const copyOnLeft = chapter.copyBeside === 'left'
 
               return (
                 <article key={chapter.eyebrow} className="glass-card overflow-hidden p-0">
@@ -233,6 +276,13 @@ export default function AboutPage() {
                       </div>
                       <div className="order-1 min-w-0 lg:order-2">{copy}</div>
                     </div>
+                  ) : copyOnLeft && endImages.length > 0 ? (
+                    <div className="grid lg:grid-cols-2 lg:items-stretch">
+                      <div className="min-w-0">{copy}</div>
+                      <div className="h-72 min-h-0 min-w-0 overflow-hidden sm:h-80 lg:h-auto">
+                        <ChapterImages images={endImages} />
+                      </div>
+                    </div>
                   ) : (
                     <>
                       {copy}
@@ -241,19 +291,42 @@ export default function AboutPage() {
                       ) : null}
                     </>
                   )}
+                  {belowImages.length > 0 ? (
+                    <ChapterImages images={belowImages} />
+                  ) : null}
                 </article>
               )
             })}
 
-            <article className="glass-card grid overflow-hidden p-0 lg:grid-cols-2 lg:items-center">
+            <article className="glass-card grid overflow-hidden p-0 lg:grid-cols-2 lg:items-stretch">
               <div className="flex min-w-0 flex-col justify-center p-6 sm:p-8 md:p-10 lg:p-12">
-                <VuPlate className="mb-5 max-w-full">{t.about.venice.eyebrow}</VuPlate>
+                <div className="mb-5 flex min-w-0 flex-wrap items-center gap-x-4 gap-y-2">
+                  <VuPlate className="max-w-full shrink-0">{t.about.venice.plate}</VuPlate>
+                  <div className="min-w-0 flex-1 space-y-1">
+                    <p className="font-heading text-base tracking-[0.04em] text-primary italic !font-light sm:text-lg">
+                      {t.about.venice.eyebrow}
+                    </p>
+                    <p className="font-heading text-base tracking-[0.04em] text-primary italic !font-light sm:text-lg">
+                      {t.about.venice.dek}
+                    </p>
+                  </div>
+                </div>
                 <div className="min-w-0 space-y-5 text-[0.9375rem] leading-relaxed break-words text-foreground/90 md:space-y-6 md:text-[0.98rem] md:leading-[1.8]">
-                  <p>{t.about.venice.body}</p>
+                  {t.about.venice.paragraphs.map((p) => (
+                    <p key={p.slice(0, 36)}>{p}</p>
+                  ))}
                 </div>
               </div>
-              <div className="min-w-0 p-4 sm:p-5 lg:p-6">
-                <VeniceMap />
+              <div className="h-72 min-h-0 min-w-0 overflow-hidden sm:h-80 lg:h-auto">
+                <MediaImage
+                  src="/images/about/venice.jpg"
+                  alt={t.about.venice.headerAlt}
+                  aspect="aspect-[3/2]"
+                  wrapperClassName="relative h-full min-h-0 w-full rounded-none border-0"
+                  fit="cover"
+                  className="absolute inset-0 h-full w-full object-cover object-center"
+                  fallbackLabel={t.about.venice.plate}
+                />
               </div>
             </article>
           </div>

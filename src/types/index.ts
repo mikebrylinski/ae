@@ -38,6 +38,16 @@ export interface Project {
   technicalNotes?: string
 }
 
+export interface ArtistIntroSource {
+  label: string
+  href: string
+}
+
+export interface ArtistIntro {
+  paragraphs: string[]
+  sources: ArtistIntroSource[]
+}
+
 export interface TimelineEntry {
   year: string
   tour: string

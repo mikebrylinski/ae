@@ -53,6 +53,15 @@ const en = {
     backToTop: 'Back to top',
     rights: 'All Rights Reserved.',
     siteBy: 'Site by Pixel Palisade',
+    vu: {
+      aria: 'Main stereo out analog VU, gain reduction, and digital meters',
+      mainOut: 'Main Stereo Out',
+      left: 'Left',
+      right: 'Right',
+      in: 'IN',
+      submix: 'Submix',
+      mixes: 'Mixes',
+    },
   },
   home: {
     seoTitle: 'Andy Ebert | Monitor Engineer & Live Production',
@@ -115,23 +124,34 @@ const en = {
     seoDescription:
       'Andy Ebert — sound engineer and plant powered roadie, born in West Berlin in 1971. Professionally touring since 1997.',
     chapters: [
-      { eyebrow: 'West Berlin', alts: ['Young Andy at a mixing console in West Berlin'] },
       {
-        eyebrow: 'The basement',
+        eyebrow: 'West Berlin',
+        dek: 'Where it all began.',
+        alts: ['Young Andy at a mixing console in West Berlin'],
+      },
+      {
+        eyebrow: 'The Basement',
+        dek: 'When playing music became an obsession with sound.',
         alts: [
           'Tascam mixer and Pioneer cassette deck in the basement studio',
           'Andy mixing a live show beside rack cases',
+          'Andy kneeling at a keyboard during an event setup',
+          'Andy at a mixing console with a friend in a basement venue',
+          'Basement studio with mixing desk, NS-10s, and a CRT workstation',
         ],
       },
       {
-        eyebrow: 'On the road',
+        eyebrow: 'On the Road',
+        dek: 'Taking the skills from the basement to the real world.',
         alts: [
           'Andy at a Midas Heritage console on tour',
+          'Andy mixing a live show from a touring console',
           'Mixing FOH at an outdoor concert',
         ],
       },
       {
         eyebrow: 'Los Angeles',
+        dek: 'From European tours to an international career.',
         alts: [
           'Andy in front of the Hollywood sign, Los Angeles',
           'Alanis Morissette performing on stage',
@@ -139,8 +159,15 @@ const en = {
       },
     ],
     venice: {
-      eyebrow: 'Venice FL',
-      body: 'Since then he has been growing his portfolio of clients and has predominantly worked as a monitor engineer. Andy now resides in Venice, FL.',
+      plate: 'Venice FL',
+      eyebrow: 'The Journey Continues',
+      dek: 'Still doing what he loves.',
+      headerAlt: 'Palm trees along the Gulf Coast in Venice, Florida',
+      paragraphs: [
+        'Since then, Andy has continued growing his portfolio of clients while predominantly working as a monitor engineer.',
+        'From his first recordings on cassette tapes to professional tours and live productions around the world, his career has been built on a lifelong passion for music, technology, and great sound.',
+        'Andy now resides in Venice, Florida.',
+      ],
     },
     alanisStageAlt: 'Alanis Morissette performing on stage',
     eyebrow: 'About',
@@ -253,6 +280,8 @@ const en = {
     gallery: 'Gallery',
     press: 'Press',
     related: 'Related Projects',
+    artistIntro: 'The Artist',
+    wikiSource: 'Source',
     galleryAlt: '{artist} gallery image {n}',
     stageAlt: '{artist} on stage',
   },
@@ -365,7 +394,9 @@ const en = {
 
 type DeepStringify<T> = T extends string
   ? string
-  : { [K in keyof T]: DeepStringify<T[K]> }
+  : T extends readonly (infer U)[]
+    ? DeepStringify<U>[]
+    : { [K in keyof T]: DeepStringify<T[K]> }
 
 export type UiCopy = DeepStringify<typeof en>
 
@@ -422,6 +453,15 @@ const de = {
     backToTop: 'Nach oben',
     rights: 'Alle Rechte vorbehalten.',
     siteBy: 'Website von Pixel Palisade',
+    vu: {
+      aria: 'Analog-VU, Gain Reduction und Digitalmeter am Stereo-Hauptausgang',
+      mainOut: 'Stereo-Hauptausgang',
+      left: 'Links',
+      right: 'Rechts',
+      in: 'IN',
+      submix: 'Submix',
+      mixes: 'Mixe',
+    },
   },
   home: {
     seoTitle: 'Andy Ebert | Monitor Engineer & Live Production',
@@ -484,23 +524,34 @@ const de = {
     seoDescription:
       'Andy Ebert — Tontechniker und Plant-Powered Roadie, geboren 1971 in West-Berlin. Professionell auf Tour seit 1997.',
     chapters: [
-      { eyebrow: 'West-Berlin', alts: ['Andy als junger Mann am Mischpult in West-Berlin'] },
+      {
+        eyebrow: 'West-Berlin',
+        dek: 'Wo alles begann.',
+        alts: ['Andy als junger Mann am Mischpult in West-Berlin'],
+      },
       {
         eyebrow: 'Der Keller',
+        dek: 'Als aus Musizieren die Faszination für Sound wurde.',
         alts: [
           'Tascam-Mischpult und Pioneer-Kassettendeck im Kellerstudio',
           'Andy mischt eine Live-Show neben Rackcases',
+          'Andy kniet an einem Keyboard beim Event-Aufbau',
+          'Andy am Mischpult mit einem Freund in einem Keller-Venue',
+          'Kellerstudio mit Mischpult, NS-10s und CRT-Workstation',
         ],
       },
       {
         eyebrow: 'Unterwegs',
+        dek: 'Die Fähigkeiten aus dem Keller in die echte Welt bringen.',
         alts: [
           'Andy am Midas-Heritage-Pult auf Tour',
+          'Andy mischt eine Live-Show an einem Tourpult',
           'FOH-Mischung bei einem Open-Air-Konzert',
         ],
       },
       {
         eyebrow: 'Los Angeles',
+        dek: 'Von europäischen Touren zu einer internationalen Karriere.',
         alts: [
           'Andy vor dem Hollywood-Schriftzug, Los Angeles',
           'Alanis Morissette auf der Bühne',
@@ -508,8 +559,15 @@ const de = {
       },
     ],
     venice: {
-      eyebrow: 'Venice FL',
-      body: 'Seitdem wächst sein Klientenstamm; er arbeitet vor allem als Monitor Engineer. Heute lebt Andy in Venice, Florida.',
+      plate: 'Venice FL',
+      eyebrow: 'Die Reise geht weiter',
+      dek: 'Immer noch das tun, was er liebt.',
+      headerAlt: 'Palmen an der Golfküste in Venice, Florida',
+      paragraphs: [
+        'Seitdem wächst Andys Klientenstamm, und er arbeitet vor allem als Monitor Engineer.',
+        'Von den ersten Aufnahmen auf Kassette bis zu professionellen Touren und Live-Produktionen weltweit baut seine Karriere auf einer lebenslangen Leidenschaft für Musik, Technik und guten Sound.',
+        'Andy lebt heute in Venice, Florida.',
+      ],
     },
     alanisStageAlt: 'Alanis Morissette auf der Bühne',
     eyebrow: 'Über mich',
@@ -622,6 +680,8 @@ const de = {
     gallery: 'Galerie',
     press: 'Presse',
     related: 'Ähnliche Projekte',
+    artistIntro: 'Der Artist',
+    wikiSource: 'Quelle',
     galleryAlt: '{artist}-Galeriebild {n}',
     stageAlt: '{artist} auf der Bühne',
   },

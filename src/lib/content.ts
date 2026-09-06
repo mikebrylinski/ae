@@ -1,4 +1,5 @@
 import type {
+  ArtistIntro,
   CreditEntry,
   DownloadsData,
   ExperienceData,
@@ -28,6 +29,9 @@ import servicesDeData from '@/data/de/services.json'
 import downloadsDeData from '@/data/de/downloads.json'
 import experienceDeCopy from '@/data/de/experience-copy.json'
 import projectOverviewsDe from '@/data/de/project-overviews.json'
+import projectPhrasesDe from '@/data/de/project-phrases.json'
+import artistIntrosEn from '@/data/artist-intros.json'
+import artistIntrosDe from '@/data/de/artist-intros.json'
 import { loadStoredCredits } from '@/lib/admin'
 import type { Language } from '@/i18n/types'
 import { getUiCopy } from '@/i18n/ui'
@@ -142,6 +146,21 @@ export function localizePressType(type: PressItem['type'], lang: Language): stri
   return t.press.types[type] ?? type
 }
 
+const artistIntroByLang: Record<Language, Record<string, ArtistIntro>> = {
+  en: artistIntrosEn as Record<string, ArtistIntro>,
+  de: artistIntrosDe as Record<string, ArtistIntro>,
+}
+
+export function getArtistIntro(slug: string, lang: Language): ArtistIntro | undefined {
+  return artistIntroByLang[lang]?.[slug] ?? artistIntroByLang.en[slug]
+}
+
+const projectPhrases = projectPhrasesDe as Record<string, string>
+
+function localizeProjectPhrase(text: string): string {
+  return projectPhrases[text] ?? text
+}
+
 export function localizeProject(project: Project, lang: Language): Project {
   if (lang !== 'de') return project
   const overview =
@@ -152,6 +171,13 @@ export function localizeProject(project: Project, lang: Language): Project {
     role: localizeRole(project.role, lang),
     year: localizeYearLabel(project.year, lang),
     overview,
+    responsibilities: project.responsibilities.map(localizeProjectPhrase),
+    challenges: project.challenges.map(localizeProjectPhrase),
+    technicalSetup: localizeProjectPhrase(project.technicalSetup),
+    equipment: project.equipment.map(localizeProjectPhrase),
+    technicalNotes: project.technicalNotes
+      ? localizeProjectPhrase(project.technicalNotes)
+      : project.technicalNotes,
   }
 }
 
