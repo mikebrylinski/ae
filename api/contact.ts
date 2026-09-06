@@ -2,7 +2,7 @@ import {
   contactEnvFromRecord,
   parseContactBody,
   sendContactEmail,
-} from '../server/sendContactEmail.ts'
+} from '../server/sendContactEmail'
 
 type ApiRequest = {
   method?: string
@@ -13,6 +13,13 @@ type ApiResponse = {
   setHeader: (name: string, value: string) => void
   status: (code: number) => ApiResponse
   json: (body: unknown) => void
+}
+
+function readProcessEnv(): Record<string, string | undefined> {
+  const g = globalThis as typeof globalThis & {
+    process?: { env?: Record<string, string | undefined> }
+  }
+  return g.process?.env ?? {}
 }
 
 /**
@@ -32,11 +39,11 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
     return res.status(400).json({ ok: false, error: fields.error })
   }
 
-  const env = contactEnvFromRecord(process.env as Record<string, string | undefined>)
+  const env = contactEnvFromRecord(readProcessEnv())
   const result = await sendContactEmail(fields, env)
-  if (!result.ok) {
-    return res.status(result.status ?? 500).json({ ok: false, error: result.error })
+  if (result.ok) {
+    return res.status(200).json({ ok: true })
   }
 
-  return res.status(200).json({ ok: true })
+  return res.status(result.status ?? 500).json({ ok: false, error: result.error })
 }
