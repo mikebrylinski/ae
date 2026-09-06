@@ -395,7 +395,7 @@ const en = {
 type DeepStringify<T> = T extends string
   ? string
   : T extends readonly (infer U)[]
-    ? DeepStringify<U>[]
+    ? readonly DeepStringify<U>[]
     : { [K in keyof T]: DeepStringify<T[K]> }
 
 export type UiCopy = DeepStringify<typeof en>
