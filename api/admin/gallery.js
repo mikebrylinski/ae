@@ -1,5 +1,6 @@
 import {
-  blobTokenFromEnv,
+  BLOB_NOT_CONFIGURED,
+  blobConfiguredFromEnv,
   decodeImageData,
   isAdminAuthorized,
   parseGalleryPutBody,
@@ -46,11 +47,11 @@ export default async function handler(req, res) {
     return res.status(401).json({ ok: false, error: 'Unauthorized' })
   }
 
-  const token = blobTokenFromEnv(env())
-  if (!token) {
+  const runtimeEnv = env()
+  if (!blobConfiguredFromEnv(runtimeEnv)) {
     return res.status(503).json({
       ok: false,
-      error: 'BLOB_READ_WRITE_TOKEN is not configured',
+      error: BLOB_NOT_CONFIGURED,
     })
   }
 
@@ -60,7 +61,7 @@ export default async function handler(req, res) {
       if ('error' in parsed) {
         return res.status(400).json({ ok: false, error: parsed.error })
       }
-      await writeGalleryToBlob(parsed.items, token)
+      await writeGalleryToBlob(parsed.items, runtimeEnv)
       return res.status(200).json({ ok: true, file: true })
     }
 
@@ -73,7 +74,7 @@ export default async function handler(req, res) {
       buffer,
       contentType: parsed.contentType,
       filename: parsed.filename,
-      token,
+      env: runtimeEnv,
     })
     return res.status(200).json({
       ok: true,

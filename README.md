@@ -51,7 +51,7 @@ Edit JSON in `src/data/`. Image paths point to `/images/...` in `public/`. See [
 Andy signs in at `/admin` with `VITE_ADMIN_PASSWORD` (set in `.env.local` locally, and as a Vercel env var in production). Use the **Gallery** tab to upload, replace, or delete photos, edit tags, and add captions (also used as alt text). **Credits** is the year-by-year experience list.
 
 - **Local:** the dev server writes `src/data/gallery.json` and files under `public/images/gallery/`.
-- **Production:** set `ADMIN_PASSWORD` (same as the login password) and `BLOB_READ_WRITE_TOKEN` from a [Vercel Blob](https://vercel.com/docs/vercel-blob) store. New photos and gallery metadata are stored in Blob; `/gallery` loads them from `GET /api/gallery` and falls back to the bundled JSON if Blob is empty.
+- **Production:** connect a **public** [Vercel Blob](https://vercel.com/docs/vercel-blob) store to the project (**Storage → Create Database → Blob**), include Production, then redeploy. Also set `ADMIN_PASSWORD` (same as the `/admin` login). Vercel injects `BLOB_STORE_ID` and `BLOB_READ_WRITE_TOKEN`; new photos and gallery metadata live in Blob. `/gallery` loads them from `GET /api/gallery` and falls back to the bundled JSON if Blob is empty.
 
 ## Future CMS / API
 

@@ -16,8 +16,21 @@ export function isAdminAuthorized(given, env) {
   return Boolean(expected && given === expected)
 }
 
+export const BLOB_NOT_CONFIGURED =
+  'Vercel Blob is not connected. In the Vercel project open Storage → Create Database → Blob (Public), connect it to this project for Production, then redeploy.'
+
 export function blobTokenFromEnv(env) {
   return (env.BLOB_READ_WRITE_TOKEN ?? '').trim()
+}
+
+/** True when a Blob store is linked (OIDC) or a static write token is set. */
+export function blobConfiguredFromEnv(env) {
+  return Boolean(blobTokenFromEnv(env) || (env.BLOB_STORE_ID ?? '').trim())
+}
+
+function blobClientOptions(env) {
+  const token = blobTokenFromEnv(env)
+  return token ? { token } : {}
 }
 
 function asTrimmedString(value) {
@@ -164,9 +177,13 @@ export function decodeImageData(data) {
   return buffer
 }
 
-export async function readGalleryFromBlob(token) {
+export async function readGalleryFromBlob(env) {
   const { list } = await import('@vercel/blob')
-  const { blobs } = await list({ prefix: GALLERY_BLOB_PATH, token, limit: 20 })
+  const { blobs } = await list({
+    prefix: GALLERY_BLOB_PATH,
+    limit: 20,
+    ...blobClientOptions(env),
+  })
   const match = blobs.find((blob) => blob.pathname === GALLERY_BLOB_PATH)
   if (!match) return null
   const res = await fetch(match.url)
@@ -175,15 +192,15 @@ export async function readGalleryFromBlob(token) {
   return sanitizeGalleryItems(payload.items ?? payload)
 }
 
-export async function writeGalleryToBlob(items, token) {
+export async function writeGalleryToBlob(items, env) {
   const { put } = await import('@vercel/blob')
   await put(GALLERY_BLOB_PATH, `${JSON.stringify({ items }, null, 2)}\n`, {
     access: 'public',
     addRandomSuffix: false,
     allowOverwrite: true,
-    token,
     contentType: 'application/json',
     cacheControlMaxAge: 60,
+    ...blobClientOptions(env),
   })
 }
 
@@ -193,7 +210,7 @@ function safeFilename(name) {
   return (cleaned || 'photo').slice(0, 60)
 }
 
-export async function uploadImageToBlob({ buffer, contentType, filename, token }) {
+export async function uploadImageToBlob({ buffer, contentType, filename, env }) {
   const { put } = await import('@vercel/blob')
   const ext = contentType === 'image/png' ? 'png' : contentType === 'image/webp' ? 'webp' : 'jpg'
   const blob = await put(
@@ -201,9 +218,9 @@ export async function uploadImageToBlob({ buffer, contentType, filename, token }
     buffer,
     {
       access: 'public',
-      token,
       contentType,
       addRandomSuffix: false,
+      ...blobClientOptions(env),
     },
   )
   return { src: blob.url }

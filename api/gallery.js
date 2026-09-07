@@ -1,5 +1,5 @@
 import {
-  blobTokenFromEnv,
+  blobConfiguredFromEnv,
   readGalleryFromBlob,
 } from '../server/galleryStore.js'
 
@@ -19,13 +19,13 @@ export default async function handler(req, res) {
 
   res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300')
 
-  const token = blobTokenFromEnv(env())
-  if (!token) {
+  const runtimeEnv = env()
+  if (!blobConfiguredFromEnv(runtimeEnv)) {
     return res.status(200).json({ ok: true, items: null })
   }
 
   try {
-    const items = await readGalleryFromBlob(token)
+    const items = await readGalleryFromBlob(runtimeEnv)
     return res.status(200).json({ ok: true, items })
   } catch (err) {
     return res.status(500).json({
