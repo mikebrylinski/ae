@@ -26,12 +26,12 @@ articles = [
     {"src": "Mix Magazine, 1:16.pdf", "slug": "mix-magazine-2016-01", "source": "MIX MAGAZINE", "date": "JAN 2016"},
     {"src": "Lighting&Sound America Online 12:06.pdf", "slug": "lighting-sound-america-2006-12", "source": "LIGHTING & SOUND AMERICA", "date": "DEC 2006"},
     {"src": "Live Design magazine 4:05.pdf", "slug": "live-design-2005-04", "source": "LIVE DESIGN", "date": "APR 2005"},
-    {"src": "Heil Sound press release 8:09.pdf", "slug": "heil-sound-2009-08", "source": "HEIL SOUND", "date": "AUG 2009"},
+    {"src": "Heil Sound press release 8:09.pdf", "slug": "heil-sound-2009-08", "source": "HEIL SOUND", "date": "AUG 2009", "start_page": 1},
     {"src": 'Digidesign "Venue On The Road" testimonial.pdf', "slug": "venue-on-the-road-gnr", "source": "VENUE ON THE ROAD", "date": "2006"},
     {"src": "JBL HLA News 1999.pdf", "slug": "jbl-hla-news-1999-05", "source": "JBL HLA NEWS", "date": "MAY 1999"},
     {"src": "AEbert Article - Tools4Music.pdf", "slug": "tools4music", "source": "TOOLS4MUSIC", "date": "2009"},
     {"src": "Live Sound International - Andy Ebert 10:08.pdf", "slug": "live-sound-international-2008-10", "source": "LIVE SOUND INTERNATIONAL", "date": "OCT 2008"},
-    {"src": "Production Partner Article 3:17.pdf", "slug": "production-partner-2017-04", "source": "PRODUCTION PARTNER", "date": "APR 2017"},
+    {"src": "Production Partner Article 3:17.pdf", "slug": "production-partner-2017-04", "source": "PRODUCTION PARTNER", "date": "APR 2017", "card_page": 1},
 ]
 
 
@@ -74,6 +74,9 @@ def main():
         if not src.exists():
             sys.exit(f"missing {src}")
         doc = fitz.open(src)
+        start = art.get("start_page", 0)
+        if start:
+            doc.delete_pages(from_page=0, to_page=start - 1)
         for page in doc:
             stamp_page(page, art["source"], art["date"])
         pdf_path = PDF_OUT / f"{art['slug']}.pdf"
@@ -111,4 +114,31 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) >= 2:
+        src = Path(sys.argv[1])
+        slug = "production-partner-2017-04"
+        source = "PRODUCTION PARTNER"
+        date = "APR 2017"
+        card_page = 1
+        PDF_OUT.mkdir(parents=True, exist_ok=True)
+        IMG_OUT.mkdir(parents=True, exist_ok=True)
+        if not src.exists():
+            sys.exit(f"missing {src}")
+        doc = fitz.open(src)
+        for page in doc:
+            stamp_page(page, source, date)
+        pdf_path = PDF_OUT / f"{slug}.pdf"
+        doc.save(pdf_path, deflate=True, garbage=4)
+        card_idx = card_page if card_page < doc.page_count else 0
+        page_card = doc[card_idx]
+        scale = 1400 / page_card.rect.width
+        pix = page_card.get_pixmap(matrix=fitz.Matrix(scale, scale), alpha=False)
+        jpg = IMG_OUT / f"{slug}.jpg"
+        pix.save(str(jpg), jpg_quality=82)
+        print(
+            f"{slug}: {doc.page_count}p pdf={pdf_path.stat().st_size // 1024}kb "
+            f"jpg={jpg.stat().st_size // 1024}kb card_p{card_idx + 1}"
+        )
+        doc.close()
+    else:
+        main()

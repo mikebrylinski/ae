@@ -11,6 +11,7 @@ const en = {
   brand: {
     subtitle: 'Sound Engineer',
     plants: 'proudly powered by plants',
+    plantsRing: 'PROUDLY PLANT POWERED • PROUDLY PLANT POWERED •',
   },
   a11y: {
     skip: 'Skip to content',
@@ -127,7 +128,7 @@ const en = {
       {
         eyebrow: 'West Berlin',
         dek: 'Where it all began.',
-        alts: ['Andy kneeling at a keyboard during an event setup'],
+        alts: ['Overhead Polaroids of young Andy at a keyboard, a studio microphone, and mixing gear on a console'],
       },
       {
         eyebrow: 'The Basement',
@@ -141,7 +142,7 @@ const en = {
       },
       {
         eyebrow: 'On the Road',
-        dek: 'Taking the skills from the basement to the real world.',
+        dek: 'Taking the skills from the basement studio into the live world.',
         alts: [
           'Andy at a Midas Heritage console on tour',
           'Andy mixing a live show from a touring console',
@@ -163,7 +164,7 @@ const en = {
       headerAlt: 'Aerial view of the beach and Gulf in Venice, Florida',
       paragraphs: [
         'Since then, Andy has continued growing his portfolio of clients while predominantly working as a monitor engineer.',
-        'From his first recordings on cassette tapes to professional tours and live productions around the world, his career has been built on a lifelong passion for music, technology, and great sound.',
+        'From his first recordings on cassette tapes to professional tours and live productions around the world, his career has been built on a lifelong passion for music, instruments, technology, and great sound.',
         'Andy now resides in Venice, Florida.',
       ],
     },
@@ -411,8 +412,9 @@ const de = {
     de: 'Deutsch',
   },
   brand: {
-    subtitle: 'Tontechniker',
-    plants: 'stolz pflanzenbetrieben',
+    subtitle: 'Toningenieur',
+    plants: 'Stolz von Pflanzen angetrieben',
+    plantsRing: 'STOLZ VON PFLANZEN ANGETRIEBEN • STOLZ VON PFLANZEN ANGETRIEBEN •',
   },
   a11y: {
     skip: 'Zum Inhalt springen',
@@ -468,7 +470,7 @@ const de = {
   home: {
     seoTitle: 'Andy Ebert | Monitor Engineer & Live Production',
     seoDescription:
-      'Wenn Künstler Perfektion hören müssen. Weltweit tourender Tontechniker, professionell seit ’97 — Alanis Morissette, The Weeknd, Neil Young, Guns N’ Roses, Maroon 5, Mariah Carey und mehr.',
+      'Wenn Künstler Perfektion hören müssen. Weltweit tourender Sound Engineer, professionell seit ’97 — Alanis Morissette, The Weeknd, Neil Young, Guns N’ Roses, Maroon 5, Mariah Carey und mehr.',
   },
   featured: {
     eyebrow: 'Auswahl',
@@ -500,9 +502,9 @@ const de = {
     showMore: 'Mehr anzeigen ({n})',
     empty: 'Noch keine Projekte in {category}',
     workEyebrow: 'Referenzen',
-    workTitle: 'Andys Arbeit',
+    workTitle: "Andy's Arbeit",
     workP1:
-      'Andy Ebert ist weltweit tourender Monitor- und FOH-Tontechniker, auf der Straße seit 1997. Von Clubs und Theatern über Arenen, Stadien, Festivals, TV und Corporate-Bühnen mischt er für Künstler, die jedes Detail mit Sicherheit hören müssen.',
+      'Andy Ebert ist weltweit tourender Monitor- und FOH Ingenieur, auf der Straße seit 1997. Von Clubs und Theatern über Arenen, Stadien, Festivals, TV und Corporate-Bühnen mischt er für Künstler, die jedes Detail mit Sicherheit hören müssen.',
     workP2:
       'Zu seinen Referenzen gehören Alanis Morissette, The Weeknd, Maroon 5, Guns N’ Roses, Mariah Carey, Stone Temple Pilots, Neil Young und viele mehr. 2017 wurde er für den Parnelli Award als Monitor Engineer of the Year nominiert.',
     learnMore: 'Mehr erfahren',
@@ -515,21 +517,21 @@ const de = {
     viewProject: 'Projekt ansehen',
     empty: 'Keine Referenzen in diesem Filter.',
     all: 'Alle',
-    monitors: 'Monitore',
+    monitors: 'Monitor',
     foh: 'FOH',
     prev: 'Zurück',
     previous: 'Zurück',
     next: 'Weiter',
   },
   about: {
-    seoTitle: 'Über mich',
+    seoTitle: 'Über Andy',
     seoDescription:
-      'Andy Ebert — Tontechniker und Plant-Powered Roadie, geboren 1971 in West-Berlin. Professionell auf Tour seit 1997.',
+      'Andy Ebert — Sound Engineer und Plant-Powered Roadie, geboren 1971 in West-Berlin. Professionell auf Tour seit 1997.',
     chapters: [
       {
         eyebrow: 'West-Berlin',
         dek: 'Wo alles begann.',
-        alts: ['Andy kniet an einem Keyboard beim Event-Aufbau'],
+        alts: ['Polaroids von oben: Andy am Keyboard, Studio-Mikrofon und Mischpult-Gear auf einem Pult'],
       },
       {
         eyebrow: 'Der Keller',
@@ -543,11 +545,11 @@ const de = {
       },
       {
         eyebrow: 'Unterwegs',
-        dek: 'Die Fähigkeiten aus dem Keller in die echte Welt bringen.',
+        dek: 'Die Fähigkeiten aus dem Kellerstudio in die Live-Welt bringen.',
         alts: [
           'Andy am Midas-Heritage-Pult auf Tour',
           'Andy mischt eine Live-Show an einem Tourpult',
-          'FOH-Mischung bei einem Open-Air-Konzert',
+          'FOH Mix bei einem Open-Air-Konzert',
           'Andy vor dem Hollywood-Schriftzug, Los Angeles',
           'Andy mit Tour-Crew hinter einem Mischpult',
         ],
@@ -564,13 +566,13 @@ const de = {
       dek: 'Immer noch das tun, was er liebt.',
       headerAlt: 'Luftaufnahme von Strand und Golf in Venice, Florida',
       paragraphs: [
-        'Seitdem wächst Andys Klientenstamm, und er arbeitet vor allem als Monitor Engineer.',
-        'Von den ersten Aufnahmen auf Kassette bis zu professionellen Touren und Live-Produktionen weltweit baut seine Karriere auf einer lebenslangen Leidenschaft für Musik, Technik und guten Sound.',
+        'Seitdem wächst Andy’s Klientenstamm, und er arbeitet vor allem als Monitor Engineer.',
+        'Von den ersten Aufnahmen auf Kassette bis zu professionellen Touren und Live-Produktionen weltweit baut seine Karriere auf einer lebenslangen Leidenschaft für Musik, Instrumente, Technik und guten Sound.',
         'Andy lebt heute in Venice, Florida.',
       ],
     },
     alanisStageAlt: 'Alanis Morissette auf der Bühne',
-    eyebrow: 'Über mich',
+    eyebrow: 'Über Andy',
     skylineLabel: 'Berlin — Charlottenburg',
     headerAlt: 'Berliner Skyline, Charlottenburg',
   },
@@ -633,7 +635,7 @@ const de = {
     title: 'Unterwegs',
     intro:
       'Arena-Pits, Monitor World, Proben und die Straße dazwischen. Nach Schlagwort filtern — Venue, Künstler, Jahr, Crew, Konsole — und jedes Bild öffnen.',
-    headerAlt: 'FOH-Mischung bei einem Open-Air-Konzert',
+    headerAlt: 'FOH Mix bei einem Open-Air-Konzert',
     count: '{n} Fotos',
     empty: 'Keine Fotos zu diesen Schlagworten.',
     sortLabel: 'Sortierung',
@@ -745,10 +747,10 @@ const de = {
     'Los Angeles': 'Los Angeles',
   },
   roles: {
-    'Monitor Engineer': 'Monitor-Tontechniker',
-    'FOH Engineer': 'FOH-Tontechniker',
-    'Monitor / FOH Engineer': 'Monitor- / FOH-Tontechniker',
-    'Monitor consultant and engineer': 'Monitor-Berater und -Tontechniker',
+    'Monitor Engineer': 'Monitor Ingenieur',
+    'FOH Engineer': 'FOH Ingenieur',
+    'Monitor / FOH Engineer': 'Monitor / FOH Ingenieur',
+    'Monitor consultant and engineer': 'Monitor-Berater und -Ingenieur',
   },
   titles: {
     'Worldwide Tours': 'Weltweite Tourneen',

@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { FileText } from 'lucide-react'
 import { getPressItems, localizePressType, pressAnchorProps, pressHref } from '@/lib/content'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
@@ -83,11 +82,10 @@ export function PressPreview() {
                     className="relative flex aspect-[16/10] items-center justify-center overflow-hidden border-b border-white/10 bg-black"
                     aria-hidden
                   >
-                    <div className="spotlight-empty-grid absolute inset-0 opacity-70" />
-                    <FileText
-                      size={28}
-                      strokeWidth={1.4}
-                      className="relative text-white/25"
+                    <img
+                      src="/favicon.svg"
+                      alt=""
+                      className="relative h-14 w-14 object-contain sm:h-16 sm:w-16"
                     />
                   </div>
                 )}

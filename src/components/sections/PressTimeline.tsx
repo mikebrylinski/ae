@@ -6,7 +6,7 @@ import {
 } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowUpRight, FileText } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import {
   getPressItems,
   getProjectBySlug,
@@ -194,14 +194,11 @@ function PressCard({
       />
     </>
   ) : (
-    <>
-      <div className="spotlight-empty-grid absolute inset-0 opacity-70" />
-      <FileText
-        size={28}
-        strokeWidth={1.4}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/25"
-      />
-    </>
+    <img
+      src="/favicon.svg"
+      alt=""
+      className="absolute top-1/2 left-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 object-contain sm:h-14 sm:w-14"
+    />
   )
 
   const copy = (

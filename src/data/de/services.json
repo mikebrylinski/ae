@@ -1,19 +1,19 @@
 [
   {
     "id": "monitor-engineering",
-    "title": "Monitor-Tontechnik",
+    "title": "Monitor Ingenieur",
     "description": "Mixes, denen Künstler Nacht für Nacht vertrauen.",
     "icon": "Headphones"
   },
   {
     "id": "foh-engineering",
-    "title": "FOH-Tontechnik",
-    "description": "Front-of-House-Mischung für Tourneen, Festivals und Specials.",
+    "title": "FOH Ingenieur",
+    "description": "Front-of-House Mix für Tourneen, Festivals und Events.",
     "icon": "AudioLines"
   },
   {
     "id": "technical-leadership",
-    "title": "Technische Leitung",
+    "title": "Technische Führung",
     "description": "Ruhige Entscheidungen unter Druck — auch bei komplexen Shows.",
     "icon": "Gauge"
   }

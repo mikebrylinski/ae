@@ -95,7 +95,7 @@ export function Footer({ admin = false }: { admin?: boolean }) {
               ) : (
                 <>
               <div className="rack-brand-wrap rack-brand-wrap--lg max-w-full min-w-0">
-                <VeganSeal />
+                <VeganSeal alt={t.brand.plants} />
                 <span className="rack-brand-glow">
                   <Link
                     to="/"

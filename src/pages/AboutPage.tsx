@@ -11,6 +11,7 @@ import {
 import { CTABanner } from '@/components/sections/CTABanner'
 import { PhotoHeader } from '@/components/sections/PhotoHeader'
 import { VuPlate } from '@/components/ui/VuPlate'
+import { VeniceVeganOverlay } from '@/components/ui/VeniceVeganOverlay'
 import { useSeo } from '@/hooks/useSeo'
 import { useLanguage } from '@/i18n/LanguageProvider'
 import { cn } from '@/lib/utils'
@@ -49,12 +50,12 @@ const CHAPTERS: Chapter[] = [
     copyBeside: 'right',
     images: [
       {
-        label: 'Andy kneeling at a keyboard during an event setup',
+        label: 'Overhead Polaroids of young Andy at a keyboard, a studio microphone, and mixing gear on a console',
         aspect: 'aspect-auto',
-        src: '/images/about/basement-event.jpg',
+        src: '/images/about/west-berlin-polaroid.jpg',
         place: 'end',
         fillColumn: true,
-        focus: 'object-[center_20%]',
+        focus: 'object-center',
       },
     ],
   },
@@ -323,7 +324,7 @@ export default function AboutPage() {
         </div>
       </PhotoHeader>
 
-      <section className="section-divider-top bg-black py-16 sm:py-20 md:py-24 lg:py-28">
+      <section className="section-divider-top bg-black pt-8 pb-16 sm:pt-10 sm:pb-20 md:pt-12 md:pb-24 lg:pb-28">
         <Container>
           <div className="space-y-8 md:space-y-10">
             {CHAPTERS.map((chapter, chapterIndex) => {
@@ -432,7 +433,7 @@ export default function AboutPage() {
                   ))}
                 </div>
               </div>
-              <div className="order-1 h-72 min-h-0 min-w-0 overflow-hidden sm:h-80 lg:order-2 lg:h-auto">
+              <div className="order-1 relative h-72 min-h-0 min-w-0 overflow-hidden sm:h-80 lg:order-2 lg:h-auto">
                 <MediaImage
                   src="/images/about/venice.jpg"
                   alt={t.about.venice.headerAlt}
@@ -442,6 +443,7 @@ export default function AboutPage() {
                   className="absolute inset-0 h-full w-full object-cover object-center"
                   fallbackLabel={t.about.venice.plate}
                 />
+                <VeniceVeganOverlay />
               </div>
             </article>
           </div>

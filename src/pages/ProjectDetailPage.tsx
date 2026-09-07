@@ -422,7 +422,18 @@ export default function ProjectDetailPage() {
                             aria-hidden
                           />
                         </div>
-                      ) : null}
+                      ) : (
+                        <div
+                          className="relative flex aspect-[16/10] items-center justify-center overflow-hidden border-b border-white/10 bg-black"
+                          aria-hidden
+                        >
+                          <img
+                            src="/favicon.svg"
+                            alt=""
+                            className="h-14 w-14 object-contain"
+                          />
+                        </div>
+                      )}
                       <div className="flex min-w-0 flex-1 flex-col p-4 sm:p-5">
                         <Badge variant="muted" className="w-fit">
                           {localizePressType(item.type, lang)}

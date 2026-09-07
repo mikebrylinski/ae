@@ -15,6 +15,20 @@
     "caption": "Andy in Times Square with in-ear monitors"
   },
   {
+    "id": 5,
+    "src": "/images/about/los-angeles.jpg",
+    "alt": "Andy in front of the Hollywood sign, Los Angeles",
+    "category": "Los Angeles",
+    "tags": [
+      "Los Angeles",
+      "2010"
+    ],
+    "width": 1024,
+    "height": 765,
+    "year": 2010,
+    "caption": "Andy in front of the Hollywood sign, Los Angeles"
+  },
+  {
     "id": 7,
     "src": "/images/sections/cta-portrait.jpg",
     "alt": "Andy in profile with in-ear monitors under stage lights",
@@ -44,20 +58,6 @@
     "height": 768,
     "year": 2006,
     "caption": "Andy at a Midas Heritage console on tour"
-  },
-  {
-    "id": 5,
-    "src": "/images/about/los-angeles.jpg",
-    "alt": "Andy in front of the Hollywood sign, Los Angeles",
-    "category": "Los Angeles",
-    "tags": [
-      "Los Angeles",
-      "2010"
-    ],
-    "width": 1024,
-    "height": 765,
-    "year": 2010,
-    "caption": "Andy in front of the Hollywood sign, Los Angeles"
   },
   {
     "id": 3,
@@ -143,6 +143,40 @@
     "height": 532,
     "year": 2006,
     "caption": "Andy at a Midas H3000 — Guns N' Roses, Prague",
+    "teaser": true
+  },
+  {
+    "id": 27,
+    "src": "/images/sections/stats-bg.jpg",
+    "alt": "Andy on Tour",
+    "category": "Arena",
+    "tags": [
+      "Arena",
+      "FOH",
+      "Tour",
+      "Alanis Morissette",
+      "2022"
+    ],
+    "width": 1004,
+    "height": 540,
+    "year": 2022,
+    "caption": "Andy on Tour"
+  },
+  {
+    "id": 19,
+    "src": "/images/gallery/backstage-1.jpg",
+    "alt": "Andy and colleague at the console",
+    "category": "Backstage",
+    "tags": [
+      "Backstage",
+      "Console",
+      "Crew",
+      "2008"
+    ],
+    "width": 709,
+    "height": 531,
+    "year": 2008,
+    "caption": "Andy and colleague at the console",
     "teaser": true
   },
   {
@@ -241,39 +275,6 @@
     "caption": "Marshall amp and studio microphone in the basement"
   },
   {
-    "id": 15,
-    "src": "/images/about/basement-album.jpg",
-    "alt": "Photo album of mixing, rehearsal, and the basement studio",
-    "category": "Rehearsals",
-    "tags": [
-      "Rehearsals",
-      "Console",
-      "Berlin",
-      "1991"
-    ],
-    "width": 768,
-    "height": 1024,
-    "year": 1991,
-    "caption": "Photo album of mixing, rehearsal, and the basement studio"
-  },
-  {
-    "id": 16,
-    "src": "/images/gallery/arena-1.jpg",
-    "alt": "Alanis Morissette stage from the wings — Tel Aviv",
-    "category": "Arena",
-    "tags": [
-      "Arena",
-      "Alanis Morissette",
-      "Tour",
-      "2014"
-    ],
-    "width": 709,
-    "height": 532,
-    "year": 2014,
-    "caption": "Alanis Morissette stage from the wings — Tel Aviv",
-    "teaser": true
-  },
-  {
     "id": 20,
     "src": "/images/gallery/backstage-2.jpg",
     "alt": "Tour bus crew — Puddle of Mudd era, 2002",
@@ -290,6 +291,22 @@
     "year": 2002,
     "caption": "Tour bus crew — Puddle of Mudd era, 2002",
     "teaser": true
+  },
+  {
+    "id": 15,
+    "src": "/images/about/basement-album.jpg",
+    "alt": "Photo album of mixing, rehearsal, and the basement studio",
+    "category": "Rehearsals",
+    "tags": [
+      "Rehearsals",
+      "Console",
+      "Berlin",
+      "1991"
+    ],
+    "width": 768,
+    "height": 1024,
+    "year": 1991,
+    "caption": "Photo album of mixing, rehearsal, and the basement studio"
   },
   {
     "id": 21,
@@ -310,21 +327,21 @@
     "teaser": true
   },
   {
-    "id": 19,
-    "src": "/images/gallery/backstage-1.jpg",
-    "alt": "Andy and colleague at the console",
-    "category": "Backstage",
+    "id": 26,
+    "src": "/images/sections/services-bg.jpg",
+    "alt": "Alanis Morissette tour production",
+    "category": "Arena",
     "tags": [
-      "Backstage",
+      "Arena",
+      "Alanis Morissette",
+      "Tour",
       "Console",
-      "Crew",
-      "2008"
+      "2016"
     ],
-    "width": 709,
-    "height": 531,
-    "year": 2008,
-    "caption": "Andy and colleague at the console",
-    "teaser": true
+    "width": 1024,
+    "height": 768,
+    "year": 2016,
+    "caption": "Alanis Morissette tour production"
   },
   {
     "id": 22,
@@ -345,23 +362,6 @@
     "teaser": true
   },
   {
-    "id": 26,
-    "src": "/images/sections/services-bg.jpg",
-    "alt": "Alanis Morissette tour production",
-    "category": "Arena",
-    "tags": [
-      "Arena",
-      "Alanis Morissette",
-      "Tour",
-      "Console",
-      "2016"
-    ],
-    "width": 1024,
-    "height": 768,
-    "year": 2016,
-    "caption": "Alanis Morissette tour production"
-  },
-  {
     "id": 25,
     "src": "/images/media/headshot-1.jpg",
     "alt": "Andy Ebert headshot 1",
@@ -376,23 +376,6 @@
     "height": 532,
     "year": 2018,
     "caption": "Andy Ebert headshot 1"
-  },
-  {
-    "id": 27,
-    "src": "/images/sections/stats-bg.jpg",
-    "alt": "Andy on Tour",
-    "category": "Arena",
-    "tags": [
-      "Arena",
-      "FOH",
-      "Tour",
-      "Alanis Morissette",
-      "2022"
-    ],
-    "width": 1004,
-    "height": 540,
-    "year": 2022,
-    "caption": "Andy on Tour"
   },
   {
     "id": 24,
@@ -1232,6 +1215,7 @@
     "alt": "Monitor engineer at the console with in-ear packs clipped on",
     "category": "Monitor World",
     "tags": [
+      "Stone Temple Pilots",
       "Monitor World",
       "Console",
       "Tour",

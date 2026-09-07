@@ -1,7 +1,7 @@
 [
   { "label": "Start", "href": "/" },
   { "label": "Portfolio", "href": "/portfolio" },
-  { "label": "Über mich", "href": "/about" },
+  { "label": "Über Andy", "href": "/about" },
   { "label": "Presse", "href": "/media" },
   { "label": "Galerie", "href": "/gallery" },
   { "label": "Kontakt", "href": "/contact" }

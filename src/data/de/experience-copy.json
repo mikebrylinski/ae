@@ -1,5 +1,5 @@
 {
-  "resumeSummary": "Monitor- und FOH-Tontechniker mit weltweiten Tourcredits seit 1997 — darunter Alanis Morissette, The Weeknd, Maroon 5, Guns N’ Roses, Mariah Carey, Stone Temple Pilots, Neil Young und viele mehr. 2017 nominiert für den Parnelli Award als Monitor Engineer of the Year.",
+  "resumeSummary": "Monitor- und FOH Ingenieur mit weltweiten Tourcredits seit 1997 — darunter Alanis Morissette, The Weeknd, Maroon 5, Guns N’ Roses, Mariah Carey, Stone Temple Pilots, Neil Young und viele mehr. 2017 nominiert für den Parnelli Award als Monitor Engineer of the Year.",
   "award": "2017 Parnelli Award nominiert — Monitor Engineer of the Year",
   "timeline": [
     {
@@ -15,7 +15,7 @@
     {
       "year": "2012–2014",
       "tour": "Arena- und Welttourneen",
-      "description": "Monitor-Tontechnik für The Weeknd (weltweit), Adam Lambert (USA / weltweit), Alanis Morissette (weltweit, 2012), Usher (MTV Music Awards) und Local Natives (USA). FOH für Adam Lambert in Asien (2012)."
+      "description": "Monitor Ingenieur für The Weeknd (weltweit), Adam Lambert (USA / weltweit), Alanis Morissette (weltweit, 2012), Usher (MTV Music Awards) und Local Natives (USA). FOH für Adam Lambert in Asien (2012)."
     },
     {
       "year": "2010–2011",
@@ -40,23 +40,23 @@
     {
       "year": "1997–2000",
       "tour": "FOH und frühe Tourjahre",
-      "description": "Professioneller Tourstart im Januar 1997 als FOH-Techniker einer europäischen Gospel-Tour. Ab 1998 Monitor-Mischung; erster großer Arena-Monitorjob 1999. FOH für die Golden Gospel Singers (Europa, 1997–2000) und Momix (Deutschland, 1999)."
+      "description": "Professioneller Tourstart im Januar 1997 als FOH Ingenieur einer europäischen Gospel-Tour. Ab 1998 Monitor Mix; erster großer Arena-Monitorjob 1999. FOH für die Golden Gospel Singers (Europa, 1997–2000) und Momix (Deutschland, 1999)."
     }
   ],
   "skills": [
     {
-      "title": "Monitor-Tontechnik",
+      "title": "Monitor Ingenieur",
       "items": [
-        "IEM-Mischung",
-        "Wedge-Mischung",
+        "IEM Mix",
+        "Wedge Mix",
         "Artist-Cueing",
         "Showfile-Management"
       ]
     },
     {
-      "title": "FOH-Tontechnik",
+      "title": "FOH Ingenieur",
       "items": [
-        "Arena-Mischung",
+        "Arena Mix",
         "Festivalbühnen",
         "Tourkonsolen",
         "Systemkenntnis",
@@ -67,7 +67,7 @@
       "title": "Produktion",
       "items": [
         "Tour-Advancing",
-        "Technische Leitung",
+        "Technische Führung",
         "Crew-Kommunikation",
         "Vendor-Koordination",
         "Internationales Touring"
