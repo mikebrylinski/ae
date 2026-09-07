@@ -1,7 +1,7 @@
 import { useEffect, useId, useMemo, useRef, useState, type PointerEvent, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { AlertCircle, ArrowDown, ArrowUp, Check, CheckCircle2, ChevronLeft, ChevronRight, ChevronsDown, ChevronsUp, GripVertical, ImagePlus, Plus, Save, Trash2, X } from 'lucide-react'
+import { AlertCircle, ArrowDown, ArrowUp, Check, CheckCircle2, ChevronsDown, ChevronsUp, GripVertical, ImagePlus, Plus, Save, Trash2, X } from 'lucide-react'
 import type { GalleryItem } from '@/types'
 import {
   bundledGallery,
@@ -24,9 +24,10 @@ import {
 import { resizeImageFile } from '@/lib/resizeImage'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import { GalleryPager, GALLERY_PAGE_SIZE } from '@/components/ui/GalleryPager'
 import { cn } from '@/lib/utils'
 
-const PAGE_SIZE = 24
+const PAGE_SIZE = GALLERY_PAGE_SIZE
 
 function galleryGridCols() {
   if (typeof window === 'undefined') return 1
@@ -46,21 +47,21 @@ function insertWouldMove(fromId: number, insertIndex: number, list: GalleryItem[
 const chipClass =
   'inline-flex max-w-full min-w-0 items-center gap-0.5 overflow-hidden border px-1.5 py-px text-[9px] leading-4 tracking-[0.04em] text-ellipsis whitespace-nowrap'
 
-function pageWindow(current: number, total: number): Array<number | 'gap'> {
-  const pages: Array<number | 'gap'> = []
-  for (let i = 1; i <= total; i++) {
-    const show = i === 1 || i === total || Math.abs(i - current) <= 1
-    if (show) {
-      pages.push(i)
-    } else if (pages[pages.length - 1] !== 'gap') {
-      pages.push('gap')
-    }
-  }
-  return pages
-}
-
 const fieldClass =
   'w-full border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted focus-visible:border-primary focus-visible:outline-none'
+
+type PublishResult = {
+  type: 'success' | 'error'
+  message: string
+  at?: number
+}
+
+function formatPostedAt(at: number) {
+  return new Date(at).toLocaleTimeString(undefined, {
+    hour: 'numeric',
+    minute: '2-digit',
+  })
+}
 
 function adminPassword() {
   return getSessionPassword() || getAdminPassword()
@@ -74,16 +75,10 @@ export function GalleryEditor() {
   const [page, setPage] = useState(1)
   const [status, setStatus] = useState('')
   const [saving, setSaving] = useState(false)
-  const [publishResult, setPublishResult] = useState<{
-    type: 'success' | 'error'
-    message: string
-  } | null>(null)
+  const [publishResult, setPublishResult] = useState<PublishResult | null>(null)
   const [publishFlash, setPublishFlash] = useState(0)
   const [saveSource, setSaveSource] = useState<'header' | 'overlay' | null>(null)
-  const [overlayResult, setOverlayResult] = useState<{
-    type: 'success' | 'error'
-    message: string
-  } | null>(null)
+  const [overlayResult, setOverlayResult] = useState<PublishResult | null>(null)
   const [uploading, setUploading] = useState(false)
   const [pendingDeleteIds, setPendingDeleteIds] = useState<number[] | null>(null)
   const [dragId, setDragId] = useState<number | null>(null)
@@ -110,13 +105,13 @@ export function GalleryEditor() {
 
   useEffect(() => {
     if (publishResult?.type !== 'success') return
-    const timer = window.setTimeout(() => setPublishResult(null), 30_000)
+    const timer = window.setTimeout(() => setPublishResult(null), 20_000)
     return () => window.clearTimeout(timer)
   }, [publishResult])
 
   useEffect(() => {
     if (overlayResult?.type !== 'success') return
-    const timer = window.setTimeout(() => setOverlayResult(null), 30_000)
+    const timer = window.setTimeout(() => setOverlayResult(null), 20_000)
     return () => window.clearTimeout(timer)
   }, [overlayResult])
 
@@ -427,20 +422,24 @@ export function GalleryEditor() {
     persistGalleryLocal(next)
     const remote = await saveGalleryRemote(next, adminPassword())
     setSaving(false)
+    const at = Date.now()
     const result =
       remote.ok && remote.file
         ? {
             type: 'success' as const,
             message: 'Published to the live gallery.',
+            at,
           }
         : remote.ok
           ? {
               type: 'success' as const,
               message: remote.message || 'Saved. Dev server will write the file.',
+              at,
             }
           : {
               type: 'error' as const,
               message: remote.message || 'Publish failed. Try again.',
+              at,
             }
     if (fromOverlay) setOverlayResult(result)
     else setPublishResult(result)
@@ -928,7 +927,7 @@ function GalleryDetailsOverlay({
   total: number
   artistTagOptions: string[]
   saving: boolean
-  publishResult: { type: 'success' | 'error'; message: string } | null
+  publishResult: PublishResult | null
   deleteOpen: boolean
   onClose: () => void
   onUpdate: (patch: Partial<GalleryItem>) => void
@@ -1291,7 +1290,7 @@ function PublishFeedback({
   result,
   saving,
 }: {
-  result: { type: 'success' | 'error'; message: string } | null
+  result: PublishResult | null
   saving: boolean
 }) {
   return (
@@ -1309,25 +1308,30 @@ function PublishFeedback({
             Publishing…
           </motion.p>
         ) : result ? (
-          <motion.p
-            key={`${result.type}-${result.message}`}
+          <motion.div
+            key={`${result.type}-${result.message}-${result.at ?? ''}`}
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
             className={cn(
-              'font-heading flex items-center justify-center gap-1 text-center text-[10px] tracking-[0.1em] uppercase',
+              'font-heading flex flex-col items-center justify-center gap-0.5 text-center text-[10px] tracking-[0.1em] uppercase',
               result.type === 'success' ? 'text-primary' : 'text-red-400',
             )}
             role="status"
           >
-            {result.type === 'success' ? (
-              <CheckCircle2 size={12} aria-hidden />
-            ) : (
-              <AlertCircle size={12} aria-hidden />
-            )}
-            {result.message}
-          </motion.p>
+            <span className="inline-flex items-center gap-1">
+              {result.type === 'success' ? (
+                <CheckCircle2 size={12} aria-hidden />
+              ) : (
+                <AlertCircle size={12} aria-hidden />
+              )}
+              {result.message}
+            </span>
+            {result.type === 'success' && result.at ? (
+              <span className="text-muted">Posted {formatPostedAt(result.at)}</span>
+            ) : null}
+          </motion.div>
         ) : null}
       </AnimatePresence>
     </div>
@@ -1499,79 +1503,5 @@ function IconButton({
     >
       {children}
     </button>
-  )
-}
-
-function GalleryPager({
-  page,
-  pageCount,
-  onPage,
-  label = 'Gallery pages',
-}: {
-  page: number
-  pageCount: number
-  onPage: (page: number) => void
-  label?: string
-}) {
-  const pages = pageWindow(page, pageCount)
-
-  return (
-    <nav
-      className="flex flex-wrap items-center justify-center gap-2"
-      aria-label={label}
-    >
-      <button
-        type="button"
-        disabled={page <= 1}
-        onClick={() => onPage(page - 1)}
-        className={cn(
-          'inline-flex h-10 items-center gap-1 border border-border px-3 text-xs tracking-[0.12em] uppercase',
-          page <= 1
-            ? 'cursor-not-allowed text-muted/40'
-            : 'text-muted hover:border-primary hover:text-primary',
-        )}
-        aria-label="Previous page"
-      >
-        <ChevronLeft size={14} aria-hidden />
-        Prev
-      </button>
-      {pages.map((item, index) =>
-        item === 'gap' ? (
-          <span key={`gap-${index}`} className="px-1 text-muted">
-            …
-          </span>
-        ) : (
-          <button
-            key={item}
-            type="button"
-            onClick={() => onPage(item)}
-            aria-current={item === page ? 'page' : undefined}
-            className={cn(
-              'font-heading h-10 min-w-10 border px-3 text-xs tracking-[0.12em]',
-              item === page
-                ? 'border-primary bg-primary text-primary-foreground'
-                : 'border-border text-muted hover:border-primary hover:text-primary',
-            )}
-          >
-            {item}
-          </button>
-        ),
-      )}
-      <button
-        type="button"
-        disabled={page >= pageCount}
-        onClick={() => onPage(page + 1)}
-        className={cn(
-          'inline-flex h-10 items-center gap-1 border border-border px-3 text-xs tracking-[0.12em] uppercase',
-          page >= pageCount
-            ? 'cursor-not-allowed text-muted/40'
-            : 'text-muted hover:border-primary hover:text-primary',
-        )}
-        aria-label="Next page"
-      >
-        Next
-        <ChevronRight size={14} aria-hidden />
-      </button>
-    </nav>
   )
 }

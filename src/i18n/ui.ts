@@ -249,6 +249,10 @@ const en = {
     showMore: 'Show',
     hideMore: 'Hide',
     clear: 'Clear',
+    pages: 'Gallery pages',
+    pagesTop: 'Gallery pages top',
+    pagesBottom: 'Gallery pages bottom',
+    range: '{start}–{end} of {n}',
   },
   press: {
     eyebrow: 'Archive',
@@ -649,6 +653,10 @@ const de = {
     showMore: 'Zeigen',
     hideMore: 'Verbergen',
     clear: 'Zurücksetzen',
+    pages: 'Galerieseiten',
+    pagesTop: 'Galerieseiten oben',
+    pagesBottom: 'Galerieseiten unten',
+    range: '{start}–{end} von {n}',
   },
   press: {
     eyebrow: 'Archiv',

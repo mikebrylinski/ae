@@ -93,6 +93,57 @@
     "caption": "Mixing FOH at an outdoor concert"
   },
   {
+    "id": 23,
+    "src": "/images/gallery/arena-2.jpg",
+    "alt": "Andy at console — Stone Temple Pilots, Australia",
+    "category": "Monitor World",
+    "tags": [
+      "Console",
+      "Stone Temple Pilots",
+      "Monitor World",
+      "Tour",
+      "2010"
+    ],
+    "width": 709,
+    "height": 532,
+    "year": 2010,
+    "caption": "Andy at console — Stone Temple Pilots, Australia",
+    "teaser": true
+  },
+  {
+    "id": 17,
+    "src": "/images/gallery/monitor-world-1.jpg",
+    "alt": "Andy behind a large analog mixing console",
+    "category": "Monitor World",
+    "tags": [
+      "Monitor World",
+      "Console",
+      "Equipment",
+      "2004"
+    ],
+    "width": 583,
+    "height": 437,
+    "year": 2004,
+    "caption": "Andy behind a large analog mixing console",
+    "teaser": true
+  },
+  {
+    "id": 11,
+    "src": "/images/about/basement-bell.jpg",
+    "alt": "Bell analog mixer on the basement workbench",
+    "category": "Equipment",
+    "tags": [
+      "Equipment",
+      "Console",
+      "Berlin",
+      "1991"
+    ],
+    "width": 1024,
+    "height": 768,
+    "year": 1991,
+    "caption": "Bell analog mixer on the basement workbench"
+  },
+  {
     "id": 14,
     "src": "/images/about/basement-signing.jpg",
     "alt": "Signing a Tal Bergman poster backstage",
@@ -138,22 +189,6 @@
     "height": 651,
     "year": 1991,
     "caption": "Tascam mixer and Pioneer cassette deck in the basement studio"
-  },
-  {
-    "id": 11,
-    "src": "/images/about/basement-bell.jpg",
-    "alt": "Bell analog mixer on the basement workbench",
-    "category": "Equipment",
-    "tags": [
-      "Equipment",
-      "Console",
-      "Berlin",
-      "1991"
-    ],
-    "width": 1024,
-    "height": 768,
-    "year": 1991,
-    "caption": "Bell analog mixer on the basement workbench"
   },
   {
     "id": 12,
@@ -218,23 +253,6 @@
     "height": 532,
     "year": 2014,
     "caption": "Alanis Morissette stage from the wings — Tel Aviv",
-    "teaser": true
-  },
-  {
-    "id": 17,
-    "src": "/images/gallery/monitor-world-1.jpg",
-    "alt": "Andy behind a large analog mixing console",
-    "category": "Monitor World",
-    "tags": [
-      "Monitor World",
-      "Console",
-      "Equipment",
-      "2004"
-    ],
-    "width": 583,
-    "height": 437,
-    "year": 2004,
-    "caption": "Andy behind a large analog mixing console",
     "teaser": true
   },
   {
@@ -306,25 +324,6 @@
     "height": 531,
     "year": 2008,
     "caption": "Andy and colleague at the console",
-    "teaser": true
-  },
-  {
-    "id": 23,
-    "src": "/images/gallery/arena-2.jpg",
-    "alt": "Andy at console — Stone Temple Pilots, Australia",
-    "category": "Arena",
-    "tags": [
-      "Arena",
-      "Console",
-      "Stone Temple Pilots",
-      "Monitor World",
-      "Tour",
-      "2010"
-    ],
-    "width": 709,
-    "height": 532,
-    "year": 2010,
-    "caption": "Andy at console — Stone Temple Pilots, Australia",
     "teaser": true
   },
   {

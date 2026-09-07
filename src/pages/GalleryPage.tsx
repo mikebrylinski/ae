@@ -56,7 +56,7 @@ export default function GalleryPage() {
       <div className="relative isolate overflow-hidden bg-black">
         <PortfolioAurora />
 
-        <section className="relative z-10 section-pad">
+        <section className="relative z-10 pt-4 pb-[clamp(4rem,8vw,7rem)] sm:pt-5">
           <Container>
             <GalleryGrid.Masonry />
           </Container>

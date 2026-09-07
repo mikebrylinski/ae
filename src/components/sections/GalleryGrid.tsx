@@ -1,6 +1,7 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useMemo,
   useState,
   type ReactNode,
@@ -19,6 +20,7 @@ import { useLanguage } from '@/i18n/LanguageProvider'
 import { MediaImage } from '@/components/ui/MediaImage'
 import { FilterAccordion } from '@/components/ui/FilterAccordion'
 import { VuPlate } from '@/components/ui/VuPlate'
+import { GalleryPager, GALLERY_PAGE_SIZE } from '@/components/ui/GalleryPager'
 import { cn } from '@/lib/utils'
 import { useLiveGallery } from '@/hooks/useLiveGallery'
 import type { GalleryItem } from '@/types'
@@ -123,11 +125,15 @@ function TagGroup({
 
 type GalleryGridContextValue = {
   items: GalleryItem[]
+  pagedItems: GalleryItem[]
   sourceItems: GalleryItem[]
   selected: string[]
   sort: GallerySort
+  page: number
+  pageCount: number
   lightboxIndex: number | null
   setLightboxIndex: (index: number | null) => void
+  setPage: (page: number) => void
   toggleTag: (tag: string) => void
   clearTags: () => void
   setSort: (sort: GallerySort) => void
@@ -262,7 +268,8 @@ export function GalleryGridHeader() {
 }
 
 export function GalleryGridMasonry() {
-  const { items, setLightboxIndex } = useGalleryGrid()
+  const { items, pagedItems, page, pageCount, setPage, setLightboxIndex } =
+    useGalleryGrid()
   const { t } = useLanguage()
 
   if (items.length === 0) {
@@ -279,17 +286,70 @@ export function GalleryGridMasonry() {
     )
   }
 
+  const rangeStart = (page - 1) * GALLERY_PAGE_SIZE + 1
+  const rangeEnd = Math.min(page * GALLERY_PAGE_SIZE, items.length)
+
+  function goToPage(next: number, scroll = false) {
+    setPage(next)
+    setLightboxIndex(null)
+    if (scroll) {
+      document.getElementById('gallery-photos')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      })
+    }
+  }
+
   return (
-    <ul className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {items.map((item, index) => (
-        <GalleryTile
-          key={item.id}
-          item={item}
-          eager={index < 8}
-          onOpen={() => setLightboxIndex(index)}
+    <div id="gallery-photos" className="scroll-mt-32 space-y-6 md:scroll-mt-40">
+      {pageCount > 1 ? (
+        <div className="space-y-3">
+          <p className="font-heading text-center text-[11px] tracking-[0.14em] text-muted uppercase">
+            {interpolate(t.galleryPage.range, {
+              start: rangeStart,
+              end: rangeEnd,
+              n: items.length,
+            })}
+          </p>
+          <GalleryPager
+            page={page}
+            pageCount={pageCount}
+            label={t.galleryPage.pagesTop}
+            prevLabel={t.credits.prev}
+            nextLabel={t.credits.next}
+            prevAria={t.a11y.prevPage}
+            nextAria={t.a11y.nextPage}
+            onPage={(next) => goToPage(next)}
+          />
+        </div>
+      ) : null}
+
+      <ul className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {pagedItems.map((item, index) => (
+          <GalleryTile
+            key={item.id}
+            item={item}
+            eager={index < 8}
+            onOpen={() =>
+              setLightboxIndex((page - 1) * GALLERY_PAGE_SIZE + index)
+            }
+          />
+        ))}
+      </ul>
+
+      {pageCount > 1 ? (
+        <GalleryPager
+          page={page}
+          pageCount={pageCount}
+          label={t.galleryPage.pagesBottom}
+          prevLabel={t.credits.prev}
+          nextLabel={t.credits.next}
+          prevAria={t.a11y.prevPage}
+          nextAria={t.a11y.nextPage}
+          onPage={(next) => goToPage(next, true)}
         />
-      ))}
-    </ul>
+      ) : null}
+    </div>
   )
 }
 
@@ -297,6 +357,7 @@ export function GalleryGrid({ children }: { children?: ReactNode }) {
   const sourceItems = useLiveGallery()
   const [selected, setSelected] = useState<string[]>([])
   const [sort, setSort] = useState<GallerySort>('order')
+  const [page, setPage] = useState(1)
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
   const items = useMemo(
@@ -304,22 +365,36 @@ export function GalleryGrid({ children }: { children?: ReactNode }) {
     [selected, sort, sourceItems],
   )
 
+  const pageCount = Math.max(1, Math.ceil(items.length / GALLERY_PAGE_SIZE))
+  const safePage = Math.min(page, pageCount)
+  const pagedItems = items.slice(
+    (safePage - 1) * GALLERY_PAGE_SIZE,
+    safePage * GALLERY_PAGE_SIZE,
+  )
+
+  useEffect(() => {
+    if (page !== safePage) setPage(safePage)
+  }, [page, safePage])
+
   function toggleTag(tag: string) {
     setSelected((current) =>
       current.includes(tag)
         ? current.filter((value) => value !== tag)
         : [...current, tag],
     )
+    setPage(1)
     setLightboxIndex(null)
   }
 
   function clearTags() {
     setSelected([])
+    setPage(1)
     setLightboxIndex(null)
   }
 
   function handleSort(next: GallerySort) {
     setSort(next)
+    setPage(1)
     setLightboxIndex(null)
   }
 
@@ -327,11 +402,15 @@ export function GalleryGrid({ children }: { children?: ReactNode }) {
     <GalleryGridContext.Provider
       value={{
         items,
+        pagedItems,
         sourceItems,
         selected,
         sort,
+        page: safePage,
+        pageCount,
         lightboxIndex,
         setLightboxIndex,
+        setPage,
         toggleTag,
         clearTags,
         setSort: handleSort,
