@@ -6,7 +6,7 @@ import {
   useState,
   type ReactNode,
 } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigationType, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import {
@@ -17,6 +17,15 @@ import {
 import { interpolate } from '@/i18n/ui'
 import { useLanguage } from '@/i18n/LanguageProvider'
 import { CREDITS_UPDATED_EVENT } from '@/lib/admin'
+import {
+  CREDITS_PAGE_PARAM,
+  CREDITS_ROLE_PARAM,
+  parseCreditsPage,
+  parseCreditsRole,
+  persistCreditsView,
+  readStoredCreditsView,
+  type CreditsView,
+} from '@/lib/creditsView'
 import { getLenis } from '@/hooks/useLenis'
 import { Badge } from '@/components/ui/Badge'
 import { VuPlate } from '@/components/ui/VuPlate'
@@ -169,6 +178,7 @@ function CreditCard({
   mirror?: boolean
 }) {
   const { lang, t } = useLanguage()
+  const { currentPage, role } = useCreditsTimeline()
   const localized = localizeGroupedCredit(credit, lang)
   const href = credit.projectSlug
     ? `/portfolio/${credit.projectSlug}`
@@ -248,7 +258,12 @@ function CreditCard({
 
   if (href) {
     return (
-      <Link to={href} className={cn(cardClass, 'focus-visible:outline-none')}>
+      <Link
+        to={href}
+        state={{ page: currentPage, role } satisfies CreditsView}
+        onClick={() => persistCreditsView({ page: currentPage, role })}
+        className={cn(cardClass, 'focus-visible:outline-none')}
+      >
         {body}
       </Link>
     )
@@ -442,8 +457,25 @@ export function CreditsTimelineList({ className }: { className?: string }) {
 }
 
 export function CreditsTimeline({ children }: { children?: ReactNode }) {
-  const [role, setRole] = useState<CreditRoleFilter>('all')
-  const [page, setPage] = useState(1)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const navType = useNavigationType()
+  const stored = readStoredCreditsView()
+  const urlHasPage = searchParams.has(CREDITS_PAGE_PARAM)
+  const urlHasRole = searchParams.has(CREDITS_ROLE_PARAM)
+  const role = parseCreditsRole(
+    urlHasRole
+      ? searchParams.get(CREDITS_ROLE_PARAM)
+      : navType === 'POP'
+        ? stored.role
+        : 'all',
+  )
+  const page = parseCreditsPage(
+    urlHasPage
+      ? searchParams.get(CREDITS_PAGE_PARAM)
+      : navType === 'POP'
+        ? String(stored.page)
+        : '1',
+  )
   const [version, setVersion] = useState(0)
   const credits = useMemo(() => getPortfolioCredits(role), [role, version])
 
@@ -465,15 +497,39 @@ export function CreditsTimeline({ children }: { children?: ReactNode }) {
     currentPage * PAGE_SIZE,
   )
 
+  function writeCreditsParams(nextRole: CreditRoleFilter, nextPage: number) {
+    persistCreditsView({ page: nextPage, role: nextRole })
+    setSearchParams(
+      (prev) => {
+        const params = new URLSearchParams(prev)
+        if (nextRole === 'all') params.delete(CREDITS_ROLE_PARAM)
+        else params.set(CREDITS_ROLE_PARAM, nextRole)
+        if (nextPage <= 1) params.delete(CREDITS_PAGE_PARAM)
+        else params.set(CREDITS_PAGE_PARAM, String(nextPage))
+        return params
+      },
+      { replace: true },
+    )
+  }
+
+  useEffect(() => {
+    persistCreditsView({ page: currentPage, role })
+  }, [currentPage, role])
+
+  useEffect(() => {
+    if (page > totalPages) writeCreditsParams(role, totalPages)
+    // Clamp a stale URL page after the credits list shrinks.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, totalPages, role])
+
   function handleRoleChange(next: CreditRoleFilter) {
-    setRole(next)
-    setPage(1)
+    writeCreditsParams(next, 1)
   }
 
   function goToPage(next: number) {
     const clamped = Math.min(totalPages, Math.max(1, next))
     if (clamped === currentPage) return
-    setPage(clamped)
+    writeCreditsParams(role, clamped)
     scrollCreditsSectionIntoView(reduced)
   }
 

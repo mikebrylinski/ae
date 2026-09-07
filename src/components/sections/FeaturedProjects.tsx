@@ -12,8 +12,8 @@ import { buttonVariants } from '@/components/ui/Button'
 const FEATURED_BG = '/images/sections/featured-bg.png'
 
 const CARD_IMAGE_FOCUS: Record<string, string> = {
-  'guns-n-roses': 'object-[68%_center]',
-  'maroon-5': 'object-[center_58%]',
+  'guns-n-roses': 'object-[70%_18%]',
+  'maroon-5': 'object-[center_52%]',
 }
 
 export function FeaturedProjects() {
@@ -75,15 +75,15 @@ export function FeaturedProjects() {
                 className="card-lift group block focus-visible:outline-none"
               >
                 <div className="glass-card card-lift__frame relative flex flex-col overflow-hidden bg-black transition-[transform,box-shadow,border-color] duration-700 ease-out group-hover:-translate-y-1.5 group-hover:border-primary/35 group-hover:shadow-[0_0_36px_rgba(184,255,0,0.1)]">
-                  <div className="relative z-[1] h-48 w-full overflow-hidden bg-black sm:h-56 lg:h-60">
+                  <div className="relative z-[1] aspect-[4/5] w-full overflow-hidden bg-black sm:aspect-[5/6]">
                     {project.cardImage ? (
                       <img
                         src={project.cardImage}
                         alt=""
                         aria-hidden
                         className={cn(
-                          'absolute inset-0 h-full w-full object-cover brightness-100 transition-transform duration-700 ease-out group-hover:scale-[1.04]',
-                          CARD_IMAGE_FOCUS[project.slug] ?? 'object-center',
+                          'absolute inset-0 h-full w-full origin-top object-cover brightness-100 transition-transform duration-700 ease-out group-hover:scale-[1.03]',
+                          CARD_IMAGE_FOCUS[project.slug] ?? 'object-top',
                         )}
                         loading="lazy"
                         decoding="async"

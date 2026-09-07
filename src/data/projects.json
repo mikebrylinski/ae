@@ -259,7 +259,7 @@
     "technicalSetup": "Touring dual Venue-era monitor workflow as covered in period trade press.",
     "equipment": [
       "Digital Console",
-      "IEM System",
+      "IEM / Wedges",
       "Wireless Mics"
     ],
     "challenges": [
@@ -281,7 +281,6 @@
       "/images/projects/stp-13.jpg",
       "/images/projects/stp-14.jpg",
       "/images/projects/stp-15.jpg",
-      "/images/projects/stp-16.jpg",
       "/images/projects/stp-17.jpg",
       "/images/projects/stp-18.jpg",
       "/images/projects/stp-19.jpg",
@@ -543,7 +542,7 @@
     "slug": "guns-n-roses",
     "title": "Europe & USA Tours",
     "artist": "Guns N' Roses",
-    "year": "2006",
+    "year": "2006–2007",
     "role": "Monitor Engineer",
     "category": [
       "Arena",
@@ -556,7 +555,7 @@
     "heroImage": "/images/projects/gnr-hero.jpg",
     "thumbnail": "/images/logos/guns-n-roses.png",
     "icon": "Speaker",
-    "overview": "Monitor engineer for Guns N’ Roses across Europe and the USA in 2006 — arenas and festivals — covered in Mix Magazine’s January 2007 Guns N’ Roses tour profile and related Venue / Live Design press.",
+    "overview": "Monitor engineer for Guns N’ Roses across Europe and the USA in 2006–2007 — arenas and festivals — covered in Mix Magazine’s January 2007 Guns N’ Roses tour profile and related Venue / Live Design press.",
     "responsibilities": [
       "Monitor mixes for a large rock production",
       "RF coordination on touring packages",

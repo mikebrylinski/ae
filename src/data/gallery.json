@@ -7,11 +7,11 @@
     "tags": [
       "Headshot",
       "Tour",
-      "2026"
+      "2025"
     ],
     "width": 751,
     "height": 1024,
-    "year": 2026,
+    "year": 2025,
     "caption": "Andy in Times Square with in-ear monitors"
   },
   {
@@ -125,6 +125,24 @@
     "height": 437,
     "year": 2004,
     "caption": "Andy behind a large analog mixing console",
+    "teaser": true
+  },
+  {
+    "id": 18,
+    "src": "/images/gallery/monitor-world-2.jpg",
+    "alt": "Andy at a Midas H3000 — Guns N' Roses, Prague",
+    "category": "Monitor World",
+    "tags": [
+      "Monitor World",
+      "Console",
+      "Guns N' Roses",
+      "Tour",
+      "2006"
+    ],
+    "width": 709,
+    "height": 532,
+    "year": 2006,
+    "caption": "Andy at a Midas H3000 — Guns N' Roses, Prague",
     "teaser": true
   },
   {
@@ -256,24 +274,6 @@
     "teaser": true
   },
   {
-    "id": 18,
-    "src": "/images/gallery/monitor-world-2.jpg",
-    "alt": "Andy at a Midas H3000 — Guns N' Roses, Prague",
-    "category": "Monitor World",
-    "tags": [
-      "Monitor World",
-      "Console",
-      "Guns N' Roses",
-      "Tour",
-      "2006"
-    ],
-    "width": 709,
-    "height": 532,
-    "year": 2006,
-    "caption": "Andy at a Midas H3000 — Guns N' Roses, Prague",
-    "teaser": true
-  },
-  {
     "id": 20,
     "src": "/images/gallery/backstage-2.jpg",
     "alt": "Tour bus crew — Puddle of Mudd era, 2002",
@@ -345,22 +345,6 @@
     "teaser": true
   },
   {
-    "id": 25,
-    "src": "/images/media/headshot-1.jpg",
-    "alt": "Andy Ebert headshot 1",
-    "category": "Headshot",
-    "tags": [
-      "Headshot",
-      "Portrait",
-      "Mariah Carey",
-      "2018"
-    ],
-    "width": 709,
-    "height": 532,
-    "year": 2018,
-    "caption": "Andy Ebert headshot 1"
-  },
-  {
     "id": 26,
     "src": "/images/sections/services-bg.jpg",
     "alt": "Alanis Morissette tour production",
@@ -376,6 +360,22 @@
     "height": 768,
     "year": 2016,
     "caption": "Alanis Morissette tour production"
+  },
+  {
+    "id": 25,
+    "src": "/images/media/headshot-1.jpg",
+    "alt": "Andy Ebert headshot 1",
+    "category": "Headshot",
+    "tags": [
+      "Headshot",
+      "Portrait",
+      "Mariah Carey",
+      "2018"
+    ],
+    "width": 709,
+    "height": 532,
+    "year": 2018,
+    "caption": "Andy Ebert headshot 1"
   },
   {
     "id": 27,
@@ -1232,7 +1232,6 @@
     "alt": "Monitor engineer at the console with in-ear packs clipped on",
     "category": "Monitor World",
     "tags": [
-      "Stone Temple Pilots",
       "Monitor World",
       "Console",
       "Tour",

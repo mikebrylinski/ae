@@ -127,7 +127,7 @@ const en = {
       {
         eyebrow: 'West Berlin',
         dek: 'Where it all began.',
-        alts: ['Young Andy at a mixing console in West Berlin'],
+        alts: ['Andy kneeling at a keyboard during an event setup'],
       },
       {
         eyebrow: 'The Basement',
@@ -135,7 +135,6 @@ const en = {
         alts: [
           'Tascam mixer and Pioneer cassette deck in the basement studio',
           'Andy mixing a live show beside rack cases',
-          'Andy kneeling at a keyboard during an event setup',
           'Andy at a mixing console with a friend in a basement venue',
           'Basement studio with mixing desk, NS-10s, and a CRT workstation',
         ],
@@ -147,22 +146,21 @@ const en = {
           'Andy at a Midas Heritage console on tour',
           'Andy mixing a live show from a touring console',
           'Mixing FOH at an outdoor concert',
+          'Andy in front of the Hollywood sign, Los Angeles',
+          'Andy with touring crew behind a mixing console',
         ],
       },
       {
         eyebrow: 'Los Angeles',
         dek: 'From European tours to an international career.',
-        alts: [
-          'Andy in front of the Hollywood sign, Los Angeles',
-          'Alanis Morissette performing on stage',
-        ],
+        alts: ['Alanis Morissette performing on stage'],
       },
     ],
     venice: {
       plate: 'Venice FL',
       eyebrow: 'The Journey Continues',
       dek: 'Still doing what he loves.',
-      headerAlt: 'Palm trees along the Gulf Coast in Venice, Florida',
+      headerAlt: 'Aerial view of the beach and Gulf in Venice, Florida',
       paragraphs: [
         'Since then, Andy has continued growing his portfolio of clients while predominantly working as a monitor engineer.',
         'From his first recordings on cassette tapes to professional tours and live productions around the world, his career has been built on a lifelong passion for music, technology, and great sound.',
@@ -531,7 +529,7 @@ const de = {
       {
         eyebrow: 'West-Berlin',
         dek: 'Wo alles begann.',
-        alts: ['Andy als junger Mann am Mischpult in West-Berlin'],
+        alts: ['Andy kniet an einem Keyboard beim Event-Aufbau'],
       },
       {
         eyebrow: 'Der Keller',
@@ -539,7 +537,6 @@ const de = {
         alts: [
           'Tascam-Mischpult und Pioneer-Kassettendeck im Kellerstudio',
           'Andy mischt eine Live-Show neben Rackcases',
-          'Andy kniet an einem Keyboard beim Event-Aufbau',
           'Andy am Mischpult mit einem Freund in einem Keller-Venue',
           'Kellerstudio mit Mischpult, NS-10s und CRT-Workstation',
         ],
@@ -551,22 +548,21 @@ const de = {
           'Andy am Midas-Heritage-Pult auf Tour',
           'Andy mischt eine Live-Show an einem Tourpult',
           'FOH-Mischung bei einem Open-Air-Konzert',
+          'Andy vor dem Hollywood-Schriftzug, Los Angeles',
+          'Andy mit Tour-Crew hinter einem Mischpult',
         ],
       },
       {
         eyebrow: 'Los Angeles',
         dek: 'Von europäischen Touren zu einer internationalen Karriere.',
-        alts: [
-          'Andy vor dem Hollywood-Schriftzug, Los Angeles',
-          'Alanis Morissette auf der Bühne',
-        ],
+        alts: ['Alanis Morissette auf der Bühne'],
       },
     ],
     venice: {
       plate: 'Venice FL',
       eyebrow: 'Die Reise geht weiter',
       dek: 'Immer noch das tun, was er liebt.',
-      headerAlt: 'Palmen an der Golfküste in Venice, Florida',
+      headerAlt: 'Luftaufnahme von Strand und Golf in Venice, Florida',
       paragraphs: [
         'Seitdem wächst Andys Klientenstamm, und er arbeitet vor allem als Monitor Engineer.',
         'Von den ersten Aufnahmen auf Kassette bis zu professionellen Touren und Live-Produktionen weltweit baut seine Karriere auf einer lebenslangen Leidenschaft für Musik, Technik und guten Sound.',

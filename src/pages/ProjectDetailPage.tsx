@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useLocation, useParams } from 'react-router-dom'
 import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import {
   getArtistIntro,
@@ -30,6 +30,14 @@ import { cn } from '@/lib/utils'
 import { PortfolioAurora } from '@/components/ui/PortfolioAurora'
 import { useLanguage } from '@/i18n/LanguageProvider'
 import { useLiveGallery } from '@/hooks/useLiveGallery'
+import {
+  parseCreditsPage,
+  parseCreditsRole,
+  persistCreditsView,
+  portfolioCreditsLocation,
+  readStoredCreditsView,
+  type CreditsView,
+} from '@/lib/creditsView'
 
 const CARD_IMAGE_FOCUS: Record<string, string> = {
   'maroon-5': 'object-[center_58%]',
@@ -140,10 +148,20 @@ function ProjectGallery({
 
 export default function ProjectDetailPage() {
   const { slug = '' } = useParams()
+  const location = useLocation()
   const { lang, t } = useLanguage()
   const galleryItems = useLiveGallery()
   const projectRaw = getProjectBySlug(slug)
   const project = projectRaw ? localizeProject(projectRaw, lang) : undefined
+  const creditsState = location.state as CreditsView | null
+  const backTo = portfolioCreditsLocation(
+    creditsState?.page || creditsState?.role
+      ? {
+          page: parseCreditsPage(String(creditsState.page ?? 1)),
+          role: parseCreditsRole(creditsState.role),
+        }
+      : readStoredCreditsView(),
+  )
 
   useSeo({
     title: project ? `${project.artist} — ${project.title}` : t.project.seoFallback,
@@ -155,7 +173,7 @@ export default function ProjectDetailPage() {
   }
 
   if (!project) {
-    return <Navigate to="/portfolio" replace />
+    return <Navigate to={backTo} replace />
   }
 
   const related = getRelatedProjects(project.slug)
@@ -218,7 +236,7 @@ export default function ProjectDetailPage() {
 
             <div className="min-w-0 p-5 sm:p-7 md:p-8">
               <Link
-                to="/portfolio"
+                to={backTo}
                 className="font-heading inline-flex max-w-full items-center gap-2 rounded-[1rem] border border-primary/40 px-3 py-1.5 text-xs tracking-[0.14em] text-primary transition-colors hover:border-primary hover:opacity-90"
               >
                 <ArrowLeft size={14} strokeWidth={1.5} className="shrink-0" aria-hidden />

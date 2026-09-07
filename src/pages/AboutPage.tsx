@@ -1,7 +1,13 @@
+import { Fragment, useMemo, useState } from 'react'
 import { getSite } from '@/lib/content'
+import { interpolate } from '@/i18n/ui'
 import { Container } from '@/components/ui/Container'
 import { PlaceholderMedia } from '@/components/ui/PlaceholderMedia'
 import { MediaImage } from '@/components/ui/MediaImage'
+import {
+  GalleryLightbox,
+  type GalleryLightboxItem,
+} from '@/components/ui/GalleryLightbox'
 import { CTABanner } from '@/components/sections/CTABanner'
 import { PhotoHeader } from '@/components/sections/PhotoHeader'
 import { VuPlate } from '@/components/ui/VuPlate'
@@ -13,10 +19,11 @@ type ChapterImage = {
   label: string
   aspect: string
   src?: string
-  place?: 'end' | 'below'
+  place?: 'end' | 'below' | 'followUp'
   span?: 2
   showFull?: boolean
   centered?: boolean
+  compact?: boolean
   tall?: boolean
   fillColumn?: boolean
   focus?: string
@@ -28,6 +35,8 @@ type Chapter = {
   to: number
   layout: 'stack'
   copyBeside?: 'left' | 'right'
+  /** Small inset thumbnails that open a lightbox instead of full-bleed photos. */
+  thumbs?: boolean
   images: ChapterImage[]
 }
 
@@ -37,11 +46,15 @@ const CHAPTERS: Chapter[] = [
     from: 0,
     to: 5,
     layout: 'stack',
+    copyBeside: 'right',
     images: [
       {
-        label: 'Young Andy at a mixing console in West Berlin',
-        aspect: 'aspect-[16/9]',
-        src: '/images/about/west-berlin.jpg',
+        label: 'Andy kneeling at a keyboard during an event setup',
+        aspect: 'aspect-auto',
+        src: '/images/about/basement-event.jpg',
+        place: 'end',
+        fillColumn: true,
+        focus: 'object-[center_20%]',
       },
     ],
   },
@@ -50,7 +63,7 @@ const CHAPTERS: Chapter[] = [
     from: 5,
     to: 12,
     layout: 'stack',
-    copyBeside: 'right',
+    thumbs: true,
     images: [
       {
         label: 'Tascam mixer and Pioneer cassette deck in the basement studio',
@@ -61,28 +74,17 @@ const CHAPTERS: Chapter[] = [
         label: 'Andy mixing a live show beside rack cases',
         aspect: 'aspect-[4/3]',
         src: '/images/about/basement-live.jpg',
-      },
-      {
-        label: 'Andy kneeling at a keyboard during an event setup',
-        aspect: 'aspect-auto',
-        src: '/images/about/basement-event.jpg',
-        place: 'end',
-        fillColumn: true,
-        focus: 'object-[center_20%]',
+        focus: 'object-[center_30%]',
       },
       {
         label: 'Andy at a mixing console with a friend in a basement venue',
         aspect: 'aspect-[4/3]',
         src: '/images/about/basement-crew.jpg',
-        place: 'below',
-        tall: true,
       },
       {
         label: 'Basement studio with mixing desk, NS-10s, and a CRT workstation',
         aspect: 'aspect-[4/3]',
         src: '/images/about/basement-workstation.jpg',
-        place: 'below',
-        tall: true,
       },
     ],
   },
@@ -97,7 +99,8 @@ const CHAPTERS: Chapter[] = [
         label: 'Andy at a Midas Heritage console on tour',
         aspect: 'aspect-[4/3]',
         src: '/images/about/on-the-road.jpg',
-        tall: true,
+        place: 'followUp',
+        showFull: true,
         focus: 'object-[22%_top]',
       },
       {
@@ -106,14 +109,29 @@ const CHAPTERS: Chapter[] = [
         src: '/images/about/on-the-road-console.jpg',
         place: 'end',
         fillColumn: true,
-        focus: 'object-[72%_center]',
+        focus: 'object-[center_20%]',
       },
       {
         label: 'Mixing FOH at an outdoor concert',
         aspect: 'aspect-[4/3]',
         src: '/images/about/on-the-road-foh.jpg',
-        place: 'below',
-        tall: true,
+        place: 'followUp',
+        showFull: true,
+      },
+      {
+        label: 'Andy in front of the Hollywood sign, Los Angeles',
+        aspect: 'aspect-[4/3]',
+        src: '/images/about/los-angeles.jpg',
+        place: 'followUp',
+        showFull: true,
+      },
+      {
+        label: 'Andy with touring crew behind a mixing console',
+        aspect: 'aspect-[4/3]',
+        src: '/images/about/west-berlin.jpg',
+        place: 'followUp',
+        showFull: true,
+        focus: 'object-center',
       },
     ],
   },
@@ -124,12 +142,6 @@ const CHAPTERS: Chapter[] = [
     layout: 'stack',
     copyBeside: 'right',
     images: [
-      {
-        label: 'Andy in front of the Hollywood sign, Los Angeles',
-        aspect: 'aspect-[4/3]',
-        src: '/images/about/los-angeles.jpg',
-        tall: true,
-      },
       {
         label: 'Alanis Morissette performing on stage',
         aspect: 'aspect-auto',
@@ -148,7 +160,10 @@ function ChapterImages({ images }: { images: readonly ChapterImage[] }) {
     <div
       className={cn(
         'min-w-0 overflow-hidden',
-        many && 'grid gap-px sm:grid-cols-2',
+        many &&
+          (images.length === 4
+            ? 'grid grid-cols-2 gap-px'
+            : 'grid gap-px sm:grid-cols-2'),
         many && images.some((img) => img.showFull) && 'items-start',
         !many && 'h-full',
       )}
@@ -171,6 +186,7 @@ function ChapterImages({ images }: { images: readonly ChapterImage[] }) {
                     ? 'max-h-none'
                     : 'max-h-48 sm:max-h-56 lg:max-h-64',
               img.span === 2 && 'col-span-full',
+              img.compact && 'mx-auto w-full max-w-sm sm:max-w-md',
               img.centered && 'mx-auto max-w-md bg-black',
             )}
             fit={img.centered ? 'contain' : 'cover'}
@@ -200,6 +216,83 @@ function ChapterImages({ images }: { images: readonly ChapterImage[] }) {
         ),
       )}
     </div>
+  )
+}
+
+function ChapterThumbStrip({ images }: { images: readonly ChapterImage[] }) {
+  const { t } = useLanguage()
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+
+  const items = useMemo<GalleryLightboxItem[]>(
+    () =>
+      images.flatMap((img) =>
+        img.src
+          ? [
+              {
+                src: img.src,
+                alt: img.label,
+                caption: img.label,
+              },
+            ]
+          : [],
+      ),
+    [images],
+  )
+
+  if (items.length === 0) return null
+
+  return (
+    <>
+      <ul
+        className={cn(
+          'grid w-full gap-2 px-4 pb-4 sm:gap-2.5 sm:px-6 sm:pb-6 md:px-8 md:pb-8',
+          items.length >= 5
+            ? 'grid-cols-3 sm:grid-cols-5'
+            : 'grid-cols-2 sm:grid-cols-4',
+        )}
+      >
+        {items.map((item, i) => {
+          const focus = images.find((img) => img.src === item.src)?.focus
+
+          return (
+            <li key={item.src} className="min-w-0">
+              <button
+                type="button"
+                className="group w-full cursor-pointer rounded-[0.75rem] text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                onClick={() => setLightboxIndex(i)}
+                aria-label={interpolate(t.a11y.viewGallery, { alt: item.alt })}
+              >
+                <div
+                  className={cn(
+                    'relative aspect-[4/3] w-full overflow-hidden rounded-[0.75rem] border border-border bg-black',
+                    'transition-[border-color,box-shadow] duration-300',
+                    'group-hover:border-primary/40 group-hover:shadow-[0_0_16px_rgba(184,255,0,0.06)]',
+                  )}
+                >
+                  <img
+                    src={item.src}
+                    alt={item.alt}
+                    className={cn(
+                      'h-full w-full object-cover',
+                      focus ?? 'object-[center_35%]',
+                    )}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              </button>
+            </li>
+          )
+        })}
+      </ul>
+
+      <GalleryLightbox
+        items={items}
+        index={lightboxIndex}
+        onClose={() => setLightboxIndex(null)}
+        onIndexChange={setLightboxIndex}
+      />
+    </>
   )
 }
 
@@ -243,14 +336,20 @@ export default function AboutPage() {
               const topImages = images.filter((img) => !img.place)
               const endImages = images.filter((img) => img.place === 'end')
               const belowImages = images.filter((img) => img.place === 'below')
+              const followUpImages = images.filter((img) => img.place === 'followUp')
               const copy = (
-                <div className="flex min-w-0 flex-col justify-center p-6 sm:p-8 md:p-10 lg:p-12">
-                <div className="mb-5 flex min-w-0 flex-wrap items-center gap-x-4 gap-y-2">
+                <div
+                  className={cn(
+                    'flex min-w-0 flex-col justify-center p-6 sm:p-8 md:p-10 lg:p-12',
+                    chapter.thumbs && 'pb-4 sm:pb-5 md:pb-6',
+                  )}
+                >
+                <div className="mb-5 flex min-w-0 flex-col items-start gap-2">
                   <VuPlate className="max-w-full shrink-0">
                     {localized?.eyebrow ?? chapter.eyebrow}
                   </VuPlate>
                   {localized?.dek ? (
-                    <p className="font-heading min-w-0 flex-1 text-base tracking-[0.04em] text-primary italic !font-light sm:text-lg">
+                    <p className="font-heading min-w-0 text-base tracking-[0.04em] text-primary italic !font-light sm:text-lg">
                       {localized.dek}
                     </p>
                   ) : null}
@@ -267,42 +366,58 @@ export default function AboutPage() {
               const copyOnLeft = chapter.copyBeside === 'left'
 
               return (
-                <article key={chapter.eyebrow} className="glass-card overflow-hidden p-0">
-                  <ChapterImages images={topImages} />
-                  {copyOnRight && endImages.length > 0 ? (
-                    <div className="grid lg:grid-cols-2 lg:items-stretch">
-                      <div className="order-2 h-72 min-h-0 min-w-0 overflow-hidden sm:h-80 lg:order-1 lg:h-auto">
-                        <ChapterImages images={endImages} />
-                      </div>
-                      <div className="order-1 min-w-0 lg:order-2">{copy}</div>
-                    </div>
-                  ) : copyOnLeft && endImages.length > 0 ? (
-                    <div className="grid lg:grid-cols-2 lg:items-stretch">
-                      <div className="min-w-0">{copy}</div>
-                      <div className="h-72 min-h-0 min-w-0 overflow-hidden sm:h-80 lg:h-auto">
-                        <ChapterImages images={endImages} />
-                      </div>
-                    </div>
-                  ) : (
+                <Fragment key={chapter.eyebrow}>
+                <article className="glass-card overflow-hidden p-0">
+                  {chapter.thumbs ? (
                     <>
                       {copy}
-                      {endImages.length > 0 ? (
-                        <ChapterImages images={endImages} />
+                      <ChapterThumbStrip images={images} />
+                    </>
+                  ) : (
+                    <>
+                      <ChapterImages images={topImages} />
+                      {copyOnRight && endImages.length > 0 ? (
+                        <div className="grid lg:grid-cols-2 lg:items-stretch">
+                          <div className="order-1 h-72 min-h-0 min-w-0 overflow-hidden sm:h-80 lg:h-auto">
+                            <ChapterImages images={endImages} />
+                          </div>
+                          <div className="order-2 min-w-0">{copy}</div>
+                        </div>
+                      ) : copyOnLeft && endImages.length > 0 ? (
+                        <div className="grid lg:grid-cols-2 lg:items-stretch">
+                          <div className="order-2 min-w-0 lg:order-1">{copy}</div>
+                          <div className="order-1 h-72 min-h-0 min-w-0 overflow-hidden sm:h-80 lg:order-2 lg:h-auto">
+                            <ChapterImages images={endImages} />
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          {copy}
+                          {endImages.length > 0 ? (
+                            <ChapterImages images={endImages} />
+                          ) : null}
+                        </>
+                      )}
+                      {belowImages.length > 0 ? (
+                        <ChapterImages images={belowImages} />
                       ) : null}
                     </>
                   )}
-                  {belowImages.length > 0 ? (
-                    <ChapterImages images={belowImages} />
-                  ) : null}
                 </article>
+                {followUpImages.length > 0 ? (
+                  <article className="glass-card overflow-hidden p-0">
+                    <ChapterImages images={followUpImages} />
+                  </article>
+                ) : null}
+                </Fragment>
               )
             })}
 
             <article className="glass-card grid overflow-hidden p-0 lg:grid-cols-2 lg:items-stretch">
-              <div className="flex min-w-0 flex-col justify-center p-6 sm:p-8 md:p-10 lg:p-12">
-                <div className="mb-5 flex min-w-0 flex-wrap items-center gap-x-4 gap-y-2">
+              <div className="order-2 flex min-w-0 flex-col justify-center p-6 sm:p-8 md:p-10 lg:p-12 lg:order-1">
+                <div className="mb-5 flex min-w-0 flex-col items-start gap-2">
                   <VuPlate className="max-w-full shrink-0">{t.about.venice.plate}</VuPlate>
-                  <div className="min-w-0 flex-1 space-y-1">
+                  <div className="min-w-0 space-y-1">
                     <p className="font-heading text-base tracking-[0.04em] text-primary italic !font-light sm:text-lg">
                       {t.about.venice.eyebrow}
                     </p>
@@ -317,7 +432,7 @@ export default function AboutPage() {
                   ))}
                 </div>
               </div>
-              <div className="h-72 min-h-0 min-w-0 overflow-hidden sm:h-80 lg:h-auto">
+              <div className="order-1 h-72 min-h-0 min-w-0 overflow-hidden sm:h-80 lg:order-2 lg:h-auto">
                 <MediaImage
                   src="/images/about/venice.jpg"
                   alt={t.about.venice.headerAlt}
