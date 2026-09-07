@@ -7,6 +7,7 @@ import { useLanguage } from '@/i18n/LanguageProvider'
 export type GalleryLightboxItem = {
   src: string
   alt: string
+  caption?: string
 }
 
 interface GalleryLightboxProps {
@@ -22,6 +23,7 @@ export function GalleryLightbox({
   onClose,
   onIndexChange,
 }: GalleryLightboxProps) {
+  const { t } = useLanguage()
   const open = index !== null && items.length > 0
   const activeIndex = open ? Math.min(Math.max(index, 0), items.length - 1) : 0
   const item = open ? items[activeIndex] : null
@@ -80,7 +82,6 @@ export function GalleryLightbox({
 
   if (!open || !item) return null
 
-  const { t } = useLanguage()
   const showNav = items.length > 1
 
   return createPortal(
@@ -161,6 +162,12 @@ export function GalleryLightbox({
             </>
           ) : null}
         </div>
+
+        {item.caption || item.alt ? (
+          <p className="font-heading mt-3 text-center text-[11px] leading-relaxed tracking-[0.08em] text-muted">
+            {item.caption || item.alt}
+          </p>
+        ) : null}
       </div>
     </div>,
     document.body,

@@ -17,7 +17,12 @@ import { useLanguage } from '@/i18n/LanguageProvider'
 function GalleryLightboxBridge() {
   const { items, lightboxIndex, setLightboxIndex } = useGalleryLightbox()
   const lightboxItems = useMemo<GalleryLightboxItem[]>(
-    () => items.map((item) => ({ src: item.src, alt: item.alt })),
+    () =>
+      items.map((item) => ({
+        src: item.src,
+        alt: item.alt,
+        caption: item.caption || item.alt,
+      })),
     [items],
   )
 

@@ -1,16 +1,14 @@
 /**
- * Future CMS integration hooks.
- * Swap JSON imports in lib/content.ts with these adapters when ready.
+ * Content adapters.
+ * Gallery is edited at /admin (password + Vercel Blob in production).
+ * Contact form: POST /api/contact (Resend → CONTACT_TO_EMAIL)
  *
- * TODO: Sanity
- * TODO: Contentful
+ * TODO: Sanity / Contentful for the rest of the site
  * TODO: MDX blog
  * TODO: Dark/light mode
- * TODO: Multiple languages (i18n)
  * TODO: Project search
  * TODO: Analytics
  * TODO: Image CDN / optimization
- * Contact form: POST /api/contact (Resend → CONTACT_TO_EMAIL)
  */
 
 export interface CmsClient {

@@ -11,7 +11,22 @@ import { RackScrew } from '@/components/ui/Screws'
 import { fadeUp, reducedMotionVariants } from '@/lib/motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 
-export function Footer() {
+export function AllAccessLaminate() {
+  return (
+    <div className="all-access" aria-hidden>
+      <span className="all-access__clip" />
+      <span className="all-access__hole" />
+      <div className="all-access__pass">
+        <span className="all-access__sheen" />
+        <p className="all-access__kicker">Tour</p>
+        <p className="all-access__title">All Access</p>
+        <p className="all-access__area">Admin Area</p>
+      </div>
+    </div>
+  )
+}
+
+export function Footer({ admin = false }: { admin?: boolean }) {
   const year = new Date().getFullYear()
   const reduced = useReducedMotion()
   const item = reduced ? reducedMotionVariants : fadeUp
@@ -55,6 +70,30 @@ export function Footer() {
         >
           <div className="flex flex-col items-center gap-6 md:items-start">
             <div className="flex w-full max-w-full min-w-0 flex-col items-center gap-2">
+              {admin ? (
+                <div className="flex min-w-0 flex-wrap items-center justify-center gap-3 sm:gap-4 md:justify-start">
+                  <div className="rack-brand-wrap rack-brand-wrap--no-seal rack-brand-glow min-w-0">
+                    <Link
+                      to="/"
+                      className="rack-brand rack-brand--glow inline-flex max-w-full min-w-0 flex-col items-center gap-0.5 text-center"
+                    >
+                      <span className="rack-brand__shine" aria-hidden />
+                      <span className="rack-brand__name whitespace-nowrap font-heading text-[clamp(1.5rem,7.5vw,1.875rem)] tracking-[0.1em] sm:text-4xl sm:tracking-[0.12em] md:text-5xl">
+                        <span className="text-white">ANDY</span>{' '}
+                        <span className="text-primary">EBERT</span>
+                      </span>
+                      <span className="rack-brand__sub w-full font-heading text-[0.7rem] uppercase text-muted sm:text-xs">
+                        {t.brand.subtitle}
+                      </span>
+                      <span className="font-heading mt-0.5 text-[0.62rem] tracking-[0.22em] text-primary uppercase sm:text-[0.7rem]">
+                        Admin Area
+                      </span>
+                    </Link>
+                  </div>
+                  <AllAccessLaminate />
+                </div>
+              ) : (
+                <>
               <div className="rack-brand-wrap rack-brand-wrap--lg max-w-full min-w-0">
                 <VeganSeal />
                 <span className="rack-brand-glow">
@@ -76,6 +115,8 @@ export function Footer() {
               <p className="rack-brand-caption font-heading text-[0.65rem] tracking-[0.18em] text-muted sm:text-[0.7rem]">
                 {t.brand.plants}
               </p>
+                </>
+              )}
             </div>
 
             <nav aria-label={t.a11y.footerNav}>

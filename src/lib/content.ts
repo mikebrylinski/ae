@@ -249,25 +249,44 @@ export const GALLERY_SCENE_TAGS = [
   'Los Angeles',
 ] as const
 
-const GALLERY_YEAR_RE = /^\d{4}$/
+export const GALLERY_YEAR_RE = /^\d{4}$/
 
-export type GallerySort = 'shuffle' | 'newest' | 'oldest' | 'tag'
-
-export function getGalleryTeaser(limit = 6): GalleryItem[] {
-  const flagged = gallery.filter((item) => item.teaser)
-  return (flagged.length ? flagged : gallery).slice(0, limit)
-}
-
-export function getGallerySceneTags(): string[] {
-  const present = new Set(gallery.flatMap((item) => item.tags))
-  return GALLERY_SCENE_TAGS.filter((tag) => present.has(tag))
-}
+export type GallerySort = 'order' | 'newest' | 'oldest' | 'tag'
 
 const GALLERY_NON_ARTIST_TAGS = new Set<string>(['Portrait', ...GALLERY_SCENE_TAGS])
 
-export function getGalleryArtistTags(): string[] {
+export function galleryCategoryFromTags(tags: string[]): string {
+  return GALLERY_SCENE_TAGS.find((tag) => tags.includes(tag)) ?? tags[0] ?? 'Tour'
+}
+
+export function galleryCustomTags(tags: string[]): string[] {
+  return tags.filter(
+    (tag) => !GALLERY_NON_ARTIST_TAGS.has(tag) && !GALLERY_YEAR_RE.test(tag),
+  )
+}
+
+export function galleryWithSyncedYear(tags: string[], year?: number): string[] {
+  const rest = tags.filter((tag) => !GALLERY_YEAR_RE.test(tag))
+  if (year && year >= 1900 && year <= 2100) return [...rest, String(year)]
+  return rest
+}
+
+export function getGalleryTeaser(
+  limit = 6,
+  items: GalleryItem[] = gallery,
+): GalleryItem[] {
+  const flagged = items.filter((item) => item.teaser)
+  return (flagged.length ? flagged : items).slice(0, limit)
+}
+
+export function getGallerySceneTags(items: GalleryItem[] = gallery): string[] {
+  const present = new Set(items.flatMap((item) => item.tags))
+  return GALLERY_SCENE_TAGS.filter((tag) => present.has(tag))
+}
+
+export function getGalleryArtistTags(items: GalleryItem[] = gallery): string[] {
   const artists = new Set<string>()
-  for (const item of gallery) {
+  for (const item of items) {
     for (const tag of item.tags) {
       if (GALLERY_NON_ARTIST_TAGS.has(tag) || GALLERY_YEAR_RE.test(tag)) continue
       artists.add(tag)
@@ -276,9 +295,9 @@ export function getGalleryArtistTags(): string[] {
   return Array.from(artists).sort((a, b) => a.localeCompare(b))
 }
 
-export function getGalleryYearTags(): string[] {
+export function getGalleryYearTags(items: GalleryItem[] = gallery): string[] {
   const years = new Set<string>()
-  for (const item of gallery) {
+  for (const item of items) {
     for (const tag of item.tags) {
       if (GALLERY_YEAR_RE.test(tag)) years.add(tag)
     }
@@ -286,48 +305,86 @@ export function getGalleryYearTags(): string[] {
   return Array.from(years).sort((a, b) => b.localeCompare(a))
 }
 
-/** Mulberry32 — stable shuffle for one page load. */
-function mulberry32(seed: number) {
-  let t = seed >>> 0
-  return () => {
-    t += 0x6d2b79f5
-    let r = Math.imul(t ^ (t >>> 15), 1 | t)
-    r ^= r + Math.imul(r ^ (r >>> 7), 61 | r)
-    return ((r ^ (r >>> 14)) >>> 0) / 4294967296
-  }
+function normalizeArtistKey(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/[’']/g, "'")
+    .replace(/\./g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim()
 }
 
-export function createGalleryShuffleSeed(): number {
-  return (Math.random() * 0xffffffff) >>> 0
+function projectArtistKeys(artist: string): string[] {
+  const full = normalizeArtistKey(artist)
+  const parts = artist
+    .split(/\s*[·,/|&]\s*|\s+and\s+/i)
+    .map((part) => normalizeArtistKey(part))
+    .filter((part) => part.length > 1)
+  return Array.from(new Set([full, ...parts].filter(Boolean)))
+}
+
+export function galleryItemMatchesArtist(
+  item: GalleryItem,
+  artist: string,
+): boolean {
+  const keys = new Set(projectArtistKeys(artist))
+  if (keys.size === 0) return false
+  return item.tags.some((tag) => keys.has(normalizeArtistKey(tag)))
+}
+
+export type ProjectGallerySource = {
+  src: string
+  alt?: string
+  caption?: string
+}
+
+/** Tagged gallery photos for an artist, then any extra URLs from the project file. */
+export function mergeProjectGallerySources(
+  projectGallery: string[],
+  artist: string,
+  items: GalleryItem[],
+): ProjectGallerySource[] {
+  const seen = new Set<string>()
+  const out: ProjectGallerySource[] = []
+
+  for (const item of items) {
+    if (!galleryItemMatchesArtist(item, artist) || seen.has(item.src)) continue
+    seen.add(item.src)
+    out.push({
+      src: item.src,
+      alt: item.alt,
+      caption: item.caption || item.alt,
+    })
+  }
+
+  for (const src of projectGallery) {
+    if (seen.has(src)) continue
+    seen.add(src)
+    out.push({ src })
+  }
+
+  return out
 }
 
 export function filterGallery(
   selected: string[],
-  sort: GallerySort = 'shuffle',
-  shuffleSeed = 1,
+  sort: GallerySort = 'order',
+  source: GalleryItem[] = gallery,
 ): GalleryItem[] {
   const items =
     selected.length === 0
-      ? [...gallery]
-      : gallery.filter((item) => selected.every((tag) => item.tags.includes(tag)))
+      ? [...source]
+      : source.filter((item) => selected.every((tag) => item.tags.includes(tag)))
 
-  if (sort === 'shuffle') {
-    const rand = mulberry32(shuffleSeed || 1)
-    for (let i = items.length - 1; i > 0; i--) {
-      const j = Math.floor(rand() * (i + 1))
-      const swap = items[i]
-      items[i] = items[j]!
-      items[j] = swap!
-    }
-    return items
-  }
+  // Admin list order (array position), not internal photo id.
+  if (sort === 'order') return items
 
   items.sort((a, b) => {
     if (sort === 'newest') {
-      return (b.year ?? 0) - (a.year ?? 0) || a.id.localeCompare(b.id)
+      return (b.year ?? 0) - (a.year ?? 0) || a.id - b.id
     }
     if (sort === 'oldest') {
-      return (a.year ?? 0) - (b.year ?? 0) || a.id.localeCompare(b.id)
+      return (a.year ?? 0) - (b.year ?? 0) || a.id - b.id
     }
     const tagA = a.tags.find((tag) => !GALLERY_YEAR_RE.test(tag)) ?? a.tags[0] ?? ''
     const tagB = b.tags.find((tag) => !GALLERY_YEAR_RE.test(tag)) ?? b.tags[0] ?? ''

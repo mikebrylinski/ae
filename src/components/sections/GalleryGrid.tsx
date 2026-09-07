@@ -6,7 +6,6 @@ import {
   type ReactNode,
 } from 'react'
 import {
-  createGalleryShuffleSeed,
   filterGallery,
   GALLERY_SCENE_TAGS,
   getGalleryArtistTags,
@@ -21,9 +20,10 @@ import { MediaImage } from '@/components/ui/MediaImage'
 import { FilterAccordion } from '@/components/ui/FilterAccordion'
 import { VuPlate } from '@/components/ui/VuPlate'
 import { cn } from '@/lib/utils'
+import { useLiveGallery } from '@/hooks/useLiveGallery'
 import type { GalleryItem } from '@/types'
 
-const SORTS: GallerySort[] = ['shuffle', 'newest', 'oldest', 'tag']
+const SORTS: GallerySort[] = ['order', 'newest', 'oldest', 'tag']
 const SCENE_TAG_SET = new Set<string>(GALLERY_SCENE_TAGS)
 
 function Chip({
@@ -123,6 +123,7 @@ function TagGroup({
 
 type GalleryGridContextValue = {
   items: GalleryItem[]
+  sourceItems: GalleryItem[]
   selected: string[]
   sort: GallerySort
   lightboxIndex: number | null
@@ -143,15 +144,24 @@ function useGalleryGrid() {
 }
 
 export function GalleryGridHeader() {
-  const { items, selected, sort, toggleTag, clearTags, setSort } =
+  const { items, sourceItems, selected, sort, toggleTag, clearTags, setSort } =
     useGalleryGrid()
   const { lang, t } = useLanguage()
-  const artistTags = useMemo(() => getGalleryArtistTags(), [])
-  const sceneTags = useMemo(() => getGallerySceneTags(), [])
-  const yearTags = useMemo(() => getGalleryYearTags(), [])
+  const artistTags = useMemo(
+    () => getGalleryArtistTags(sourceItems),
+    [sourceItems],
+  )
+  const sceneTags = useMemo(
+    () => getGallerySceneTags(sourceItems),
+    [sourceItems],
+  )
+  const yearTags = useMemo(
+    () => getGalleryYearTags(sourceItems),
+    [sourceItems],
+  )
 
   function sortLabel(value: GallerySort) {
-    if (value === 'shuffle') return t.galleryPage.shuffle
+    if (value === 'order') return t.galleryPage.order
     if (value === 'newest') return t.galleryPage.newest
     if (value === 'oldest') return t.galleryPage.oldest
     return t.galleryPage.tagAz
@@ -270,7 +280,7 @@ export function GalleryGridMasonry() {
   }
 
   return (
-    <ul className="columns-1 gap-4 sm:columns-2 lg:columns-3 xl:columns-4">
+    <ul className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {items.map((item, index) => (
         <GalleryTile
           key={item.id}
@@ -284,14 +294,14 @@ export function GalleryGridMasonry() {
 }
 
 export function GalleryGrid({ children }: { children?: ReactNode }) {
+  const sourceItems = useLiveGallery()
   const [selected, setSelected] = useState<string[]>([])
-  const [sort, setSort] = useState<GallerySort>('shuffle')
-  const [shuffleSeed, setShuffleSeed] = useState(createGalleryShuffleSeed)
+  const [sort, setSort] = useState<GallerySort>('order')
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
   const items = useMemo(
-    () => filterGallery(selected, sort, shuffleSeed),
-    [selected, sort, shuffleSeed],
+    () => filterGallery(selected, sort, sourceItems),
+    [selected, sort, sourceItems],
   )
 
   function toggleTag(tag: string) {
@@ -309,7 +319,6 @@ export function GalleryGrid({ children }: { children?: ReactNode }) {
   }
 
   function handleSort(next: GallerySort) {
-    if (next === 'shuffle') setShuffleSeed(createGalleryShuffleSeed())
     setSort(next)
     setLightboxIndex(null)
   }
@@ -318,6 +327,7 @@ export function GalleryGrid({ children }: { children?: ReactNode }) {
     <GalleryGridContext.Provider
       value={{
         items,
+        sourceItems,
         selected,
         sort,
         lightboxIndex,
@@ -355,11 +365,15 @@ function GalleryTile({
   onOpen: () => void
 }) {
   const caption = item.tags.filter((tag) => SCENE_TAG_SET.has(tag)).slice(0, 2)
-
-  const ratio = item.width > 0 && item.height > 0 ? `${item.width} / ${item.height}` : undefined
+  const captionLine = [
+    ...caption,
+    item.year ? String(item.year) : '',
+  ]
+    .filter(Boolean)
+    .join(' · ')
 
   return (
-    <li className="mb-4 w-full break-inside-avoid">
+    <li className="w-full">
       <button
         type="button"
         className="group w-full cursor-pointer text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
@@ -369,22 +383,17 @@ function GalleryTile({
         <MediaImage
           src={item.src}
           alt={item.alt}
-          aspect=""
+          aspect="aspect-[4/3]"
           width={item.width}
           height={item.height}
           decoding="async"
           loading={eager ? 'eager' : 'lazy'}
           fallbackLabel={item.category}
-          className="absolute inset-0 rounded-[1rem]"
-          wrapperClassName="isolate w-full overflow-hidden rounded-[1rem] border border-border transition-[border-color,box-shadow] duration-500 group-hover:border-primary/40 group-hover:shadow-[0_0_24px_rgba(184,255,0,0.06)]"
-          wrapperStyle={ratio ? { aspectRatio: ratio } : undefined}
+          wrapperClassName="rounded-[1rem] border border-border transition-[border-color,box-shadow] duration-500 group-hover:border-primary/40 group-hover:shadow-[0_0_24px_rgba(184,255,0,0.06)]"
         />
-        {caption.length > 0 ? (
-          <p className="font-heading mt-2 text-[10px] tracking-[0.14em] text-muted uppercase">
-            {caption.join(' · ')}
-            {item.year ? ` · ${item.year}` : ''}
-          </p>
-        ) : null}
+        <p className="font-heading mt-2 min-h-4 truncate text-[10px] tracking-[0.14em] text-muted uppercase">
+          {captionLine || '\u00a0'}
+        </p>
       </button>
     </li>
   )

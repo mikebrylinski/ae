@@ -75,7 +75,7 @@ export function FeaturedProjects() {
                 className="card-lift group block focus-visible:outline-none"
               >
                 <div className="glass-card card-lift__frame relative flex flex-col overflow-hidden bg-black transition-[transform,box-shadow,border-color] duration-700 ease-out group-hover:-translate-y-1.5 group-hover:border-primary/35 group-hover:shadow-[0_0_36px_rgba(184,255,0,0.1)]">
-                  <div className="relative z-[1] aspect-[3/4] w-full overflow-hidden bg-black">
+                  <div className="relative z-[1] h-48 w-full overflow-hidden bg-black sm:h-56 lg:h-60">
                     {project.cardImage ? (
                       <img
                         src={project.cardImage}

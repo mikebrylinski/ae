@@ -10,7 +10,9 @@ import {
   localizeCategory,
   localizePressType,
   localizeProject,
+  mergeProjectGallerySources,
   pressAnchorProps,
+  type ProjectGallerySource,
 } from '@/lib/content'
 import { interpolate } from '@/i18n/ui'
 import { Container } from '@/components/ui/Container'
@@ -27,6 +29,7 @@ import { useSeo } from '@/hooks/useSeo'
 import { cn } from '@/lib/utils'
 import { PortfolioAurora } from '@/components/ui/PortfolioAurora'
 import { useLanguage } from '@/i18n/LanguageProvider'
+import { useLiveGallery } from '@/hooks/useLiveGallery'
 
 const CARD_IMAGE_FOCUS: Record<string, string> = {
   'maroon-5': 'object-[center_58%]',
@@ -38,10 +41,10 @@ function ProjectGallery({
   sources,
 }: {
   artist: string
-  sources: string[]
+  sources: ProjectGallerySource[]
 }) {
   const { t } = useLanguage()
-  const [visible, setVisible] = useState<string[]>([])
+  const [visible, setVisible] = useState<ProjectGallerySource[]>([])
   const [ready, setReady] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
@@ -57,17 +60,17 @@ function ProjectGallery({
     setReady(false)
     Promise.all(
       sources.map(
-        (src) =>
-          new Promise<string | null>((resolve) => {
+        (item) =>
+          new Promise<ProjectGallerySource | null>((resolve) => {
             const img = new Image()
-            img.onload = () => resolve(src)
+            img.onload = () => resolve(item)
             img.onerror = () => resolve(null)
-            img.src = src
+            img.src = item.src
           }),
       ),
     ).then((results) => {
       if (cancelled) return
-      setVisible(results.filter((src): src is string => Boolean(src)))
+      setVisible(results.filter((item): item is ProjectGallerySource => Boolean(item)))
       setReady(true)
     })
 
@@ -78,9 +81,10 @@ function ProjectGallery({
 
   const lightboxItems = useMemo<GalleryLightboxItem[]>(
     () =>
-      visible.map((src, i) => ({
-        src,
-        alt: interpolate(t.project.galleryAlt, { artist, n: i + 1 }),
+      visible.map((item, i) => ({
+        src: item.src,
+        alt: item.alt || interpolate(t.project.galleryAlt, { artist, n: i + 1 }),
+        caption: item.caption || item.alt,
       })),
     [artist, t, visible],
   )
@@ -93,8 +97,8 @@ function ProjectGallery({
         {t.project.gallery}
       </h2>
       <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {visible.map((src, i) => (
-          <li key={src} className="min-w-0">
+        {visible.map((item, i) => (
+          <li key={item.src} className="min-w-0">
             <button
               type="button"
               className="group w-full max-w-full cursor-pointer rounded-[1rem] text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
@@ -112,8 +116,8 @@ function ProjectGallery({
                 )}
               >
                 <img
-                  src={src}
-                  alt={interpolate(t.project.galleryAlt, { artist, n: i + 1 })}
+                  src={item.src}
+                  alt={item.alt || interpolate(t.project.galleryAlt, { artist, n: i + 1 })}
                   className="h-full w-full object-cover"
                   loading="lazy"
                   decoding="async"
@@ -137,6 +141,7 @@ function ProjectGallery({
 export default function ProjectDetailPage() {
   const { slug = '' } = useParams()
   const { lang, t } = useLanguage()
+  const galleryItems = useLiveGallery()
   const projectRaw = getProjectBySlug(slug)
   const project = projectRaw ? localizeProject(projectRaw, lang) : undefined
 
@@ -157,6 +162,11 @@ export default function ProjectDetailPage() {
   const venueChips = getChartVenueChips(project.category)
   const pressItems = getPressForProject(project.slug)
   const artistIntro = getArtistIntro(project.slug, lang)
+  const gallerySources = mergeProjectGallerySources(
+    project.gallery,
+    project.artist,
+    galleryItems,
+  )
 
   return (
     <>
@@ -360,7 +370,7 @@ export default function ProjectDetailPage() {
             </aside>
           </div>
 
-          <ProjectGallery artist={project.artist} sources={project.gallery} />
+          <ProjectGallery artist={project.artist} sources={gallerySources} />
 
           {pressItems.length > 0 ? (
             <div className="mt-14 min-w-0 sm:mt-16">

@@ -97,9 +97,12 @@ export interface ExperienceData {
 }
 
 export interface GalleryItem {
-  id: string
+  /** Stable internal photo number (1, 2, 3…). Not shown on the public gallery. */
+  id: number
   src: string
   alt: string
+  /** Short line shown under the photo in the lightbox. */
+  caption?: string
   /** Scene grouping used by teasers and fallback filters. */
   category: string
   /** Filterable meta tags: venue, artist, year, crew / console, etc. */
