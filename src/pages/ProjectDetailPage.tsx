@@ -33,7 +33,6 @@ import { useLiveGallery } from '@/hooks/useLiveGallery'
 import {
   parseCreditsPage,
   parseCreditsRole,
-  persistCreditsView,
   portfolioCreditsLocation,
   readStoredCreditsView,
   type CreditsView,

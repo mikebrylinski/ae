@@ -4,6 +4,8 @@ export const CREDITS_PAGE_PARAM = 'creditsPage'
 export const CREDITS_ROLE_PARAM = 'creditsRole'
 export const CAREER_CREDITS_HASH = 'career-credits'
 
+const STORAGE_KEY = 'ae:credits-timeline-view'
+
 export const LIST_BACK_SOURCE_KEY = 'ae:list-back-source'
 export type ListBackSource = 'credits' | 'press'
 
