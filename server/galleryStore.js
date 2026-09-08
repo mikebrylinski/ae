@@ -178,30 +178,35 @@ export function decodeImageData(data) {
 }
 
 export async function readGalleryFromBlob(env) {
-  const { list } = await import('@vercel/blob')
-  const { blobs } = await list({
-    prefix: GALLERY_BLOB_PATH,
-    limit: 20,
-    ...blobClientOptions(env),
-  })
-  const match = blobs.find((blob) => blob.pathname === GALLERY_BLOB_PATH)
-  if (!match) return null
-  const res = await fetch(match.url)
-  if (!res.ok) return null
-  const payload = await res.json()
-  return sanitizeGalleryItems(payload.items ?? payload)
+  const blob = await import('@vercel/blob')
+  const auth = blobClientOptions(env)
+  try {
+    const meta = await blob.head(GALLERY_BLOB_PATH, auth)
+    const res = await fetch(meta.url, { cache: 'no-store' })
+    if (!res.ok) return null
+    const payload = await res.json()
+    return sanitizeGalleryItems(payload.items ?? payload)
+  } catch (err) {
+    const name = err && typeof err === 'object' && 'name' in err ? String(err.name) : ''
+    if (name === 'BlobNotFoundError') return null
+    throw err
+  }
 }
 
 export async function writeGalleryToBlob(items, env) {
   const { put } = await import('@vercel/blob')
-  await put(GALLERY_BLOB_PATH, `${JSON.stringify({ items }, null, 2)}\n`, {
-    access: 'public',
-    addRandomSuffix: false,
-    allowOverwrite: true,
-    contentType: 'application/json',
-    cacheControlMaxAge: 60,
-    ...blobClientOptions(env),
-  })
+  await put(
+    GALLERY_BLOB_PATH,
+    `${JSON.stringify({ items, updatedAt: Date.now() }, null, 2)}\n`,
+    {
+      access: 'public',
+      addRandomSuffix: false,
+      allowOverwrite: true,
+      contentType: 'application/json',
+      cacheControlMaxAge: 0,
+      ...blobClientOptions(env),
+    },
+  )
 }
 
 function safeFilename(name) {

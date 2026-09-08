@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ ok: false, error: 'Method not allowed' })
   }
 
-  res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300')
+  res.setHeader('Cache-Control', 'private, no-store, max-age=0, must-revalidate')
 
   const runtimeEnv = env()
   if (!blobConfiguredFromEnv(runtimeEnv)) {

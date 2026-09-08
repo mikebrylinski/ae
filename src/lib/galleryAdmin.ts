@@ -9,12 +9,19 @@ export function bundledGallery(): GalleryItem[] {
   return structuredClone(galleryData as GalleryItem[])
 }
 
+export function galleryOrderKey(items: GalleryItem[]): string {
+  return items.map((item) => item.id).join(',')
+}
+
 export function nextGalleryId(items: GalleryItem[]): number {
   return items.reduce((max, item) => Math.max(max, item.id), 0) + 1
 }
 
 export function persistGalleryLocal(items: GalleryItem[]) {
-  localStorage.setItem(GALLERY_STORAGE_KEY, JSON.stringify({ items }))
+  localStorage.setItem(
+    GALLERY_STORAGE_KEY,
+    JSON.stringify({ items, updatedAt: Date.now() }),
+  )
   window.dispatchEvent(new Event(GALLERY_UPDATED_EVENT))
 }
 
@@ -56,7 +63,7 @@ export function galleryForJson(items: GalleryItem[]): GalleryItem[] {
 
 export async function fetchRemoteGallery(): Promise<GalleryItem[] | null> {
   try {
-    const res = await fetch('/api/gallery', { cache: 'no-store' })
+    const res = await fetch(`/api/gallery?t=${Date.now()}`, { cache: 'no-store' })
     if (!res.ok) return null
     const data = (await res.json()) as { items?: GalleryItem[] | null }
     if (!Array.isArray(data.items)) return null

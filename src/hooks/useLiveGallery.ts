@@ -3,15 +3,10 @@ import type { GalleryItem } from '@/types'
 import {
   bundledGallery,
   fetchRemoteGallery,
-  GALLERY_STORAGE_KEY,
-  GALLERY_UPDATED_EVENT,
-  loadStoredGallery,
 } from '@/lib/galleryAdmin'
 
 export function useLiveGallery(): GalleryItem[] {
-  const [items, setItems] = useState<GalleryItem[]>(
-    () => loadStoredGallery() ?? bundledGallery(),
-  )
+  const [items, setItems] = useState<GalleryItem[]>(() => bundledGallery())
 
   useEffect(() => {
     let cancelled = false
@@ -19,31 +14,14 @@ export function useLiveGallery(): GalleryItem[] {
     async function hydrate() {
       const remote = await fetchRemoteGallery()
       if (cancelled) return
-      const stored = loadStoredGallery()
-      if (stored) {
-        setItems(stored)
-        return
-      }
-      if (remote) setItems(remote)
+      // Live gallery always follows the published Blob list, never browser
+      // leftovers from /admin. Fall back to the bundled JSON only if Blob is empty.
+      if (remote && remote.length > 0) setItems(remote)
     }
 
     void hydrate()
-
-    function applyStored() {
-      const stored = loadStoredGallery()
-      if (stored) setItems(stored)
-    }
-
-    function onStorage(event: StorageEvent) {
-      if (event.key === GALLERY_STORAGE_KEY) applyStored()
-    }
-
-    window.addEventListener(GALLERY_UPDATED_EVENT, applyStored)
-    window.addEventListener('storage', onStorage)
     return () => {
       cancelled = true
-      window.removeEventListener(GALLERY_UPDATED_EVENT, applyStored)
-      window.removeEventListener('storage', onStorage)
     }
   }, [])
 

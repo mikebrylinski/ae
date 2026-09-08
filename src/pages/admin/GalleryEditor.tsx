@@ -101,6 +101,7 @@ export function GalleryEditor() {
   const dragPointRef = useRef<{ x: number; y: number } | null>(null)
   const rowsRef = useRef(rows)
   const skipClickRef = useRef(false)
+  const liveSyncTimer = useRef<number | null>(null)
   rowsRef.current = rows
 
   useEffect(() => {
@@ -129,15 +130,39 @@ export function GalleryEditor() {
   useEffect(() => {
     let cancelled = false
     async function hydrate() {
-      if (loadStoredGallery()) return
+      const local = loadStoredGallery()
       const remote = await fetchRemoteGallery()
-      if (!cancelled && remote) setRows(remote)
+      if (cancelled) return
+
+      if (local && local.length > 0) {
+        setRows(local)
+        const password = adminPassword()
+        if (password) {
+          await saveGalleryRemote(local, password)
+        }
+        return
+      }
+
+      if (remote && remote.length > 0) {
+        setRows(remote)
+        persistGalleryLocal(remote)
+      }
     }
     void hydrate()
     return () => {
       cancelled = true
+      if (liveSyncTimer.current) window.clearTimeout(liveSyncTimer.current)
     }
   }, [])
+
+  function scheduleLiveSync(items: GalleryItem[]) {
+    if (liveSyncTimer.current) window.clearTimeout(liveSyncTimer.current)
+    liveSyncTimer.current = window.setTimeout(() => {
+      const password = adminPassword()
+      if (!password) return
+      void saveGalleryRemote(items, password)
+    }, 1200)
+  }
 
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -166,17 +191,20 @@ export function GalleryEditor() {
   }, [expandedId])
 
   function updateRow(id: number, patch: Partial<GalleryItem>) {
-    setRows((current) =>
-      current.map((row) => {
+    setRows((current) => {
+      const next = current.map((row) => {
         if (row.id !== id) return row
-        const next = { ...row, ...patch }
+        const updated = { ...row, ...patch }
         if (patch.tags || 'year' in patch) {
-          next.tags = galleryWithSyncedYear(next.tags, next.year)
-          next.category = galleryCategoryFromTags(next.tags)
+          updated.tags = galleryWithSyncedYear(updated.tags, updated.year)
+          updated.category = galleryCategoryFromTags(updated.tags)
         }
-        return next
-      }),
-    )
+        return updated
+      })
+      persistGalleryLocal(next)
+      scheduleLiveSync(next)
+      return next
+    })
   }
 
   function toggleScene(id: number, tag: string) {
@@ -243,6 +271,7 @@ export function GalleryEditor() {
     const next = rows.filter((item) => !ids.has(item.id))
     setRows(next)
     persistGalleryLocal(next)
+    scheduleLiveSync(next)
     setSelectedIds((current) => current.filter((id) => !ids.has(id)))
     setExpandedId((current) => (current != null && ids.has(current) ? null : current))
     setPendingDeleteIds(null)
@@ -277,6 +306,7 @@ export function GalleryEditor() {
     next.splice(clamped, 0, item)
     setRows(next)
     persistGalleryLocal(next)
+    scheduleLiveSync(next)
     if (!query.trim()) {
       setPage(Math.floor(Math.max(0, clamped) / PAGE_SIZE) + 1)
     }
@@ -297,6 +327,7 @@ export function GalleryEditor() {
     next.splice(to, 0, item)
     setRows(next)
     persistGalleryLocal(next)
+    scheduleLiveSync(next)
     if (!query.trim()) {
       setPage(Math.floor(Math.max(0, to) / PAGE_SIZE) + 1)
     }
@@ -407,12 +438,11 @@ export function GalleryEditor() {
     moveRowToInsert(fromId, insertIndex)
   }
 
-  function withCaptionFromAlt(items: GalleryItem[]) {
-    return items.map((item) => ({ ...item, caption: item.alt }))
-  }
-
   async function handleSave(fromOverlay = false) {
-    const next = withCaptionFromAlt(rows)
+    const next = rows.map((item) => {
+      const text = item.caption?.trim() || item.alt.trim()
+      return { ...item, alt: text, caption: text }
+    })
     setRows(next)
     setSaveSource(fromOverlay ? 'overlay' : 'header')
     setSaving(true)
@@ -512,6 +542,7 @@ export function GalleryEditor() {
         setRows((current) => {
           const next = [...added, ...current]
           persistGalleryLocal(next)
+          scheduleLiveSync(next)
           return next
         })
         setPage(1)
