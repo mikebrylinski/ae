@@ -15,6 +15,7 @@ import {
   type ProjectGallerySource,
 } from '@/lib/content'
 import { interpolate } from '@/i18n/ui'
+import { galleryPhotoPath } from '@/lib/share'
 import { Container } from '@/components/ui/Container'
 import { Badge } from '@/components/ui/Badge'
 import { GlassCard } from '@/components/ui/GlassCard'
@@ -92,6 +93,7 @@ function ProjectGallery({
         src: item.src,
         alt: item.alt || interpolate(t.project.galleryAlt, { artist, n: i + 1 }),
         caption: item.caption || item.alt,
+        sharePath: item.id != null ? galleryPhotoPath(item.id) : undefined,
       })),
     [artist, t, visible],
   )
@@ -103,12 +105,16 @@ function ProjectGallery({
       <h2 className="font-heading mb-6 text-sm tracking-[0.16em] text-primary">
         {t.project.gallery}
       </h2>
-      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {visible.map((item, i) => (
+      <ul className="grid grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {visible.map((item, i) => {
+          const alt =
+            item.alt || interpolate(t.project.galleryAlt, { artist, n: i + 1 })
+          const caption = (item.caption || alt).trim()
+          return (
           <li key={item.src} className="min-w-0">
             <button
               type="button"
-              className="group w-full max-w-full cursor-pointer rounded-[1rem] text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              className="group relative w-full max-w-full cursor-pointer rounded-[1rem] text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               onClick={() => setLightboxIndex(i)}
               aria-label={interpolate(t.a11y.viewProjectGallery, {
                 artist,
@@ -124,15 +130,21 @@ function ProjectGallery({
               >
                 <img
                   src={item.src}
-                  alt={item.alt || interpolate(t.project.galleryAlt, { artist, n: i + 1 })}
+                  alt={alt}
                   className="h-full w-full object-cover"
                   loading="lazy"
                   decoding="async"
                 />
+                {caption ? (
+                  <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-black px-3 py-2 text-center font-heading text-[11px] leading-snug tracking-[0.04em] text-white">
+                    <span className="line-clamp-2">{caption}</span>
+                  </span>
+                ) : null}
               </div>
             </button>
           </li>
-        ))}
+          )
+        })}
       </ul>
 
       <GalleryLightbox
@@ -487,20 +499,6 @@ export default function ProjectDetailPage() {
                   </li>
                 ))}
               </ul>
-            </div>
-          ) : null}
-
-          {project.slug === 'alanis-morissette' ? (
-            <div className="mt-16 overflow-hidden rounded-[1rem] sm:mt-20">
-              <MediaImage
-                src="/images/projects/alanis-stage.jpg"
-                alt={interpolate(t.project.stageAlt, { artist: project.artist })}
-                fit="contain"
-                aspect="aspect-[500/752]"
-                wrapperClassName="mx-auto w-full max-w-md rounded-none border-0 bg-black"
-                className="object-contain object-center"
-                fallbackLabel={project.artist}
-              />
             </div>
           ) : null}
         </Container>

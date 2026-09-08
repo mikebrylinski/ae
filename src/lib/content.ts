@@ -336,6 +336,7 @@ export type ProjectGallerySource = {
   src: string
   alt?: string
   caption?: string
+  id?: number
 }
 
 /** Tagged gallery photos for an artist, then any extra URLs from the project file. */
@@ -346,11 +347,13 @@ export function mergeProjectGallerySources(
 ): ProjectGallerySource[] {
   const seen = new Set<string>()
   const out: ProjectGallerySource[] = []
+  const bySrc = new Map(items.map((item) => [item.src, item]))
 
   for (const item of items) {
     if (!galleryItemMatchesArtist(item, artist) || seen.has(item.src)) continue
     seen.add(item.src)
     out.push({
+      id: item.id,
       src: item.src,
       alt: item.alt,
       caption: item.caption || item.alt,
@@ -360,7 +363,13 @@ export function mergeProjectGallerySources(
   for (const src of projectGallery) {
     if (seen.has(src)) continue
     seen.add(src)
-    out.push({ src })
+    const match = bySrc.get(src)
+    out.push({
+      id: match?.id,
+      src,
+      alt: match?.alt,
+      caption: match?.caption || match?.alt,
+    })
   }
 
   return out

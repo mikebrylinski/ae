@@ -302,7 +302,6 @@ const en = {
     artistIntro: 'The Artist',
     wikiSource: 'Source',
     galleryAlt: '{artist} gallery image {n}',
-    stageAlt: '{artist} on stage',
   },
   downloads: {
     seoTitle: 'Downloads',
@@ -721,7 +720,6 @@ const de = {
     artistIntro: 'Der Artist',
     wikiSource: 'Quelle',
     galleryAlt: '{artist}-Galeriebild {n}',
-    stageAlt: '{artist} auf der Bühne',
   },
   downloads: {
     seoTitle: 'Downloads',

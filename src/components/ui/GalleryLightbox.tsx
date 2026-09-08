@@ -11,10 +11,12 @@ import {
 import { cn } from '@/lib/utils'
 import { shareOrCopyUrl } from '@/lib/share'
 import { getLenis } from '@/hooks/useLenis'
+import {
+  GALLERY_MAX_ZOOM,
+  GALLERY_MIN_ZOOM,
+  useGalleryZoom,
+} from '@/hooks/useGalleryZoom'
 import { useLanguage } from '@/i18n/LanguageProvider'
-
-const MIN_ZOOM = 1
-const MAX_ZOOM = 4
 
 export type GalleryLightboxItem = {
   src: string
@@ -30,11 +32,11 @@ interface GalleryLightboxProps {
   onIndexChange: (index: number) => void
 }
 
-function muteMouseFocus(event: React.MouseEvent) {
+export function muteMouseFocus(event: React.MouseEvent) {
   event.preventDefault()
 }
 
-const chromeBtn =
+export const galleryChromeBtn =
   'inline-flex h-11 w-11 items-center justify-center rounded-[1rem] border border-primary bg-black/80 text-primary transition-colors hover:bg-primary hover:text-primary-foreground disabled:pointer-events-none disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'
 
 export function GalleryLightbox({
@@ -49,69 +51,27 @@ export function GalleryLightbox({
   const item = open ? items[activeIndex] : null
   const titleId = useId()
   const closeRef = useRef<HTMLButtonElement>(null)
-  const stageRef = useRef<HTMLDivElement>(null)
   const previouslyFocused = useRef<HTMLElement | null>(null)
   const activeIndexRef = useRef(activeIndex)
   const itemsLengthRef = useRef(items.length)
-  const transformRef = useRef({ scale: 1, x: 0, y: 0 })
-  const pointersRef = useRef(new Map<number, { x: number; y: number }>())
-  const pinchRef = useRef<{ dist: number; scale: number } | null>(null)
-  const dragRef = useRef<{ x: number; y: number; panX: number; panY: number } | null>(
-    null,
-  )
-  const movedRef = useRef(0)
   const [copied, setCopied] = useState(false)
-  const [scale, setScale] = useState(1)
-  const [pan, setPan] = useState({ x: 0, y: 0 })
+  const {
+    stageRef,
+    scale,
+    pan,
+    zoomed,
+    zoomBy,
+    transformRef,
+    onPointerDown,
+    onPointerMove,
+    onPointerUp,
+  } = useGalleryZoom(item?.src ?? '')
 
   activeIndexRef.current = activeIndex
   itemsLengthRef.current = items.length
 
-  function commit(next: { scale: number; x: number; y: number }) {
-    const nextScale = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, next.scale))
-    const x = nextScale <= MIN_ZOOM ? 0 : next.x
-    const y = nextScale <= MIN_ZOOM ? 0 : next.y
-    transformRef.current = { scale: nextScale, x, y }
-    setScale(nextScale)
-    setPan({ x, y })
-  }
-
-  function zoomToward(nextScale: number, clientX: number, clientY: number) {
-    const stage = stageRef.current
-    const current = transformRef.current
-    const target = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, nextScale))
-    if (!stage) {
-      commit({ scale: target, x: 0, y: 0 })
-      return
-    }
-    const rect = stage.getBoundingClientRect()
-    const px = clientX - rect.left - rect.width / 2
-    const py = clientY - rect.top - rect.height / 2
-    const k = target / current.scale
-    commit({
-      scale: target,
-      x: px - k * (px - current.x),
-      y: py - k * (py - current.y),
-    })
-  }
-
-  function zoomBy(factor: number) {
-    const stage = stageRef.current
-    if (!stage) {
-      commit({ scale: transformRef.current.scale * factor, x: 0, y: 0 })
-      return
-    }
-    const rect = stage.getBoundingClientRect()
-    zoomToward(
-      transformRef.current.scale * factor,
-      rect.left + rect.width / 2,
-      rect.top + rect.height / 2,
-    )
-  }
-
   useEffect(() => {
     setCopied(false)
-    commit({ scale: 1, x: 0, y: 0 })
   }, [activeIndex, open])
 
   useEffect(() => {
@@ -134,23 +94,6 @@ export function GalleryLightbox({
       previouslyFocused.current?.focus()
     }
   }, [open])
-
-  useEffect(() => {
-    if (!open) return
-    const stage = stageRef.current
-    if (!stage) return
-
-    const onWheel = (event: WheelEvent) => {
-      if (transformRef.current.scale <= MIN_ZOOM) return
-      event.preventDefault()
-      event.stopPropagation()
-      const factor = event.deltaY > 0 ? 0.8 : 1.35
-      zoomToward(transformRef.current.scale * factor, event.clientX, event.clientY)
-    }
-
-    stage.addEventListener('wheel', onWheel, { passive: false })
-    return () => stage.removeEventListener('wheel', onWheel)
-  }, [open, item?.src])
 
   useEffect(() => {
     if (!open) return
@@ -189,14 +132,13 @@ export function GalleryLightbox({
 
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [open, onClose, onIndexChange])
+  }, [open, onClose, onIndexChange, transformRef, zoomBy])
 
   if (!open || !item) return null
 
   const showNav = items.length > 1
   const sharePath = item.sharePath
   const caption = (item.caption || item.alt).trim()
-  const zoomed = scale > 1.02
 
   async function share() {
     if (!sharePath) return
@@ -209,70 +151,6 @@ export function GalleryLightbox({
     } catch {
       /* share cancelled or clipboard blocked */
     }
-  }
-
-  function onPointerDown(event: React.PointerEvent<HTMLDivElement>) {
-    event.preventDefault()
-    window.getSelection()?.removeAllRanges()
-    if (document.activeElement instanceof HTMLElement) {
-      document.activeElement.blur()
-    }
-    event.currentTarget.setPointerCapture(event.pointerId)
-    movedRef.current = 0
-    pointersRef.current.set(event.pointerId, {
-      x: event.clientX,
-      y: event.clientY,
-    })
-    const points = [...pointersRef.current.values()]
-    if (points.length === 2) {
-      dragRef.current = null
-      pinchRef.current = {
-        dist: Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y),
-        scale: transformRef.current.scale,
-      }
-      return
-    }
-    dragRef.current = {
-      x: event.clientX,
-      y: event.clientY,
-      panX: transformRef.current.x,
-      panY: transformRef.current.y,
-    }
-  }
-
-  function onPointerMove(event: React.PointerEvent<HTMLDivElement>) {
-    if (!pointersRef.current.has(event.pointerId)) return
-    pointersRef.current.set(event.pointerId, {
-      x: event.clientX,
-      y: event.clientY,
-    })
-    const points = [...pointersRef.current.values()]
-    if (points.length >= 2 && pinchRef.current) {
-      if (pinchRef.current.scale <= MIN_ZOOM) return
-      const dist = Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y)
-      const midX = (points[0].x + points[1].x) / 2
-      const midY = (points[0].y + points[1].y) / 2
-      const next = pinchRef.current.scale * (dist / Math.max(pinchRef.current.dist, 1))
-      zoomToward(next, midX, midY)
-      return
-    }
-    const drag = dragRef.current
-    if (!drag) return
-    const dx = event.clientX - drag.x
-    const dy = event.clientY - drag.y
-    movedRef.current = Math.max(movedRef.current, Math.hypot(dx, dy))
-    if (transformRef.current.scale <= 1 || movedRef.current < 8) return
-    commit({
-      scale: transformRef.current.scale,
-      x: drag.panX + dx,
-      y: drag.panY + dy,
-    })
-  }
-
-  function onPointerUp(event: React.PointerEvent<HTMLDivElement>) {
-    pointersRef.current.delete(event.pointerId)
-    if (pointersRef.current.size < 2) pinchRef.current = null
-    if (pointersRef.current.size === 0) dragRef.current = null
   }
 
   return createPortal(
@@ -327,20 +205,20 @@ export function GalleryLightbox({
             <div className="absolute top-3 right-3 z-10 flex gap-2">
               <button
                 type="button"
-                className={chromeBtn}
+                className={galleryChromeBtn}
                 onMouseDown={muteMouseFocus}
                 onClick={() => zoomBy(0.5)}
-                disabled={scale <= MIN_ZOOM}
+                disabled={scale <= GALLERY_MIN_ZOOM}
                 aria-label={t.a11y.zoomOut}
               >
                 <ZoomOut className="h-5 w-5" aria-hidden />
               </button>
               <button
                 type="button"
-                className={chromeBtn}
+                className={galleryChromeBtn}
                 onMouseDown={muteMouseFocus}
                 onClick={() => zoomBy(2)}
-                disabled={scale >= MAX_ZOOM}
+                disabled={scale >= GALLERY_MAX_ZOOM}
                 aria-label={t.a11y.zoomIn}
               >
                 <ZoomIn className="h-5 w-5" aria-hidden />
@@ -350,7 +228,7 @@ export function GalleryLightbox({
                   type="button"
                   onMouseDown={muteMouseFocus}
                   onClick={() => void share()}
-                  className={cn(chromeBtn, 'w-auto min-w-[7.5rem] gap-2 px-3')}
+                  className={cn(galleryChromeBtn, 'w-auto min-w-[7.5rem] gap-2 px-3')}
                   aria-label={copied ? t.galleryPage.copied : t.a11y.sharePhoto}
                 >
                   <Share2 className="h-5 w-5 shrink-0" aria-hidden />
@@ -364,7 +242,7 @@ export function GalleryLightbox({
                 type="button"
                 onMouseDown={muteMouseFocus}
                 onClick={onClose}
-                className={chromeBtn}
+                className={galleryChromeBtn}
                 aria-label={t.a11y.closeLightbox}
               >
                 <X className="h-5 w-5" aria-hidden />
@@ -380,7 +258,7 @@ export function GalleryLightbox({
                     onIndexChange((activeIndex - 1 + items.length) % items.length)
                   }
                   className={cn(
-                    chromeBtn,
+                    galleryChromeBtn,
                     'absolute top-1/2 left-2 z-10 -translate-y-1/2 sm:left-3',
                   )}
                   aria-label={t.a11y.prevImage}
@@ -392,7 +270,7 @@ export function GalleryLightbox({
                   onMouseDown={muteMouseFocus}
                   onClick={() => onIndexChange((activeIndex + 1) % items.length)}
                   className={cn(
-                    chromeBtn,
+                    galleryChromeBtn,
                     'absolute top-1/2 right-2 z-10 -translate-y-1/2 sm:right-3',
                   )}
                   aria-label={t.a11y.nextImage}

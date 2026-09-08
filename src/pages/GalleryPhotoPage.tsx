@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Share2, X } from 'lucide-react'
+import { Share2, X, ZoomIn, ZoomOut } from 'lucide-react'
 import { localizeCategory } from '@/lib/content'
 import { galleryPhotoUrl, shareOrCopyUrl } from '@/lib/share'
 import { interpolate } from '@/i18n/ui'
@@ -8,13 +8,19 @@ import { Container } from '@/components/ui/Container'
 import { Badge } from '@/components/ui/Badge'
 import { CTABanner } from '@/components/sections/CTABanner'
 import { LoadingMeter } from '@/components/ui/LoadingMeter'
+import {
+  galleryChromeBtn,
+  muteMouseFocus,
+} from '@/components/ui/GalleryLightbox'
+import {
+  GALLERY_MAX_ZOOM,
+  GALLERY_MIN_ZOOM,
+  useGalleryZoom,
+} from '@/hooks/useGalleryZoom'
 import { useLiveGalleryState } from '@/hooks/useLiveGallery'
 import { useSeo } from '@/hooks/useSeo'
 import { useLanguage } from '@/i18n/LanguageProvider'
 import { cn } from '@/lib/utils'
-
-const chromeBtn =
-  'inline-flex h-11 w-11 items-center justify-center rounded-[1rem] border border-primary bg-black/80 text-primary transition-colors hover:bg-primary hover:text-primary-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'
 
 export default function GalleryPhotoPage() {
   const { id } = useParams()
@@ -27,6 +33,17 @@ export default function GalleryPhotoPage() {
     () => items.find((photo) => photo.id === photoId) ?? null,
     [items, photoId],
   )
+
+  const {
+    stageRef,
+    scale,
+    pan,
+    zoomed,
+    zoomBy,
+    onPointerDown,
+    onPointerMove,
+    onPointerUp,
+  } = useGalleryZoom(item?.src ?? '')
 
   const caption = (item?.caption || item?.alt || '').trim()
   useSeo({
@@ -47,6 +64,20 @@ export default function GalleryPhotoPage() {
       /* share cancelled or clipboard blocked */
     }
   }
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === '+' || event.key === '=') {
+        event.preventDefault()
+        zoomBy(2)
+      } else if (event.key === '-' || event.key === '_') {
+        event.preventDefault()
+        zoomBy(0.5)
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [zoomBy])
 
   if (!ready) {
     return (
@@ -88,19 +119,56 @@ export default function GalleryPhotoPage() {
       <section className="flex min-h-[70vh] items-center justify-center bg-black/92 px-4 py-8 sm:px-8">
         <div className="relative mx-auto flex w-fit max-w-full flex-col overflow-hidden rounded-[1rem] border border-border bg-black">
           <div className="relative">
-            <img
-              src={item.src}
-              alt={item.alt}
-              width={item.width}
-              height={item.height}
-              className="block h-auto max-h-[min(78vh,860px)] w-auto max-w-[min(100vw-2rem,72rem)] object-contain"
-              decoding="async"
-            />
+            <div
+              ref={stageRef}
+              className={cn(
+                'relative touch-none overflow-hidden outline-none select-none',
+                zoomed ? 'cursor-grab active:cursor-grabbing' : 'cursor-default',
+              )}
+              onPointerDown={onPointerDown}
+              onPointerMove={onPointerMove}
+              onPointerUp={onPointerUp}
+              onPointerCancel={onPointerUp}
+            >
+              <img
+                src={item.src}
+                alt={item.alt}
+                width={item.width}
+                height={item.height}
+                className="pointer-events-none block h-auto max-h-[min(78vh,860px)] w-auto max-w-[min(100vw-2rem,72rem)] origin-center object-contain select-none [-webkit-user-drag:none] will-change-transform"
+                style={{
+                  transform: `translate3d(${pan.x}px, ${pan.y}px, 0) scale(${scale})`,
+                }}
+                draggable={false}
+                decoding="async"
+              />
+            </div>
             <div className="absolute top-3 right-3 z-10 flex gap-2">
               <button
                 type="button"
+                className={galleryChromeBtn}
+                onMouseDown={muteMouseFocus}
+                onClick={() => zoomBy(0.5)}
+                disabled={scale <= GALLERY_MIN_ZOOM}
+                aria-label={t.a11y.zoomOut}
+              >
+                <ZoomOut className="h-5 w-5" aria-hidden />
+              </button>
+              <button
+                type="button"
+                className={galleryChromeBtn}
+                onMouseDown={muteMouseFocus}
+                onClick={() => zoomBy(2)}
+                disabled={scale >= GALLERY_MAX_ZOOM}
+                aria-label={t.a11y.zoomIn}
+              >
+                <ZoomIn className="h-5 w-5" aria-hidden />
+              </button>
+              <button
+                type="button"
+                onMouseDown={muteMouseFocus}
                 onClick={() => void share()}
-                className={cn(chromeBtn, 'w-auto min-w-[7.5rem] gap-2 px-3')}
+                className={cn(galleryChromeBtn, 'w-auto min-w-[7.5rem] gap-2 px-3')}
                 aria-label={copied ? t.galleryPage.copied : t.a11y.sharePhoto}
               >
                 <Share2 className="h-5 w-5 shrink-0" aria-hidden />
@@ -110,8 +178,9 @@ export default function GalleryPhotoPage() {
               </button>
               <Link
                 to="/gallery"
-                className={chromeBtn}
+                className={galleryChromeBtn}
                 aria-label={t.galleryPage.backToGallery}
+                onMouseDown={muteMouseFocus}
               >
                 <X className="h-5 w-5" aria-hidden />
               </Link>

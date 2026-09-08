@@ -454,22 +454,24 @@ function GalleryTile({
         onClick={onOpen}
         aria-label={item.alt}
       >
-        <MediaImage
-          src={item.src}
-          alt={item.alt}
-          aspect="aspect-[4/3]"
-          width={item.width}
-          height={item.height}
-          decoding="async"
-          loading={eager ? 'eager' : 'lazy'}
-          fallbackLabel={item.category}
-          wrapperClassName="rounded-[1rem] border border-border transition-[border-color,box-shadow] duration-500 group-hover:border-primary/40 group-hover:shadow-[0_0_24px_rgba(184,255,0,0.06)]"
-        />
-        {caption ? (
-          <span className="pointer-events-none absolute inset-x-px bottom-px rounded-b-[calc(1rem-1px)] bg-black px-3 py-2 text-center font-heading text-[11px] leading-snug tracking-[0.04em] text-white">
-            <span className="line-clamp-2">{caption}</span>
-          </span>
-        ) : null}
+        <span className="relative block overflow-hidden rounded-[1rem] border border-border bg-black transition-[border-color,box-shadow] duration-500 group-hover:border-primary/40 group-hover:shadow-[0_0_24px_rgba(184,255,0,0.06)]">
+          <MediaImage
+            src={item.src}
+            alt={item.alt}
+            aspect="aspect-[4/3]"
+            width={item.width}
+            height={item.height}
+            decoding="async"
+            loading={eager ? 'eager' : 'lazy'}
+            fallbackLabel={item.category}
+            wrapperClassName="border-0 bg-black"
+          />
+          {caption ? (
+            <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-black px-3 py-2 text-center font-heading text-[11px] leading-snug tracking-[0.04em] text-white">
+              <span className="line-clamp-2">{caption}</span>
+            </span>
+          ) : null}
+        </span>
       </button>
       {tags.length > 0 ? (
         <ul className="mt-1.5 flex flex-wrap justify-center gap-1">
