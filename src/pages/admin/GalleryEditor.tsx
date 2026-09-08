@@ -7,6 +7,7 @@ import {
   bundledGallery,
   fetchRemoteGallery,
   loadStoredGallery,
+  loadStoredExtraTags,
   persistGalleryLocal,
   saveGalleryRemote,
   nextGalleryId,
@@ -20,8 +21,10 @@ import {
   galleryCustomTags,
   galleryWithSyncedYear,
   getGalleryArtistTags,
+  sanitizeGalleryExtraTags,
 } from '@/lib/content'
 import { resizeImageFile } from '@/lib/resizeImage'
+import { clampGalleryFocal, galleryObjectPosition } from '@/lib/galleryFocal'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { GalleryPager, GALLERY_PAGE_SIZE } from '@/components/ui/GalleryPager'
@@ -71,6 +74,7 @@ export function GalleryEditor() {
   const [rows, setRows] = useState<GalleryItem[]>(
     () => loadStoredGallery() ?? bundledGallery(),
   )
+  const [extraTags, setExtraTags] = useState<string[]>(() => loadStoredExtraTags())
   const [query, setQuery] = useState('')
   const [page, setPage] = useState(1)
   const [status, setStatus] = useState('')
@@ -91,7 +95,12 @@ export function GalleryEditor() {
     vertical: boolean
   } | null>(null)
   const [dragPoint, setDragPoint] = useState<{ x: number; y: number } | null>(null)
-  const [dragPreview, setDragPreview] = useState<{ src: string; alt: string } | null>(null)
+  const [dragPreview, setDragPreview] = useState<{
+    src: string
+    alt: string
+    focalX?: number
+    focalY?: number
+  } | null>(null)
   const [expandedId, setExpandedId] = useState<number | null>(null)
   const [selectedIds, setSelectedIds] = useState<number[]>([])
   const uploadRef = useRef<HTMLInputElement>(null)
@@ -138,13 +147,16 @@ export function GalleryEditor() {
       // with the bundled JSON or an older Blob copy.
       if (local && local.length > 0) {
         setRows(local)
+        setExtraTags(loadStoredExtraTags())
         const password = adminPassword()
         if (password) {
           const published = await saveGalleryRemote(local, password)
           if (!cancelled) {
             setStatus(
               published.ok
-                ? 'Kept your saved order and captions, and published them to the live gallery.'
+                ? published.blob
+                  ? 'Kept your saved gallery and published it to Blob, including tile crops.'
+                  : 'Kept your saved gallery locally. Add BLOB_READ_WRITE_TOKEN to publish tile crops to Blob.'
                 : published.message || 'Could not publish your saved gallery. Click Publish to site.',
             )
           }
@@ -182,7 +194,10 @@ export function GalleryEditor() {
     )
   }, [rows, query])
 
-  const artistTagOptions = useMemo(() => getGalleryArtistTags(rows), [rows])
+  const artistTagOptions = useMemo(
+    () => getGalleryArtistTags(rows, extraTags),
+    [rows, extraTags],
+  )
 
   const pageCount = Math.max(1, Math.ceil(visible.length / PAGE_SIZE))
   const safePage = Math.min(page, pageCount)
@@ -233,12 +248,36 @@ export function GalleryEditor() {
     updateRow(id, { tags })
   }
 
+  function persistExtraTags(next: string[]) {
+    const extra = sanitizeGalleryExtraTags(next)
+    setExtraTags(extra)
+    persistGalleryLocal(rowsRef.current, extra)
+  }
+
   function addCustomTag(id: number, raw: string) {
     const tag = raw.trim()
     if (!tag || GALLERY_YEAR_RE.test(tag)) return
     const row = rows.find((item) => item.id === id)
     if (!row || row.tags.includes(tag)) return
     updateRow(id, { tags: [...row.tags, tag] })
+  }
+
+  function addArtistTag(id: number, raw: string) {
+    const tag = raw.trim()
+    if (!tag || GALLERY_YEAR_RE.test(tag)) return
+    if (extraTags.includes(tag)) {
+      persistExtraTags(extraTags.filter((value) => value !== tag))
+    }
+    addCustomTag(id, tag)
+  }
+
+  function addExtraTag(id: number, raw: string) {
+    const tag = raw.trim()
+    if (!tag || GALLERY_YEAR_RE.test(tag)) return
+    if (!(GALLERY_SCENE_TAGS as readonly string[]).includes(tag)) {
+      persistExtraTags([...extraTags, tag])
+    }
+    addCustomTag(id, tag)
   }
 
   function removeRow(id: number) {
@@ -402,7 +441,12 @@ export function GalleryEditor() {
     dragPointRef.current = { x: event.clientX, y: event.clientY }
     skipClickRef.current = true
     setDragId(row.id)
-    setDragPreview({ src: row.src, alt: row.alt })
+    setDragPreview({
+      src: row.src,
+      alt: row.alt,
+      focalX: row.focalX,
+      focalY: row.focalY,
+    })
     setDragPoint({ x: event.clientX, y: event.clientY })
     setDropIndex(null)
     setDropBox(null)
@@ -447,7 +491,7 @@ export function GalleryEditor() {
   }
 
   async function handleSave(fromOverlay = false) {
-    const next = rows.map((item) => {
+    const next = rowsRef.current.map((item) => {
       const text = item.caption?.trim() || item.alt.trim()
       return { ...item, alt: text, caption: text }
     })
@@ -462,16 +506,17 @@ export function GalleryEditor() {
     setSaving(false)
     const at = Date.now()
     const result =
-      remote.ok && remote.file
+      remote.ok && remote.blob
         ? {
             type: 'success' as const,
-            message: 'Published to the live gallery.',
+            message: 'Published to the live gallery (Blob), including tile crops.',
             at,
           }
         : remote.ok
           ? {
               type: 'success' as const,
-              message: remote.message || 'Saved. Dev server will write the file.',
+              message:
+                'Saved locally. Add BLOB_READ_WRITE_TOKEN to .env.local and Save again to put tile crops on Blob.',
               at,
             }
           : {
@@ -583,6 +628,13 @@ export function GalleryEditor() {
           <li>
             <span className="text-white">Edit a photo</span> with the green{' '}
             <span className="text-primary">Edit</span> button: caption, tags, year, and order number.
+          </li>
+          <li>
+            <span className="text-white">Align the preview</span> in that editor: click and drag the
+            photo in <span className="text-primary">Tile crop</span> until faces sit in the frame.
+            Drag up if the head is cut off at the bottom; drag down if the top is cropped. The
+            lightbox still shows the full photo. Click <span className="text-primary">Save</span> to
+            keep it.
           </li>
           <li>
             <span className="text-white">Reorder</span> by dragging{' '}
@@ -720,10 +772,11 @@ export function GalleryEditor() {
       >
         {paged.map((row) => {
           const position = rows.findIndex((item) => item.id === row.id) + 1
-          const selectedArtists = galleryCustomTags(row.tags)
-          const selectedScenes = GALLERY_SCENE_TAGS.filter((tag) =>
-            row.tags.includes(tag),
-          )
+          const selectedArtists = galleryCustomTags(row.tags, extraTags)
+          const selectedScenes = [
+            ...GALLERY_SCENE_TAGS.filter((tag) => row.tags.includes(tag)),
+            ...extraTags.filter((tag) => row.tags.includes(tag)),
+          ]
           const dragging = dragId === row.id
           const selected = selectedIds.includes(row.id)
           return (
@@ -806,7 +859,12 @@ export function GalleryEditor() {
                 setExpandedId(row.id)
               }}
             >
-              <GalleryPreview src={row.src} dragging={dragging} />
+              <GalleryPreview
+                src={row.src}
+                dragging={dragging}
+                focalX={row.focalX}
+                focalY={row.focalY}
+              />
               <div className="mt-2 flex items-end justify-between gap-2">
                 <div className="min-w-0">
                   <p className="truncate text-sm text-white">
@@ -906,6 +964,12 @@ export function GalleryEditor() {
                 src={dragPreview.src}
                 alt={dragPreview.alt}
                 className="aspect-[4/3] h-auto w-full object-cover"
+                style={{
+                  objectPosition: galleryObjectPosition(
+                    dragPreview.focalX,
+                    dragPreview.focalY,
+                  ),
+                }}
               />
               <p className="font-heading absolute inset-x-0 bottom-0 bg-black/75 px-2 py-1 text-center text-[9px] tracking-[0.14em] text-primary uppercase">
                 Drag to reorder
@@ -921,6 +985,7 @@ export function GalleryEditor() {
           position={editingPosition}
           total={rows.length}
           artistTagOptions={artistTagOptions}
+          extraTagOptions={extraTags}
           saving={saving && saveSource === 'overlay'}
           publishResult={overlayResult}
           deleteOpen={pendingDeletePhotos.length > 0}
@@ -928,7 +993,8 @@ export function GalleryEditor() {
           onUpdate={(patch) => updateRow(editingRow.id, patch)}
           onToggleScene={(tag) => toggleScene(editingRow.id, tag)}
           onToggleArtist={(tag) => toggleCustomTag(editingRow.id, tag)}
-          onAddTag={(tag) => addCustomTag(editingRow.id, tag)}
+          onAddArtist={(tag) => addArtistTag(editingRow.id, tag)}
+          onAddTag={(tag) => addExtraTag(editingRow.id, tag)}
           onMove={(toIndex) => moveRow(editingRow.id, toIndex)}
           onSave={() => void handleSave(true)}
           onDelete={() => removeRow(editingRow.id)}
@@ -949,6 +1015,7 @@ function GalleryDetailsOverlay({
   position,
   total,
   artistTagOptions,
+  extraTagOptions,
   saving,
   publishResult,
   deleteOpen,
@@ -956,6 +1023,7 @@ function GalleryDetailsOverlay({
   onUpdate,
   onToggleScene,
   onToggleArtist,
+  onAddArtist,
   onAddTag,
   onMove,
   onSave,
@@ -965,6 +1033,7 @@ function GalleryDetailsOverlay({
   position: number
   total: number
   artistTagOptions: string[]
+  extraTagOptions: string[]
   saving: boolean
   publishResult: PublishResult | null
   deleteOpen: boolean
@@ -972,6 +1041,7 @@ function GalleryDetailsOverlay({
   onUpdate: (patch: Partial<GalleryItem>) => void
   onToggleScene: (tag: string) => void
   onToggleArtist: (tag: string) => void
+  onAddArtist: (tag: string) => void
   onAddTag: (tag: string) => void
   onMove: (toIndex: number) => void
   onSave: () => void
@@ -979,7 +1049,7 @@ function GalleryDetailsOverlay({
 }) {
   const titleId = useId()
   const closeRef = useRef<HTMLButtonElement>(null)
-  const selectedArtists = galleryCustomTags(row.tags)
+  const selectedArtists = galleryCustomTags(row.tags, extraTagOptions)
 
   useEffect(() => {
     closeRef.current?.focus()
@@ -1040,7 +1110,14 @@ function GalleryDetailsOverlay({
         </div>
 
         <div className="grid gap-5 md:grid-cols-2 md:items-start md:gap-8">
-          <GalleryPreview src={row.src} fit="contain" />
+          <FocalCropEditor
+            src={row.src}
+            width={row.width}
+            height={row.height}
+            focalX={row.focalX}
+            focalY={row.focalY}
+            onChange={(next) => onUpdate(next)}
+          />
           <div className="grid content-start gap-4">
             <label className="block">
               <span className="font-heading mb-1.5 block text-[10px] tracking-[0.14em] text-primary uppercase">
@@ -1118,7 +1195,7 @@ function GalleryDetailsOverlay({
               selected={selectedArtists}
               options={artistTagOptions}
               onToggle={onToggleArtist}
-              onAdd={onAddTag}
+              onAdd={onAddArtist}
             />
             <div>
               <p className="font-heading mb-2 text-[10px] tracking-[0.14em] text-primary uppercase">
@@ -1127,9 +1204,11 @@ function GalleryDetailsOverlay({
               <div className="flex flex-wrap gap-1">
                 {[
                   ...GALLERY_SCENE_TAGS,
+                  ...extraTagOptions,
                   ...row.tags.filter(
                     (tag) =>
                       !(GALLERY_SCENE_TAGS as readonly string[]).includes(tag) &&
+                      !extraTagOptions.includes(tag) &&
                       !GALLERY_YEAR_RE.test(tag) &&
                       !selectedArtists.includes(tag),
                   ),
@@ -1189,22 +1268,22 @@ function GalleryDetailsOverlay({
 
 function GalleryPreview({
   src,
-  fit = 'cover',
   dragging = false,
+  focalX,
+  focalY,
 }: {
   src: string
-  fit?: 'cover' | 'contain'
   dragging?: boolean
+  focalX?: number
+  focalY?: number
 }) {
   return (
     <div className="relative aspect-[4/3] w-full min-w-0 overflow-hidden rounded-[1rem] border border-border bg-black">
       <img
         src={src}
         alt=""
-        className={cn(
-          'absolute inset-0 h-full w-full min-h-0 min-w-0 max-w-none',
-          fit === 'contain' ? 'object-contain object-center' : 'object-cover object-center',
-        )}
+        className="absolute inset-0 h-full w-full min-h-0 min-w-0 max-w-none object-cover"
+        style={{ objectPosition: galleryObjectPosition(focalX, focalY) }}
       />
       {dragging ? (
         <div className="absolute inset-0 flex items-center justify-center bg-black/60">
@@ -1213,6 +1292,152 @@ function GalleryPreview({
           </p>
         </div>
       ) : null}
+    </div>
+  )
+}
+
+function FocalCropEditor({
+  src,
+  width,
+  height,
+  focalX,
+  focalY,
+  onChange,
+}: {
+  src: string
+  width: number
+  height: number
+  focalX?: number
+  focalY?: number
+  onChange: (next: { focalX: number; focalY: number }) => void
+}) {
+  const boxRef = useRef<HTMLDivElement>(null)
+  const dragRef = useRef<{
+    pointerId: number
+    lastX: number
+    lastY: number
+    focalX: number
+    focalY: number
+  } | null>(null)
+  const [panning, setPanning] = useState(false)
+  const [live, setLive] = useState({
+    focalX: clampGalleryFocal(focalX),
+    focalY: clampGalleryFocal(focalY),
+  })
+  const x = panning ? live.focalX : clampGalleryFocal(focalX)
+  const y = panning ? live.focalY : clampGalleryFocal(focalY)
+  const custom = x !== 50 || y !== 50
+
+  useEffect(() => {
+    if (panning) return
+    setLive({
+      focalX: clampGalleryFocal(focalX),
+      focalY: clampGalleryFocal(focalY),
+    })
+  }, [focalX, focalY, panning])
+
+  function overflowFor(box: DOMRect) {
+    const imgAspect = width / Math.max(height, 1)
+    const boxAspect = box.width / Math.max(box.height, 1)
+    const renderedW = imgAspect > boxAspect ? box.height * imgAspect : box.width
+    const renderedH = imgAspect > boxAspect ? box.height : box.width / imgAspect
+    return {
+      x: Math.max(0, renderedW - box.width),
+      y: Math.max(0, renderedH - box.height),
+    }
+  }
+
+  function onPointerDown(event: PointerEvent<HTMLDivElement>) {
+    if (event.button !== 0) return
+    const box = boxRef.current
+    if (!box) return
+    event.preventDefault()
+    event.stopPropagation()
+    box.setPointerCapture(event.pointerId)
+    dragRef.current = {
+      pointerId: event.pointerId,
+      lastX: event.clientX,
+      lastY: event.clientY,
+      focalX: x,
+      focalY: y,
+    }
+    setPanning(true)
+  }
+
+  function onPointerMove(event: PointerEvent<HTMLDivElement>) {
+    const drag = dragRef.current
+    const box = boxRef.current
+    if (!drag || !box || event.pointerId !== drag.pointerId) return
+    event.preventDefault()
+    const overflow = overflowFor(box.getBoundingClientRect())
+    const dx = event.clientX - drag.lastX
+    const dy = event.clientY - drag.lastY
+    drag.lastX = event.clientX
+    drag.lastY = event.clientY
+    if (overflow.x > 0) {
+      drag.focalX = clampGalleryFocal(drag.focalX - (dx / overflow.x) * 100)
+    }
+    if (overflow.y > 0) {
+      drag.focalY = clampGalleryFocal(drag.focalY - (dy / overflow.y) * 100)
+    }
+    setLive({ focalX: drag.focalX, focalY: drag.focalY })
+  }
+
+  function endDrag(event: PointerEvent<HTMLDivElement>) {
+    const drag = dragRef.current
+    if (!drag || event.pointerId !== drag.pointerId) return
+    dragRef.current = null
+    setPanning(false)
+    boxRef.current?.releasePointerCapture(event.pointerId)
+    onChange({ focalX: drag.focalX, focalY: drag.focalY })
+  }
+
+  return (
+    <div>
+      <span className="font-heading mb-1.5 block text-[10px] tracking-[0.14em] text-primary uppercase">
+        Tile crop
+      </span>
+      <p className="mb-2 text-[11px] leading-relaxed text-muted">
+        This is the 4:3 preview visitors see on the gallery page. Click and drag the photo to
+        align it until faces sit inside the frame. Then click Save. Opening the photo still shows
+        the full image.
+      </p>
+      <div
+        ref={boxRef}
+        className={cn(
+          'relative aspect-[4/3] w-full min-w-0 touch-none overflow-hidden rounded-[1rem] border border-border bg-black',
+          panning ? 'cursor-grabbing' : 'cursor-grab',
+        )}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+      >
+        <img
+          src={src}
+          alt=""
+          draggable={false}
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: galleryObjectPosition(x, y) }}
+        />
+        <p className="pointer-events-none absolute inset-x-0 top-2 text-center font-heading text-[9px] tracking-[0.14em] text-white uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)]">
+          {panning ? 'Aligning…' : 'Drag to align'}
+        </p>
+      </div>
+      <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
+        <p className="text-[11px] leading-snug text-muted">
+          If a face is cut off at the bottom, drag the photo up. If the top is cropped, drag down.
+        </p>
+        <Button
+          type="button"
+          size="sm"
+          variant="ghost"
+          disabled={!custom}
+          onClick={() => onChange({ focalX: 50, focalY: 50 })}
+        >
+          Reset
+        </Button>
+      </div>
     </div>
   )
 }
@@ -1294,6 +1519,9 @@ function ConfirmDeleteDialog({
                 src={photo.src}
                 alt={photo.alt}
                 className="aspect-[4/3] h-full w-full object-cover"
+                style={{
+                  objectPosition: galleryObjectPosition(photo.focalX, photo.focalY),
+                }}
               />
             </div>
           ))}

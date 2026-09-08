@@ -3,6 +3,7 @@ import type { GalleryItem } from '@/types'
 import {
   bundledGallery,
   fetchRemoteGallery,
+  GALLERY_UPDATED_EVENT,
 } from '@/lib/galleryAdmin'
 
 export function useLiveGalleryState() {
@@ -19,8 +20,10 @@ export function useLiveGalleryState() {
     }
 
     void hydrate()
+    window.addEventListener(GALLERY_UPDATED_EVENT, hydrate)
     return () => {
       cancelled = true
+      window.removeEventListener(GALLERY_UPDATED_EVENT, hydrate)
     }
   }, [])
 

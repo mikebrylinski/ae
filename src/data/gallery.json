@@ -12,7 +12,9 @@
     "width": 751,
     "height": 1024,
     "year": 2025,
-    "caption": "Andy in Times Square with in-ear monitors"
+    "caption": "Andy in Times Square with in-ear monitors",
+    "focalX": 50,
+    "focalY": 96.8
   },
   {
     "id": 5,
@@ -26,7 +28,9 @@
     "width": 1024,
     "height": 765,
     "year": 2010,
-    "caption": "Andy in front of the Hollywood sign, Los Angeles"
+    "caption": "Andy in front of the Hollywood sign, Los Angeles",
+    "focalX": 52.7,
+    "focalY": 50
   },
   {
     "id": 7,
@@ -73,7 +77,9 @@
     "width": 500,
     "height": 752,
     "year": 2025,
-    "caption": "Alanis Morissette performing on stage"
+    "caption": "Alanis Morissette performing on stage",
+    "focalX": 50,
+    "focalY": 6.8
   },
   {
     "id": 4,
@@ -706,7 +712,9 @@
     "width": 1500,
     "height": 2000,
     "year": 2026,
-    "caption": "Monitor world — Alanis Morissette tour, 2026"
+    "caption": "Monitor world — Alanis Morissette tour, 2026",
+    "focalX": 50,
+    "focalY": 0
   },
   {
     "id": 46,
@@ -783,9 +791,8 @@
     "tags": [
       "Alanis Morissette",
       "Monitor World",
-      "Console",
-      "Arena",
       "Tour",
+      "Festivals",
       "2025"
     ],
     "width": 1500,
@@ -1157,7 +1164,9 @@
     "width": 768,
     "height": 1024,
     "year": 2010,
-    "caption": "Monitor engineer at the console with in-ears during an STP show"
+    "caption": "Monitor engineer at the console with in-ears during an STP show",
+    "focalX": 50,
+    "focalY": 7.3
   },
   {
     "id": 73,

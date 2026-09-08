@@ -16,6 +16,8 @@ export type GalleryRecord = {
   year?: number
   width: number
   height: number
+  focalX?: number
+  focalY?: number
   teaser?: boolean
 }
 

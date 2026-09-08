@@ -255,14 +255,38 @@ export type GallerySort = 'order' | 'newest' | 'oldest' | 'tag'
 
 const GALLERY_NON_ARTIST_TAGS = new Set<string>(['Portrait', ...GALLERY_SCENE_TAGS])
 
+export function sanitizeGalleryExtraTags(tags: unknown): string[] {
+  if (!Array.isArray(tags)) return []
+  const seen = new Set<string>()
+  const next: string[] = []
+  for (const tag of tags) {
+    if (typeof tag !== 'string') continue
+    const value = tag.trim()
+    if (!value || GALLERY_YEAR_RE.test(value) || GALLERY_NON_ARTIST_TAGS.has(value)) {
+      continue
+    }
+    if (seen.has(value)) continue
+    seen.add(value)
+    next.push(value)
+  }
+  return next.sort((a, b) => a.localeCompare(b))
+}
+
+function nonArtistTagSet(extraTags: readonly string[] = []) {
+  if (extraTags.length === 0) return GALLERY_NON_ARTIST_TAGS
+  return new Set<string>([...GALLERY_NON_ARTIST_TAGS, ...extraTags])
+}
+
 export function galleryCategoryFromTags(tags: string[]): string {
   return GALLERY_SCENE_TAGS.find((tag) => tags.includes(tag)) ?? tags[0] ?? 'Tour'
 }
 
-export function galleryCustomTags(tags: string[]): string[] {
-  return tags.filter(
-    (tag) => !GALLERY_NON_ARTIST_TAGS.has(tag) && !GALLERY_YEAR_RE.test(tag),
-  )
+export function galleryCustomTags(
+  tags: string[],
+  extraTags: readonly string[] = [],
+): string[] {
+  const nonArtist = nonArtistTagSet(extraTags)
+  return tags.filter((tag) => !nonArtist.has(tag) && !GALLERY_YEAR_RE.test(tag))
 }
 
 export function galleryWithSyncedYear(tags: string[], year?: number): string[] {
@@ -279,16 +303,27 @@ export function getGalleryTeaser(
   return (flagged.length ? flagged : items).slice(0, limit)
 }
 
-export function getGallerySceneTags(items: GalleryItem[] = gallery): string[] {
+export function getGallerySceneTags(
+  items: GalleryItem[] = gallery,
+  extraTags: readonly string[] = [],
+): string[] {
   const present = new Set(items.flatMap((item) => item.tags))
-  return GALLERY_SCENE_TAGS.filter((tag) => present.has(tag))
+  const presets = GALLERY_SCENE_TAGS.filter((tag) => present.has(tag))
+  const extras = extraTags.filter(
+    (tag) => present.has(tag) && !GALLERY_NON_ARTIST_TAGS.has(tag),
+  )
+  return [...presets, ...extras]
 }
 
-export function getGalleryArtistTags(items: GalleryItem[] = gallery): string[] {
+export function getGalleryArtistTags(
+  items: GalleryItem[] = gallery,
+  extraTags: readonly string[] = [],
+): string[] {
+  const nonArtist = nonArtistTagSet(extraTags)
   const artists = new Set<string>()
   for (const item of items) {
     for (const tag of item.tags) {
-      if (GALLERY_NON_ARTIST_TAGS.has(tag) || GALLERY_YEAR_RE.test(tag)) continue
+      if (nonArtist.has(tag) || GALLERY_YEAR_RE.test(tag)) continue
       artists.add(tag)
     }
   }

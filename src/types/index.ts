@@ -111,6 +111,10 @@ export interface GalleryItem {
   year?: number
   width: number
   height: number
+  /** Horizontal focal point for 4:3 tile crops, 0–100. Default 50 (center). */
+  focalX?: number
+  /** Vertical focal point for 4:3 tile crops, 0–100. Default 50 (center). */
+  focalY?: number
   /** When true, included in the Press & Media gallery teaser. */
   teaser?: boolean
 }

@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { loadEnv, type Plugin, type ViteDevServer } from 'vite'
 import {
+  blobConfiguredFromEnv,
   decodeImageData,
   isAdminAuthorized,
   MAX_GALLERY_JSON_BYTES,
@@ -9,6 +10,7 @@ import {
   parseGalleryPutBody,
   parseGalleryUploadBody,
   sanitizeGalleryItems,
+  writeGalleryToBlob,
 } from './server/galleryStore.js'
 
 function readBody(
@@ -138,7 +140,11 @@ export function adminApiPlugin(rootDir: string): Plugin {
               galleryJsonPath(rootDir),
               `${JSON.stringify(parsed.items, null, 2)}\n`,
             )
-            json(res, 200, { ok: true, file: true })
+            const blob = blobConfiguredFromEnv(env)
+            if (blob) {
+              await writeGalleryToBlob(parsed.items, env)
+            }
+            json(res, 200, { ok: true, file: true, blob })
             return
           }
 

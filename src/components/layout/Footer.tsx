@@ -5,7 +5,6 @@ import { flattenNav, getNav } from '@/lib/content'
 import { useLanguage } from '@/i18n/LanguageProvider'
 import { Container } from '@/components/ui/Container'
 import { VuPair } from '@/components/ui/VuPair'
-import { VeganSeal } from '@/components/ui/VeganSeal'
 import { MeshBackdrop } from '@/components/ui/MeshBackdrop'
 import { RackScrew } from '@/components/ui/Screws'
 import { fadeUp, reducedMotionVariants } from '@/lib/motion'
@@ -21,6 +20,36 @@ export function AllAccessLaminate() {
         <p className="all-access__kicker">Tour</p>
         <p className="all-access__title">All Access</p>
         <p className="all-access__area">Admin Area</p>
+      </div>
+    </div>
+  )
+}
+
+export function VeganLaminate() {
+  const { t } = useLanguage()
+
+  return (
+    <div className="all-access vegan-laminate">
+      <span className="all-access__clip" aria-hidden />
+      <span className="all-access__hole" aria-hidden />
+      <div className="all-access__pass">
+        <span className="all-access__sheen" aria-hidden />
+        <img
+          src="/images/brand/vegan-logo.png"
+          alt={t.brand.roadie}
+          width={135}
+          height={135}
+          className="vegan-laminate__logo"
+          decoding="async"
+        />
+        <ul className="vegan-laminate__copy">
+          {t.brand.roadie.split(/\s+/).map((word, i) => (
+            <li key={`${word}-${i}`}>
+              <span>{word}</span>
+            </li>
+          ))}
+        </ul>
+        <span className="vegan-laminate__rail" aria-hidden />
       </div>
     </div>
   )
@@ -94,12 +123,11 @@ export function Footer({ admin = false }: { admin?: boolean }) {
                 </div>
               ) : (
                 <>
-              <div className="rack-brand-wrap rack-brand-wrap--lg max-w-full min-w-0">
-                <VeganSeal alt={t.brand.plants} />
-                <span className="rack-brand-glow">
+              <div className="flex min-w-0 flex-col items-center gap-4 md:flex-row md:flex-wrap md:justify-start md:gap-5">
+                <div className="rack-brand-wrap rack-brand-wrap--no-seal rack-brand-glow min-w-0">
                   <Link
                     to="/"
-                    className="rack-brand inline-flex flex-col items-center gap-0.5 text-center"
+                    className="rack-brand rack-brand--glow inline-flex max-w-full min-w-0 flex-col items-center gap-0.5 text-center"
                   >
                     <span className="rack-brand__shine" aria-hidden />
                     <span className="rack-brand__name whitespace-nowrap font-heading text-[clamp(1.5rem,7.5vw,1.875rem)] tracking-[0.1em] sm:text-4xl sm:tracking-[0.12em] md:text-5xl">
@@ -110,9 +138,10 @@ export function Footer({ admin = false }: { admin?: boolean }) {
                       {t.brand.subtitle}
                     </span>
                   </Link>
-                </span>
+                </div>
+                <VeganLaminate />
               </div>
-              <p className="rack-brand-caption font-heading text-[0.65rem] tracking-[0.18em] text-muted sm:text-[0.7rem]">
+              <p className="font-heading text-[0.65rem] tracking-[0.18em] text-muted sm:text-[0.7rem]">
                 {t.brand.plants}
               </p>
                 </>

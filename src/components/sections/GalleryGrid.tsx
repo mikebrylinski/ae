@@ -21,6 +21,8 @@ import { FilterAccordion } from '@/components/ui/FilterAccordion'
 import { VuPlate } from '@/components/ui/VuPlate'
 import { GalleryPager, GALLERY_PAGE_SIZE } from '@/components/ui/GalleryPager'
 import { cn } from '@/lib/utils'
+import { GALLERY_UPDATED_EVENT, loadStoredExtraTags } from '@/lib/galleryAdmin'
+import { galleryObjectPosition } from '@/lib/galleryFocal'
 import { useLiveGallery } from '@/hooks/useLiveGallery'
 import type { GalleryItem } from '@/types'
 
@@ -151,13 +153,21 @@ export function GalleryGridHeader() {
   const { items, sourceItems, selected, sort, toggleTag, clearTags, setSort } =
     useGalleryGrid()
   const { lang, t } = useLanguage()
+  const [extraTags, setExtraTags] = useState(loadStoredExtraTags)
+
+  useEffect(() => {
+    const sync = () => setExtraTags(loadStoredExtraTags())
+    window.addEventListener(GALLERY_UPDATED_EVENT, sync)
+    return () => window.removeEventListener(GALLERY_UPDATED_EVENT, sync)
+  }, [])
+
   const artistTags = useMemo(
-    () => getGalleryArtistTags(sourceItems),
-    [sourceItems],
+    () => getGalleryArtistTags(sourceItems, extraTags),
+    [sourceItems, extraTags],
   )
   const sceneTags = useMemo(
-    () => getGallerySceneTags(sourceItems),
-    [sourceItems],
+    () => getGallerySceneTags(sourceItems, extraTags),
+    [sourceItems, extraTags],
   )
   const yearTags = useMemo(
     () => getGalleryYearTags(sourceItems),
@@ -465,6 +475,7 @@ function GalleryTile({
             loading={eager ? 'eager' : 'lazy'}
             fallbackLabel={item.category}
             wrapperClassName="border-0 bg-black"
+            style={{ objectPosition: galleryObjectPosition(item.focalX, item.focalY) }}
           />
           {caption ? (
             <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-black px-3 py-2 text-center font-heading text-[11px] leading-snug tracking-[0.04em] text-white">

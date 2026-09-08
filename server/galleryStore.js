@@ -91,6 +91,22 @@ export function sanitizeGalleryItem(raw) {
   if (caption) item.caption = caption.slice(0, 240)
   if (data.teaser === true) item.teaser = true
 
+  const hasFocal = data.focalX != null || data.focalY != null
+  if (hasFocal) {
+    const focalX = Number(data.focalX)
+    const focalY = Number(data.focalY)
+    const x = Number.isFinite(focalX)
+      ? Math.min(100, Math.max(0, Math.round(focalX * 10) / 10))
+      : 50
+    const y = Number.isFinite(focalY)
+      ? Math.min(100, Math.max(0, Math.round(focalY * 10) / 10))
+      : 50
+    if (x !== 50 || y !== 50) {
+      item.focalX = x
+      item.focalY = y
+    }
+  }
+
   return item
 }
 

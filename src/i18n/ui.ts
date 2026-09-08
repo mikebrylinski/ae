@@ -12,6 +12,7 @@ const en = {
     subtitle: 'Sound Engineer',
     plants: 'proudly powered by plants',
     plantsRing: 'PROUDLY PLANT POWERED • PROUDLY PLANT POWERED •',
+    roadie: 'Plant Powered Roadie',
   },
   a11y: {
     skip: 'Skip to content',
@@ -430,6 +431,7 @@ const de = {
     subtitle: 'Toningenieur',
     plants: 'Stolz von Pflanzen angetrieben',
     plantsRing: 'STOLZ VON PFLANZEN ANGETRIEBEN • STOLZ VON PFLANZEN ANGETRIEBEN •',
+    roadie: 'Pflanzen Power Roadie',
   },
   a11y: {
     skip: 'Zum Inhalt springen',
