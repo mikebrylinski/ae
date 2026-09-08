@@ -1,7 +1,7 @@
 import { useEffect, useId, useMemo, useRef, useState, type PointerEvent, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { AlertCircle, ArrowDown, ArrowUp, Check, CheckCircle2, ChevronsDown, ChevronsUp, GripVertical, ImagePlus, Plus, Save, Trash2, X } from 'lucide-react'
+import { AlertCircle, ArrowDown, ArrowUp, Check, CheckCircle2, ChevronsDown, ChevronsUp, GripVertical, ImagePlus, Plus, Replace, Save, Trash2, X } from 'lucide-react'
 import type { GalleryItem } from '@/types'
 import {
   bundledGallery,
@@ -38,6 +38,11 @@ function galleryGridCols() {
   if (window.matchMedia('(min-width: 1024px)').matches) return 3
   if (window.matchMedia('(min-width: 640px)').matches) return 2
   return 1
+}
+
+function srcForReplacePreview(src: string) {
+  if (!src.startsWith('/images/')) return src
+  return `${src.split('?')[0]}?v=${Date.now()}`
 }
 
 function insertWouldMove(fromId: number, insertIndex: number, list: GalleryItem[]) {
@@ -104,6 +109,7 @@ export function GalleryEditor() {
   const [expandedId, setExpandedId] = useState<number | null>(null)
   const [selectedIds, setSelectedIds] = useState<number[]>([])
   const uploadRef = useRef<HTMLInputElement>(null)
+  const replaceRef = useRef<HTMLInputElement>(null)
   const dragIdRef = useRef<number | null>(null)
   const dropIndexRef = useRef<number | null>(null)
   const dragStartRef = useRef<{ x: number; y: number } | null>(null)
@@ -531,7 +537,8 @@ export function GalleryEditor() {
 
   async function ingestFiles(files: FileList | File[], replaceFor?: number) {
     const list = Array.from(files).filter((file) => file.type.startsWith('image/'))
-    if (list.length === 0) {
+    const queue = replaceFor ? list.slice(0, 1) : list
+    if (queue.length === 0) {
       setStatus('Choose an image file.')
       return
     }
@@ -542,7 +549,7 @@ export function GalleryEditor() {
     let nextId = nextGalleryId(rows)
 
     try {
-      for (const file of list) {
+      for (const file of queue) {
         const resized = await resizeImageFile(file)
         const id = replaceFor ?? nextId++
         const uploaded = await uploadGalleryImage(
@@ -562,18 +569,23 @@ export function GalleryEditor() {
         }
 
         if (replaceFor) {
-          setRows((current) =>
-            current.map((row) =>
+          setRows((current) => {
+            const next = current.map((row) =>
               row.id === replaceFor
                 ? {
                     ...row,
-                    src: uploaded.src!,
+                    src: srcForReplacePreview(uploaded.src!),
                     width: uploaded.width ?? resized.width,
                     height: uploaded.height ?? resized.height,
+                    focalX: undefined,
+                    focalY: undefined,
                   }
                 : row,
-            ),
-          )
+            )
+            persistGalleryLocal(next)
+            scheduleLiveSync(next)
+            return next
+          })
           setStatus('Photo replaced — click Save to keep it.')
         } else {
           const alt = file.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ')
@@ -611,6 +623,7 @@ export function GalleryEditor() {
     } finally {
       setUploading(false)
       if (uploadRef.current) uploadRef.current.value = ''
+      if (replaceRef.current) replaceRef.current.value = ''
     }
   }
 
@@ -628,6 +641,8 @@ export function GalleryEditor() {
           <li>
             <span className="text-white">Edit a photo</span> with the green{' '}
             <span className="text-primary">Edit</span> button: caption, tags, year, and order number.
+            Use <span className="text-primary">Replace image</span> in that editor to swap the
+            photo without losing caption, tags, or order.
           </li>
           <li>
             <span className="text-white">Align the preview</span> in that editor: click and drag the
@@ -704,6 +719,17 @@ export function GalleryEditor() {
         className="sr-only"
         onChange={(e) => {
           if (e.target.files) void ingestFiles(e.target.files)
+        }}
+      />
+      <input
+        ref={replaceRef}
+        type="file"
+        accept="image/jpeg,image/png,image/webp,image/gif"
+        className="sr-only"
+        onChange={(e) => {
+          const files = e.target.files
+          const id = expandedId
+          if (files && id != null) void ingestFiles(files, id)
         }}
       />
       {status ? <p className="text-sm text-primary">{status}</p> : null}
@@ -987,6 +1013,7 @@ export function GalleryEditor() {
           artistTagOptions={artistTagOptions}
           extraTagOptions={extraTags}
           saving={saving && saveSource === 'overlay'}
+          uploading={uploading}
           publishResult={overlayResult}
           deleteOpen={pendingDeletePhotos.length > 0}
           onClose={() => setExpandedId(null)}
@@ -996,6 +1023,7 @@ export function GalleryEditor() {
           onAddArtist={(tag) => addArtistTag(editingRow.id, tag)}
           onAddTag={(tag) => addExtraTag(editingRow.id, tag)}
           onMove={(toIndex) => moveRow(editingRow.id, toIndex)}
+          onReplace={() => replaceRef.current?.click()}
           onSave={() => void handleSave(true)}
           onDelete={() => removeRow(editingRow.id)}
         />
@@ -1017,6 +1045,7 @@ function GalleryDetailsOverlay({
   artistTagOptions,
   extraTagOptions,
   saving,
+  uploading,
   publishResult,
   deleteOpen,
   onClose,
@@ -1026,6 +1055,7 @@ function GalleryDetailsOverlay({
   onAddArtist,
   onAddTag,
   onMove,
+  onReplace,
   onSave,
   onDelete,
 }: {
@@ -1035,6 +1065,7 @@ function GalleryDetailsOverlay({
   artistTagOptions: string[]
   extraTagOptions: string[]
   saving: boolean
+  uploading: boolean
   publishResult: PublishResult | null
   deleteOpen: boolean
   onClose: () => void
@@ -1044,6 +1075,7 @@ function GalleryDetailsOverlay({
   onAddArtist: (tag: string) => void
   onAddTag: (tag: string) => void
   onMove: (toIndex: number) => void
+  onReplace: () => void
   onSave: () => void
   onDelete: () => void
 }) {
@@ -1110,14 +1142,26 @@ function GalleryDetailsOverlay({
         </div>
 
         <div className="grid gap-5 md:grid-cols-2 md:items-start md:gap-8">
-          <FocalCropEditor
-            src={row.src}
-            width={row.width}
-            height={row.height}
-            focalX={row.focalX}
-            focalY={row.focalY}
-            onChange={(next) => onUpdate(next)}
-          />
+          <div className="space-y-3">
+            <FocalCropEditor
+              src={row.src}
+              width={row.width}
+              height={row.height}
+              focalX={row.focalX}
+              focalY={row.focalY}
+              onChange={(next) => onUpdate(next)}
+            />
+            <Button
+              type="button"
+              size="sm"
+              variant="outline"
+              disabled={uploading}
+              onClick={onReplace}
+            >
+              <Replace size={14} aria-hidden />
+              {uploading ? 'Uploading…' : 'Replace image'}
+            </Button>
+          </div>
           <div className="grid content-start gap-4">
             <label className="block">
               <span className="font-heading mb-1.5 block text-[10px] tracking-[0.14em] text-primary uppercase">

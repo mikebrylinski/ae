@@ -70,7 +70,7 @@ export function galleryForJson(items: GalleryItem[]): GalleryItem[] {
   return items.map((item) => {
     const next: GalleryItem = {
       id: item.id,
-      src: item.src,
+      src: item.src.startsWith('/images/') ? item.src.split('?')[0] : item.src,
       alt: item.alt,
       category: item.category,
       tags: [...item.tags],
