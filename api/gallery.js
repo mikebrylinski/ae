@@ -1,5 +1,7 @@
 import {
   blobConfiguredFromEnv,
+  ensurePreservedGalleryBackup,
+  loadBundledGalleryItems,
   readGalleryFromBlob,
 } from '../server/galleryStore.js'
 
@@ -26,6 +28,14 @@ export default async function handler(req, res) {
 
   try {
     const items = await readGalleryFromBlob(runtimeEnv)
+    const snapshot = items?.length ? items : loadBundledGalleryItems()
+    if (snapshot?.length) {
+      try {
+        await ensurePreservedGalleryBackup(snapshot, runtimeEnv)
+      } catch {
+        /* backup is best-effort */
+      }
+    }
     return res.status(200).json({ ok: true, items })
   } catch (err) {
     return res.status(500).json({

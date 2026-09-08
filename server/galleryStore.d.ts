@@ -1,4 +1,6 @@
 export const GALLERY_BLOB_PATH: string
+export const GALLERY_BACKUP_LATEST: string
+export const GALLERY_BACKUP_PRESERVED: string
 export const MAX_GALLERY_JSON_BYTES: number
 export const MAX_GALLERY_UPLOAD_BYTES: number
 export const MAX_DECODED_IMAGE_BYTES: number
@@ -47,9 +49,19 @@ export function parseGalleryUploadBody(raw: string):
     }
   | { error: string }
 export function decodeImageData(data: string): Buffer
+export function loadBundledGalleryItems(): GalleryRecord[] | null
 export function readGalleryFromBlob(
   env: Record<string, string | undefined>,
 ): Promise<GalleryRecord[] | null>
+export function writeGalleryBackupToBlob(
+  items: GalleryRecord[],
+  env: Record<string, string | undefined>,
+  note?: string,
+): Promise<void>
+export function ensurePreservedGalleryBackup(
+  items: GalleryRecord[],
+  env: Record<string, string | undefined>,
+): Promise<void>
 export function writeGalleryToBlob(
   items: GalleryRecord[],
   env: Record<string, string | undefined>,

@@ -1,4 +1,10 @@
+import { createRequire } from 'node:module'
+
+const require = createRequire(import.meta.url)
+
 export const GALLERY_BLOB_PATH = 'gallery/index.json'
+export const GALLERY_BACKUP_LATEST = 'gallery/backups/latest.json'
+export const GALLERY_BACKUP_PRESERVED = 'gallery/backups/preserved.json'
 export const MAX_GALLERY_JSON_BYTES = 2_000_000
 export const MAX_GALLERY_UPLOAD_BYTES = 4_500_000
 export const MAX_DECODED_IMAGE_BYTES = 3_500_000
@@ -168,6 +174,15 @@ export function parseGalleryUploadBody(raw) {
   }
 }
 
+export function loadBundledGalleryItems() {
+  try {
+    const data = require('../src/data/gallery.json')
+    return sanitizeGalleryItems(data)
+  } catch {
+    return null
+  }
+}
+
 export function decodeImageData(data) {
   const buffer = Buffer.from(data, 'base64')
   if (!buffer.length) throw new Error('Empty image data')
@@ -193,7 +208,66 @@ export async function readGalleryFromBlob(env) {
   }
 }
 
+function backupStamp() {
+  return new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19)
+}
+
+function galleryBackupBody(items, note) {
+  return `${JSON.stringify(
+    {
+      items,
+      savedAt: Date.now(),
+      ...(note ? { note } : {}),
+    },
+    null,
+    2,
+  )}\n`
+}
+
+export async function writeGalleryBackupToBlob(items, env, note) {
+  if (!items?.length) return
+  const { put } = await import('@vercel/blob')
+  const opts = {
+    access: 'public',
+    addRandomSuffix: false,
+    allowOverwrite: true,
+    contentType: 'application/json',
+    cacheControlMaxAge: 0,
+    ...blobClientOptions(env),
+  }
+  const body = galleryBackupBody(items, note)
+  await put(GALLERY_BACKUP_LATEST, body, opts)
+  await put(`gallery/backups/${backupStamp()}.json`, body, opts)
+}
+
+/** Writes a one-time frozen copy. Does not overwrite if it already exists. */
+export async function ensurePreservedGalleryBackup(items, env) {
+  if (!items?.length) return
+  const blob = await import('@vercel/blob')
+  const auth = blobClientOptions(env)
+  try {
+    await blob.head(GALLERY_BACKUP_PRESERVED, auth)
+    return
+  } catch (err) {
+    const name = err && typeof err === 'object' && 'name' in err ? String(err.name) : ''
+    if (name !== 'BlobNotFoundError') throw err
+  }
+  await blob.put(GALLERY_BACKUP_PRESERVED, galleryBackupBody(items, 'Frozen snapshot of the working gallery order'), {
+    access: 'public',
+    addRandomSuffix: false,
+    allowOverwrite: false,
+    contentType: 'application/json',
+    cacheControlMaxAge: 0,
+    ...auth,
+  })
+  await writeGalleryBackupToBlob(items, env, 'Initial live-gallery backup')
+}
+
 export async function writeGalleryToBlob(items, env) {
+  const previous = await readGalleryFromBlob(env)
+  if (previous?.length) {
+    await writeGalleryBackupToBlob(previous, env, 'Previous live gallery before publish')
+  }
   const { put } = await import('@vercel/blob')
   await put(
     GALLERY_BLOB_PATH,
@@ -207,6 +281,7 @@ export async function writeGalleryToBlob(items, env) {
       ...blobClientOptions(env),
     },
   )
+  await writeGalleryBackupToBlob(items, env, 'Published live gallery')
 }
 
 function safeFilename(name) {
