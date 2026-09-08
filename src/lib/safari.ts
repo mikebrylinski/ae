@@ -1,3 +1,11 @@
+/** Any iPhone / iPad browser, including Chrome and Firefox on iOS. */
+export function isIOSBrowser() {
+  if (typeof navigator === 'undefined') return false
+  const ua = navigator.userAgent
+  if (/iPhone|iPad|iPod/i.test(ua)) return true
+  return navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1
+}
+
 /** Safari (macOS + iOS), excluding Chrome/Firefox on those platforms. */
 export function isSafariBrowser() {
   if (typeof navigator === 'undefined') return false

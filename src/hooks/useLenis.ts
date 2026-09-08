@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import Lenis from 'lenis'
 import { useReducedMotion } from './useReducedMotion'
-import { isSafariBrowser } from '@/lib/safari'
+import { isIOSBrowser, isSafariBrowser } from '@/lib/safari'
 
 let lenisInstance: Lenis | null = null
 
@@ -14,7 +14,7 @@ export function useLenis() {
   const reducedMotion = useReducedMotion()
 
   useEffect(() => {
-    if (reducedMotion || isSafariBrowser()) return
+    if (reducedMotion || isSafariBrowser() || isIOSBrowser()) return
 
     const lenis = new Lenis({
       duration: 1.1,

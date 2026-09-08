@@ -460,7 +460,7 @@ function GalleryTile({
     <li className="w-full">
       <button
         type="button"
-        className="group relative w-full cursor-pointer text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        className="group relative w-full cursor-pointer touch-manipulation text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
         onClick={onOpen}
         aria-label={item.alt}
       >

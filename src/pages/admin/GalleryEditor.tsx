@@ -1081,10 +1081,12 @@ function GalleryDetailsOverlay({
 }) {
   const titleId = useId()
   const closeRef = useRef<HTMLButtonElement>(null)
+  const ignoreBackdropUntil = useRef(0)
   const selectedArtists = galleryCustomTags(row.tags, extraTagOptions)
 
   useEffect(() => {
-    closeRef.current?.focus()
+    ignoreBackdropUntil.current = Date.now() + 600
+    closeRef.current?.focus({ preventScroll: true })
   }, [])
 
   useEffect(() => {
@@ -1107,8 +1109,11 @@ function GalleryDetailsOverlay({
     <div
       className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-black/80 p-4 py-8 sm:items-center"
       role="presentation"
-      onClick={() => {
-        if (!deleteOpen) onClose()
+      onClick={(event) => {
+        if (deleteOpen) return
+        if (event.target !== event.currentTarget) return
+        if (Date.now() < ignoreBackdropUntil.current) return
+        onClose()
       }}
     >
       <div
@@ -1117,6 +1122,7 @@ function GalleryDetailsOverlay({
         aria-labelledby={titleId}
         className="glass-card relative my-auto w-full max-w-5xl space-y-5 p-4 sm:p-6"
         onClick={(event) => event.stopPropagation()}
+        onPointerDown={(event) => event.stopPropagation()}
       >
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">

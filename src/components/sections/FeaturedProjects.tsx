@@ -14,6 +14,8 @@ const FEATURED_BG = '/images/sections/featured-bg.png'
 const CARD_IMAGE_FOCUS: Record<string, string> = {
   'guns-n-roses': 'object-[70%_18%]',
   'maroon-5': 'object-[center_52%]',
+  'neil-young': 'object-[center_22%]',
+  'mariah-carey': 'object-[center_18%]',
 }
 
 export function FeaturedProjects() {

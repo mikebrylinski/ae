@@ -33,6 +33,7 @@ interface GalleryLightboxProps {
 }
 
 export function muteMouseFocus(event: React.MouseEvent) {
+  if (window.matchMedia('(pointer: coarse)').matches) return
   event.preventDefault()
 }
 
@@ -54,6 +55,7 @@ export function GalleryLightbox({
   const previouslyFocused = useRef<HTMLElement | null>(null)
   const activeIndexRef = useRef(activeIndex)
   const itemsLengthRef = useRef(items.length)
+  const ignoreBackdropUntil = useRef(0)
   const [copied, setCopied] = useState(false)
   const {
     stageRef,
@@ -82,16 +84,17 @@ export function GalleryLightbox({
         ? document.activeElement
         : null
 
+    ignoreBackdropUntil.current = Date.now() + 600
     const { overflow } = document.body.style
     document.body.style.overflow = 'hidden'
     const lenis = getLenis() as { stop?: () => void; start?: () => void } | null
     lenis?.stop?.()
-    closeRef.current?.focus()
+    closeRef.current?.focus({ preventScroll: true })
 
     return () => {
       document.body.style.overflow = overflow
       lenis?.start?.()
-      previouslyFocused.current?.focus()
+      previouslyFocused.current?.focus({ preventScroll: true })
     }
   }, [open])
 
@@ -157,7 +160,11 @@ export function GalleryLightbox({
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center bg-black/92 p-4 sm:p-8 select-none"
       role="presentation"
-      onClick={onClose}
+      onClick={(event) => {
+        if (event.target !== event.currentTarget) return
+        if (Date.now() < ignoreBackdropUntil.current) return
+        onClose()
+      }}
     >
       <div
         role="dialog"
@@ -165,6 +172,7 @@ export function GalleryLightbox({
         aria-labelledby={titleId}
         className="relative max-h-full max-w-full outline-none"
         onClick={(event) => event.stopPropagation()}
+        onPointerDown={(event) => event.stopPropagation()}
       >
         <p id={titleId} className="sr-only">
           {item.alt}
