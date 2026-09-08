@@ -134,18 +134,26 @@ export function GalleryEditor() {
       const remote = await fetchRemoteGallery()
       if (cancelled) return
 
+      // Andy's in-browser gallery is the source of truth. Never replace it
+      // with the bundled JSON or an older Blob copy.
       if (local && local.length > 0) {
         setRows(local)
         const password = adminPassword()
         if (password) {
-          await saveGalleryRemote(local, password)
+          const published = await saveGalleryRemote(local, password)
+          if (!cancelled) {
+            setStatus(
+              published.ok
+                ? 'Kept your saved order and captions, and published them to the live gallery.'
+                : published.message || 'Could not publish your saved gallery. Click Publish to site.',
+            )
+          }
         }
         return
       }
 
       if (remote && remote.length > 0) {
         setRows(remote)
-        persistGalleryLocal(remote)
       }
     }
     void hydrate()

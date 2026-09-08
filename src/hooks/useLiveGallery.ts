@@ -6,7 +6,7 @@ import {
 } from '@/lib/galleryAdmin'
 
 export function useLiveGallery(): GalleryItem[] {
-  const [items, setItems] = useState<GalleryItem[]>(() => bundledGallery())
+  const [items, setItems] = useState<GalleryItem[] | null>(null)
 
   useEffect(() => {
     let cancelled = false
@@ -14,9 +14,8 @@ export function useLiveGallery(): GalleryItem[] {
     async function hydrate() {
       const remote = await fetchRemoteGallery()
       if (cancelled) return
-      // Live gallery always follows the published Blob list, never browser
-      // leftovers from /admin. Fall back to the bundled JSON only if Blob is empty.
-      if (remote && remote.length > 0) setItems(remote)
+      // Wait for Blob so we do not paint the old bundled order first.
+      setItems(remote && remote.length > 0 ? remote : bundledGallery())
     }
 
     void hydrate()
@@ -25,5 +24,5 @@ export function useLiveGallery(): GalleryItem[] {
     }
   }, [])
 
-  return items
+  return items ?? []
 }
