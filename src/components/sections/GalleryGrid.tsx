@@ -8,7 +8,6 @@ import {
 } from 'react'
 import {
   filterGallery,
-  GALLERY_SCENE_TAGS,
   getGalleryArtistTags,
   getGallerySceneTags,
   getGalleryYearTags,
@@ -26,7 +25,6 @@ import { useLiveGallery } from '@/hooks/useLiveGallery'
 import type { GalleryItem } from '@/types'
 
 const SORTS: GallerySort[] = ['order', 'newest', 'oldest', 'tag']
-const SCENE_TAG_SET = new Set<string>(GALLERY_SCENE_TAGS)
 
 function Chip({
   label,
@@ -324,7 +322,7 @@ export function GalleryGridMasonry() {
         </div>
       ) : null}
 
-      <ul className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <ul className="grid grid-cols-1 items-start gap-x-3 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {pagedItems.map((item, index) => (
           <GalleryTile
             key={item.id}
@@ -443,19 +441,16 @@ function GalleryTile({
   eager: boolean
   onOpen: () => void
 }) {
-  const caption = item.tags.filter((tag) => SCENE_TAG_SET.has(tag)).slice(0, 2)
-  const captionLine = [
-    ...caption,
-    item.year ? String(item.year) : '',
-  ]
-    .filter(Boolean)
-    .join(' · ')
+  const { lang } = useLanguage()
+  const { selected, toggleTag } = useGalleryGrid()
+  const caption = (item.caption || item.alt).trim()
+  const tags = item.tags.filter(Boolean)
 
   return (
     <li className="w-full">
       <button
         type="button"
-        className="group w-full cursor-pointer text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        className="group relative w-full cursor-pointer text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
         onClick={onOpen}
         aria-label={item.alt}
       >
@@ -470,10 +465,36 @@ function GalleryTile({
           fallbackLabel={item.category}
           wrapperClassName="rounded-[1rem] border border-border transition-[border-color,box-shadow] duration-500 group-hover:border-primary/40 group-hover:shadow-[0_0_24px_rgba(184,255,0,0.06)]"
         />
-        <p className="font-heading mt-2 min-h-4 truncate text-[10px] tracking-[0.14em] text-muted uppercase">
-          {captionLine || '\u00a0'}
-        </p>
+        {caption ? (
+          <span className="pointer-events-none absolute inset-x-px bottom-px rounded-b-[calc(1rem-1px)] bg-black px-3 py-2 text-center font-heading text-[11px] leading-snug tracking-[0.04em] text-white">
+            <span className="line-clamp-2">{caption}</span>
+          </span>
+        ) : null}
       </button>
+      {tags.length > 0 ? (
+        <ul className="mt-1.5 flex flex-wrap justify-center gap-1">
+          {tags.map((tag) => {
+            const active = selected.includes(tag)
+            return (
+              <li key={tag}>
+                <button
+                  type="button"
+                  aria-pressed={active}
+                  onClick={() => toggleTag(tag)}
+                  className={cn(
+                    'font-heading border px-2 py-1 text-[10px] tracking-[0.1em] uppercase transition-colors',
+                    active
+                      ? 'border-primary bg-primary text-primary-foreground'
+                      : 'border-border text-muted hover:border-primary hover:text-primary',
+                  )}
+                >
+                  {localizeCategory(tag, lang)}
+                </button>
+              </li>
+            )
+          })}
+        </ul>
+      ) : null}
     </li>
   )
 }

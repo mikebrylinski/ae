@@ -1055,7 +1055,7 @@ function GalleryDetailsOverlay({
                     caption: e.target.value,
                   })
                 }
-                placeholder="Shown under the photo in the lightbox"
+                placeholder="Shown on the photo in the lightbox"
               />
             </label>
             <label className="block w-24">

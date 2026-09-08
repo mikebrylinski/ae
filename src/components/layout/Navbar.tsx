@@ -22,6 +22,9 @@ function isNavActive(
   if (href.includes('#')) {
     return pathname === '/' && hash === href.replace('/#', '#')
   }
+  if (href !== '/' && (pathname === href || pathname.startsWith(`${href}/`))) {
+    return true
+  }
   return isActive
 }
 

@@ -9,6 +9,7 @@ import {
 } from '@/lib/admin'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import { MagicWordLock } from '@/components/ui/MagicWordLock'
 import { useSeo } from '@/hooks/useSeo'
 import { useLanguage } from '@/i18n/LanguageProvider'
 import { cn } from '@/lib/utils'
@@ -52,19 +53,39 @@ export default function AdminPage() {
 
   if (!authed) {
     return (
-      <div className="flex min-h-screen flex-col bg-black">
-        <div className="flex flex-1 items-center justify-center px-5">
-        <form
-          onSubmit={handleLogin}
-          className="glass-card w-full max-w-md space-y-5 p-8"
-        >
-          <p className="font-heading text-xs tracking-[0.2em] text-primary">Admin</p>
+      <div className="flex min-h-screen flex-col items-center justify-center bg-black px-5 py-10">
+        <div className="mx-auto flex w-full max-w-md flex-col items-center">
+          <div className="mb-6 flex min-w-0 flex-wrap items-center justify-center gap-3 sm:mb-8 sm:gap-4">
+            <div className="rack-brand-wrap rack-brand-wrap--no-seal rack-brand-glow min-w-0">
+              <Link
+                to="/"
+                className="rack-brand rack-brand--glow inline-flex max-w-full min-w-0 shrink flex-col items-center gap-0.5 text-center"
+              >
+                <span className="rack-brand__shine" aria-hidden />
+                <span className="rack-brand__name whitespace-nowrap font-heading text-[clamp(1.5rem,7vw,2.1rem)] tracking-[0.08em] sm:text-[2.2rem] sm:tracking-[0.1em]">
+                  <span className="text-white">ANDY</span>{' '}
+                  <span className="text-primary">EBERT</span>
+                </span>
+                <span className="rack-brand__sub w-full font-heading text-[0.7rem] uppercase sm:text-[0.8rem]">
+                  {t.brand.subtitle}
+                </span>
+                <span className="font-heading mt-0.5 text-[0.65rem] tracking-[0.22em] text-primary uppercase sm:text-[0.75rem]">
+                  Admin Area
+                </span>
+              </Link>
+            </div>
+            <AllAccessLaminate />
+          </div>
+
+          <MagicWordLock />
+
+          <form
+            onSubmit={handleLogin}
+            className="glass-card mt-4 w-full space-y-5 p-8"
+          >
           <h1 className="font-heading text-3xl tracking-[0.08em] text-white">
             Sign in
           </h1>
-          <p className="text-sm text-muted">
-            Edit career credits and gallery photos, tags, and captions.
-          </p>
           <div>
             <label htmlFor="admin-password" className="font-heading mb-2 block text-xs tracking-[0.14em] text-primary">
               Password
@@ -94,9 +115,8 @@ export default function AdminPage() {
           <Button type="submit" className="w-full">
             Log in
           </Button>
-        </form>
+          </form>
         </div>
-        <Footer admin />
       </div>
     )
   }

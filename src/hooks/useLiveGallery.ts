@@ -5,7 +5,7 @@ import {
   fetchRemoteGallery,
 } from '@/lib/galleryAdmin'
 
-export function useLiveGallery(): GalleryItem[] {
+export function useLiveGalleryState() {
   const [items, setItems] = useState<GalleryItem[] | null>(null)
 
   useEffect(() => {
@@ -24,5 +24,9 @@ export function useLiveGallery(): GalleryItem[] {
     }
   }, [])
 
-  return items ?? []
+  return { items: items ?? [], ready: items !== null }
+}
+
+export function useLiveGallery(): GalleryItem[] {
+  return useLiveGalleryState().items
 }

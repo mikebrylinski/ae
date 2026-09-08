@@ -10,6 +10,7 @@ const ProjectDetailPage = lazy(() => import('@/pages/ProjectDetailPage'))
 const ExperiencePage = lazy(() => import('@/pages/ExperiencePage'))
 const MediaPage = lazy(() => import('@/pages/MediaPage'))
 const GalleryPage = lazy(() => import('@/pages/GalleryPage'))
+const GalleryPhotoPage = lazy(() => import('@/pages/GalleryPhotoPage'))
 const DownloadsPage = lazy(() => import('@/pages/DownloadsPage'))
 const AboutPage = lazy(() => import('@/pages/AboutPage'))
 const ContactPage = lazy(() => import('@/pages/ContactPage'))
@@ -43,6 +44,7 @@ export default function App() {
           <Route path="experience" element={<ExperiencePage />} />
           <Route path="media" element={<MediaPage />} />
           <Route path="gallery" element={<GalleryPage />} />
+          <Route path="gallery/:id" element={<GalleryPhotoPage />} />
           <Route path="downloads" element={<DownloadsPage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="contact" element={<ContactPage />} />

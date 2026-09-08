@@ -22,6 +22,7 @@ function GalleryLightboxBridge() {
         src: item.src,
         alt: item.alt,
         caption: item.caption || item.alt,
+        sharePath: `/gallery/${item.id}`,
       })),
     [items],
   )
