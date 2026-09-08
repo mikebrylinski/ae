@@ -224,6 +224,15 @@ function galleryBackupBody(items, note) {
   )}\n`
 }
 
+function isBlobAlreadyExistsError(err) {
+  const name = err && typeof err === 'object' && 'name' in err ? String(err.name) : ''
+  const msg = err instanceof Error ? err.message : String(err)
+  return (
+    name === 'BlobAlreadyExistsError' ||
+    /already exists|cannot be overwritten|overwrite not allowed|conflict/i.test(msg)
+  )
+}
+
 export async function writeGalleryBackupToBlob(items, env, note) {
   if (!items?.length) return
   const { put } = await import('@vercel/blob')
@@ -242,25 +251,28 @@ export async function writeGalleryBackupToBlob(items, env, note) {
 
 /** Writes a one-time frozen copy. Does not overwrite if it already exists. */
 export async function ensurePreservedGalleryBackup(items, env) {
-  if (!items?.length) return
-  const blob = await import('@vercel/blob')
+  if (!items?.length) return { skipped: true }
+  const { put } = await import('@vercel/blob')
   const auth = blobClientOptions(env)
   try {
-    await blob.head(GALLERY_BACKUP_PRESERVED, auth)
-    return
+    const preserved = await put(
+      GALLERY_BACKUP_PRESERVED,
+      galleryBackupBody(items, 'Frozen snapshot of the working gallery order'),
+      {
+        access: 'public',
+        addRandomSuffix: false,
+        allowOverwrite: false,
+        contentType: 'application/json',
+        cacheControlMaxAge: 0,
+        ...auth,
+      },
+    )
+    await writeGalleryBackupToBlob(items, env, 'Initial live-gallery backup')
+    return { wrote: true, preservedUrl: preserved.url }
   } catch (err) {
-    const name = err && typeof err === 'object' && 'name' in err ? String(err.name) : ''
-    if (name !== 'BlobNotFoundError') throw err
+    if (isBlobAlreadyExistsError(err)) return { wrote: false, exists: true }
+    throw err
   }
-  await blob.put(GALLERY_BACKUP_PRESERVED, galleryBackupBody(items, 'Frozen snapshot of the working gallery order'), {
-    access: 'public',
-    addRandomSuffix: false,
-    allowOverwrite: false,
-    contentType: 'application/json',
-    cacheControlMaxAge: 0,
-    ...auth,
-  })
-  await writeGalleryBackupToBlob(items, env, 'Initial live-gallery backup')
 }
 
 export async function writeGalleryToBlob(items, env) {

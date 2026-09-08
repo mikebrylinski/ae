@@ -61,7 +61,7 @@ export function writeGalleryBackupToBlob(
 export function ensurePreservedGalleryBackup(
   items: GalleryRecord[],
   env: Record<string, string | undefined>,
-): Promise<void>
+): Promise<{ skipped: true } | { wrote: true; preservedUrl: string } | { wrote: false; exists: true }>
 export function writeGalleryToBlob(
   items: GalleryRecord[],
   env: Record<string, string | undefined>,

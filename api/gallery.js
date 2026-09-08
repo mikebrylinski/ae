@@ -29,14 +29,18 @@ export default async function handler(req, res) {
   try {
     const items = await readGalleryFromBlob(runtimeEnv)
     const snapshot = items?.length ? items : loadBundledGalleryItems()
+    let backup = null
     if (snapshot?.length) {
       try {
-        await ensurePreservedGalleryBackup(snapshot, runtimeEnv)
-      } catch {
-        /* backup is best-effort */
+        backup = await ensurePreservedGalleryBackup(snapshot, runtimeEnv)
+      } catch (err) {
+        backup = { error: err instanceof Error ? err.message : 'backup failed' }
       }
     }
-    return res.status(200).json({ ok: true, items })
+    const reportBackup = String(req.url || '').includes('backup=1')
+    return res.status(200).json(
+      reportBackup ? { ok: true, items, backup } : { ok: true, items },
+    )
   } catch (err) {
     return res.status(500).json({
       ok: false,
