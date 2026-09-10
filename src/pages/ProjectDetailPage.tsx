@@ -38,6 +38,10 @@ import {
   readStoredCreditsView,
   type CreditsView,
 } from '@/lib/creditsView'
+import {
+  GALLERY_TILE_ASPECT_CLASS,
+  galleryTilePositionStyle,
+} from '@/lib/galleryFocal'
 
 const CARD_IMAGE_FOCUS: Record<string, string> = {
   'maroon-5': 'object-[center_58%]',
@@ -121,17 +125,19 @@ function ProjectGallery({
                 n: i + 1,
               })}
             >
-              <div
+              <span
                 className={cn(
-                  'relative aspect-video w-full overflow-hidden rounded-[1rem] border border-border bg-black',
+                  'relative block overflow-hidden rounded-[1rem] border border-border bg-black',
                   'transition-[border-color,box-shadow] duration-500',
                   'group-hover:border-primary/40 group-hover:shadow-[0_0_24px_rgba(184,255,0,0.06)]',
                 )}
               >
-                <img
+                <MediaImage
                   src={item.src}
                   alt={alt}
-                  className="h-full w-full object-cover"
+                  aspect={GALLERY_TILE_ASPECT_CLASS}
+                  wrapperClassName="border-0 bg-black"
+                  style={galleryTilePositionStyle(item.focalX, item.focalY)}
                   loading="lazy"
                   decoding="async"
                 />
@@ -140,7 +146,7 @@ function ProjectGallery({
                     <span className="line-clamp-2">{caption}</span>
                   </span>
                 ) : null}
-              </div>
+              </span>
             </button>
           </li>
           )

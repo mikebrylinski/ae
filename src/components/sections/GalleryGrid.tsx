@@ -22,7 +22,10 @@ import { VuPlate } from '@/components/ui/VuPlate'
 import { GalleryPager, GALLERY_PAGE_SIZE } from '@/components/ui/GalleryPager'
 import { cn } from '@/lib/utils'
 import { GALLERY_UPDATED_EVENT, loadStoredExtraTags } from '@/lib/galleryAdmin'
-import { galleryObjectPosition } from '@/lib/galleryFocal'
+import {
+  GALLERY_TILE_ASPECT_CLASS,
+  galleryTilePositionStyle,
+} from '@/lib/galleryFocal'
 import { useLiveGallery } from '@/hooks/useLiveGallery'
 import type { GalleryItem } from '@/types'
 
@@ -468,14 +471,14 @@ function GalleryTile({
           <MediaImage
             src={item.src}
             alt={item.alt}
-            aspect="aspect-[4/3]"
+            aspect={GALLERY_TILE_ASPECT_CLASS}
             width={item.width}
             height={item.height}
             decoding="async"
             loading={eager ? 'eager' : 'lazy'}
             fallbackLabel={item.category}
             wrapperClassName="border-0 bg-black"
-            style={{ objectPosition: galleryObjectPosition(item.focalX, item.focalY) }}
+            style={galleryTilePositionStyle(item.focalX, item.focalY)}
           />
           {caption ? (
             <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-black px-3 py-2 text-center font-heading text-[11px] leading-snug tracking-[0.04em] text-white">

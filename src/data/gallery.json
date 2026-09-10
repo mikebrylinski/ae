@@ -95,7 +95,7 @@
   {
     "id": 23,
     "src": "/images/gallery/arena-2.jpg",
-    "alt": "Andy at console \u2014 Stone Temple Pilots, Australia.",
+    "alt": "Andy at console — Stone Temple Pilots, Australia.",
     "category": "Monitor World",
     "tags": [
       "Console",
@@ -107,7 +107,7 @@
     "width": 709,
     "height": 532,
     "year": 2010,
-    "caption": "Andy at console \u2014 Stone Temple Pilots, Australia.",
+    "caption": "Andy at console — Stone Temple Pilots, Australia.",
     "teaser": true
   },
   {
@@ -156,7 +156,9 @@
     "width": 500,
     "height": 752,
     "year": 2012,
-    "caption": "Alanis performing on stage with Andy in the back."
+    "caption": "Alanis performing on stage with Andy in the back.",
+    "focalX": 50,
+    "focalY": 0
   },
   {
     "id": 25,
@@ -212,7 +214,7 @@
   {
     "id": 18,
     "src": "/images/gallery/monitor-world-2.jpg",
-    "alt": "Andy at a Midas H3000 \u2014 Guns N' Roses, Prague.",
+    "alt": "Andy at a Midas H3000 — Guns N' Roses, Prague.",
     "category": "Monitor World",
     "tags": [
       "Monitor World",
@@ -224,7 +226,7 @@
     "width": 709,
     "height": 532,
     "year": 2006,
-    "caption": "Andy at a Midas H3000 \u2014 Guns N' Roses, Prague.",
+    "caption": "Andy at a Midas H3000 — Guns N' Roses, Prague.",
     "teaser": true
   },
   {
@@ -248,7 +250,7 @@
   {
     "id": 2,
     "src": "/images/projects/harlem-gospel-stage.jpg",
-    "alt": "Stage set for The Harlem Gospel Singers \u2014 Drums under center riser",
+    "alt": "Stage set for The Harlem Gospel Singers — Drums under center riser",
     "category": "Arena",
     "tags": [
       "Harlem Gospel Singers",
@@ -259,7 +261,7 @@
     "width": 1024,
     "height": 768,
     "year": 2003,
-    "caption": "Stage set for The Harlem Gospel Singers \u2014 Drums under center riser"
+    "caption": "Stage set for The Harlem Gospel Singers — Drums under center riser"
   },
   {
     "id": 10,
@@ -764,7 +766,7 @@
   {
     "id": 45,
     "src": "/images/projects/alanis-17.jpg",
-    "alt": "Monitor world \u2014 Alanis tour, 2026",
+    "alt": "Monitor world — Alanis tour, 2026",
     "category": "Monitor World",
     "tags": [
       "Alanis Morissette",
@@ -777,7 +779,7 @@
     "width": 1500,
     "height": 2000,
     "year": 2026,
-    "caption": "Monitor world \u2014 Alanis tour, 2026"
+    "caption": "Monitor world — Alanis tour, 2026"
   },
   {
     "id": 46,
@@ -1218,7 +1220,7 @@
   {
     "id": 72,
     "src": "/images/projects/stp-12.jpg",
-    "alt": "Andy, wearing his Showco shirt and the B\u00fcrgermeister Meisterb\u00fcrger doll.",
+    "alt": "Andy, wearing his Showco shirt and the Bürgermeister Meisterbürger doll.",
     "category": "Monitor World",
     "tags": [
       "Stone Temple Pilots",
@@ -1230,7 +1232,7 @@
     "width": 768,
     "height": 1024,
     "year": 2010,
-    "caption": "Andy, wearing his Showco shirt and the B\u00fcrgermeister Meisterb\u00fcrger doll."
+    "caption": "Andy, wearing his Showco shirt and the Bürgermeister Meisterbürger doll."
   },
   {
     "id": 73,
@@ -1558,7 +1560,7 @@
   {
     "id": 92,
     "src": "/images/projects/dream-theater-3.jpg",
-    "alt": "Mike Portnoy\u2019s TAMA kit with custom 3 bass drums, accounting for 26 inputs!",
+    "alt": "Mike Portnoy’s TAMA kit with custom 3 bass drums, accounting for 26 inputs!",
     "category": "Equipment",
     "tags": [
       "Dream Theater",
@@ -1569,7 +1571,7 @@
     "width": 1024,
     "height": 768,
     "year": 2002,
-    "caption": "Mike Portnoy\u2019s TAMA kit with custom 3 bass drums, accounting for 26 inputs!"
+    "caption": "Mike Portnoy’s TAMA kit with custom 3 bass drums, accounting for 26 inputs!"
   },
   {
     "id": 93,
@@ -1626,7 +1628,7 @@
   {
     "id": 96,
     "src": "/images/projects/dream-theater-7.jpg",
-    "alt": "Outboard racks and Andy's laptop for Cue list on the World Tourbulence \u201902",
+    "alt": "Outboard racks and Andy's laptop for Cue list on the World Tourbulence ’02",
     "category": "Equipment",
     "tags": [
       "Dream Theater",
@@ -1637,7 +1639,7 @@
     "width": 768,
     "height": 1024,
     "year": 2002,
-    "caption": "Outboard racks and Andy's laptop for Cue list on the World Tourbulence \u201902"
+    "caption": "Outboard racks and Andy's laptop for Cue list on the World Tourbulence ’02"
   },
   {
     "id": 97,
@@ -2186,7 +2188,7 @@
   {
     "id": 130,
     "src": "/images/projects/rem-2.jpg",
-    "alt": "Waldb\u00fchne, Berlin. Stage on the R.E.M. European tour, with opener \"Feeder\" backdrop",
+    "alt": "Waldbühne, Berlin. Stage on the R.E.M. European tour, with opener \"Feeder\" backdrop",
     "category": "Amphitheaters",
     "tags": [
       "R.E.M.",
@@ -2197,7 +2199,7 @@
     "width": 1024,
     "height": 768,
     "year": 2003,
-    "caption": "Waldb\u00fchne, Berlin. Stage on the R.E.M. European tour, with opener \"Feeder\" backdrop"
+    "caption": "Waldbühne, Berlin. Stage on the R.E.M. European tour, with opener \"Feeder\" backdrop"
   },
   {
     "id": 131,

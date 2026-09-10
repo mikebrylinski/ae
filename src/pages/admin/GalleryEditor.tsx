@@ -1,4 +1,13 @@
-import { useEffect, useId, useMemo, useRef, useState, type PointerEvent, type ReactNode } from 'react'
+import {
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+  type DragEvent,
+  type PointerEvent,
+  type ReactNode,
+} from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { AlertCircle, ArrowDown, ArrowUp, Check, CheckCircle2, ChevronsDown, ChevronsUp, GripVertical, ImagePlus, Plus, Replace, Save, Trash2, X } from 'lucide-react'
@@ -24,7 +33,11 @@ import {
   sanitizeGalleryExtraTags,
 } from '@/lib/content'
 import { resizeImageFile } from '@/lib/resizeImage'
-import { clampGalleryFocal, galleryObjectPosition } from '@/lib/galleryFocal'
+import {
+  GALLERY_TILE_ASPECT_CLASS,
+  clampGalleryFocal,
+  galleryTilePositionStyle,
+} from '@/lib/galleryFocal'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { GalleryPager, GALLERY_PAGE_SIZE } from '@/components/ui/GalleryPager'
@@ -75,6 +88,97 @@ function adminPassword() {
   return getSessionPassword() || getAdminPassword()
 }
 
+const IMAGE_ACCEPT = 'image/jpeg,image/png,image/webp,image/gif'
+const IMAGE_NAME_RE = /\.(jpe?g|png|webp|gif|heic|heif|avif)$/i
+
+function isOsFileDrag(event: DragEvent) {
+  return Array.from(event.dataTransfer?.types ?? []).includes('Files')
+}
+
+function isImageFile(file: File) {
+  if (file.type.startsWith('image/')) return true
+  return IMAGE_NAME_RE.test(file.name)
+}
+
+function snapshotImageFiles(files: ArrayLike<File>) {
+  return Array.from(files).filter(isImageFile)
+}
+
+function imageFilesFromDrop(event: DragEvent) {
+  const dt = event.dataTransfer
+  if (!dt) return []
+  const seen = new Set<string>()
+  const out: File[] = []
+
+  function add(file: File | null) {
+    if (!file || !isImageFile(file)) return
+    const key = `${file.name}:${file.size}:${file.lastModified}`
+    if (seen.has(key)) return
+    seen.add(key)
+    out.push(file)
+  }
+
+  if (dt.items?.length) {
+    for (let i = 0; i < dt.items.length; i += 1) {
+      const item = dt.items[i]
+      if (item.kind === 'file') add(item.getAsFile())
+    }
+  }
+  for (let i = 0; i < dt.files.length; i += 1) add(dt.files[i])
+  return out
+}
+
+function useOsFileDrop(enabled: boolean, onFiles: (files: File[]) => void) {
+  const [over, setOver] = useState(false)
+  const depthRef = useRef(0)
+  const onFilesRef = useRef(onFiles)
+  onFilesRef.current = onFiles
+
+  function reset() {
+    depthRef.current = 0
+    setOver(false)
+  }
+
+  useEffect(() => {
+    if (!enabled) reset()
+  }, [enabled])
+
+  return {
+    over: over && enabled,
+    handlers: {
+      onDragEnter(event: DragEvent<HTMLElement>) {
+        if (!enabled || !isOsFileDrag(event)) return
+        event.preventDefault()
+        event.stopPropagation()
+        depthRef.current += 1
+        setOver(true)
+      },
+      onDragOver(event: DragEvent<HTMLElement>) {
+        if (!enabled || !isOsFileDrag(event)) return
+        event.preventDefault()
+        event.stopPropagation()
+        event.dataTransfer.dropEffect = 'copy'
+      },
+      onDragLeave(event: DragEvent<HTMLElement>) {
+        if (!enabled || !isOsFileDrag(event)) return
+        event.preventDefault()
+        event.stopPropagation()
+        depthRef.current = Math.max(0, depthRef.current - 1)
+        if (depthRef.current === 0) setOver(false)
+      },
+      onDrop(event: DragEvent<HTMLElement>) {
+        if (!enabled) return
+        event.preventDefault()
+        event.stopPropagation()
+        const files = imageFilesFromDrop(event)
+        reset()
+        if (files.length) onFilesRef.current(files)
+        else onFilesRef.current([])
+      },
+    },
+  }
+}
+
 export function GalleryEditor() {
   const [rows, setRows] = useState<GalleryItem[]>(
     () => loadStoredGallery() ?? bundledGallery(),
@@ -110,6 +214,10 @@ export function GalleryEditor() {
   const [selectedIds, setSelectedIds] = useState<number[]>([])
   const uploadRef = useRef<HTMLInputElement>(null)
   const replaceRef = useRef<HTMLInputElement>(null)
+  const ingestFilesRef = useRef<(
+    files: FileList | File[],
+    replaceFor?: number,
+  ) => Promise<void>>(async () => {})
   const dragIdRef = useRef<number | null>(null)
   const dropIndexRef = useRef<number | null>(null)
   const dragStartRef = useRef<{ x: number; y: number } | null>(null)
@@ -117,6 +225,7 @@ export function GalleryEditor() {
   const rowsRef = useRef(rows)
   const skipClickRef = useRef(false)
   const liveSyncTimer = useRef<number | null>(null)
+  const ingestingRef = useRef(false)
   rowsRef.current = rows
 
   useEffect(() => {
@@ -172,6 +281,10 @@ export function GalleryEditor() {
       if (liveSyncTimer.current) window.clearTimeout(liveSyncTimer.current)
     }
   }, [])
+
+  const addDrop = useOsFileDrop(!uploading && expandedId == null, (files) => {
+    void ingestFilesRef.current(files)
+  })
 
   function scheduleLiveSync(items: GalleryItem[]) {
     if (liveSyncTimer.current) window.clearTimeout(liveSyncTimer.current)
@@ -528,70 +641,76 @@ export function GalleryEditor() {
   }
 
   async function ingestFiles(files: FileList | File[], replaceFor?: number) {
-    const list = Array.from(files).filter((file) => file.type.startsWith('image/'))
-    const queue = replaceFor ? list.slice(0, 1) : list
-    if (queue.length === 0) {
+    if (ingestingRef.current) return
+    const queue = snapshotImageFiles(files)
+    const work = replaceFor ? queue.slice(0, 1) : queue
+    if (work.length === 0) {
       setStatus('Choose an image file.')
       return
     }
 
+    ingestingRef.current = true
     setUploading(true)
     const password = adminPassword()
+    let nextId = nextGalleryId(rowsRef.current)
     const added: GalleryItem[] = []
-    let nextId = nextGalleryId(rows)
+    let failed = 0
 
     try {
-      for (const file of queue) {
-        const resized = await resizeImageFile(file)
-        const id = replaceFor ?? nextId++
-        const uploaded = await uploadGalleryImage(
-          {
-            blob: resized.blob,
-            width: resized.width,
-            height: resized.height,
-            filename: resized.name,
-            id,
-          },
-          password,
-        )
-        if (!uploaded.ok || !uploaded.src) {
-          setStatus(uploaded.message || 'Upload failed.')
-          setUploading(false)
-          return
-        }
+      for (const file of work) {
+        try {
+          const resized = await resizeImageFile(file)
+          const id = replaceFor ?? nextId++
+          const uploaded = await uploadGalleryImage(
+            {
+              blob: resized.blob,
+              width: resized.width,
+              height: resized.height,
+              filename: resized.name,
+              id,
+            },
+            password,
+          )
+          if (!uploaded.ok || !uploaded.src) {
+            failed += 1
+            continue
+          }
 
-        if (replaceFor) {
-          setRows((current) => {
-            const next = current.map((row) =>
-              row.id === replaceFor
-                ? {
-                    ...row,
-                    src: srcForReplacePreview(uploaded.src!),
-                    width: uploaded.width ?? resized.width,
-                    height: uploaded.height ?? resized.height,
-                    focalX: undefined,
-                    focalY: undefined,
-                  }
-                : row,
-            )
-            persistGalleryLocal(next)
-            scheduleLiveSync(next)
-            return next
-          })
-          setStatus('Photo replaced — click Save to keep it.')
-        } else {
-          const alt = file.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ')
-          added.push({
-            id,
-            src: uploaded.src,
-            alt,
-            caption: alt,
-            category: 'Tour',
-            tags: galleryWithSyncedYear(['Tour'], new Date().getFullYear()),
-            year: new Date().getFullYear(),
-            width: uploaded.width ?? resized.width,
-            height: uploaded.height ?? resized.height,
-          })
+          if (replaceFor) {
+            setRows((current) => {
+              const next = current.map((row) =>
+                row.id === replaceFor
+                  ? {
+                      ...row,
+                      src: srcForReplacePreview(uploaded.src!),
+                      width: uploaded.width ?? resized.width,
+                      height: uploaded.height ?? resized.height,
+                      focalX: undefined,
+                      focalY: undefined,
+                    }
+                  : row,
+              )
+              persistGalleryLocal(next)
+              scheduleLiveSync(next)
+              return next
+            })
+            setStatus('Photo replaced — click Save to keep it.')
+          } else {
+            const alt = file.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ')
+            added.push({
+              id,
+              src: uploaded.src,
+              alt,
+              caption: alt,
+              category: 'Tour',
+              tags: galleryWithSyncedYear(['Tour'], new Date().getFullYear()),
+              year: new Date().getFullYear(),
+              width: uploaded.width ?? resized.width,
+              height: uploaded.height ?? resized.height,
+            })
+          }
+        } catch {
+          failed += 1
         }
       }
 
@@ -603,64 +722,122 @@ export function GalleryEditor() {
           return next
         })
         setPage(1)
-        setExpandedId(added[0]?.id ?? null)
-        setStatus(
-          added.length === 1
-            ? 'Photo added — add a caption and tags, then Save.'
-            : `${added.length} photos added — add captions and tags, then Save.`,
-        )
+        setExpandedId(added.length === 1 ? added[0].id : null)
+        if (failed > 0) {
+          setStatus(
+            `${added.length} photo${added.length === 1 ? '' : 's'} added, ${failed} failed.`,
+          )
+        } else {
+          setStatus(
+            added.length === 1
+              ? 'Photo added — add a caption and tags, then Save.'
+              : `${added.length} photos added — add captions and tags, then Save.`,
+          )
+        }
+      } else if (!replaceFor && failed > 0) {
+        setStatus(failed === 1 ? 'Upload failed.' : `${failed} uploads failed.`)
       }
     } catch (err) {
       setStatus(err instanceof Error ? err.message : 'Upload failed.')
     } finally {
+      ingestingRef.current = false
       setUploading(false)
       if (uploadRef.current) uploadRef.current.value = ''
       if (replaceRef.current) replaceRef.current.value = ''
     }
   }
+  ingestFilesRef.current = ingestFiles
 
   return (
-    <div className="mx-auto max-w-7xl space-y-8 px-5 py-8 sm:px-8 lg:px-12 xl:px-14">
-      <div className="glass-card space-y-3 p-5 sm:p-6">
-        <p className="font-heading text-[10px] tracking-[0.16em] text-primary uppercase">
-          How to update the gallery
-        </p>
-        <ol className="list-decimal space-y-2 pl-5 text-sm leading-relaxed text-muted">
-          <li>
-            <span className="text-white">Add photos</span> with{' '}
-            <span className="text-primary">Add new / Upload</span>.
-          </li>
-          <li>
-            <span className="text-white">Edit a photo</span> with the green{' '}
-            <span className="text-primary">Edit</span> button: caption, tags, year, and order number.
-            Use <span className="text-primary">Replace image</span> in that editor to swap the
-            photo without losing caption, tags, or order.
-          </li>
-          <li>
-            <span className="text-white">Align the preview</span> in that editor: click and drag the
-            photo in <span className="text-primary">Tile crop</span> until faces sit in the frame.
-            Drag up if the head is cut off at the bottom; drag down if the top is cropped. The
-            lightbox still shows the full photo. Click <span className="text-primary">Save</span> to
-            keep it.
-          </li>
-          <li>
-            <span className="text-white">Reorder</span> by dragging{' '}
-            <span className="text-primary">Drag to reorder</span>. This is the same order visitors see
-            on the gallery page.
-          </li>
-          <li>
-            When it looks right, click{' '}
-            <span className="text-primary">Publish to site</span>. That is what updates the live
-            gallery.
-          </li>
-        </ol>
+    <div
+      className="relative mx-auto max-w-7xl space-y-8 px-5 py-8 sm:px-8 lg:px-12 xl:px-14"
+      {...addDrop.handlers}
+    >
+      {addDrop.over ? (
+        <div className="pointer-events-none absolute inset-3 z-40 flex items-center justify-center rounded-[1.25rem] border-2 border-dashed border-primary bg-black/80">
+          <p className="font-heading px-6 text-center text-lg tracking-[0.12em] text-primary uppercase">
+            Drop to add photos
+          </p>
+        </div>
+      ) : null}
+      <div className="grid items-stretch gap-4 md:grid-cols-2">
+        <div className="glass-card space-y-3 p-5 sm:p-6">
+          <p className="font-heading text-[10px] tracking-[0.16em] text-primary uppercase">
+            How to update the gallery
+          </p>
+          <ol className="list-decimal space-y-2 pl-5 text-sm leading-relaxed text-muted">
+            <li>
+              <span className="text-white">Add photos</span> with{' '}
+              <span className="text-primary">Add new / Upload</span>, or drag one or more photos
+              onto this page.
+            </li>
+            <li>
+              <span className="text-white">Edit a photo</span> with the green{' '}
+              <span className="text-primary">Edit</span> button: caption, tags, year, and order
+              number. Use <span className="text-primary">Replace image</span> in that editor, or
+              drop a photo onto the preview, to swap the file without losing caption, tags, or
+              order.
+            </li>
+            <li>
+              <span className="text-white">Align the preview</span> in that editor: click and drag
+              the photo in <span className="text-primary">Tile crop</span> until faces sit in the
+              frame. Drag up if the head is cut off at the bottom; drag down if the top is cropped.
+              The lightbox still shows the full photo. Click{' '}
+              <span className="text-primary">Save</span> to keep it.
+            </li>
+            <li>
+              <span className="text-white">Reorder</span> by dragging{' '}
+              <span className="text-primary">Drag to reorder</span>. This is the same order visitors
+              see on the gallery page.
+            </li>
+            <li>
+              When it looks right, click{' '}
+              <span className="text-primary">Publish to site</span>. That is what updates the live
+              gallery.
+            </li>
+          </ol>
+        </div>
+
+        <div className="flex h-full min-h-[16rem] overflow-visible p-1">
+          <div
+            role="button"
+            tabIndex={uploading ? -1 : 0}
+            aria-disabled={uploading}
+            aria-label="Drop photos to upload, or click to choose files"
+            onClick={() => {
+              if (!uploading) uploadRef.current?.click()
+            }}
+            onKeyDown={(event) => {
+              if (uploading) return
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault()
+                uploadRef.current?.click()
+              }
+            }}
+            className={cn(
+              'flex h-full min-h-[16rem] w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-[1rem] border-2 border-dashed px-4 py-6 text-center transition-colors',
+              addDrop.over
+                ? 'border-primary bg-primary/10 text-primary'
+                : 'border-border text-muted hover:border-primary hover:text-primary',
+              uploading && 'pointer-events-none cursor-default opacity-60',
+            )}
+          >
+            <ImagePlus size={28} aria-hidden />
+            <p className="font-heading text-xs tracking-[0.14em] uppercase">
+              {uploading ? 'Uploading…' : 'Drop photos here'}
+            </p>
+            <p className="max-w-xs text-[11px] leading-relaxed">
+              One or many JPEG, PNG, or WebP files. Click to choose from your computer.
+            </p>
+          </div>
+        </div>
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="font-heading text-lg tracking-[0.08em]">Gallery photos</h2>
           <p className="mt-1 text-sm text-muted">
-            Drag to reorder, then publish when you are ready.
+            Drag photos here to upload, or drag a tile to reorder. Publish when you are ready.
           </p>
         </div>
         <div className="flex flex-wrap items-start gap-2">
@@ -706,7 +883,7 @@ export function GalleryEditor() {
       <input
         ref={uploadRef}
         type="file"
-        accept="image/jpeg,image/png,image/webp,image/gif"
+        accept={IMAGE_ACCEPT}
         multiple
         className="sr-only"
         onChange={(e) => {
@@ -716,7 +893,7 @@ export function GalleryEditor() {
       <input
         ref={replaceRef}
         type="file"
-        accept="image/jpeg,image/png,image/webp,image/gif"
+        accept={IMAGE_ACCEPT}
         className="sr-only"
         onChange={(e) => {
           const files = e.target.files
@@ -724,7 +901,11 @@ export function GalleryEditor() {
           if (files && id != null) void ingestFiles(files, id)
         }}
       />
-      {status ? <p className="text-sm text-primary">{status}</p> : null}
+      {status ? (
+        <p className="text-sm text-primary">
+          <span className="font-heading tracking-[0.14em] uppercase">Status:</span> {status}
+        </p>
+      ) : null}
 
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div className="flex flex-wrap items-center gap-2">
@@ -981,13 +1162,11 @@ export function GalleryEditor() {
               <img
                 src={dragPreview.src}
                 alt={dragPreview.alt}
-                className="aspect-[4/3] h-auto w-full object-cover"
-                style={{
-                  objectPosition: galleryObjectPosition(
-                    dragPreview.focalX,
-                    dragPreview.focalY,
-                  ),
-                }}
+                className={cn(GALLERY_TILE_ASPECT_CLASS, 'h-auto w-full object-cover')}
+                style={galleryTilePositionStyle(
+                  dragPreview.focalX,
+                  dragPreview.focalY,
+                )}
               />
               <p className="font-heading absolute inset-x-0 bottom-0 bg-black/75 px-2 py-1 text-center text-[9px] tracking-[0.14em] text-primary uppercase">
                 Drag to reorder
@@ -1016,6 +1195,7 @@ export function GalleryEditor() {
           onAddTag={(tag) => addExtraTag(editingRow.id, tag)}
           onMove={(toIndex) => moveRow(editingRow.id, toIndex)}
           onReplace={() => replaceRef.current?.click()}
+          onReplaceFiles={(files) => void ingestFiles(files, editingRow.id)}
           onSave={() => void handleSave(true)}
           onDelete={() => removeRow(editingRow.id)}
         />
@@ -1048,6 +1228,7 @@ function GalleryDetailsOverlay({
   onAddTag,
   onMove,
   onReplace,
+  onReplaceFiles,
   onSave,
   onDelete,
 }: {
@@ -1068,6 +1249,7 @@ function GalleryDetailsOverlay({
   onAddTag: (tag: string) => void
   onMove: (toIndex: number) => void
   onReplace: () => void
+  onReplaceFiles: (files: File[]) => void
   onSave: () => void
   onDelete: () => void
 }) {
@@ -1075,6 +1257,7 @@ function GalleryDetailsOverlay({
   const closeRef = useRef<HTMLButtonElement>(null)
   const ignoreBackdropUntil = useRef(0)
   const selectedArtists = galleryCustomTags(row.tags, extraTagOptions)
+  const replaceDrop = useOsFileDrop(!uploading, onReplaceFiles)
 
   useEffect(() => {
     ignoreBackdropUntil.current = Date.now() + 600
@@ -1115,6 +1298,7 @@ function GalleryDetailsOverlay({
         className="glass-card relative my-auto w-full max-w-5xl space-y-5 p-4 sm:p-6"
         onClick={(event) => event.stopPropagation()}
         onPointerDown={(event) => event.stopPropagation()}
+        {...replaceDrop.handlers}
       >
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
@@ -1141,14 +1325,23 @@ function GalleryDetailsOverlay({
 
         <div className="grid gap-5 md:grid-cols-2 md:items-start md:gap-8">
           <div className="space-y-3">
-            <FocalCropEditor
-              src={row.src}
-              width={row.width}
-              height={row.height}
-              focalX={row.focalX}
-              focalY={row.focalY}
-              onChange={(next) => onUpdate(next)}
-            />
+            <div className="relative">
+              <FocalCropEditor
+                src={row.src}
+                width={row.width}
+                height={row.height}
+                focalX={row.focalX}
+                focalY={row.focalY}
+                onChange={(next) => onUpdate(next)}
+              />
+              {replaceDrop.over ? (
+                <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center rounded-[1rem] border-2 border-dashed border-primary bg-black/80">
+                  <p className="font-heading px-4 text-center text-sm tracking-[0.14em] text-primary uppercase">
+                    Drop to replace this photo
+                  </p>
+                </div>
+              ) : null}
+            </div>
             <Button
               type="button"
               size="sm"
@@ -1159,6 +1352,9 @@ function GalleryDetailsOverlay({
               <Replace size={14} aria-hidden />
               {uploading ? 'Uploading…' : 'Replace image'}
             </Button>
+            <p className="text-[11px] leading-relaxed text-muted">
+              Drop a photo on the preview, or click Replace image.
+            </p>
           </div>
           <div className="grid content-start gap-4">
             <label className="block">
@@ -1320,12 +1516,17 @@ function GalleryPreview({
   focalY?: number
 }) {
   return (
-    <div className="relative aspect-[4/3] w-full min-w-0 overflow-hidden rounded-[1rem] border border-border bg-black">
+    <div
+      className={cn(
+        'relative w-full min-w-0 overflow-hidden rounded-[1rem] border border-border bg-black',
+        GALLERY_TILE_ASPECT_CLASS,
+      )}
+    >
       <img
         src={src}
         alt=""
         className="absolute inset-0 h-full w-full min-h-0 min-w-0 max-w-none object-cover"
-        style={{ objectPosition: galleryObjectPosition(focalX, focalY) }}
+        style={galleryTilePositionStyle(focalX, focalY)}
       />
       {dragging ? (
         <div className="absolute inset-0 flex items-center justify-center bg-black/60">
@@ -1440,14 +1641,15 @@ function FocalCropEditor({
         Tile crop
       </span>
       <p className="mb-2 text-[11px] leading-relaxed text-muted">
-        This is the 4:3 preview visitors see on the gallery page. Click and drag the photo to
-        align it until faces sit inside the frame. Then click Save. Opening the photo still shows
-        the full image.
+        This is the 4:3 preview visitors see on the gallery and artist pages. Click and drag the
+        photo to align it until faces sit inside the frame. Then click Save. Opening the photo
+        still shows the full image.
       </p>
       <div
         ref={boxRef}
         className={cn(
-          'relative aspect-[4/3] w-full min-w-0 touch-none overflow-hidden rounded-[1rem] border border-border bg-black',
+          'relative w-full min-w-0 touch-none overflow-hidden rounded-[1rem] border border-border bg-black',
+          GALLERY_TILE_ASPECT_CLASS,
           panning ? 'cursor-grabbing' : 'cursor-grab',
         )}
         onPointerDown={onPointerDown}
@@ -1460,7 +1662,7 @@ function FocalCropEditor({
           alt=""
           draggable={false}
           className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-          style={{ objectPosition: galleryObjectPosition(x, y) }}
+          style={galleryTilePositionStyle(x, y)}
         />
         <p className="pointer-events-none absolute inset-x-0 top-2 text-center font-heading text-[9px] tracking-[0.14em] text-white uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)]">
           {panning ? 'Aligning…' : 'Drag to align'}
@@ -1560,10 +1762,8 @@ function ConfirmDeleteDialog({
               <img
                 src={photo.src}
                 alt={photo.alt}
-                className="aspect-[4/3] h-full w-full object-cover"
-                style={{
-                  objectPosition: galleryObjectPosition(photo.focalX, photo.focalY),
-                }}
+                className={cn(GALLERY_TILE_ASPECT_CLASS, 'h-full w-full object-cover')}
+                style={galleryTilePositionStyle(photo.focalX, photo.focalY)}
               />
             </div>
           ))}

@@ -1,3 +1,6 @@
+/** Shared tile frame for gallery, admin previews, and artist pages. */
+export const GALLERY_TILE_ASPECT_CLASS = 'aspect-[4/3]'
+
 export function clampGalleryFocal(value: unknown, fallback = 50): number {
   const n = typeof value === 'number' ? value : Number(value)
   if (!Number.isFinite(n)) return fallback
@@ -6,6 +9,10 @@ export function clampGalleryFocal(value: unknown, fallback = 50): number {
 
 export function galleryObjectPosition(focalX?: number, focalY?: number): string {
   return `${clampGalleryFocal(focalX)}% ${clampGalleryFocal(focalY)}%`
+}
+
+export function galleryTilePositionStyle(focalX?: number, focalY?: number) {
+  return { objectPosition: galleryObjectPosition(focalX, focalY) }
 }
 
 export function hasCustomGalleryFocal(focalX?: number, focalY?: number): boolean {

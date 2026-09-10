@@ -111,9 +111,9 @@ export interface GalleryItem {
   year?: number
   width: number
   height: number
-  /** Horizontal focal point for 4:3 tile crops, 0–100. Default 50 (center). */
+  /** Horizontal focal point for 4:3 tile crops, 0–100. Default 50 (center). Used on gallery, admin, and artist pages. */
   focalX?: number
-  /** Vertical focal point for 4:3 tile crops, 0–100. Default 50 (center). */
+  /** Vertical focal point for 4:3 tile crops, 0–100. Default 50 (center). Used on gallery, admin, and artist pages. */
   focalY?: number
   /** When true, included in the Press & Media gallery teaser. */
   teaser?: boolean
