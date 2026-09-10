@@ -91,10 +91,13 @@ export function galleryForJson(items: GalleryItem[]): GalleryItem[] {
 
 export async function fetchRemoteGallery(): Promise<GalleryItem[] | null> {
   try {
-    const res = await fetch('/api/gallery', { cache: 'default' })
+    const res = await fetch(`/api/gallery?t=${Date.now()}`, { cache: 'no-store' })
     if (!res.ok) return null
-    const data = (await res.json()) as { items?: GalleryItem[] | null }
-    if (!Array.isArray(data.items)) return null
+    const data = (await res.json()) as {
+      items?: GalleryItem[] | null
+      blob?: boolean
+    }
+    if (!Array.isArray(data.items) || data.items.length === 0) return null
     return data.items
   } catch {
     return null

@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ ok: false, error: 'Method not allowed' })
   }
 
-  res.setHeader('Cache-Control', 'public, s-maxage=30, stale-while-revalidate=120')
+  res.setHeader('Cache-Control', 'private, no-store, max-age=0, must-revalidate')
 
   const runtimeEnv = env()
   if (!blobConfiguredFromEnv(runtimeEnv)) {
@@ -27,8 +27,14 @@ export default async function handler(req, res) {
 
   try {
     const items = await readGalleryFromBlob(runtimeEnv)
-    const snapshot = items?.length ? items : loadBundledGalleryItems()
-    return res.status(200).json({ ok: true, items: snapshot })
+    if (items?.length) {
+      return res.status(200).json({ ok: true, items, blob: true })
+    }
+    return res.status(200).json({
+      ok: true,
+      items: loadBundledGalleryItems(),
+      blob: false,
+    })
   } catch (err) {
     return res.status(500).json({
       ok: false,

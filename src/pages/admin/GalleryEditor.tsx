@@ -145,34 +145,26 @@ export function GalleryEditor() {
   useEffect(() => {
     let cancelled = false
     async function hydrate() {
-      const local = loadStoredGallery()
       const remote = await fetchRemoteGallery()
       if (cancelled) return
 
-      // Andy's in-browser gallery is the source of truth. Never replace it
-      // with the bundled JSON or an older Blob copy.
-      if (local && local.length > 0) {
-        setRows(local)
+      if (remote && remote.length > 0) {
+        setRows(remote)
+        persistGalleryLocal(remote)
         setExtraTags(loadStoredExtraTags())
-        const password = adminPassword()
-        if (password) {
-          const published = await saveGalleryRemote(local, password)
-          if (!cancelled) {
-            setStatus(
-              published.ok
-                ? published.blob
-                  ? 'Kept your saved gallery and published it to Blob, including tile crops.'
-                  : 'Kept your saved gallery locally. Add BLOB_READ_WRITE_TOKEN to publish tile crops to Blob.'
-                : published.message || 'Could not publish your saved gallery. Click Publish to site.',
-            )
-          }
-        }
+        setStatus('Loaded the live gallery from Blob (order, captions, tags, and crops).')
         return
       }
 
-      if (remote && remote.length > 0) {
-        setRows(remote)
+      const local = loadStoredGallery()
+      if (local && local.length > 0) {
+        setRows(local)
+        setExtraTags(loadStoredExtraTags())
+        setStatus('Could not load Blob. Showing your saved gallery on this browser.')
+        return
       }
+
+      setRows(bundledGallery())
     }
     void hydrate()
     return () => {
