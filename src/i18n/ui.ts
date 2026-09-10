@@ -176,8 +176,46 @@ const en = {
     },
     alanisStageAlt: 'Alanis Morissette performing on stage',
     eyebrow: 'About',
+    pageHeadline: 'From the Basement to Global Stages',
     skylineLabel: 'Berlin, Germany — Charlottenburg',
     headerAlt: 'Berlin skyline, Charlottenburg',
+  },
+  aboutB: {
+    chapters: [
+      {
+        eyebrow: 'West Berlin',
+        dek: 'Where it all began.',
+        alts: [
+          'Overhead Polaroids of young Andy at a keyboard, a studio microphone, and mixing gear on a console',
+        ],
+      },
+      {
+        eyebrow: 'The Basement',
+        dek: 'When playing music became an obsession with sound.',
+        alts: [
+          'Tascam mixer and Pioneer cassette deck in the basement studio',
+          'Andy mixing a live show beside rack cases',
+          'Andy at a mixing console with a friend in a basement venue',
+          'Basement studio with mixing desk, NS-10s, and a CRT workstation',
+        ],
+      },
+      {
+        eyebrow: 'On the Road',
+        dek: 'Taking the skills from the basement studio into the live world.',
+        alts: [
+          'Andy at a Midas Heritage console on tour',
+          'Andy mixing a live show from a touring console',
+          'Mixing FOH at an outdoor concert',
+          'Andy in front of the Hollywood sign, Los Angeles',
+          'Andy with touring crew behind a mixing console',
+        ],
+      },
+      {
+        eyebrow: 'Los Angeles',
+        dek: 'From European tours to an international career.',
+        alts: ['Alanis Morissette performing on stage'],
+      },
+    ],
   },
   map: {
     eyebrow: 'Venice FL',
@@ -236,8 +274,6 @@ const en = {
       'Tour, console, backstage, and crew photography from monitor engineer Andy Ebert — filter by venue, artist, year, and more.',
     heading: 'Gallery',
     title: 'On The Road',
-    intro:
-      'Arena pits, monitor world, rehearsals, and the road between them. Filter by tag — venue, artist, year, crew, console — and open any frame.',
     headerAlt: 'Mixing FOH at an outdoor concert',
     count: '{n} photos',
     empty: 'No photos match these tags.',
@@ -526,7 +562,7 @@ const de = {
     workEyebrow: 'Referenzen',
     workTitle: "Andy's Arbeit",
     workP1:
-      'Andy Ebert ist weltweit tourender Monitor- und FOH Ingenieur, auf der Straße seit 1997. Von Clubs und Theatern über Arenen, Stadien, Festivals, TV und Corporate-Bühnen mischt er für Künstler, die jedes Detail mit Sicherheit hören müssen.',
+      'Andy Ebert ist ein weltweit tourender Monitor- und FOH Ingenieur, der seit 1997 auf Tour ist. Von Clubs und Theatern über Arenen, Stadien, Festivals, TV und Corporate-Bühnen mischt er für Künstler, die jedes Detail mit Sicherheit hören müssen.',
     workP2:
       'Zu seinen Referenzen gehören Alanis Morissette, The Weeknd, Maroon 5, Guns N’ Roses, Mariah Carey, Stone Temple Pilots, Neil Young und viele mehr. 2017 wurde er für den Parnelli Award als Monitor Engineer of the Year nominiert.',
     learnMore: 'Mehr erfahren',
@@ -597,8 +633,46 @@ const de = {
     },
     alanisStageAlt: 'Alanis Morissette auf der Bühne',
     eyebrow: 'Über Andy',
+    pageHeadline: 'Vom Keller auf die großen Bühnen',
     skylineLabel: 'Berlin — Charlottenburg',
     headerAlt: 'Berliner Skyline, Charlottenburg',
+  },
+  aboutB: {
+    chapters: [
+      {
+        eyebrow: 'West-Berlin',
+        dek: 'Wo alles begann.',
+        alts: [
+          'Polaroids von oben: Andy am Keyboard, Studio-Mikrofon und Mischpult-Gear auf einem Pult',
+        ],
+      },
+      {
+        eyebrow: 'Der Keller',
+        dek: 'Als aus Musizieren die Faszination für Sound wurde.',
+        alts: [
+          'Tascam-Mischpult und Pioneer-Kassettendeck im Kellerstudio',
+          'Andy mischt eine Live-Show neben Rackcases',
+          'Andy am Mischpult mit einem Freund in einem Keller-Venue',
+          'Kellerstudio mit Mischpult, NS-10s und CRT-Workstation',
+        ],
+      },
+      {
+        eyebrow: 'Unterwegs',
+        dek: 'Die Fähigkeiten aus dem Kellerstudio in die Live-Welt bringen.',
+        alts: [
+          'Andy am Midas-Heritage-Pult auf Tour',
+          'Andy mischt eine Live-Show an einem Tourpult',
+          'FOH Mix bei einem Open-Air-Konzert',
+          'Andy vor dem Hollywood-Schriftzug, Los Angeles',
+          'Andy mit Tour-Crew hinter einem Mischpult',
+        ],
+      },
+      {
+        eyebrow: 'Los Angeles',
+        dek: 'Von europäischen Touren zu einer internationalen Karriere.',
+        alts: ['Alanis Morissette auf der Bühne'],
+      },
+    ],
   },
   map: {
     eyebrow: 'Venice FL',
@@ -657,8 +731,6 @@ const de = {
       'Tour-, Pult-, Backstage- und Crew-Fotos von Monitor Engineer Andy Ebert — filterbar nach Venue, Künstler, Jahr und mehr.',
     heading: 'Galerie',
     title: 'Unterwegs',
-    intro:
-      'Arena-Pits, Monitor World, Proben und die Straße dazwischen. Nach Schlagwort filtern — Venue, Künstler, Jahr, Crew, Konsole — und jedes Bild öffnen.',
     headerAlt: 'FOH Mix bei einem Open-Air-Konzert',
     count: '{n} Fotos',
     empty: 'Keine Fotos zu diesen Schlagworten.',

@@ -45,6 +45,7 @@ import {
 
 const CARD_IMAGE_FOCUS: Record<string, string> = {
   'maroon-5': 'object-[center_58%]',
+  'golden-gospel-singers': 'object-center',
 }
 
 /** Only renders gallery images that load; hides the section when none do. No placeholders. */

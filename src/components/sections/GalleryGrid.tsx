@@ -199,10 +199,6 @@ export function GalleryGridHeader() {
         </div>
       </div>
 
-      <p className="mt-6 max-w-2xl text-sm leading-relaxed text-muted md:mt-8">
-        {t.galleryPage.intro}
-      </p>
-
       <FilterAccordion
         className="mt-8 sm:mt-10"
         label={t.galleryPage.filters}

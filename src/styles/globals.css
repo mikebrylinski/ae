@@ -4450,13 +4450,9 @@ html.is-safari .berlin-skyline__particles {
 }
 
 .vegan-laminate {
-  --vegan-grow: 1.18;
   z-index: 2;
-  width: calc(5.4rem * var(--vegan-grow));
-  margin-inline: calc(5.4rem * (1 - var(--vegan-grow)) / 2);
-  margin-block: calc((1 / var(--vegan-grow) - 1) / 2 * 9.1em);
-  font-size: calc(1rem * var(--vegan-grow));
-  transform: rotate(-3deg) scale(calc(1 / var(--vegan-grow)));
+  width: 6.35rem;
+  transform: rotate(-4deg);
   transform-origin: center center;
   filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.72))
     drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
@@ -4467,149 +4463,83 @@ html.is-safari .berlin-skyline__particles {
 .vegan-laminate:hover,
 .vegan-laminate:focus-within {
   z-index: 4;
-  transform: rotate(-3deg) scale(1);
+  transform: rotate(-4deg) scale(1.06);
   filter: drop-shadow(0 16px 24px rgba(0, 0, 0, 0.78))
     drop-shadow(0 6px 8px rgba(0, 0, 0, 0.45));
 }
 
 .vegan-laminate .all-access__clip {
-  width: 0.72em;
-  height: 0.55em;
-  margin-bottom: -0.12em;
+  width: 0.78rem;
+  height: 0.58rem;
+  margin-bottom: -0.1rem;
 }
 
 .vegan-laminate .all-access__hole {
-  width: 0.42em;
-  height: 0.42em;
-  margin-bottom: -0.22em;
+  width: 0.46rem;
+  height: 0.46rem;
+  margin-bottom: -0.42rem;
 }
 
 .vegan-laminate .all-access__pass {
-  display: flex;
-  min-height: 8.4em;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1.55em 0.58em 1.05em;
-  border-color: transparent;
-  border-radius: 0.8em;
+  aspect-ratio: 1;
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0;
+  border: 1.5px solid rgba(184, 255, 0, 0.88);
+  border-radius: 50%;
   background:
-    #0a0a0a url('/images/brand/road-case.png') center / 100% 100% no-repeat;
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.12) 0%, transparent 42%),
+    repeating-linear-gradient(
+      125deg,
+      rgba(255, 255, 255, 0.05) 0px,
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    linear-gradient(165deg, #222222 0%, #121212 42%, #070707 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    0 10px 18px rgba(0, 0, 0, 0.55);
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.55),
+    0 0 14px rgba(184, 255, 0, 0.16);
+}
+
+.vegan-laminate .all-access__sheen {
+  display: none;
+  animation: none;
+}
+
+.vegan-laminate__ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.vegan-laminate__ring-text {
+  fill: #b8ff00;
+  font-family: var(--font-heading);
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .vegan-laminate__logo {
-  position: relative;
+  position: absolute;
+  inset: 18%;
   z-index: 1;
   display: block;
-  width: 1.7em;
-  height: 1.7em;
-  margin-bottom: 0.28em;
-  object-fit: contain;
-}
-
-.vegan-laminate__copy {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.04em;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.vegan-laminate__copy li {
-  width: max-content;
-  max-width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.vegan-laminate__copy span {
-  display: block;
-  color: #efece4;
-  font-family: 'Stardos Stencil', 'Times New Roman', serif;
-  font-size: 0.62em;
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 0.86;
-  text-align: center;
-  text-transform: uppercase;
-  -webkit-text-stroke: 0.35px rgba(12, 12, 12, 0.55);
-  text-shadow:
-    0.45px 0.7px 0 rgba(0, 0, 0, 0.7),
-    0 0 1.5px rgba(255, 255, 255, 0.28),
-    0.6px 0 1px rgba(184, 255, 0, 0.22);
-}
-
-.vegan-laminate__rail {
-  pointer-events: none;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 3;
-  height: 0.58em;
-  overflow: hidden;
-  border-radius: 0 0 0.8em 0.8em;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      #8a8a8a 0px,
-      #efefef 1px,
-      #c9c9c9 3px,
-      #6e6e6e 4px,
-      #d8d8d8 6px
-    ),
-    linear-gradient(180deg, #f3f3f3 0%, #b8b8b8 38%, #7a7a7a 72%, #4a4a4a 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.75),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.5);
-}
-
-.vegan-laminate__rail::before,
-.vegan-laminate__rail::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  width: 0.26em;
-  height: 0.26em;
+  width: 64%;
+  height: 64%;
   border-radius: 50%;
-  background: radial-gradient(circle at 32% 28%, #ffffff 0%, #cfcfcf 38%, #5a5a5a 100%);
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35);
-  transform: translateY(-50%);
-}
-
-.vegan-laminate__rail::before {
-  left: 0.16em;
-}
-
-.vegan-laminate__rail::after {
-  right: 0.16em;
+  object-fit: cover;
 }
 
 @media (min-width: 768px) {
   .vegan-laminate {
-    width: calc(5.85rem * var(--vegan-grow));
-    margin-inline: calc(5.85rem * (1 - var(--vegan-grow)) / 2);
-  }
-
-  .vegan-laminate .all-access__pass {
-    min-height: 9.2em;
-  }
-
-  .vegan-laminate__logo {
-    width: 1.9em;
-    height: 1.9em;
-  }
-
-  .vegan-laminate__copy span {
-    font-size: 0.68em;
+    width: 6.8rem;
   }
 }
 

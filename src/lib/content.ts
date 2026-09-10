@@ -534,7 +534,7 @@ const PORTFOLIO_HIGHLIGHT_ARTISTS = new Set([
   'Foo Fighters',
   'Usher',
   'Dream Theater',
-  'REM',
+  'R.E.M.',
   'Puddle Of Mudd',
   'Zwan',
   'Harlem Gospel Singers',
@@ -624,10 +624,13 @@ function mergeRegions(regions: string[]): string {
 }
 
 /** Credit-only artists without a project page — local Wikipedia / site photos. */
+const CREDIT_ONLY_GALLERY_SRC =
+  gallery.find((item) => item.id === 47)?.src ?? '/images/portfolio/console.jpg'
+
 const CREDIT_ONLY_IMAGES: Record<string, string> = {
   'Rock am Ring Festival': '/images/projects/cards/rock-am-ring-festival.jpg',
-  'Expo 2000': '/images/portfolio/console.jpg',
-  'Countless artists': '/images/portfolio/console.jpg',
+  'Expo 2000': CREDIT_ONLY_GALLERY_SRC,
+  'Countless artists': CREDIT_ONLY_GALLERY_SRC,
 }
 
 /**

@@ -13,6 +13,7 @@ const GalleryPage = lazy(() => import('@/pages/GalleryPage'))
 const GalleryPhotoPage = lazy(() => import('@/pages/GalleryPhotoPage'))
 const DownloadsPage = lazy(() => import('@/pages/DownloadsPage'))
 const AboutPage = lazy(() => import('@/pages/AboutPage'))
+const AboutBPage = lazy(() => import('@/pages/AboutBPage'))
 const ContactPage = lazy(() => import('@/pages/ContactPage'))
 const AdminPage = lazy(() => import('@/pages/AdminPage'))
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'))
@@ -47,6 +48,7 @@ export default function App() {
           <Route path="gallery/:id" element={<GalleryPhotoPage />} />
           <Route path="downloads" element={<DownloadsPage />} />
           <Route path="about" element={<AboutPage />} />
+          <Route path="aboutb" element={<AboutBPage />} />
           <Route path="contact" element={<ContactPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>

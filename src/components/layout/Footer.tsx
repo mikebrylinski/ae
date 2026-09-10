@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowUp } from 'lucide-react'
+import { useId } from 'react'
 import { flattenNav, getNav } from '@/lib/content'
 import { useLanguage } from '@/i18n/LanguageProvider'
 import { Container } from '@/components/ui/Container'
@@ -26,14 +27,37 @@ export function AllAccessLaminate() {
 }
 
 export function VeganLaminate() {
-  const { t } = useLanguage()
+  const { lang, t } = useLanguage()
+  const ringId = `vegan-laminate-ring-${useId().replace(/:/g, '')}`
 
   return (
     <div className="all-access vegan-laminate">
       <span className="all-access__clip" aria-hidden />
       <span className="all-access__hole" aria-hidden />
       <div className="all-access__pass">
-        <span className="all-access__sheen" aria-hidden />
+        <svg className="vegan-laminate__ring" viewBox="0 0 100 100" aria-hidden>
+          <defs>
+            <path
+              id={ringId}
+              fill="none"
+              d="M50,9 a41,41 0 1,1 0,82 a41,41 0 1,1 0,-82"
+            />
+          </defs>
+          <text
+            className="vegan-laminate__ring-text"
+            dominantBaseline="central"
+            style={lang === 'de' ? { fontSize: '8.5px' } : undefined}
+          >
+            <textPath
+              href={`#${ringId}`}
+              startOffset="0%"
+              textLength="258"
+              lengthAdjust="spacing"
+            >
+              {t.brand.plantsRing}
+            </textPath>
+          </text>
+        </svg>
         <img
           src="/images/brand/vegan-logo.png"
           alt={t.brand.roadie}
@@ -42,14 +66,6 @@ export function VeganLaminate() {
           className="vegan-laminate__logo"
           decoding="async"
         />
-        <ul className="vegan-laminate__copy">
-          {t.brand.roadie.split(/\s+/).map((word, i) => (
-            <li key={`${word}-${i}`}>
-              <span>{word}</span>
-            </li>
-          ))}
-        </ul>
-        <span className="vegan-laminate__rail" aria-hidden />
       </div>
     </div>
   )
@@ -122,7 +138,6 @@ export function Footer({ admin = false }: { admin?: boolean }) {
                   <AllAccessLaminate />
                 </div>
               ) : (
-                <>
               <div className="flex min-w-0 flex-col items-center gap-4 md:flex-row md:flex-wrap md:justify-start md:gap-5">
                 <div className="rack-brand-wrap rack-brand-wrap--no-seal rack-brand-glow min-w-0">
                   <Link
@@ -141,10 +156,6 @@ export function Footer({ admin = false }: { admin?: boolean }) {
                 </div>
                 <VeganLaminate />
               </div>
-              <p className="font-heading text-[0.65rem] tracking-[0.18em] text-muted sm:text-[0.7rem]">
-                {t.brand.plants}
-              </p>
-                </>
               )}
             </div>
 

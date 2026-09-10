@@ -9,8 +9,8 @@ import {
   type ReactNode,
 } from 'react'
 import { createPortal } from 'react-dom'
-import { AnimatePresence, motion } from 'framer-motion'
-import { AlertCircle, ArrowDown, ArrowUp, Check, CheckCircle2, ChevronsDown, ChevronsUp, GripVertical, ImagePlus, Plus, Replace, Save, Trash2, X } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { AlertCircle, ArrowDown, ArrowUp, Check, ChevronsDown, ChevronsUp, GripVertical, ImagePlus, Plus, Replace, Save, Trash2, X } from 'lucide-react'
 import type { GalleryItem } from '@/types'
 import {
   bundledGallery,
@@ -72,16 +72,9 @@ const fieldClass =
   'w-full border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted focus-visible:border-primary focus-visible:outline-none'
 
 type PublishResult = {
-  type: 'success' | 'error'
+  type: 'error'
   message: string
   at?: number
-}
-
-function formatPostedAt(at: number) {
-  return new Date(at).toLocaleTimeString(undefined, {
-    hour: 'numeric',
-    minute: '2-digit',
-  })
 }
 
 function adminPassword() {
@@ -229,18 +222,6 @@ export function GalleryEditor() {
   rowsRef.current = rows
 
   useEffect(() => {
-    if (publishResult?.type !== 'success') return
-    const timer = window.setTimeout(() => setPublishResult(null), 20_000)
-    return () => window.clearTimeout(timer)
-  }, [publishResult])
-
-  useEffect(() => {
-    if (overlayResult?.type !== 'success') return
-    const timer = window.setTimeout(() => setOverlayResult(null), 20_000)
-    return () => window.clearTimeout(timer)
-  }, [overlayResult])
-
-  useEffect(() => {
     if (dragId == null) return
     const { userSelect, cursor } = document.body.style
     document.body.style.userSelect = 'none'
@@ -282,7 +263,7 @@ export function GalleryEditor() {
     }
   }, [])
 
-  const addDrop = useOsFileDrop(!uploading && expandedId == null, (files) => {
+  const addDrop = useOsFileDrop(!uploading, (files) => {
     void ingestFilesRef.current(files)
   })
 
@@ -615,26 +596,14 @@ export function GalleryEditor() {
     persistGalleryLocal(next)
     const remote = await saveGalleryRemote(next, adminPassword())
     setSaving(false)
-    const at = Date.now()
     const result =
-      remote.ok && remote.blob
-        ? {
-            type: 'success' as const,
-            message: 'Published to the live gallery (Blob), including tile crops.',
-            at,
+      remote.ok
+        ? null
+        : {
+            type: 'error' as const,
+            message: remote.message || 'Publish failed. Try again.',
+            at: Date.now(),
           }
-        : remote.ok
-          ? {
-              type: 'success' as const,
-              message:
-                'Saved locally. Add BLOB_READ_WRITE_TOKEN to .env.local and Save again to put tile crops on Blob.',
-              at,
-            }
-          : {
-              type: 'error' as const,
-              message: remote.message || 'Publish failed. Try again.',
-              at,
-            }
     if (fromOverlay) setOverlayResult(result)
     else setPublishResult(result)
     setPublishFlash((current) => current + 1)
@@ -774,9 +743,8 @@ export function GalleryEditor() {
             <li>
               <span className="text-white">Edit a photo</span> with the green{' '}
               <span className="text-primary">Edit</span> button: caption, tags, year, and order
-              number. Use <span className="text-primary">Replace image</span> in that editor, or
-              drop a photo onto the preview, to swap the file without losing caption, tags, or
-              order.
+              number. Use <span className="text-primary">Replace image</span> in that editor to
+              swap the file without losing caption, tags, or order.
             </li>
             <li>
               <span className="text-white">Align the preview</span> in that editor: click and drag
@@ -833,50 +801,40 @@ export function GalleryEditor() {
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h2 className="font-heading text-lg tracking-[0.08em]">Gallery photos</h2>
-          <p className="mt-1 text-sm text-muted">
-            Drag photos here to upload, or drag a tile to reorder. Publish when you are ready.
-          </p>
-        </div>
-        <div className="flex flex-wrap items-start gap-2">
-          <Button
-            type="button"
-            size="sm"
-            variant="outline"
-            disabled={uploading}
-            onClick={() => uploadRef.current?.click()}
+      <div className="flex flex-wrap items-start justify-end gap-2">
+        <Button
+          type="button"
+          size="sm"
+          variant="outline"
+          disabled={uploading}
+          onClick={() => uploadRef.current?.click()}
+        >
+          <ImagePlus size={14} aria-hidden />
+          {uploading ? 'Uploading…' : 'Add new / Upload'}
+        </Button>
+        <div className="flex min-w-[11rem] flex-col items-stretch gap-1">
+          <motion.div
+            key={publishFlash}
+            initial={false}
+            animate={
+              publishResult?.type === 'error'
+                ? { x: [0, -6, 6, -4, 4, 0] }
+                : { scale: 1, x: 0 }
+            }
+            transition={{ duration: 0.4 }}
           >
-            <ImagePlus size={14} aria-hidden />
-            {uploading ? 'Uploading…' : 'Add new / Upload'}
-          </Button>
-          <div className="flex min-w-[11rem] flex-col items-stretch gap-1">
-            <motion.div
-              key={publishFlash}
-              initial={false}
-              animate={
-                publishResult?.type === 'error'
-                  ? { x: [0, -6, 6, -4, 4, 0] }
-                  : publishResult?.type === 'success'
-                    ? { scale: [1, 1.05, 1] }
-                    : { scale: 1, x: 0 }
-              }
-              transition={{ duration: 0.4 }}
+            <Button
+              type="button"
+              size="sm"
+              className="w-full"
+              onClick={() => void handleSave()}
+              disabled={saving}
             >
-              <Button
-                type="button"
-                size="sm"
-                className="w-full"
-                onClick={() => void handleSave()}
-                disabled={saving}
-              >
-                <Save size={14} aria-hidden />
-                {saving ? 'Publishing…' : 'Publish to site'}
-              </Button>
-            </motion.div>
-            <PublishFeedback result={publishResult} saving={saving} />
-          </div>
+              <Save size={14} aria-hidden />
+              {saving ? 'Publishing…' : 'Publish to site'}
+            </Button>
+          </motion.div>
+          <PublishFeedback result={publishResult} />
         </div>
       </div>
 
@@ -1185,6 +1143,8 @@ export function GalleryEditor() {
           extraTagOptions={extraTags}
           saving={saving && saveSource === 'overlay'}
           uploading={uploading}
+          fileDropOver={addDrop.over}
+          fileDropHandlers={addDrop.handlers}
           publishResult={overlayResult}
           deleteOpen={pendingDeletePhotos.length > 0}
           onClose={() => setExpandedId(null)}
@@ -1195,7 +1155,6 @@ export function GalleryEditor() {
           onAddTag={(tag) => addExtraTag(editingRow.id, tag)}
           onMove={(toIndex) => moveRow(editingRow.id, toIndex)}
           onReplace={() => replaceRef.current?.click()}
-          onReplaceFiles={(files) => void ingestFiles(files, editingRow.id)}
           onSave={() => void handleSave(true)}
           onDelete={() => removeRow(editingRow.id)}
         />
@@ -1218,6 +1177,8 @@ function GalleryDetailsOverlay({
   extraTagOptions,
   saving,
   uploading,
+  fileDropOver,
+  fileDropHandlers,
   publishResult,
   deleteOpen,
   onClose,
@@ -1228,7 +1189,6 @@ function GalleryDetailsOverlay({
   onAddTag,
   onMove,
   onReplace,
-  onReplaceFiles,
   onSave,
   onDelete,
 }: {
@@ -1239,6 +1199,8 @@ function GalleryDetailsOverlay({
   extraTagOptions: string[]
   saving: boolean
   uploading: boolean
+  fileDropOver: boolean
+  fileDropHandlers: ReturnType<typeof useOsFileDrop>['handlers']
   publishResult: PublishResult | null
   deleteOpen: boolean
   onClose: () => void
@@ -1249,7 +1211,6 @@ function GalleryDetailsOverlay({
   onAddTag: (tag: string) => void
   onMove: (toIndex: number) => void
   onReplace: () => void
-  onReplaceFiles: (files: File[]) => void
   onSave: () => void
   onDelete: () => void
 }) {
@@ -1257,7 +1218,6 @@ function GalleryDetailsOverlay({
   const closeRef = useRef<HTMLButtonElement>(null)
   const ignoreBackdropUntil = useRef(0)
   const selectedArtists = galleryCustomTags(row.tags, extraTagOptions)
-  const replaceDrop = useOsFileDrop(!uploading, onReplaceFiles)
 
   useEffect(() => {
     ignoreBackdropUntil.current = Date.now() + 600
@@ -1284,6 +1244,7 @@ function GalleryDetailsOverlay({
     <div
       className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-black/80 p-4 py-8 sm:items-center"
       role="presentation"
+      {...fileDropHandlers}
       onClick={(event) => {
         if (deleteOpen) return
         if (event.target !== event.currentTarget) return
@@ -1291,6 +1252,13 @@ function GalleryDetailsOverlay({
         onClose()
       }}
     >
+      {fileDropOver ? (
+        <div className="pointer-events-none absolute inset-3 z-[110] flex items-center justify-center rounded-[1.25rem] border-2 border-dashed border-primary bg-black/80">
+          <p className="font-heading px-6 text-center text-lg tracking-[0.12em] text-primary uppercase">
+            Drop to add photos
+          </p>
+        </div>
+      ) : null}
       <div
         role="dialog"
         aria-modal="true"
@@ -1298,7 +1266,6 @@ function GalleryDetailsOverlay({
         className="glass-card relative my-auto w-full max-w-5xl space-y-5 p-4 sm:p-6"
         onClick={(event) => event.stopPropagation()}
         onPointerDown={(event) => event.stopPropagation()}
-        {...replaceDrop.handlers}
       >
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
@@ -1334,13 +1301,6 @@ function GalleryDetailsOverlay({
                 focalY={row.focalY}
                 onChange={(next) => onUpdate(next)}
               />
-              {replaceDrop.over ? (
-                <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center rounded-[1rem] border-2 border-dashed border-primary bg-black/80">
-                  <p className="font-heading px-4 text-center text-sm tracking-[0.14em] text-primary uppercase">
-                    Drop to replace this photo
-                  </p>
-                </div>
-              ) : null}
             </div>
             <Button
               type="button"
@@ -1353,7 +1313,7 @@ function GalleryDetailsOverlay({
               {uploading ? 'Uploading…' : 'Replace image'}
             </Button>
             <p className="text-[11px] leading-relaxed text-muted">
-              Drop a photo on the preview, or click Replace image.
+              Click Replace image to swap the file.
             </p>
           </div>
           <div className="grid content-start gap-4">
@@ -1490,7 +1450,7 @@ function GalleryDetailsOverlay({
                 <Save size={14} aria-hidden />
                 {saving ? 'Saving…' : 'Save'}
               </Button>
-              <PublishFeedback result={publishResult} saving={saving} />
+              <PublishFeedback result={publishResult} />
             </div>
             <Button type="button" size="sm" variant="ghost" onClick={onDelete}>
               <Trash2 size={14} aria-hidden />
@@ -1797,52 +1757,20 @@ function ConfirmDeleteDialog({
 
 function PublishFeedback({
   result,
-  saving,
 }: {
   result: PublishResult | null
-  saving: boolean
 }) {
+  if (!result) return null
+
   return (
     <div className="min-h-5" aria-live="polite">
-      <AnimatePresence mode="wait">
-        {saving ? (
-          <motion.p
-            key="saving"
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
-            transition={{ duration: 0.22 }}
-            className="font-heading text-center text-[10px] tracking-[0.12em] text-muted uppercase"
-          >
-            Publishing…
-          </motion.p>
-        ) : result ? (
-          <motion.div
-            key={`${result.type}-${result.message}-${result.at ?? ''}`}
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
-            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className={cn(
-              'font-heading flex flex-col items-center justify-center gap-0.5 text-center text-[10px] tracking-[0.1em] uppercase',
-              result.type === 'success' ? 'text-primary' : 'text-red-400',
-            )}
-            role="status"
-          >
-            <span className="inline-flex items-center gap-1">
-              {result.type === 'success' ? (
-                <CheckCircle2 size={12} aria-hidden />
-              ) : (
-                <AlertCircle size={12} aria-hidden />
-              )}
-              {result.message}
-            </span>
-            {result.type === 'success' && result.at ? (
-              <span className="text-muted">Posted {formatPostedAt(result.at)}</span>
-            ) : null}
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+      <p
+        className="font-heading flex items-center justify-center gap-1 text-center text-[10px] tracking-[0.1em] text-red-400 uppercase"
+        role="status"
+      >
+        <AlertCircle size={12} aria-hidden />
+        {result.message}
+      </p>
     </div>
   )
 }

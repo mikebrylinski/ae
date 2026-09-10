@@ -167,6 +167,10 @@ function CreditsPagination({
   )
 }
 
+const CARD_IMAGE_FOCUS: Record<string, string> = {
+  'golden-gospel-singers': 'object-center',
+}
+
 function CreditCard({
   credit,
   className,
@@ -197,7 +201,11 @@ function CreditCard({
           <img
             src={credit.cardImage}
             alt=""
-            className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04] sm:object-[center_12%]"
+            className={cn(
+              'absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]',
+              CARD_IMAGE_FOCUS[credit.projectSlug ?? ''] ??
+                'object-top sm:object-[center_12%]',
+            )}
             loading="lazy"
             decoding="async"
           />

@@ -61,6 +61,9 @@ function withPortfolioCreditFixes(credits: CreditEntry[]): CreditEntry[] {
     if (credit.artist === 'Usher' && /one\s*offs?/i.test(credit.region)) {
       next = { ...next, region: 'MTV Music Awards' }
     }
+    if (credit.artist === 'REM') {
+      next = { ...next, artist: 'R.E.M.' }
+    }
     if (credit.artist === 'Alanis Morissette') {
       if (!sawFeaturedAlanis) {
         sawFeaturedAlanis = true

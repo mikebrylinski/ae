@@ -14,22 +14,6 @@
     "caption": "Neil Young had it right! Discovered at a museum in Las Vegas."
   },
   {
-    "id": 172,
-    "src": "https://twj9hkdxnej2mgbm.public.blob.vercel-storage.com/gallery/photos/1788831407581-hgs-03-032.jpg",
-    "alt": "Harlem Gospel Singers Monitor world, Yamaha DM2000 console.",
-    "category": "Monitor World",
-    "tags": [
-      "Tour",
-      "Harlem Gospel Singers",
-      "Monitor World",
-      "2003"
-    ],
-    "width": 1600,
-    "height": 1200,
-    "year": 2003,
-    "caption": "Harlem Gospel Singers Monitor world, Yamaha DM2000 console."
-  },
-  {
     "id": 170,
     "src": "https://twj9hkdxnej2mgbm.public.blob.vercel-storage.com/gallery/photos/1788831126958-img_0858.jpg",
     "alt": "Ute Lemper and Tapiola Orchestra tour at a Symphony hall.",
@@ -2826,7 +2810,7 @@
   },
   {
     "id": 169,
-    "src": "/images/gallery/road-24.jpg",
+    "src": "/images/gallery/gallery-169.jpg",
     "alt": "Andy mixing Glenn Hughes on a Midas XL250.",
     "category": "Monitor World",
     "tags": [
@@ -2836,9 +2820,25 @@
       "Glenn Hughes",
       "1999"
     ],
-    "width": 768,
-    "height": 1024,
+    "width": 640,
+    "height": 360,
     "year": 1999,
-    "caption": "Andy mixing Glenn Hughes on a Midas XL250."
+    "caption": "Andy mixing Glenn Hughes on a Midas XL250.",
+    "focalX": 0,
+    "focalY": 50
+  },
+  {
+    "id": 175,
+    "src": "/images/gallery/gallery-175.jpg",
+    "alt": "Screenshot 2026 09 10 at 00.11.57",
+    "category": "Tour",
+    "tags": [
+      "Tour",
+      "2026"
+    ],
+    "width": 1390,
+    "height": 741,
+    "year": 2026,
+    "caption": "Screenshot 2026 09 10 at 00.11.57"
   }
 ]
