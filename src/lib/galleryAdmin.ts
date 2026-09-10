@@ -91,7 +91,7 @@ export function galleryForJson(items: GalleryItem[]): GalleryItem[] {
 
 export async function fetchRemoteGallery(): Promise<GalleryItem[] | null> {
   try {
-    const res = await fetch(`/api/gallery?t=${Date.now()}`, { cache: 'no-store' })
+    const res = await fetch('/api/gallery', { cache: 'default' })
     if (!res.ok) return null
     const data = (await res.json()) as { items?: GalleryItem[] | null }
     if (!Array.isArray(data.items)) return null

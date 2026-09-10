@@ -1,6 +1,5 @@
 import {
   blobConfiguredFromEnv,
-  ensurePreservedGalleryBackup,
   loadBundledGalleryItems,
   readGalleryFromBlob,
 } from '../server/galleryStore.js'
@@ -19,7 +18,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ ok: false, error: 'Method not allowed' })
   }
 
-  res.setHeader('Cache-Control', 'private, no-store, max-age=0, must-revalidate')
+  res.setHeader('Cache-Control', 'public, s-maxage=30, stale-while-revalidate=120')
 
   const runtimeEnv = env()
   if (!blobConfiguredFromEnv(runtimeEnv)) {
@@ -29,18 +28,7 @@ export default async function handler(req, res) {
   try {
     const items = await readGalleryFromBlob(runtimeEnv)
     const snapshot = items?.length ? items : loadBundledGalleryItems()
-    let backup = null
-    if (snapshot?.length) {
-      try {
-        backup = await ensurePreservedGalleryBackup(snapshot, runtimeEnv)
-      } catch (err) {
-        backup = { error: err instanceof Error ? err.message : 'backup failed' }
-      }
-    }
-    const reportBackup = String(req.url || '').includes('backup=1')
-    return res.status(200).json(
-      reportBackup ? { ok: true, items, backup } : { ok: true, items },
-    )
+    return res.status(200).json({ ok: true, items: snapshot })
   } catch (err) {
     return res.status(500).json({
       ok: false,
