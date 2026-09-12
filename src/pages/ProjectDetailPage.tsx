@@ -10,8 +10,7 @@ import {
   localizeCategory,
   localizePressType,
   localizeProject,
-  mergeProjectGallerySources,
-  pinProjectGallerySources,
+  resolveProjectGallerySources,
   pressAnchorProps,
   type ProjectGallerySource,
 } from '@/lib/content'
@@ -31,7 +30,7 @@ import { useSeo } from '@/hooks/useSeo'
 import { cn } from '@/lib/utils'
 import { PortfolioAurora } from '@/components/ui/PortfolioAurora'
 import { useLanguage } from '@/i18n/LanguageProvider'
-import { useLiveGallery } from '@/hooks/useLiveGallery'
+import { useLiveGalleryState } from '@/hooks/useLiveGallery'
 import {
   parseCreditsPage,
   parseCreditsRole,
@@ -169,7 +168,8 @@ export default function ProjectDetailPage() {
   const { slug = '' } = useParams()
   const location = useLocation()
   const { lang, t } = useLanguage()
-  const galleryItems = useLiveGallery()
+  const galleryState = useLiveGalleryState()
+  const galleryItems = galleryState.items
   const projectRaw = getProjectBySlug(slug)
   const project = projectRaw ? localizeProject(projectRaw, lang) : undefined
   const creditsState = location.state as CreditsView | null
@@ -199,13 +199,12 @@ export default function ProjectDetailPage() {
   const venueChips = getChartVenueChips(project.category)
   const pressItems = getPressForProject(project.slug)
   const artistIntro = getArtistIntro(project.slug, lang)
-  const gallerySources = pinProjectGallerySources(
-    mergeProjectGallerySources(
-      project.gallery,
-      project.artist,
-      galleryItems,
-    ),
+  const gallerySources = resolveProjectGallerySources(
+    project.gallery,
+    project.artist,
     project.slug,
+    galleryItems,
+    galleryState.artistOrder[project.slug],
   )
 
   return (

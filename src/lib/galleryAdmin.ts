@@ -6,6 +6,31 @@ import { blobToBase64 } from '@/lib/resizeImage'
 
 export const GALLERY_STORAGE_KEY = 'ae-gallery-v2'
 export const GALLERY_UPDATED_EVENT = 'ae-gallery-updated'
+export const ARTIST_ORDER_UPDATED_EVENT = 'ae-artist-order-updated'
+
+export type ArtistGalleryOrderMap = Record<string, number[]>
+
+const ARTIST_SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
+
+export function sanitizeArtistOrder(raw: unknown): ArtistGalleryOrderMap {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return {}
+  const out: ArtistGalleryOrderMap = {}
+  for (const [slug, ids] of Object.entries(raw as Record<string, unknown>)) {
+    const key = slug.trim().toLowerCase()
+    if (!ARTIST_SLUG_RE.test(key) || key.length > 80 || !Array.isArray(ids)) continue
+    const seen = new Set<number>()
+    const list: number[] = []
+    for (const value of ids) {
+      const n = typeof value === 'number' ? value : Number.parseInt(String(value ?? ''), 10)
+      if (!Number.isInteger(n) || n < 1 || seen.has(n)) continue
+      seen.add(n)
+      list.push(n)
+      if (list.length >= 400) break
+    }
+    if (list.length) out[key] = list
+  }
+  return out
+}
 
 export function bundledGallery(): GalleryItem[] {
   return migrateGalleryItems(structuredClone(galleryData as GalleryItem[]))
@@ -89,18 +114,59 @@ export function galleryForJson(items: GalleryItem[]): GalleryItem[] {
   })
 }
 
-export async function fetchRemoteGallery(): Promise<GalleryItem[] | null> {
+export async function fetchRemoteGalleryPayload(): Promise<{
+  items: GalleryItem[] | null
+  artistOrder: ArtistGalleryOrderMap
+} | null> {
   try {
     const res = await fetch(`/api/gallery?t=${Date.now()}`, { cache: 'no-store' })
     if (!res.ok) return null
     const data = (await res.json()) as {
       items?: GalleryItem[] | null
-      blob?: boolean
+      artistOrder?: unknown
     }
-    if (!Array.isArray(data.items) || data.items.length === 0) return null
-    return migrateGalleryItems(data.items)
+    const items =
+      Array.isArray(data.items) && data.items.length > 0
+        ? migrateGalleryItems(data.items)
+        : null
+    return {
+      items,
+      artistOrder: sanitizeArtistOrder(data.artistOrder),
+    }
   } catch {
     return null
+  }
+}
+
+export async function fetchRemoteGallery(): Promise<GalleryItem[] | null> {
+  const payload = await fetchRemoteGalleryPayload()
+  return payload?.items ?? null
+}
+
+export async function saveArtistOrderRemote(
+  slug: string,
+  ids: number[],
+  password: string,
+): Promise<{ ok: boolean; blob?: boolean; message?: string }> {
+  try {
+    const res = await fetch('/api/admin/gallery', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Admin-Password': password,
+      },
+      body: JSON.stringify({ slug, ids }),
+    })
+    if (!res.ok) {
+      const text = await res.text()
+      return { ok: false, message: text || res.statusText }
+    }
+    window.dispatchEvent(new Event(ARTIST_ORDER_UPDATED_EVENT))
+    window.dispatchEvent(new Event(GALLERY_UPDATED_EVENT))
+    const data = (await res.json()) as { ok?: boolean; blob?: boolean }
+    return { ok: true, blob: Boolean(data.blob) }
+  } catch {
+    return { ok: false, message: 'Could not reach save API' }
   }
 }
 

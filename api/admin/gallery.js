@@ -3,9 +3,12 @@ import {
   blobConfiguredFromEnv,
   decodeImageData,
   isAdminAuthorized,
+  parseArtistOrderPutBody,
   parseGalleryPutBody,
   parseGalleryUploadBody,
   uploadImageToBlob,
+  writeArtistOrderSlugToBlob,
+  writeArtistOrderToBlob,
   writeGalleryToBlob,
 } from '../../server/galleryStore.js'
 
@@ -57,7 +60,28 @@ export default async function handler(req, res) {
 
   try {
     if (req.method === 'PUT') {
-      const parsed = parseGalleryPutBody(rawBody(req))
+      const raw = rawBody(req)
+      let payload
+      try {
+        payload = JSON.parse(raw)
+      } catch {
+        return res.status(400).json({ ok: false, error: 'Invalid JSON' })
+      }
+
+      if (!Array.isArray(payload?.items) && (payload?.slug != null || payload?.artistOrder != null)) {
+        const parsed = parseArtistOrderPutBody(raw)
+        if ('error' in parsed) {
+          return res.status(400).json({ ok: false, error: parsed.error })
+        }
+        if ('slug' in parsed) {
+          await writeArtistOrderSlugToBlob(parsed.slug, parsed.ids, runtimeEnv)
+        } else {
+          await writeArtistOrderToBlob(parsed.artistOrder, runtimeEnv)
+        }
+        return res.status(200).json({ ok: true, file: true, blob: true, artistOrder: true })
+      }
+
+      const parsed = parseGalleryPutBody(raw)
       if ('error' in parsed) {
         return res.status(400).json({ ok: false, error: parsed.error })
       }

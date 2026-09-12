@@ -3,8 +3,10 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 
 export const GALLERY_BLOB_PATH = 'gallery/index.json'
+export const ARTIST_ORDER_BLOB_PATH = 'gallery/artist-order.json'
 export const GALLERY_BACKUP_LATEST = 'gallery/backups/latest.json'
 export const GALLERY_BACKUP_PRESERVED = 'gallery/backups/preserved.json'
+export const ARTIST_SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 export const MAX_GALLERY_JSON_BYTES = 2_000_000
 export const MAX_GALLERY_UPLOAD_BYTES = 4_500_000
 export const MAX_DECODED_IMAGE_BYTES = 3_500_000
@@ -136,6 +138,68 @@ export function sanitizeGalleryItems(raw) {
     items.push({ ...item, id })
   }
   return items
+}
+
+function sanitizeArtistIdList(raw) {
+  if (!Array.isArray(raw)) return []
+  const seen = new Set()
+  const ids = []
+  for (const value of raw) {
+    const id = parseGalleryId(value)
+    if (!id || seen.has(id)) continue
+    seen.add(id)
+    ids.push(id)
+    if (ids.length >= 400) break
+  }
+  return ids
+}
+
+export function sanitizeArtistOrder(raw) {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return {}
+  const out = {}
+  for (const [slug, ids] of Object.entries(raw)) {
+    const key = asTrimmedString(slug).toLowerCase()
+    if (!ARTIST_SLUG_RE.test(key) || key.length > 80) continue
+    const list = sanitizeArtistIdList(ids)
+    if (list.length) out[key] = list
+  }
+  return out
+}
+
+export function parseArtistOrderPutBody(raw) {
+  let parsed
+  try {
+    parsed = JSON.parse(raw)
+  } catch {
+    return { error: 'Invalid JSON' }
+  }
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+    return { error: 'Invalid body' }
+  }
+  if (Array.isArray(parsed.items)) {
+    return { error: 'items PUT is not an artist-order save' }
+  }
+
+  const slug = asTrimmedString(parsed.slug).toLowerCase()
+  if (slug && Array.isArray(parsed.ids)) {
+    if (!ARTIST_SLUG_RE.test(slug) || slug.length > 80) {
+      return { error: 'Invalid slug' }
+    }
+    return { slug, ids: sanitizeArtistIdList(parsed.ids) }
+  }
+
+  if (parsed.artistOrder && typeof parsed.artistOrder === 'object') {
+    return { artistOrder: sanitizeArtistOrder(parsed.artistOrder) }
+  }
+
+  return { error: 'slug and ids required' }
+}
+
+export function mergeArtistOrderMap(current, slug, ids) {
+  const next = { ...sanitizeArtistOrder(current) }
+  if (!ids.length) delete next[slug]
+  else next[slug] = ids
+  return next
 }
 
 export function parseGalleryPutBody(raw) {
@@ -293,6 +357,46 @@ export async function ensurePreservedGalleryBackup(items, env) {
     if (isBlobAlreadyExistsError(err)) return { wrote: false, exists: true }
     throw err
   }
+}
+
+export async function readArtistOrderFromBlob(env) {
+  const blob = await import('@vercel/blob')
+  const auth = blobClientOptions(env)
+  try {
+    const meta = await blob.head(ARTIST_ORDER_BLOB_PATH, auth)
+    const res = await fetch(meta.url, { cache: 'no-store' })
+    if (!res.ok) return {}
+    const payload = await res.json()
+    return sanitizeArtistOrder(payload.order ?? payload)
+  } catch (err) {
+    const name = err && typeof err === 'object' && 'name' in err ? String(err.name) : ''
+    if (name === 'BlobNotFoundError') return {}
+    throw err
+  }
+}
+
+export async function writeArtistOrderToBlob(order, env) {
+  const { put } = await import('@vercel/blob')
+  const sanitized = sanitizeArtistOrder(order)
+  await put(
+    ARTIST_ORDER_BLOB_PATH,
+    `${JSON.stringify({ order: sanitized, updatedAt: Date.now() }, null, 2)}\n`,
+    {
+      access: 'public',
+      addRandomSuffix: false,
+      allowOverwrite: true,
+      contentType: 'application/json',
+      cacheControlMaxAge: 0,
+      ...blobClientOptions(env),
+    },
+  )
+}
+
+export async function writeArtistOrderSlugToBlob(slug, ids, env) {
+  const current = await readArtistOrderFromBlob(env)
+  const next = mergeArtistOrderMap(current, slug, ids)
+  await writeArtistOrderToBlob(next, env)
+  return next
 }
 
 export async function writeGalleryToBlob(items, env) {

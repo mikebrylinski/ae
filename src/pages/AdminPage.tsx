@@ -15,9 +15,10 @@ import { useLanguage } from '@/i18n/LanguageProvider'
 import { cn } from '@/lib/utils'
 import { CreditsEditor } from '@/pages/admin/CreditsEditor'
 import { GalleryEditor } from '@/pages/admin/GalleryEditor'
+import { ArtistPagesEditor } from '@/pages/admin/ArtistPagesEditor'
 import { Footer, AllAccessLaminate } from '@/components/layout/Footer'
 
-type Tab = 'credits' | 'gallery'
+type Tab = 'credits' | 'gallery' | 'artists'
 
 export default function AdminPage() {
   useSeo({ title: 'Admin', noIndex: true })
@@ -157,6 +158,11 @@ export default function AdminPage() {
                 onClick={() => setTab('gallery')}
               />
               <AdminTab
+                label="Artist pages"
+                active={tab === 'artists'}
+                onClick={() => setTab('artists')}
+              />
+              <AdminTab
                 label="Credits"
                 active={tab === 'credits'}
                 onClick={() => setTab('credits')}
@@ -171,7 +177,13 @@ export default function AdminPage() {
       </header>
 
       <div className="flex-1">
-        {tab === 'gallery' ? <GalleryEditor /> : <CreditsEditor />}
+        {tab === 'gallery' ? (
+          <GalleryEditor />
+        ) : tab === 'artists' ? (
+          <ArtistPagesEditor />
+        ) : (
+          <CreditsEditor />
+        )}
       </div>
       <Footer admin />
     </div>

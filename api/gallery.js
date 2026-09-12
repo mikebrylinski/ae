@@ -1,6 +1,7 @@
 import {
   blobConfiguredFromEnv,
   loadBundledGalleryItems,
+  readArtistOrderFromBlob,
   readGalleryFromBlob,
 } from '../server/galleryStore.js'
 
@@ -22,17 +23,21 @@ export default async function handler(req, res) {
 
   const runtimeEnv = env()
   if (!blobConfiguredFromEnv(runtimeEnv)) {
-    return res.status(200).json({ ok: true, items: null })
+    return res.status(200).json({ ok: true, items: null, artistOrder: {} })
   }
 
   try {
-    const items = await readGalleryFromBlob(runtimeEnv)
+    const [items, artistOrder] = await Promise.all([
+      readGalleryFromBlob(runtimeEnv),
+      readArtistOrderFromBlob(runtimeEnv),
+    ])
     if (items?.length) {
-      return res.status(200).json({ ok: true, items, blob: true })
+      return res.status(200).json({ ok: true, items, artistOrder, blob: true })
     }
     return res.status(200).json({
       ok: true,
       items: loadBundledGalleryItems(),
+      artistOrder,
       blob: false,
     })
   } catch (err) {

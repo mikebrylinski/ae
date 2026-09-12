@@ -513,6 +513,47 @@ export function pinProjectGallerySources(
   return out
 }
 
+export function applyArtistGalleryOrder(
+  sources: ProjectGallerySource[],
+  orderIds: number[] | undefined | null,
+): ProjectGallerySource[] {
+  if (!orderIds?.length) return sources
+  const byId = new Map<number, ProjectGallerySource>()
+  for (const item of sources) {
+    if (item.id == null || byId.has(item.id)) continue
+    byId.set(item.id, item)
+  }
+  const seen = new Set<number>()
+  const out: ProjectGallerySource[] = []
+  for (const id of orderIds) {
+    const item = byId.get(id)
+    if (!item || seen.has(id)) continue
+    seen.add(id)
+    out.push(item)
+  }
+  for (const item of sources) {
+    if (item.id != null && seen.has(item.id)) continue
+    if (item.id != null) seen.add(item.id)
+    out.push(item)
+  }
+  return out
+}
+
+/** Saved Blob IDs if present; otherwise today's merge + pin/swap layout. */
+export function resolveProjectGallerySources(
+  projectGallery: string[],
+  artist: string,
+  slug: string,
+  items: GalleryItem[],
+  orderIds?: number[] | null,
+): ProjectGallerySource[] {
+  const merged = mergeProjectGallerySources(projectGallery, artist, items)
+  if (orderIds && orderIds.length > 0) {
+    return applyArtistGalleryOrder(merged, orderIds)
+  }
+  return pinProjectGallerySources(merged, slug)
+}
+
 export function filterGallery(
   selected: string[],
   sort: GallerySort = 'order',

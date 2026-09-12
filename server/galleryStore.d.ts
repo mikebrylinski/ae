@@ -1,6 +1,8 @@
 export const GALLERY_BLOB_PATH: string
+export const ARTIST_ORDER_BLOB_PATH: string
 export const GALLERY_BACKUP_LATEST: string
 export const GALLERY_BACKUP_PRESERVED: string
+export const ARTIST_SLUG_RE: RegExp
 export const MAX_GALLERY_JSON_BYTES: number
 export const MAX_GALLERY_UPLOAD_BYTES: number
 export const MAX_DECODED_IMAGE_BYTES: number
@@ -37,6 +39,18 @@ export function blobConfiguredFromEnv(
 export function nextGalleryId(items: Array<{ id?: unknown }>): number
 export function sanitizeGalleryItem(raw: unknown): GalleryRecord | null
 export function sanitizeGalleryItems(raw: unknown): GalleryRecord[] | null
+export function sanitizeArtistOrder(raw: unknown): Record<string, number[]>
+export function parseArtistOrderPutBody(
+  raw: string,
+):
+  | { slug: string; ids: number[] }
+  | { artistOrder: Record<string, number[]> }
+  | { error: string }
+export function mergeArtistOrderMap(
+  current: unknown,
+  slug: string,
+  ids: number[],
+): Record<string, number[]>
 export function parseGalleryPutBody(
   raw: string,
 ): { items: GalleryRecord[] } | { error: string }
@@ -64,6 +78,18 @@ export function ensurePreservedGalleryBackup(
   items: GalleryRecord[],
   env: Record<string, string | undefined>,
 ): Promise<{ skipped: true } | { wrote: true; preservedUrl: string } | { wrote: false; exists: true }>
+export function readArtistOrderFromBlob(
+  env: Record<string, string | undefined>,
+): Promise<Record<string, number[]>>
+export function writeArtistOrderToBlob(
+  order: Record<string, number[]>,
+  env: Record<string, string | undefined>,
+): Promise<void>
+export function writeArtistOrderSlugToBlob(
+  slug: string,
+  ids: number[],
+  env: Record<string, string | undefined>,
+): Promise<Record<string, number[]>>
 export function writeGalleryToBlob(
   items: GalleryRecord[],
   env: Record<string, string | undefined>,

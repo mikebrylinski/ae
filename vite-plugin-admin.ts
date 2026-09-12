@@ -7,9 +7,13 @@ import {
   isAdminAuthorized,
   MAX_GALLERY_JSON_BYTES,
   MAX_GALLERY_UPLOAD_BYTES,
+  mergeArtistOrderMap,
+  parseArtistOrderPutBody,
   parseGalleryPutBody,
   parseGalleryUploadBody,
+  sanitizeArtistOrder,
   sanitizeGalleryItems,
+  writeArtistOrderToBlob,
   writeGalleryToBlob,
 } from './server/galleryStore.js'
 
@@ -60,10 +64,36 @@ function galleryJsonPath(rootDir: string) {
   return path.resolve(rootDir, 'src/data/gallery.json')
 }
 
+function artistOrderJsonPath(rootDir: string) {
+  return path.resolve(rootDir, 'src/data/artist-order.json')
+}
+
 function readLocalGallery(rootDir: string): unknown[] {
   const file = galleryJsonPath(rootDir)
   const parsed = JSON.parse(fs.readFileSync(file, 'utf8')) as unknown
   return Array.isArray(parsed) ? parsed : []
+}
+
+function readLocalArtistOrder(rootDir: string): Record<string, number[]> {
+  const file = artistOrderJsonPath(rootDir)
+  if (!fs.existsSync(file)) return {}
+  try {
+    const parsed = JSON.parse(fs.readFileSync(file, 'utf8')) as unknown
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+      const data = parsed as { order?: unknown }
+      return sanitizeArtistOrder(data.order ?? parsed)
+    }
+  } catch {
+    return {}
+  }
+  return {}
+}
+
+function writeLocalArtistOrder(rootDir: string, order: Record<string, number[]>) {
+  fs.writeFileSync(
+    artistOrderJsonPath(rootDir),
+    `${JSON.stringify({ order, updatedAt: Date.now() }, null, 2)}\n`,
+  )
 }
 
 function extensionForType(contentType: string) {
@@ -94,6 +124,7 @@ export function adminApiPlugin(rootDir: string): Plugin {
             json(res, 200, {
               ok: true,
               items: sanitizeGalleryItems(readLocalGallery(rootDir)) ?? [],
+              artistOrder: readLocalArtistOrder(rootDir),
             })
             return
           }
@@ -130,6 +161,41 @@ export function adminApiPlugin(rootDir: string): Plugin {
             }
 
             const raw = await readBody(req, MAX_GALLERY_JSON_BYTES)
+            let payload: { items?: unknown; slug?: unknown; artistOrder?: unknown }
+            try {
+              payload = JSON.parse(raw) as {
+                items?: unknown
+                slug?: unknown
+                artistOrder?: unknown
+              }
+            } catch {
+              json(res, 400, { ok: false, error: 'Invalid JSON' })
+              return
+            }
+
+            if (
+              !Array.isArray(payload.items) &&
+              (payload.slug != null || payload.artistOrder != null)
+            ) {
+              const parsed = parseArtistOrderPutBody(raw)
+              if ('error' in parsed) {
+                json(res, 400, { ok: false, error: parsed.error })
+                return
+              }
+              const current = readLocalArtistOrder(rootDir)
+              const next =
+                'slug' in parsed
+                  ? mergeArtistOrderMap(current, parsed.slug, parsed.ids)
+                  : parsed.artistOrder
+              writeLocalArtistOrder(rootDir, next)
+              const blob = blobConfiguredFromEnv(env)
+              if (blob) {
+                await writeArtistOrderToBlob(next, env)
+              }
+              json(res, 200, { ok: true, file: true, blob, artistOrder: true })
+              return
+            }
+
             const parsed = parseGalleryPutBody(raw)
             if ('error' in parsed) {
               json(res, 400, { ok: false, error: parsed.error })
