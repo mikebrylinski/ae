@@ -282,8 +282,7 @@ export async function readGalleryFromBlob(env) {
     const payload = await res.json()
     return sanitizeGalleryItems(payload.items ?? payload)
   } catch (err) {
-    const name = err && typeof err === 'object' && 'name' in err ? String(err.name) : ''
-    if (name === 'BlobNotFoundError') return null
+    if (isBlobNotFoundError(err)) return null
     throw err
   }
 }
@@ -298,6 +297,15 @@ function galleryBackupBody(items, note) {
     null,
     2,
   )}\n`
+}
+
+function isBlobNotFoundError(err) {
+  const name = err && typeof err === 'object' && 'name' in err ? String(err.name) : ''
+  const msg = err instanceof Error ? err.message : String(err)
+  return (
+    name === 'BlobNotFoundError' ||
+    /requested blob does not exist|blobnotfound/i.test(msg)
+  )
 }
 
 function isBlobAlreadyExistsError(err) {
@@ -335,8 +343,7 @@ export async function ensurePreservedGalleryBackup(items, env) {
     await blob.head(GALLERY_BACKUP_PRESERVED, auth)
     return { wrote: false, exists: true }
   } catch (err) {
-    const name = err && typeof err === 'object' && 'name' in err ? String(err.name) : ''
-    if (name !== 'BlobNotFoundError') throw err
+    if (!isBlobNotFoundError(err)) throw err
   }
 
   try {
@@ -369,8 +376,7 @@ export async function readArtistOrderFromBlob(env) {
     const payload = await res.json()
     return sanitizeArtistOrder(payload.order ?? payload)
   } catch (err) {
-    const name = err && typeof err === 'object' && 'name' in err ? String(err.name) : ''
-    if (name === 'BlobNotFoundError') return {}
+    if (isBlobNotFoundError(err)) return {}
     throw err
   }
 }
