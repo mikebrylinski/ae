@@ -9,8 +9,10 @@ import {
 import { createPortal } from 'react-dom'
 import { motion } from 'framer-motion'
 import {
+  AlertCircle,
   ArrowDown,
   ArrowUp,
+  Check,
   ChevronsDown,
   ChevronsUp,
   GripVertical,
@@ -82,7 +84,10 @@ export function ArtistPagesEditor() {
   const [ready, setReady] = useState(false)
   const [status, setStatus] = useState('')
   const [saving, setSaving] = useState(false)
-  const [publishError, setPublishError] = useState('')
+  const [publishResult, setPublishResult] = useState<{
+    type: 'ok' | 'error'
+    message: string
+  } | null>(null)
   const [publishFlash, setPublishFlash] = useState(0)
   const [dragId, setDragId] = useState<number | null>(null)
   const [dropIndex, setDropIndex] = useState<number | null>(null)
@@ -167,6 +172,7 @@ export function ArtistPagesEditor() {
     next.splice(clamped, 0, item)
     setRows(next)
     rememberDraft(next)
+    setPublishResult(null)
     setStatus('Order updated — click Publish to site.')
   }
 
@@ -184,6 +190,7 @@ export function ArtistPagesEditor() {
     next.splice(to, 0, item)
     setRows(next)
     rememberDraft(next)
+    setPublishResult(null)
     setStatus('Order updated — click Publish to site.')
   }
 
@@ -288,18 +295,26 @@ export function ArtistPagesEditor() {
     if (!project) return
     const ids = idsOf(rows)
     setSaving(true)
-    setPublishError('')
+    setPublishResult(null)
     const remote = await saveArtistOrderRemote(project.slug, ids, adminPassword())
     setSaving(false)
     setPublishFlash((current) => current + 1)
     if (!remote.ok) {
-      setPublishError(remote.message || 'Publish failed. Try again.')
+      setPublishResult({
+        type: 'error',
+        message: remote.message || 'Publish failed. Try again.',
+      })
+      setStatus('')
       return
     }
     publishedRef.current[project.slug] = idsKey(ids)
     draftsRef.current[project.slug] = ids
     setArtistOrder((current) => ({ ...current, [project.slug]: ids }))
-    setStatus(`Published ${project.artist} page order. /gallery is unchanged.`)
+    setPublishResult({
+      type: 'ok',
+      message: 'Artist gallery updated',
+    })
+    setStatus(`${project.artist} page gallery is live. The main Gallery page is unchanged.`)
   }
 
   const selectOptions = useMemo(
@@ -335,7 +350,7 @@ export function ArtistPagesEditor() {
             onChange={(event) => {
               if (project) draftsRef.current[project.slug] = idsOf(rows)
               setSlug(event.target.value)
-              setPublishError('')
+              setPublishResult(null)
             }}
             className="w-full border border-border bg-surface px-3 py-2 text-sm text-foreground focus-visible:border-primary focus-visible:outline-none"
           >
@@ -355,7 +370,13 @@ export function ArtistPagesEditor() {
             <motion.div
               key={publishFlash}
               initial={false}
-              animate={publishError ? { x: [0, -6, 6, -4, 4, 0] } : { scale: 1, x: 0 }}
+              animate={
+                publishResult?.type === 'error'
+                  ? { x: [0, -6, 6, -4, 4, 0] }
+                  : publishResult?.type === 'ok'
+                    ? { scale: [1, 1.03, 1] }
+                    : { scale: 1, x: 0 }
+              }
               transition={{ duration: 0.4 }}
             >
               <Button
@@ -369,12 +390,29 @@ export function ArtistPagesEditor() {
                 {saving ? 'Publishing…' : 'Publish to site'}
               </Button>
             </motion.div>
-            {publishError ? (
-              <p className="text-[11px] text-red-400">{publishError}</p>
+            {publishResult ? (
+              <p
+                className={cn(
+                  'font-heading flex items-center justify-center gap-1 text-center text-[10px] tracking-[0.1em] uppercase',
+                  publishResult.type === 'ok' ? 'text-primary' : 'text-red-400',
+                )}
+                role="status"
+              >
+                {publishResult.type === 'ok' ? (
+                  <Check size={12} strokeWidth={3} aria-hidden />
+                ) : (
+                  <AlertCircle size={12} aria-hidden />
+                )}
+                {publishResult.message}
+              </p>
             ) : null}
           </div>
         </div>
-        {status ? <p className="text-sm text-muted">{status}</p> : null}
+        {status ? (
+          <p className="text-sm text-primary" aria-live="polite">
+            <span className="font-heading tracking-[0.14em] uppercase">Status:</span> {status}
+          </p>
+        ) : null}
       </div>
 
       {rows.length === 0 ? (
