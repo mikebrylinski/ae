@@ -1,6 +1,6 @@
 import type { GalleryItem } from '@/types'
 import galleryData from '@/data/gallery.json'
-import { sanitizeGalleryExtraTags } from '@/lib/content'
+import { migrateGalleryItems, sanitizeGalleryExtraTags } from '@/lib/content'
 import { clampGalleryFocal, hasCustomGalleryFocal } from '@/lib/galleryFocal'
 import { blobToBase64 } from '@/lib/resizeImage'
 
@@ -8,7 +8,7 @@ export const GALLERY_STORAGE_KEY = 'ae-gallery-v2'
 export const GALLERY_UPDATED_EVENT = 'ae-gallery-updated'
 
 export function bundledGallery(): GalleryItem[] {
-  return structuredClone(galleryData as GalleryItem[])
+  return migrateGalleryItems(structuredClone(galleryData as GalleryItem[]))
 }
 
 export function galleryOrderKey(items: GalleryItem[]): string {
@@ -41,7 +41,7 @@ export function persistGalleryLocal(items: GalleryItem[], extraTags?: string[]) 
   localStorage.setItem(
     GALLERY_STORAGE_KEY,
     JSON.stringify({
-      items,
+      items: migrateGalleryItems(items),
       extraTags: sanitizeGalleryExtraTags(
         extraTags ?? stored?.extraTags ?? [],
       ),
@@ -54,7 +54,7 @@ export function persistGalleryLocal(items: GalleryItem[], extraTags?: string[]) 
 export function loadStoredGallery(): GalleryItem[] | null {
   const parsed = readStoredGalleryRecord()
   if (!Array.isArray(parsed?.items)) return null
-  return parsed.items
+  return migrateGalleryItems(parsed.items)
 }
 
 export function loadStoredExtraTags(): string[] {
@@ -67,7 +67,7 @@ export function clearStoredGallery() {
 }
 
 export function galleryForJson(items: GalleryItem[]): GalleryItem[] {
-  return items.map((item) => {
+  return migrateGalleryItems(items).map((item) => {
     const next: GalleryItem = {
       id: item.id,
       src: item.src.startsWith('/images/') ? item.src.split('?')[0] : item.src,
@@ -98,7 +98,7 @@ export async function fetchRemoteGallery(): Promise<GalleryItem[] | null> {
       blob?: boolean
     }
     if (!Array.isArray(data.items) || data.items.length === 0) return null
-    return data.items
+    return migrateGalleryItems(data.items)
   } catch {
     return null
   }

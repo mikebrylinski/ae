@@ -107,8 +107,7 @@
     "gallery": [
       "/images/projects/weeknd-3.jpg",
       "/images/projects/weeknd-4.jpg",
-      "/images/projects/weeknd-2.jpg",
-      "/images/projects/weeknd-1.jpg"
+      "/images/projects/weeknd-2.jpg"
     ],
     "videos": [],
     "logo": "/images/logos/the-weeknd.png",
@@ -430,20 +429,20 @@
     "heroImage": "/images/projects/neil-young-hero.jpg",
     "thumbnail": "/images/logos/neil-young-velvet-revolver.png",
     "icon": "Guitar",
-    "overview": "Monitor engineer for Neil Young (USA 2007, Europe 2008) in theatres and arenas, with coverage in Total Production, Pro Sound News, and Mix Magazine tour profiles. Flown sidefills in precise positions were Neil’s only monitors — no RF.",
+    "overview": "Monitor engineer for Neil Young (USA 2007, Europe 2008) in theatres and arenas, with coverage in Total Production, Pro Sound News, and Mix Magazine tour profiles.",
     "responsibilities": [
-      "Artist monitor mixes from wedges and flown sidefills",
-      "Precise flown SF positioning — Neil’s only monitors",
+      "Artist monitor mixes from flown sidefills",
+      "Precise flown sidefill positioning",
       "Touring production collaboration"
     ],
-    "technicalSetup": "Digital console with wedges and flown sidefills placed in exact positions. Those flown SF were Neil’s only monitors. No RF / wireless IEM package.",
+    "technicalSetup": "Digital console with wedges and flown sidefills placed in exact positions. No RF / wireless IEM package.",
     "equipment": [
       "Digital Console",
       "Wedges",
       "Flown Sidefills"
     ],
     "challenges": [
-      "Flown sidefills as the sole monitor system",
+      "Flown sidefills as Neil’s only monitors — no wedges. Extra speakers for his guitar and drums.",
       "Artist-specific placement and coverage night to night"
     ],
     "gallery": [
@@ -458,7 +457,6 @@
       "/images/projects/neil-young-9.jpg"
     ],
     "videos": [],
-    "technicalNotes": "Flown SF in precise position were Neil’s only monitors.",
     "logo": "/images/logos/neil-young-velvet-revolver.png",
     "cardImage": "/images/projects/cards/neil-young.jpg"
   },
@@ -559,8 +557,7 @@
     "responsibilities": [
       "Monitor mixes for a large rock production",
       "RF coordination on touring packages",
-      "Show-file and cue management under high stage volume",
-      "Crew coordination across international routing"
+      "Show-file and cue management under high stage volume"
     ],
     "technicalSetup": "Dual VENUE-era touring systems as documented in contemporary trade press.",
     "equipment": [
@@ -587,8 +584,7 @@
       "/images/projects/gnr-11.jpg",
       "/images/projects/gnr-12.jpg",
       "/images/projects/gnr-13.jpg",
-      "/images/projects/gnr-14.jpg",
-      "/images/projects/gnr-15.jpg"
+      "/images/projects/gnr-14.jpg"
     ],
     "videos": [],
     "logo": "/images/logos/guns-n-roses.png",
@@ -637,8 +633,7 @@
       "/images/projects/maroon5-3.jpg",
       "/images/projects/maroon5-4.jpg",
       "/images/projects/maroon5-5.jpg",
-      "/images/projects/maroon5-6.jpg",
-      "/images/projects/maroon5-7.jpg"
+      "/images/projects/maroon5-6.jpg"
     ],
     "videos": [],
     "logo": "/images/logos/maroon-5.png",
@@ -736,20 +731,20 @@
     "icon": "AudioWaveform",
     "overview": "Monitor engineer for Mariah Carey worldwide in 2003 and 2004 — arenas and stadiums, large-scale pop production with demanding vocal monitoring.",
     "responsibilities": [
-      "Artist-focused monitor mixes",
+      "Artist-focused monitor wedge- and sidefill mixes",
+      "Band- and background singer focused IEM mixes",
       "RF coordination on touring packages",
       "Band and vocal cueing",
       "Touring show consistency"
     ],
-    "technicalSetup": "Arena touring monitor package for worldwide pop production.",
+    "technicalSetup": "Arena / Stadium touring monitor package for worldwide pop production.",
     "equipment": [
       "Analog Console",
       "IEM / Wedges",
       "Wireless Mics"
     ],
     "challenges": [
-      "Precision vocal monitoring under arena acoustics",
-      "High-production changeovers"
+      "Precision vocal monitoring under arena and stadium acoustics"
     ],
     "gallery": [
       "/images/projects/mariah-2.jpg",
@@ -757,8 +752,7 @@
       "/images/projects/mariah-4.jpg",
       "/images/projects/mariah-5.jpg",
       "/images/projects/mariah-6.jpg",
-      "/images/projects/mariah-7.jpg",
-      "/images/projects/mariah-1.jpg"
+      "/images/projects/mariah-7.jpg"
     ],
     "videos": [],
     "logo": "/images/logos/mariah-carey.png",
@@ -1234,7 +1228,7 @@
   {
     "slug": "quantum-world",
     "title": "USA Tours",
-    "artist": "Quantum World",
+    "artist": "Quannum World",
     "year": "2004",
     "role": "Monitor Engineer",
     "category": [
@@ -1245,7 +1239,7 @@
     "heroImage": "/images/projects/cards/quantum-world.jpg",
     "thumbnail": "/images/logos/quantum-world.png",
     "icon": "Radio",
-    "overview": "Monitor engineer for Quantum World (2004) on USA club and tour dates.",
+    "overview": "Monitor engineer for Quannum World (2004) on USA club and tour dates.",
     "responsibilities": [
       "Artist and band monitor mixes",
       "Show-file and cue management",
@@ -1465,7 +1459,7 @@
     "icon": "Mic",
     "overview": "Monitor engineer for Travis Scott (2016) on USA arena and tour dates.",
     "responsibilities": [
-      "Artist and band monitor mixes",
+      "Artist and DJ mixes",
       "Show-file and cue management",
       "Coordination with production and FOH / monitors",
       "RF coordination on touring packages"

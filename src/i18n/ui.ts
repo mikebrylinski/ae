@@ -105,7 +105,7 @@ const en = {
     workEyebrow: 'Credits',
     workTitle: "Andy's Work",
     workP1:
-      'Andy Ebert is a worldwide touring monitor and FOH engineer, on the road since 1997. From clubs and theatres to arenas, stadiums, festivals, TV, and corporate stages, he mixes for artists who need to hear every detail with confidence.',
+      'Andy Ebert is a worldwide touring Monitor and FOH engineer, on the road since 1997. From clubs and theatres to arenas, stadiums, festivals, TV, and corporate stages, he mixes for artists who need to hear every detail with confidence.',
     workP2:
       'His credits include Alanis Morissette, The Weeknd, Maroon 5, Guns N’ Roses, Mariah Carey, Stone Temple Pilots, Neil Young, and many more. In 2017 he was nominated for the Parnelli Award for Monitor Engineer of the Year.',
     learnMore: 'Learn more',
@@ -177,6 +177,7 @@ const en = {
     alanisStageAlt: 'Alanis Morissette performing on stage',
     eyebrow: 'About',
     pageHeadline: 'From the Basement to Global Stages',
+    pageHeadlineAccent: 'to Global Stages',
     skylineLabel: 'Berlin, Germany — Charlottenburg',
     headerAlt: 'Berlin skyline, Charlottenburg',
   },
@@ -528,7 +529,7 @@ const de = {
   home: {
     seoTitle: 'Andy Ebert | Monitor Engineer & Live Production',
     seoDescription:
-      'Wenn Künstler Perfektion hören müssen. Weltweit tourender Sound Engineer, professionell seit ’97 — Alanis Morissette, The Weeknd, Neil Young, Guns N’ Roses, Maroon 5, Mariah Carey und mehr.',
+      'Wenn Künstler Perfektion hören müssen. Weltweit tourender Toningenieur, professionell seit ’97 — Alanis Morissette, The Weeknd, Neil Young, Guns N’ Roses, Maroon 5, Mariah Carey und mehr.',
   },
   featured: {
     eyebrow: 'Auswahl',
@@ -562,7 +563,7 @@ const de = {
     workEyebrow: 'Referenzen',
     workTitle: "Andy's Arbeit",
     workP1:
-      'Andy Ebert ist ein weltweit tourender Monitor- und FOH Ingenieur, der seit 1997 auf Tour ist. Von Clubs und Theatern über Arenen, Stadien, Festivals, TV und Corporate-Bühnen mischt er für Künstler, die jedes Detail mit Sicherheit hören müssen.',
+      'Andy Ebert ist ein weltweit tourender Monitor und FOH Ingenieur, der seit 1997 auf Tour ist. Von Clubs und Theatern über Arenen, Stadien, Festivals, TV und Corporate-Bühnen mischt er für Künstler, die jedes Detail mit Sicherheit hören müssen.',
     workP2:
       'Zu seinen Referenzen gehören Alanis Morissette, The Weeknd, Maroon 5, Guns N’ Roses, Mariah Carey, Stone Temple Pilots, Neil Young und viele mehr. 2017 wurde er für den Parnelli Award als Monitor Engineer of the Year nominiert.',
     learnMore: 'Mehr erfahren',
@@ -634,6 +635,7 @@ const de = {
     alanisStageAlt: 'Alanis Morissette auf der Bühne',
     eyebrow: 'Über Andy',
     pageHeadline: 'Vom Keller auf die großen Bühnen',
+    pageHeadlineAccent: 'auf die großen Bühnen',
     skylineLabel: 'Berlin — Charlottenburg',
     headerAlt: 'Berliner Skyline, Charlottenburg',
   },

@@ -238,7 +238,14 @@ export default function AboutPage() {
           <div className="flex flex-col items-center gap-4 text-center md:flex-row md:items-end md:justify-between md:gap-8 md:text-left">
             <VuPlate className="shrink-0">{t.about.eyebrow}</VuPlate>
             <h1 className="font-heading min-w-0 text-center text-xl tracking-[0.06em] text-white sm:text-2xl md:text-right md:text-3xl">
-              {t.about.pageHeadline}
+              {t.about.pageHeadline.includes(t.about.pageHeadlineAccent) ? (
+                <>
+                  {t.about.pageHeadline.split(t.about.pageHeadlineAccent)[0]}
+                  <span className="text-primary">{t.about.pageHeadlineAccent}</span>
+                </>
+              ) : (
+                t.about.pageHeadline
+              )}
             </h1>
           </div>
         </div>

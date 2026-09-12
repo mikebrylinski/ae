@@ -11,6 +11,7 @@ import {
   localizePressType,
   localizeProject,
   mergeProjectGallerySources,
+  pinProjectGallerySources,
   pressAnchorProps,
   type ProjectGallerySource,
 } from '@/lib/content'
@@ -198,10 +199,13 @@ export default function ProjectDetailPage() {
   const venueChips = getChartVenueChips(project.category)
   const pressItems = getPressForProject(project.slug)
   const artistIntro = getArtistIntro(project.slug, lang)
-  const gallerySources = mergeProjectGallerySources(
-    project.gallery,
-    project.artist,
-    galleryItems,
+  const gallerySources = pinProjectGallerySources(
+    mergeProjectGallerySources(
+      project.gallery,
+      project.artist,
+      galleryItems,
+    ),
+    project.slug,
   )
 
   return (

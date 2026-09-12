@@ -249,12 +249,16 @@ export function GalleryEditor() {
       const local = loadStoredGallery()
       if (local && local.length > 0) {
         setRows(local)
+        persistGalleryLocal(local)
         setExtraTags(loadStoredExtraTags())
         setStatus('Could not load Blob. Showing your saved gallery on this browser.')
         return
       }
 
-      setRows(bundledGallery())
+      const bundled = bundledGallery()
+      setRows(bundled)
+      persistGalleryLocal(bundled)
+      setExtraTags(loadStoredExtraTags())
     }
     void hydrate()
     return () => {
@@ -344,6 +348,11 @@ export function GalleryEditor() {
     const extra = sanitizeGalleryExtraTags(next)
     setExtraTags(extra)
     persistGalleryLocal(rowsRef.current, extra)
+  }
+
+  function removeExtraTag(tag: string) {
+    if ((GALLERY_SCENE_TAGS as readonly string[]).includes(tag)) return
+    persistExtraTags(extraTags.filter((value) => value !== tag))
   }
 
   function addCustomTag(id: number, raw: string) {
@@ -684,14 +693,28 @@ export function GalleryEditor() {
       }
 
       if (added.length > 0) {
+        const lastAdded = added[added.length - 1]
         setRows((current) => {
-          const next = [...added, ...current]
+          const next = [...current, ...added]
           persistGalleryLocal(next)
           scheduleLiveSync(next)
           return next
         })
-        setPage(1)
+        setQuery('')
+        setPage(
+          Math.max(
+            1,
+            Math.ceil((rowsRef.current.length + added.length) / PAGE_SIZE),
+          ),
+        )
         setExpandedId(added.length === 1 ? added[0].id : null)
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => {
+            document
+              .querySelector(`[data-gallery-id="${lastAdded.id}"]`)
+              ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+          })
+        })
         if (failed > 0) {
           setStatus(
             `${added.length} photo${added.length === 1 ? '' : 's'} added, ${failed} failed.`,
@@ -1153,6 +1176,7 @@ export function GalleryEditor() {
           onToggleArtist={(tag) => toggleCustomTag(editingRow.id, tag)}
           onAddArtist={(tag) => addArtistTag(editingRow.id, tag)}
           onAddTag={(tag) => addExtraTag(editingRow.id, tag)}
+          onRemoveTag={removeExtraTag}
           onMove={(toIndex) => moveRow(editingRow.id, toIndex)}
           onReplace={() => replaceRef.current?.click()}
           onSave={() => void handleSave(true)}
@@ -1187,6 +1211,7 @@ function GalleryDetailsOverlay({
   onToggleArtist,
   onAddArtist,
   onAddTag,
+  onRemoveTag,
   onMove,
   onReplace,
   onSave,
@@ -1209,6 +1234,7 @@ function GalleryDetailsOverlay({
   onToggleArtist: (tag: string) => void
   onAddArtist: (tag: string) => void
   onAddTag: (tag: string) => void
+  onRemoveTag: (tag: string) => void
   onMove: (toIndex: number) => void
   onReplace: () => void
   onSave: () => void
@@ -1413,23 +1439,42 @@ function GalleryDetailsOverlay({
                 ].map((tag) => {
                   const on = row.tags.includes(tag)
                   const preset = (GALLERY_SCENE_TAGS as readonly string[]).includes(tag)
+                  const extra = extraTagOptions.includes(tag)
                   return (
-                    <button
+                    <span
                       key={tag}
-                      type="button"
-                      aria-pressed={on}
-                      onClick={() => onToggleScene(tag)}
                       className={cn(
                         chipClass,
                         preset ? 'font-heading uppercase' : '',
                         on
                           ? 'border-primary bg-primary text-primary-foreground'
-                          : 'border-border text-muted hover:border-primary hover:text-primary',
+                          : 'border-border text-muted',
                       )}
                     >
-                      {tag}
-                      {on && !preset ? <X size={10} aria-hidden /> : null}
-                    </button>
+                      <button
+                        type="button"
+                        aria-pressed={on}
+                        onClick={() => onToggleScene(tag)}
+                        className={cn(
+                          'inline-flex min-w-0 items-center gap-0.5',
+                          !on && 'hover:text-primary',
+                        )}
+                      >
+                        {tag}
+                        {on && !preset ? <X size={10} aria-hidden /> : null}
+                      </button>
+                      {extra && !on ? (
+                        <button
+                          type="button"
+                          aria-label={`Remove ${tag} from tag list`}
+                          title="Remove from tag list"
+                          onClick={() => onRemoveTag(tag)}
+                          className="inline-flex shrink-0 items-center text-muted hover:text-primary"
+                        >
+                          <X size={10} aria-hidden />
+                        </button>
+                      ) : null}
+                    </span>
                   )
                 })}
               </div>

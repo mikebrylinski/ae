@@ -255,13 +255,50 @@ export type GallerySort = 'order' | 'newest' | 'oldest' | 'tag'
 
 const GALLERY_NON_ARTIST_TAGS = new Set<string>(['Portrait', ...GALLERY_SCENE_TAGS])
 
+/** Misspelled labels retired from the admin tag list. */
+const RETIRED_GALLERY_TAGS = new Set(['Quantum'])
+const RENAMED_GALLERY_TAGS: Record<string, string> = {
+  'Quantum World': 'Quannum World',
+}
+
+export function canonicalGalleryTag(tag: string): string | null {
+  const value = tag.trim()
+  if (!value || RETIRED_GALLERY_TAGS.has(value)) return null
+  return RENAMED_GALLERY_TAGS[value] ?? value
+}
+
+export function migrateGalleryTags(tags: string[]): string[] {
+  const seen = new Set<string>()
+  const next: string[] = []
+  for (const tag of tags) {
+    const value = canonicalGalleryTag(tag)
+    if (!value || seen.has(value)) continue
+    seen.add(value)
+    next.push(value)
+  }
+  return next
+}
+
+export function migrateGalleryItems(items: GalleryItem[]): GalleryItem[] {
+  return items.map((item) => {
+    const tags = migrateGalleryTags(item.tags)
+    if (
+      tags.length === item.tags.length &&
+      tags.every((tag, index) => tag === item.tags[index])
+    ) {
+      return item
+    }
+    return { ...item, tags }
+  })
+}
+
 export function sanitizeGalleryExtraTags(tags: unknown): string[] {
   if (!Array.isArray(tags)) return []
   const seen = new Set<string>()
   const next: string[] = []
   for (const tag of tags) {
     if (typeof tag !== 'string') continue
-    const value = tag.trim()
+    const value = canonicalGalleryTag(tag)
     if (!value || GALLERY_YEAR_RE.test(value) || GALLERY_NON_ARTIST_TAGS.has(value)) {
       continue
     }
@@ -407,13 +444,70 @@ export function mergeProjectGallerySources(
 
   for (const src of projectGallery) {
     if (seen.has(src)) continue
-    seen.add(src)
     const match = bySrc.get(src)
-    out.push(
-      match
-        ? projectGallerySourceFromItem(match)
-        : { src },
+    if (!match) continue
+    seen.add(src)
+    out.push(projectGallerySourceFromItem(match))
+  }
+
+  return out
+}
+
+/** 0-based index, or negative from the end (-1 last, -2 second to last). */
+type ProjectGalleryPin = { id: number; at: number }
+
+const PROJECT_GALLERY_PINS: Record<string, ProjectGalleryPin[]> = {
+  'alanis-morissette': [
+    { id: 31, at: 2 },
+    { id: 27, at: -2 },
+    { id: 37, at: -1 },
+  ],
+}
+
+const PROJECT_GALLERY_SWAPS: Record<string, Array<[number, number]>> = {
+  'neil-young': [[136, 139]],
+  'maroon-5': [[123, 188]],
+}
+
+export function pinProjectGallerySources(
+  sources: ProjectGallerySource[],
+  slug: string,
+): ProjectGallerySource[] {
+  const pins = PROJECT_GALLERY_PINS[slug]
+  let out = sources
+
+  if (pins?.length) {
+    const byId = new Map(
+      sources
+        .filter((item): item is ProjectGallerySource & { id: number } => item.id != null)
+        .map((item) => [item.id, item]),
     )
+    const pinnedIds = new Set(pins.map((pin) => pin.id))
+    out = sources.filter((item) => item.id == null || !pinnedIds.has(item.id))
+
+    for (const pin of pins.filter((item) => item.at >= 0).sort((a, b) => a.at - b.at)) {
+      const item = byId.get(pin.id)
+      if (!item) continue
+      out.splice(Math.min(Math.max(0, pin.at), out.length), 0, item)
+    }
+
+    for (const pin of pins.filter((item) => item.at < 0).sort((a, b) => b.at - a.at)) {
+      const item = byId.get(pin.id)
+      if (!item) continue
+      const index = Math.min(out.length, Math.max(0, out.length + pin.at + 1))
+      out.splice(index, 0, item)
+    }
+  }
+
+  const swaps = PROJECT_GALLERY_SWAPS[slug]
+  if (swaps?.length) {
+    out = [...out]
+    for (const [a, b] of swaps) {
+      const i = out.findIndex((item) => item.id === a)
+      const j = out.findIndex((item) => item.id === b)
+      if (i < 0 || j < 0) continue
+      ;[out[i], out[j]] = [out[j], out[i]]
+    }
   }
 
   return out
@@ -554,7 +648,7 @@ const PORTFOLIO_HIGHLIGHT_ARTISTS = new Set([
   'Alice In Chains',
   'Enrique Iglesias',
   'Sebastian Bach',
-  'Quantum World',
+  'Quannum World',
   'Al Bano Carrisi',
   'Countless artists',
 ])
