@@ -11,6 +11,7 @@ import {
 import { CTABanner } from '@/components/sections/CTABanner'
 import { PhotoHeader } from '@/components/sections/PhotoHeader'
 import { VuPlate } from '@/components/ui/VuPlate'
+import { MiniVuMeter } from '@/components/ui/MiniVuMeter'
 import { VeniceVeganOverlay } from '@/components/ui/VeniceVeganOverlay'
 import { useSeo } from '@/hooks/useSeo'
 import { useLanguage } from '@/i18n/LanguageProvider'
@@ -44,6 +45,9 @@ type Chapter = {
   thumbs?: boolean
   images: ChapterImage[]
 }
+
+/** Story paragraph indexes rendered as accented pull quotes. */
+const PULL_QUOTE_STORY_INDEXES = new Set([4, 11, 14, 24])
 
 const CHAPTERS: Chapter[] = [
   {
@@ -343,9 +347,28 @@ export default function AboutPage() {
                     ) : null}
                   </div>
                   <div className="min-w-0 space-y-5 text-[0.9375rem] leading-relaxed break-words text-foreground/90 md:space-y-6 md:text-[0.98rem] md:leading-[1.8]">
-                    {paras.map((p) => (
-                      <p key={p.slice(0, 36)}>{p}</p>
-                    ))}
+                    {paras.map((p, i) => {
+                      const storyIndex = chapter.from + i
+                      if (PULL_QUOTE_STORY_INDEXES.has(storyIndex)) {
+                        return (
+                          <blockquote
+                            key={p.slice(0, 36)}
+                            className="about-pull-quote relative my-3 overflow-hidden rounded-none border border-primary/25 px-5 py-5 sm:my-4 sm:px-7 sm:py-6 md:px-8 md:py-7"
+                          >
+                            <span className="about-pull-quote__glow" aria-hidden />
+                            <MiniVuMeter className="about-pull-quote__vu pointer-events-none absolute right-2 bottom-1 z-0 sm:right-3 sm:bottom-2" />
+                            <p className="font-heading relative z-[1] text-sm leading-relaxed tracking-[0.03em] text-foreground !font-normal sm:text-[0.95rem] sm:leading-relaxed md:text-base md:leading-[1.65]">
+                              {p}
+                            </p>
+                            <span
+                              className="pointer-events-none absolute right-0 bottom-0 z-[1] h-px w-1/3 bg-gradient-to-l from-transparent to-primary/50"
+                              aria-hidden
+                            />
+                          </blockquote>
+                        )
+                      }
+                      return <p key={p.slice(0, 36)}>{p}</p>
+                    })}
                   </div>
                 </div>
               )
