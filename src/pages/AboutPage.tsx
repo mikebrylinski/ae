@@ -29,6 +29,8 @@ type ChapterImage = {
   fillColumn?: boolean
   /** Short full-width crop, like a chapter header. */
   banner?: boolean
+  /** Taller banner crop. */
+  bannerTall?: boolean
   focus?: string
 }
 
@@ -51,11 +53,11 @@ const CHAPTERS: Chapter[] = [
     layout: 'stack',
     images: [
       {
-        label: 'Young Andy with long hair at a mixing console',
+        label: 'Berlin Wall with Brandenburg Gate in the background',
         aspect: 'aspect-[2.4/1]',
-        src: '/images/about/basement-crew.jpg',
+        src: '/images/about/west-berlin-wall.jpg',
         banner: true,
-        focus: 'object-[center_28%]',
+        focus: 'object-center',
       },
     ],
   },
@@ -72,21 +74,22 @@ const CHAPTERS: Chapter[] = [
         src: '/images/about/basement.jpg',
       },
       {
-        label: 'Andy mixing a live show beside rack cases',
+        label: 'Bell active mixer in the basement control room',
         aspect: 'aspect-[4/3]',
-        src: '/images/about/basement-live.jpg',
-        focus: 'object-[center_30%]',
+        src: '/images/about/basement-bell.jpg',
+        focus: 'object-[center_55%]',
       },
       {
-        label: 'Andy at a mixing console with a friend in a basement venue',
+        label: 'Fostex 12/8 mixer and Yamaha NS-10 in the basement studio',
         aspect: 'aspect-[4/3]',
-        src: '/images/about/basement-crew.jpg',
-        focus: 'object-[center_35%]',
+        src: '/images/about/basement-ns10.jpg',
+        focus: 'object-[center_45%]',
       },
       {
-        label: 'Basement studio with mixing desk, NS-10s, and a CRT workstation',
+        label: 'Basement Studio Tascam 24ch console, Fostex G16S and more gear',
         aspect: 'aspect-[4/3]',
-        src: '/images/about/basement-workstation.jpg',
+        src: 'https://twj9hkdxnej2mgbm.public.blob.vercel-storage.com/gallery/photos/1788831967356-img_5895.jpg',
+        focus: 'object-[center_40%]',
       },
     ],
   },
@@ -98,42 +101,12 @@ const CHAPTERS: Chapter[] = [
     copyBeside: 'left',
     images: [
       {
-        label: 'Andy at a Midas Heritage console on tour',
-        aspect: 'aspect-[4/3]',
-        src: '/images/about/on-the-road.jpg',
-        place: 'followUp',
-        showFull: true,
-        focus: 'object-[22%_top]',
-      },
-      {
         label: 'Andy mixing a live show from a touring console',
         aspect: 'aspect-auto',
         src: '/images/about/on-the-road-console.jpg',
         place: 'end',
         fillColumn: true,
         focus: 'object-[center_20%]',
-      },
-      {
-        label: 'Mixing FOH at an outdoor concert',
-        aspect: 'aspect-[4/3]',
-        src: '/images/about/on-the-road-foh.jpg',
-        place: 'followUp',
-        showFull: true,
-      },
-      {
-        label: 'Andy in front of the Hollywood sign, Los Angeles',
-        aspect: 'aspect-[4/3]',
-        src: '/images/about/los-angeles.jpg',
-        place: 'followUp',
-        showFull: true,
-      },
-      {
-        label: 'Andy with touring crew behind a mixing console',
-        aspect: 'aspect-[4/3]',
-        src: '/images/about/west-berlin.jpg',
-        place: 'followUp',
-        showFull: true,
-        focus: 'object-center',
       },
     ],
   },
@@ -142,14 +115,14 @@ const CHAPTERS: Chapter[] = [
     from: 19,
     to: 27,
     layout: 'stack',
-    copyBeside: 'right',
     images: [
       {
-        label: 'Alanis Morissette performing on stage',
-        aspect: 'aspect-auto',
-        src: '/images/projects/alanis-stage.jpg',
-        place: 'end',
-        fillColumn: true,
+        label: 'Andy in front of the Hollywood sign, Los Angeles',
+        aspect: 'aspect-[2.4/1]',
+        src: '/images/about/los-angeles.jpg',
+        banner: true,
+        bannerTall: true,
+        focus: 'object-[center_35%]',
       },
     ],
   },
@@ -182,7 +155,10 @@ function ChapterImages({ images }: { images: readonly ChapterImage[] }) {
             wrapperClassName={cn(
               'w-full rounded-none border-0',
               img.fillColumn && 'relative h-72 sm:h-80 lg:h-full lg:min-h-0',
-              img.banner && 'relative h-44 overflow-hidden sm:h-56 md:h-64 lg:h-72',
+              img.banner &&
+                (img.bannerTall
+                  ? 'relative h-56 overflow-hidden sm:h-72 md:h-80 lg:h-[28rem]'
+                  : 'relative h-44 overflow-hidden sm:h-56 md:h-64 lg:h-72'),
               img.showFull
                 ? 'max-h-none'
                 : img.banner || img.fillColumn

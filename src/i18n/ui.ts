@@ -132,33 +132,29 @@ const en = {
       {
         eyebrow: 'West Berlin',
         dek: 'Where it all began.',
-        alts: ['Young Andy with long hair at a mixing console'],
+        alts: ['Berlin Wall with Brandenburg Gate in the background'],
       },
       {
         eyebrow: 'The Basement',
         dek: 'When playing music became an obsession with sound.',
         alts: [
           'Tascam mixer and Pioneer cassette deck in the basement studio',
-          'Andy mixing a live show beside rack cases',
-          'Andy at a mixing console with a friend in a basement venue',
-          'Basement studio with mixing desk, NS-10s, and a CRT workstation',
+          'Bell active mixer in the basement control room',
+          'Fostex 12/8 mixer and Yamaha NS-10 in the basement studio',
+          'Basement Studio Tascam 24ch console, Fostex G16S and more gear',
         ],
       },
       {
         eyebrow: 'On the Road',
         dek: 'Taking the skills from the basement studio into the live world.',
         alts: [
-          'Andy at a Midas Heritage console on tour',
           'Andy mixing a live show from a touring console',
-          'Mixing FOH at an outdoor concert',
-          'Andy in front of the Hollywood sign, Los Angeles',
-          'Andy with touring crew behind a mixing console',
         ],
       },
       {
         eyebrow: 'Los Angeles',
         dek: 'From European tours to an international career.',
-        alts: ['Alanis Morissette performing on stage'],
+        alts: ['Andy in front of the Hollywood sign, Los Angeles'],
       },
     ],
     venice: {
@@ -588,33 +584,29 @@ const de = {
       {
         eyebrow: 'West-Berlin',
         dek: 'Wo alles begann.',
-        alts: ['Junger Andy mit langen Haaren am Mischpult'],
+        alts: ['Berliner Mauer mit Brandenburger Tor im Hintergrund'],
       },
       {
         eyebrow: 'Der Keller',
         dek: 'Als aus Musizieren die Faszination für Sound wurde.',
         alts: [
           'Tascam-Mischpult und Pioneer-Kassettendeck im Kellerstudio',
-          'Andy mischt eine Live-Show neben Rack-Cases',
-          'Andy am Mischpult mit einem Freund in einem Keller-Venue',
-          'Kellerstudio mit Mischpult, NS-10s und CRT-Workstation',
+          'Bell Active Mixer im Keller-Kontrollraum',
+          'Fostex 12/8-Mischpult und Yamaha NS-10 im Kellerstudio',
+          'Kellerstudio mit Tascam-24-Kanal-Pult, Fostex G16S und weiterem Gear',
         ],
       },
       {
         eyebrow: 'Unterwegs',
         dek: 'Die Fähigkeiten aus dem Kellerstudio in die Live-Welt bringen.',
         alts: [
-          'Andy am Midas-Heritage-Pult auf Tour',
           'Andy mischt eine Live-Show an einem Tourpult',
-          'FOH Mix bei einem Open-Air-Konzert',
-          'Andy vor dem Hollywood-Schriftzug, Los Angeles',
-          'Andy mit Tourcrew hinter einem Mischpult',
         ],
       },
       {
         eyebrow: 'Los Angeles',
         dek: 'Von europäischen Touren zu einer internationalen Karriere.',
-        alts: ['Alanis Morissette auf der Bühne'],
+        alts: ['Andy vor dem Hollywood-Schriftzug, Los Angeles'],
       },
     ],
     venice: {

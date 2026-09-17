@@ -107,58 +107,71 @@ export function Footer({ admin = false }: { admin?: boolean }) {
 
       <Container className="relative z-10 py-10 md:py-12">
         <motion.div
-          className="flex flex-col items-center gap-10 text-center md:flex-row md:items-center md:justify-between md:text-left"
+          className="flex flex-col gap-8 text-center md:gap-10 md:text-left"
           variants={item}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-40px' }}
         >
-          <div className="flex flex-col items-center gap-6 md:items-start">
-            <div className="flex w-full max-w-full min-w-0 flex-col items-center gap-2">
-              {admin ? (
-                <div className="flex min-w-0 flex-wrap items-center justify-center gap-3 sm:gap-4 md:justify-start">
-                  <div className="rack-brand-wrap rack-brand-wrap--no-seal rack-brand-glow min-w-0">
-                    <Link
-                      to="/"
-                      className="rack-brand rack-brand--glow inline-flex max-w-full min-w-0 flex-col items-center gap-0.5 text-center"
-                    >
-                      <span className="rack-brand__shine" aria-hidden />
-                      <span className="rack-brand__name whitespace-nowrap font-heading text-[clamp(1.5rem,7.5vw,1.875rem)] tracking-[0.1em] sm:text-4xl sm:tracking-[0.12em] md:text-5xl">
-                        <span className="text-white">ANDY</span>{' '}
-                        <span className="text-primary">EBERT</span>
-                      </span>
-                      <span className="rack-brand__sub w-full font-heading text-[0.7rem] uppercase text-muted sm:text-xs">
-                        {t.brand.subtitle}
-                      </span>
-                      <span className="font-heading mt-0.5 text-[0.62rem] tracking-[0.22em] text-primary uppercase sm:text-[0.7rem]">
-                        Admin Area
-                      </span>
-                    </Link>
-                  </div>
-                  <AllAccessLaminate />
-                </div>
-              ) : (
-              <div className="flex min-w-0 flex-col items-center gap-4 md:flex-row md:flex-wrap md:justify-start md:gap-5">
+          {admin ? (
+            <div className="flex flex-col items-center gap-6 md:flex-row md:items-center md:justify-between">
+              <div className="flex min-w-0 flex-wrap items-center justify-center gap-3 sm:gap-4 md:justify-start">
                 <div className="rack-brand-wrap rack-brand-wrap--no-seal rack-brand-glow min-w-0">
                   <Link
                     to="/"
                     className="rack-brand rack-brand--glow inline-flex max-w-full min-w-0 flex-col items-center gap-0.5 text-center"
                   >
                     <span className="rack-brand__shine" aria-hidden />
-                    <span className="rack-brand__name whitespace-nowrap font-heading text-[clamp(1.5rem,7.5vw,1.875rem)] tracking-[0.1em] sm:text-4xl sm:tracking-[0.12em] md:text-5xl">
+                    <span className="rack-brand__name whitespace-nowrap font-heading text-[clamp(1.75rem,8vw,2.25rem)] tracking-[0.1em] sm:text-5xl sm:tracking-[0.12em] md:text-6xl">
                       <span className="text-white">ANDY</span>{' '}
                       <span className="text-primary">EBERT</span>
                     </span>
-                    <span className="rack-brand__sub w-full font-heading text-[0.7rem] uppercase text-muted sm:text-xs">
+                    <span className="rack-brand__sub w-full font-heading text-[0.75rem] uppercase text-muted sm:text-sm">
+                      {t.brand.subtitle}
+                    </span>
+                    <span className="font-heading mt-0.5 text-[0.62rem] tracking-[0.22em] text-primary uppercase sm:text-[0.7rem]">
+                      Admin Area
+                    </span>
+                  </Link>
+                </div>
+                <AllAccessLaminate />
+              </div>
+              <div className="flex w-full flex-col items-center gap-4 md:w-auto md:items-end md:text-right">
+                <VuPair />
+              </div>
+            </div>
+          ) : (
+            <div className="flex w-full flex-col items-center gap-6 md:flex-row md:items-center">
+              <div className="flex shrink-0 flex-col items-center gap-1.5">
+                <div className="rack-brand-wrap rack-brand-wrap--no-seal rack-brand-glow min-w-0">
+                  <Link
+                    to="/"
+                    className="rack-brand rack-brand--glow inline-flex max-w-full min-w-0 flex-col items-center gap-0.5 text-center"
+                  >
+                    <span className="rack-brand__shine" aria-hidden />
+                    <span className="rack-brand__name whitespace-nowrap font-heading text-[clamp(1.75rem,8vw,2.25rem)] tracking-[0.1em] sm:text-5xl sm:tracking-[0.12em] md:text-6xl">
+                      <span className="text-white">ANDY</span>{' '}
+                      <span className="text-primary">EBERT</span>
+                    </span>
+                    <span className="rack-brand__sub w-full font-heading text-[0.75rem] uppercase text-muted sm:text-sm">
                       {t.brand.subtitle}
                     </span>
                   </Link>
                 </div>
+                <p className="rack-brand-caption font-heading text-[0.65rem] tracking-[0.18em] text-muted sm:text-[0.7rem]">
+                  {t.brand.plants}
+                </p>
+              </div>
+              <div className="flex w-full flex-1 items-center justify-center md:min-w-0">
                 <VeganLaminate />
               </div>
-              )}
+              <div className="w-full shrink-0 md:w-auto">
+                <VuPair />
+              </div>
             </div>
+          )}
 
+          <div className="flex flex-col items-center gap-4 md:flex-row md:items-center md:justify-between">
             <nav aria-label={t.a11y.footerNav}>
               <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 md:justify-start">
                 {links.map((link) => (
@@ -173,10 +186,6 @@ export function Footer({ admin = false }: { admin?: boolean }) {
                 ))}
               </ul>
             </nav>
-          </div>
-
-          <div className="flex w-full flex-col items-center gap-4 md:ml-auto md:w-auto md:items-end md:text-right">
-            <VuPair />
             <button
               type="button"
               onClick={scrollTop}
