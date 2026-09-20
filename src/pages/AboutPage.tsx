@@ -1,4 +1,4 @@
-import { Fragment, useMemo, useState } from 'react'
+import { Fragment, useMemo, useState, type ReactNode } from 'react'
 import { getSite } from '@/lib/content'
 import { interpolate } from '@/i18n/ui'
 import { Container } from '@/components/ui/Container'
@@ -11,7 +11,6 @@ import {
 import { CTABanner } from '@/components/sections/CTABanner'
 import { PhotoHeader } from '@/components/sections/PhotoHeader'
 import { VuPlate } from '@/components/ui/VuPlate'
-import { MiniVuMeter } from '@/components/ui/MiniVuMeter'
 import { VeniceVeganOverlay } from '@/components/ui/VeniceVeganOverlay'
 import { useSeo } from '@/hooks/useSeo'
 import { useLanguage } from '@/i18n/LanguageProvider'
@@ -33,6 +32,10 @@ type ChapterImage = {
   /** Taller banner crop. */
   bannerTall?: boolean
   focus?: string
+  /** Optional overlay caption on the photo. */
+  caption?: string
+  /** Tailwind classes for caption position (defaults near lower right). */
+  captionPos?: string
 }
 
 type Chapter = {
@@ -43,11 +46,13 @@ type Chapter = {
   copyBeside?: 'left' | 'right'
   /** Small inset thumbnails that open a lightbox instead of full-bleed photos. */
   thumbs?: boolean
+  /** Float small photos into the copy so text wraps around them. */
+  wrap?: boolean
   images: ChapterImage[]
 }
 
 /** Story paragraph indexes rendered as accented pull quotes. */
-const PULL_QUOTE_STORY_INDEXES = new Set([4, 11, 14, 24])
+const PULL_QUOTE_STORY_INDEXES = new Set([11, 14, 24])
 
 const CHAPTERS: Chapter[] = [
   {
@@ -60,6 +65,7 @@ const CHAPTERS: Chapter[] = [
         label: 'Berlin Wall with Brandenburg Gate in the background',
         aspect: 'aspect-[2.4/1]',
         src: '/images/about/west-berlin-wall.jpg',
+        place: 'below',
         banner: true,
         focus: 'object-center',
       },
@@ -70,24 +76,12 @@ const CHAPTERS: Chapter[] = [
     from: 5,
     to: 12,
     layout: 'stack',
-    thumbs: true,
+    wrap: true,
     images: [
       {
         label: 'Tascam mixer and Pioneer cassette deck in the basement studio',
         aspect: 'aspect-[4/3]',
         src: '/images/about/basement.jpg',
-      },
-      {
-        label: 'Bell active mixer in the basement control room',
-        aspect: 'aspect-[4/3]',
-        src: '/images/about/basement-bell.jpg',
-        focus: 'object-[center_55%]',
-      },
-      {
-        label: 'Fostex 12/8 mixer and Yamaha NS-10 in the basement studio',
-        aspect: 'aspect-[4/3]',
-        src: '/images/about/basement-ns10.jpg',
-        focus: 'object-[center_45%]',
       },
       {
         label: 'Basement Studio Tascam 24ch console, Fostex G16S and more gear',
@@ -111,6 +105,8 @@ const CHAPTERS: Chapter[] = [
         place: 'end',
         fillColumn: true,
         focus: 'object-[center_20%]',
+        caption: 'First professional tour — 1997',
+        captionPos: 'right-[3%] top-[44%] sm:right-[4%] sm:top-[46%] md:right-[5%] md:top-[48%]',
       },
     ],
   },
@@ -126,6 +122,23 @@ const CHAPTERS: Chapter[] = [
         src: '/images/about/los-angeles.jpg',
         banner: true,
         bannerTall: true,
+        focus: 'object-[center_35%]',
+      },
+    ],
+  },
+  {
+    eyebrow: 'Worldwide',
+    from: 27,
+    to: 31,
+    layout: 'stack',
+    copyBeside: 'right',
+    images: [
+      {
+        label: "Andy mixing Guns N' Roses on a Midas Heritage 3000",
+        aspect: 'aspect-auto',
+        src: '/images/projects/gnr-5.jpg',
+        place: 'end',
+        fillColumn: true,
         focus: 'object-[center_35%]',
       },
     ],
@@ -151,42 +164,59 @@ function ChapterImages({ images }: { images: readonly ChapterImage[] }) {
     >
       {images.map((img, i) =>
         img.src ? (
-          <MediaImage
+          <div
             key={img.label}
-            src={img.src}
-            alt={img.label}
-            aspect={img.banner ? '' : img.aspect}
-            wrapperClassName={cn(
-              'w-full rounded-none border-0',
-              img.fillColumn && 'relative h-72 sm:h-80 lg:h-full lg:min-h-0',
-              img.banner &&
-                (img.bannerTall
-                  ? 'relative h-56 overflow-hidden sm:h-72 md:h-80 lg:h-[28rem]'
-                  : 'relative h-44 overflow-hidden sm:h-56 md:h-64 lg:h-72'),
-              img.showFull
-                ? 'max-h-none'
-                : img.banner || img.fillColumn
-                  ? 'max-h-none'
-                  : img.tall
-                    ? 'max-h-72 sm:max-h-96 lg:max-h-[30rem]'
-                    : 'max-h-48 sm:max-h-56 lg:max-h-64',
+            className={cn(
+              'relative min-w-0',
+              img.fillColumn && 'h-full min-h-0',
               img.span === 2 && 'col-span-full',
-              img.compact && 'mx-auto w-full max-w-sm sm:max-w-md',
-              img.centered && 'mx-auto max-w-md bg-black',
             )}
-            fit={img.centered ? 'contain' : 'cover'}
-            className={
-              img.fillColumn || img.banner
-                ? cn(
-                    'absolute inset-0 h-full w-full object-cover',
-                    img.focus ?? 'object-[center_18%]',
-                  )
-                : img.showFull
-                  ? 'h-auto w-full object-contain object-center'
-                  : cn('object-cover', img.focus ?? 'object-[center_35%]')
-            }
-            fallbackLabel={img.label}
-          />
+          >
+            <MediaImage
+              src={img.src}
+              alt={img.label}
+              aspect={img.banner ? '' : img.aspect}
+              wrapperClassName={cn(
+                'w-full rounded-none border-0',
+                img.fillColumn && 'relative h-72 sm:h-80 lg:h-full lg:min-h-0',
+                img.banner &&
+                  (img.bannerTall
+                    ? 'relative h-56 overflow-hidden sm:h-72 md:h-80 lg:h-[28rem]'
+                    : 'relative h-44 overflow-hidden sm:h-56 md:h-64 lg:h-72'),
+                img.showFull
+                  ? 'max-h-none'
+                  : img.banner || img.fillColumn
+                    ? 'max-h-none'
+                    : img.tall
+                      ? 'max-h-72 sm:max-h-96 lg:max-h-[30rem]'
+                      : 'max-h-48 sm:max-h-56 lg:max-h-64',
+                img.compact && 'mx-auto w-full max-w-sm sm:max-w-md',
+                img.centered && 'mx-auto max-w-md bg-black',
+              )}
+              fit={img.centered ? 'contain' : 'cover'}
+              className={
+                img.fillColumn || img.banner
+                  ? cn(
+                      'absolute inset-0 h-full w-full object-cover',
+                      img.focus ?? 'object-[center_18%]',
+                    )
+                  : img.showFull
+                    ? 'h-auto w-full object-contain object-center'
+                    : cn('object-cover', img.focus ?? 'object-[center_35%]')
+              }
+              fallbackLabel={img.label}
+            />
+            {img.caption ? (
+              <p
+                className={cn(
+                  'about-photo-caption font-heading pointer-events-none absolute z-[2] max-w-[14rem] border border-primary/40 bg-black/88 px-3.5 py-2.5 text-[0.78rem] leading-snug tracking-[0.1em] text-primary uppercase shadow-[0_8px_24px_rgba(0,0,0,0.55)] backdrop-blur-[3px] sm:max-w-[17rem] sm:px-4 sm:py-3 sm:text-[0.88rem] md:max-w-[19rem] md:px-5 md:py-3.5 md:text-[0.95rem]',
+                  img.captionPos ?? 'right-3 bottom-3',
+                )}
+              >
+                {img.caption}
+              </p>
+            ) : null}
+          </div>
         ) : (
           <PlaceholderMedia
             key={img.label}
@@ -230,10 +260,12 @@ function ChapterThumbStrip({ images }: { images: readonly ChapterImage[] }) {
     <>
       <ul
         className={cn(
-          'grid w-full gap-2 px-4 pb-4 sm:gap-2.5 sm:px-6 sm:pb-6 md:px-8 md:pb-8',
-          items.length >= 5
-            ? 'grid-cols-3 sm:grid-cols-5'
-            : 'grid-cols-2 sm:grid-cols-4',
+          'grid gap-2 px-4 pb-4 sm:gap-2.5 sm:px-6 sm:pb-6 md:px-8 md:pb-8',
+          items.length <= 2
+            ? 'w-full max-w-md grid-cols-2'
+            : items.length >= 5
+              ? 'w-full grid-cols-3 sm:grid-cols-5'
+              : 'w-full grid-cols-2 sm:grid-cols-4',
         )}
       >
         {items.map((item, i) => {
@@ -271,6 +303,92 @@ function ChapterThumbStrip({ images }: { images: readonly ChapterImage[] }) {
         })}
       </ul>
 
+      <GalleryLightbox
+        items={items}
+        index={lightboxIndex}
+        onClose={() => setLightboxIndex(null)}
+        onIndexChange={setLightboxIndex}
+      />
+    </>
+  )
+}
+
+function ChapterWrapFigures({
+  images,
+  paraCount,
+  children,
+}: {
+  images: readonly ChapterImage[]
+  paraCount: number
+  children: (args: {
+    startFigure: ReactNode
+    endFigure: ReactNode
+    endInsertAt: number
+  }) => ReactNode
+}) {
+  const { t } = useLanguage()
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+
+  const items = useMemo<GalleryLightboxItem[]>(
+    () =>
+      images.flatMap((img) =>
+        img.src
+          ? [
+              {
+                src: img.src,
+                alt: img.label,
+                caption: img.label,
+              },
+            ]
+          : [],
+      ),
+    [images],
+  )
+
+  const figure = (
+    item: GalleryLightboxItem | undefined,
+    index: number,
+    side: 'start' | 'end',
+  ) => {
+    if (!item) return null
+    const focus = images.find((img) => img.src === item.src)?.focus
+
+    return (
+      <button
+        type="button"
+        className={cn(
+          'group mb-4 w-[58%] max-w-[24rem] cursor-pointer overflow-hidden rounded-[0.65rem] border border-border bg-black text-left sm:mb-5 sm:w-80 sm:max-w-none md:w-96',
+          'transition-[border-color,box-shadow] duration-300',
+          'hover:border-primary/40 hover:shadow-[0_0_16px_rgba(184,255,0,0.06)]',
+          'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
+          side === 'start' ? 'float-left mr-5 sm:mr-6' : 'float-right ml-5 sm:ml-6',
+        )}
+        onClick={() => setLightboxIndex(index)}
+        aria-label={interpolate(t.a11y.viewGallery, { alt: item.alt })}
+      >
+        <span className="relative block aspect-[4/3] w-full overflow-hidden">
+          <img
+            src={item.src}
+            alt={item.alt}
+            className={cn('h-full w-full object-cover', focus ?? 'object-[center_35%]')}
+            loading="lazy"
+            decoding="async"
+          />
+        </span>
+      </button>
+    )
+  }
+
+  const endInsertAt = Math.min(2, Math.max(1, paraCount - 3))
+
+  return (
+    <>
+      {children({
+        startFigure: figure(items[0], 0, 'start'),
+        endFigure: figure(items[1], 1, 'end'),
+        endInsertAt,
+      })}
+      <div className="clear-both" aria-hidden />
       <GalleryLightbox
         items={items}
         index={lightboxIndex}
@@ -324,11 +442,81 @@ export default function AboutPage() {
               const images = chapter.images.map((img, i) => ({
                 ...img,
                 label: localized?.alts[i] ?? img.label,
+                caption: localized?.captions?.[i] ?? img.caption,
               }))
-              const topImages = images.filter((img) => !img.place)
-              const endImages = images.filter((img) => img.place === 'end')
-              const belowImages = images.filter((img) => img.place === 'below')
-              const followUpImages = images.filter((img) => img.place === 'followUp')
+              const topImages = chapter.wrap
+                ? []
+                : images.filter((img) => !img.place)
+              const endImages = chapter.wrap
+                ? []
+                : images.filter((img) => img.place === 'end')
+              const belowImages = chapter.wrap
+                ? []
+                : images.filter((img) => img.place === 'below')
+              const followUpImages = chapter.wrap
+                ? []
+                : images.filter((img) => img.place === 'followUp')
+
+              const renderStoryParas = ({
+                startFigure,
+                endFigure,
+                endInsertAt,
+              }: {
+                startFigure?: ReactNode
+                endFigure?: ReactNode
+                endInsertAt?: number
+              } = {}) => (
+                <div
+                  className={cn(
+                    'min-w-0 text-[0.9375rem] leading-relaxed break-words text-foreground/90 md:text-[0.98rem] md:leading-[1.8]',
+                    chapter.wrap ? undefined : 'space-y-5 md:space-y-6',
+                  )}
+                >
+                  {startFigure}
+                  {paras.map((p, i) => {
+                    const storyIndex = chapter.from + i
+                    const insertEnd = endFigure && endInsertAt === i
+                    const body =
+                      PULL_QUOTE_STORY_INDEXES.has(storyIndex) ? (
+                        <blockquote
+                          className={cn(
+                            'about-pull-quote relative overflow-hidden rounded-none border border-primary/25 px-5 py-5 sm:px-7 sm:py-6 md:px-8 md:py-7',
+                            chapter.wrap ? 'my-3 sm:my-4' : 'my-3 sm:my-4',
+                          )}
+                        >
+                          <span className="about-pull-quote__glow" aria-hidden />
+                          <p className="font-heading relative z-[1] text-sm leading-relaxed tracking-[0.03em] text-foreground !font-normal sm:text-[0.95rem] sm:leading-relaxed md:text-base md:leading-[1.65]">
+                            {p}
+                          </p>
+                          <span
+                            className="pointer-events-none absolute right-0 bottom-0 z-[1] h-px w-1/3 bg-gradient-to-l from-transparent to-primary/50"
+                            aria-hidden
+                          />
+                        </blockquote>
+                      ) : (
+                        <p className={chapter.wrap ? 'mb-5 md:mb-6' : undefined}>{p}</p>
+                      )
+
+                    return (
+                      <Fragment key={`${p.slice(0, 36)}-${i}`}>
+                        {insertEnd ? endFigure : null}
+                        {body}
+                      </Fragment>
+                    )
+                  })}
+                </div>
+              )
+
+              const copyBody = chapter.wrap ? (
+                <ChapterWrapFigures images={images} paraCount={paras.length}>
+                  {({ startFigure, endFigure, endInsertAt }) =>
+                    renderStoryParas({ startFigure, endFigure, endInsertAt })
+                  }
+                </ChapterWrapFigures>
+              ) : (
+                renderStoryParas()
+              )
+
               const copy = (
                 <div
                   className={cn(
@@ -346,30 +534,7 @@ export default function AboutPage() {
                       </p>
                     ) : null}
                   </div>
-                  <div className="min-w-0 space-y-5 text-[0.9375rem] leading-relaxed break-words text-foreground/90 md:space-y-6 md:text-[0.98rem] md:leading-[1.8]">
-                    {paras.map((p, i) => {
-                      const storyIndex = chapter.from + i
-                      if (PULL_QUOTE_STORY_INDEXES.has(storyIndex)) {
-                        return (
-                          <blockquote
-                            key={p.slice(0, 36)}
-                            className="about-pull-quote relative my-3 overflow-hidden rounded-none border border-primary/25 px-5 py-5 sm:my-4 sm:px-7 sm:py-6 md:px-8 md:py-7"
-                          >
-                            <span className="about-pull-quote__glow" aria-hidden />
-                            <MiniVuMeter className="about-pull-quote__vu pointer-events-none absolute right-2 bottom-1 z-0 sm:right-3 sm:bottom-2" />
-                            <p className="font-heading relative z-[1] text-sm leading-relaxed tracking-[0.03em] text-foreground !font-normal sm:text-[0.95rem] sm:leading-relaxed md:text-base md:leading-[1.65]">
-                              {p}
-                            </p>
-                            <span
-                              className="pointer-events-none absolute right-0 bottom-0 z-[1] h-px w-1/3 bg-gradient-to-l from-transparent to-primary/50"
-                              aria-hidden
-                            />
-                          </blockquote>
-                        )
-                      }
-                      return <p key={p.slice(0, 36)}>{p}</p>
-                    })}
-                  </div>
+                  {copyBody}
                 </div>
               )
 
@@ -386,7 +551,9 @@ export default function AboutPage() {
                       </>
                     ) : (
                       <>
-                        <ChapterImages images={topImages} />
+                        {topImages.length > 0 ? (
+                          <ChapterImages images={topImages} />
+                        ) : null}
                         {copyOnRight && endImages.length > 0 ? (
                           <div className="grid lg:grid-cols-2 lg:items-stretch">
                             <div className="order-1 h-72 min-h-0 min-w-0 overflow-hidden sm:h-80 lg:h-auto">
@@ -441,6 +608,18 @@ export default function AboutPage() {
                   {t.about.venice.paragraphs.map((p) => (
                     <p key={p.slice(0, 36)}>{p}</p>
                   ))}
+                  <p>
+                    {t.about.venice.plantDietBefore}
+                    <a
+                      href={t.about.venice.plantDietHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary underline decoration-primary/40 underline-offset-4 transition-colors hover:decoration-primary"
+                    >
+                      {t.about.venice.plantDietLink}
+                    </a>
+                    .
+                  </p>
                 </div>
               </div>
               <div className="order-1 relative h-72 min-h-0 min-w-0 overflow-hidden sm:h-80 lg:order-2 lg:h-auto">

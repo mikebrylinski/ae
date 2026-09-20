@@ -139,8 +139,6 @@ const en = {
         dek: 'When playing music became an obsession with sound.',
         alts: [
           'Tascam mixer and Pioneer cassette deck in the basement studio',
-          'Bell active mixer in the basement control room',
-          'Fostex 12/8 mixer and Yamaha NS-10 in the basement studio',
           'Basement Studio Tascam 24ch console, Fostex G16S and more gear',
         ],
       },
@@ -150,11 +148,17 @@ const en = {
         alts: [
           'Andy mixing a live show from a touring console',
         ],
+        captions: ['First professional tour — 1997'],
       },
       {
         eyebrow: 'Los Angeles',
         dek: 'From European tours to an international career.',
         alts: ['Andy in front of the Hollywood sign, Los Angeles'],
+      },
+      {
+        eyebrow: 'Worldwide',
+        dek: 'Long-form relationships with top artists.',
+        alts: ["Andy mixing Guns N' Roses on a Midas Heritage 3000"],
       },
     ],
     venice: {
@@ -167,6 +171,9 @@ const en = {
         'From his first recordings on cassette tapes to professional tours and live productions around the world, his career has been built on a lifelong passion for music, instruments, technology, and great sound.',
         'Andy now resides in Venice, Florida.',
       ],
+      plantDietBefore: 'Andy practices a whole plant-based diet. For more info, visit ',
+      plantDietLink: 'plantpoweredroadie.com',
+      plantDietHref: 'https://plantpoweredroadie.com',
     },
     alanisStageAlt: 'Alanis Morissette performing on stage',
     eyebrow: 'About',
@@ -591,8 +598,6 @@ const de = {
         dek: 'Als aus Musizieren die Faszination für Sound wurde.',
         alts: [
           'Tascam-Mischpult und Pioneer-Kassettendeck im Kellerstudio',
-          'Bell Active Mixer im Keller-Kontrollraum',
-          'Fostex 12/8-Mischpult und Yamaha NS-10 im Kellerstudio',
           'Kellerstudio mit Tascam-24-Kanal-Pult, Fostex G16S und weiterem Gear',
         ],
       },
@@ -602,11 +607,17 @@ const de = {
         alts: [
           'Andy mischt eine Live-Show an einem Tourpult',
         ],
+        captions: ['Erste Profi-Tour — 1997'],
       },
       {
         eyebrow: 'Los Angeles',
         dek: 'Von europäischen Touren zu einer internationalen Karriere.',
         alts: ['Andy vor dem Hollywood-Schriftzug, Los Angeles'],
+      },
+      {
+        eyebrow: 'Weltweit',
+        dek: 'Langfristige Beziehungen mit Top-Artists.',
+        alts: ["Andy mischt Guns N' Roses an einer Midas Heritage 3000"],
       },
     ],
     venice: {
@@ -619,6 +630,9 @@ const de = {
         'Von den ersten Aufnahmen auf Kassette bis zu professionellen Touren und Live-Produktionen weltweit baut seine Karriere auf einer lebenslangen Leidenschaft für Musik, Instrumente, Technik und guten Sound.',
         'Andy lebt heute in Venice, Florida.',
       ],
+      plantDietBefore: 'Andy ernährt sich rein pflanzlich. Mehr Infos unter ',
+      plantDietLink: 'plantpoweredroadie.com',
+      plantDietHref: 'https://plantpoweredroadie.com',
     },
     alanisStageAlt: 'Alanis Morissette auf der Bühne',
     eyebrow: 'Über Andy',
