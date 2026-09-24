@@ -240,7 +240,7 @@
       "artist": "Usher",
       "region": "MTV Music Awards",
       "role": "Monitor Engineer",
-      "featured": true
+      "featured": false
     },
     {
       "year": "2013",
@@ -380,7 +380,7 @@
       "artist": "Enrique Iglesias",
       "region": "USA",
       "role": "Monitor Engineer",
-      "featured": true
+      "featured": false
     },
     {
       "year": "2007",
@@ -408,7 +408,7 @@
       "artist": "Alice In Chains",
       "region": "USA",
       "role": "Monitor Engineer",
-      "featured": true
+      "featured": false
     },
     {
       "year": "2006–2007",
@@ -555,7 +555,7 @@
       "artist": "Rock am Ring Festival",
       "region": "Germany",
       "role": "Monitor Engineer",
-      "featured": true
+      "featured": false
     },
     {
       "year": "2003",
@@ -625,7 +625,7 @@
       "artist": "Rock am Ring Festival",
       "region": "Germany",
       "role": "Monitor Engineer",
-      "featured": true
+      "featured": false
     },
     {
       "year": "2001",

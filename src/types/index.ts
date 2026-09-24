@@ -48,6 +48,29 @@ export interface ArtistIntro {
   sources: ArtistIntroSource[]
 }
 
+export interface CountlessArtistLink {
+  name: string
+  /** Portfolio project page when available */
+  slug?: string
+  /** External reference (e.g. Wikipedia) when no project page exists */
+  href?: string
+}
+
+export interface CountlessArtistsRegion {
+  heading?: string
+  artists: CountlessArtistLink[]
+}
+
+export interface CountlessArtistsGroup {
+  heading: string
+  regions: CountlessArtistsRegion[]
+}
+
+export interface CountlessArtistsRoster {
+  intro: string
+  groups: CountlessArtistsGroup[]
+}
+
 export interface TimelineEntry {
   year: string
   tour: string

@@ -3,6 +3,7 @@ import {
   useMemo,
   useRef,
   useState,
+  type DragEvent,
   type PointerEvent,
   type ReactNode,
 } from 'react'
@@ -17,20 +18,28 @@ import {
   ChevronsUp,
   GripVertical,
   Save,
+  Trash2,
+  Upload,
 } from 'lucide-react'
 import type { GalleryItem } from '@/types'
 import {
   bundledGallery,
   fetchRemoteGalleryPayload,
+  nextGalleryId,
+  persistGalleryLocal,
   saveArtistOrderRemote,
+  saveGalleryRemote,
+  uploadGalleryImage,
   type ArtistGalleryOrderMap,
 } from '@/lib/galleryAdmin'
 import { getAdminPassword, getSessionPassword } from '@/lib/admin'
 import {
+  galleryWithSyncedYear,
   projects,
   resolveProjectGallerySources,
   type ProjectGallerySource,
 } from '@/lib/content'
+import { resizeImageFile } from '@/lib/resizeImage'
 import {
   GALLERY_TILE_ASPECT_CLASS,
   galleryTilePositionStyle,
@@ -40,6 +49,33 @@ import { cn } from '@/lib/utils'
 
 function adminPassword() {
   return getSessionPassword() || getAdminPassword()
+}
+
+const IMAGE_NAME_RE = /\.(avif|bmp|gif|heic|heif|jpe?g|png|webp)$/i
+
+function isImageFile(file: File) {
+  if (file.type.startsWith('image/')) return true
+  return IMAGE_NAME_RE.test(file.name)
+}
+
+function snapshotImageFiles(files: ArrayLike<File>) {
+  return Array.from(files).filter(isImageFile)
+}
+
+function projectYearHint(year: string): number {
+  const years = [...year.matchAll(/\d{4}/g)].map((match) => Number.parseInt(match[0], 10))
+  return years.length ? Math.max(...years) : new Date().getFullYear()
+}
+
+function sourceFromItem(item: GalleryItem): ProjectGallerySource {
+  return {
+    id: item.id,
+    src: item.src,
+    alt: item.alt,
+    caption: item.caption || item.alt,
+    focalX: item.focalX,
+    focalY: item.focalY,
+  }
 }
 
 function galleryGridCols() {
@@ -100,8 +136,14 @@ export function ArtistPagesEditor() {
   } | null>(null)
   const [dragPoint, setDragPoint] = useState<{ x: number; y: number } | null>(null)
   const [dragPreview, setDragPreview] = useState<ProjectGallerySource | null>(null)
+  const [uploading, setUploading] = useState(false)
+  const [uploadOver, setUploadOver] = useState(false)
 
   const rowsRef = useRef(rows)
+  const itemsRef = useRef(items)
+  const uploadRef = useRef<HTMLInputElement>(null)
+  const ingestingRef = useRef(false)
+  const uploadDepthRef = useRef(0)
   const dragIdRef = useRef<number | null>(null)
   const dropIndexRef = useRef<number | null>(null)
   const dragStartRef = useRef<{ x: number; y: number } | null>(null)
@@ -110,6 +152,7 @@ export function ArtistPagesEditor() {
   const publishedRef = useRef<Record<string, string>>({})
 
   rowsRef.current = rows
+  itemsRef.current = items
 
   const project = projectOptions.find((item) => item.slug === slug)
 
@@ -192,6 +235,161 @@ export function ArtistPagesEditor() {
     rememberDraft(next)
     setPublishResult(null)
     setStatus('Order updated — click Publish to site.')
+  }
+
+  function removeFromPage(id: number) {
+    const next = rows.filter((row) => row.id !== id)
+    if (next.length === rows.length) return
+    setRows(next)
+    rememberDraft(next)
+    setPublishResult(null)
+    setStatus('Removed from this artist page — click Publish to site.')
+  }
+
+  async function ingestFiles(files: ArrayLike<File>) {
+    if (!project || ingestingRef.current) return
+    const work = snapshotImageFiles(files)
+    if (work.length === 0) {
+      setStatus('Choose an image file.')
+      return
+    }
+
+    ingestingRef.current = true
+    setUploading(true)
+    setPublishResult(null)
+    const password = adminPassword()
+    let nextId = nextGalleryId(itemsRef.current)
+    const year = projectYearHint(project.year)
+    const added: GalleryItem[] = []
+    let failed = 0
+
+    try {
+      for (const file of work) {
+        try {
+          const resized = await resizeImageFile(file)
+          const id = nextId++
+          const uploaded = await uploadGalleryImage(
+            {
+              blob: resized.blob,
+              width: resized.width,
+              height: resized.height,
+              filename: resized.name,
+              id,
+            },
+            password,
+          )
+          if (!uploaded.ok || !uploaded.src) {
+            failed += 1
+            continue
+          }
+          const alt = file.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ').trim() || project.artist
+          added.push({
+            id,
+            src: uploaded.src,
+            alt,
+            caption: alt,
+            category: 'Tour',
+            tags: galleryWithSyncedYear(['Tour', project.artist], year),
+            year,
+            width: uploaded.width ?? resized.width,
+            height: uploaded.height ?? resized.height,
+          })
+        } catch {
+          failed += 1
+        }
+      }
+
+      if (added.length > 0) {
+        const nextItems = [...itemsRef.current, ...added]
+        const nextRows = [...rowsRef.current, ...added.map(sourceFromItem)]
+        const nextIds = idsOf(nextRows)
+        itemsRef.current = nextItems
+        draftsRef.current[project.slug] = nextIds
+        setItems(nextItems)
+        setRows(nextRows)
+        persistGalleryLocal(nextItems)
+        const remote = await saveGalleryRemote(nextItems, password)
+        if (!remote.ok) {
+          setPublishResult({
+            type: 'error',
+            message: remote.message || 'Gallery save failed after upload.',
+          })
+          setStatus(
+            `Added ${added.length} to this page, but gallery publish failed — try Publish again from Gallery.`,
+          )
+        } else {
+          const orderRemote = await saveArtistOrderRemote(
+            project.slug,
+            nextIds,
+            password,
+          )
+          if (!orderRemote.ok) {
+            setPublishResult({
+              type: 'error',
+              message: orderRemote.message || 'Artist order save failed after upload.',
+            })
+            setStatus(
+              `Photos are in Gallery, but artist page order did not publish — click Publish to site.`,
+            )
+          } else {
+            publishedRef.current[project.slug] = idsKey(nextIds)
+            setArtistOrder((current) => ({ ...current, [project.slug]: nextIds }))
+            setPublishResult({
+              type: 'ok',
+              message: 'Photos added',
+            })
+            setStatus(
+              failed > 0
+                ? `Added ${added.length} photo${added.length === 1 ? '' : 's'} to this page and Gallery (${failed} failed).`
+                : `Added ${added.length} photo${added.length === 1 ? '' : 's'} to this page and the end of Gallery.`,
+            )
+          }
+        }
+      } else if (failed > 0) {
+        setStatus(failed === 1 ? 'Upload failed.' : `${failed} uploads failed.`)
+      }
+    } finally {
+      ingestingRef.current = false
+      setUploading(false)
+      if (uploadRef.current) uploadRef.current.value = ''
+    }
+  }
+
+  function onUploadDragEnter(event: DragEvent<HTMLElement>) {
+    if (uploading || !isOsFileDrag(event)) return
+    event.preventDefault()
+    event.stopPropagation()
+    uploadDepthRef.current += 1
+    setUploadOver(true)
+  }
+
+  function onUploadDragOver(event: DragEvent<HTMLElement>) {
+    if (uploading || !isOsFileDrag(event)) return
+    event.preventDefault()
+    event.stopPropagation()
+    event.dataTransfer.dropEffect = 'copy'
+  }
+
+  function onUploadDragLeave(event: DragEvent<HTMLElement>) {
+    if (uploading || !isOsFileDrag(event)) return
+    event.preventDefault()
+    event.stopPropagation()
+    uploadDepthRef.current = Math.max(0, uploadDepthRef.current - 1)
+    if (uploadDepthRef.current === 0) setUploadOver(false)
+  }
+
+  function onUploadDrop(event: DragEvent<HTMLElement>) {
+    if (uploading) return
+    event.preventDefault()
+    event.stopPropagation()
+    uploadDepthRef.current = 0
+    setUploadOver(false)
+    const files = snapshotImageFiles(event.dataTransfer?.files ?? [])
+    if (files.length) void ingestFiles(files)
+  }
+
+  function isOsFileDrag(event: DragEvent) {
+    return Array.from(event.dataTransfer?.types ?? []).includes('Files')
   }
 
   function updateDropFromPoint(x: number, y: number) {
@@ -314,7 +512,7 @@ export function ArtistPagesEditor() {
       type: 'ok',
       message: 'Artist gallery updated',
     })
-    setStatus(`${project.artist} page gallery is live. The main Gallery page is unchanged.`)
+    setStatus(`${project.artist} page gallery is live.`)
   }
 
   const selectOptions = useMemo(
@@ -329,43 +527,103 @@ export function ArtistPagesEditor() {
   return (
     <div className="relative mx-auto max-w-7xl space-y-8 px-5 py-8 sm:px-8 lg:px-12 xl:px-14">
       <div className="glass-card space-y-4 p-5 sm:p-6">
-        <p className="font-heading text-[10px] tracking-[0.16em] text-primary uppercase">
-          Artist page galleries
-        </p>
-        <p className="text-sm leading-relaxed text-muted">
-          This is separate from the main Gallery page. Order here only affects this artist’s
-          portfolio page.
-        </p>
-        <p className="text-sm leading-relaxed text-muted">
-          Upload every photo in the <span className="text-white">Gallery</span> tab first, then tag
-          it with this artist. Only tagged photos show up here to reorder. New tagged photos land
-          at the end until you drag them.
-        </p>
-        <label className="block max-w-lg">
-          <span className="font-heading mb-2 block text-xs tracking-[0.14em] text-primary">
-            Artist
-          </span>
-          <select
-            value={slug}
-            onChange={(event) => {
-              if (project) draftsRef.current[project.slug] = idsOf(rows)
-              setSlug(event.target.value)
-              setPublishResult(null)
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(14rem,18rem)] lg:items-start">
+          <div className="space-y-4">
+            <p className="font-heading text-[10px] tracking-[0.16em] text-primary uppercase">
+              Artist page galleries
+            </p>
+            <p className="text-sm leading-relaxed text-muted">
+              This is separate from the main Gallery page. Order here only affects this artist’s
+              portfolio page.
+            </p>
+            <p className="text-sm leading-relaxed text-muted">
+              Upload photos here to add them to this artist page and append them to the end of the
+              main Gallery (saved live). Drag to reorder, then Publish. Removing a photo here only
+              drops it from this page — it stays in Gallery unless you delete it there.
+            </p>
+            <label className="block max-w-lg">
+              <span className="font-heading mb-2 block text-xs tracking-[0.14em] text-primary">
+                Artist
+              </span>
+              <select
+                value={slug}
+                onChange={(event) => {
+                  if (project) draftsRef.current[project.slug] = idsOf(rows)
+                  setSlug(event.target.value)
+                  setPublishResult(null)
+                }}
+                className="w-full border border-border bg-surface px-3 py-2 text-sm text-foreground focus-visible:border-primary focus-visible:outline-none"
+              >
+                {selectOptions.map((option) => (
+                  <option key={option.slug} value={option.slug}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <div
+            role="button"
+            tabIndex={uploading || !project ? -1 : 0}
+            aria-disabled={uploading || !project}
+            aria-label="Drop photos to upload, or click to choose files"
+            onClick={() => {
+              if (!uploading && project) uploadRef.current?.click()
             }}
-            className="w-full border border-border bg-surface px-3 py-2 text-sm text-foreground focus-visible:border-primary focus-visible:outline-none"
+            onKeyDown={(event) => {
+              if (uploading || !project) return
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault()
+                uploadRef.current?.click()
+              }
+            }}
+            onDragEnter={onUploadDragEnter}
+            onDragOver={onUploadDragOver}
+            onDragLeave={onUploadDragLeave}
+            onDrop={onUploadDrop}
+            className={cn(
+              'flex min-h-[10rem] cursor-pointer flex-col items-center justify-center gap-2 rounded-[0.75rem] border border-dashed px-4 py-5 text-center transition-colors lg:min-h-full',
+              uploadOver
+                ? 'border-primary bg-primary/10 text-primary'
+                : 'border-border bg-black/40 text-muted hover:border-primary/50 hover:text-primary',
+              (uploading || !project) && 'pointer-events-none cursor-default opacity-60',
+            )}
           >
-            {selectOptions.map((option) => (
-              <option key={option.slug} value={option.slug}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </label>
+            <Upload size={18} aria-hidden />
+            <p className="font-heading text-xs tracking-[0.14em] uppercase">
+              {uploading ? 'Uploading…' : 'Drop photos here'}
+            </p>
+            <p className="text-xs text-muted">
+              Adds to this artist page and the end of the main Gallery
+            </p>
+          </div>
+        </div>
+        <input
+          ref={uploadRef}
+          type="file"
+          accept="image/*"
+          multiple
+          className="hidden"
+          onChange={(event) => {
+            const files = event.target.files
+            if (files?.length) void ingestFiles(files)
+          }}
+        />
         <div className="flex flex-wrap items-center gap-3">
           <p className="text-sm text-muted">
             {rows.length} photo{rows.length === 1 ? '' : 's'}
             {dirty ? ' · unpublished changes' : ''}
           </p>
+          <Button
+            type="button"
+            size="sm"
+            variant="outline"
+            disabled={uploading || !project}
+            onClick={() => uploadRef.current?.click()}
+          >
+            <Upload size={14} aria-hidden />
+            {uploading ? 'Uploading…' : 'Add photos'}
+          </Button>
           <div className="ml-auto flex min-w-[11rem] flex-col items-stretch gap-1">
             <motion.div
               key={publishFlash}
@@ -384,7 +642,7 @@ export function ArtistPagesEditor() {
                 size="sm"
                 className="w-full"
                 onClick={() => void handleSave()}
-                disabled={saving || !project || rows.length === 0}
+                disabled={saving || !project || uploading}
               >
                 <Save size={14} aria-hidden />
                 {saving ? 'Publishing…' : 'Publish to site'}
@@ -417,8 +675,8 @@ export function ArtistPagesEditor() {
 
       {rows.length === 0 ? (
         <p className="text-sm text-muted">
-          No photos yet. Upload them on the Gallery tab and tag them with this artist, then come
-          back here to set the page order.
+          No photos yet. Drop images above or click Add photos — they&apos;ll be tagged for this
+          artist and added to the end of the main Gallery.
         </p>
       ) : (
         <ul
@@ -493,6 +751,12 @@ export function ArtistPagesEditor() {
                       disabled={index === rows.length - 1}
                     >
                       <ChevronsDown size={14} />
+                    </IconMove>
+                    <IconMove
+                      label="Remove from this page"
+                      onClick={() => row.id != null && removeFromPage(row.id)}
+                    >
+                      <Trash2 size={14} />
                     </IconMove>
                   </div>
                 </div>

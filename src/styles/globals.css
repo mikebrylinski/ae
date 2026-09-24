@@ -4045,6 +4045,120 @@ html.is-safari .berlin-skyline__particles {
   filter: invert(0.9) hue-rotate(180deg) brightness(0.82) contrast(1.08) saturate(0.45);
 }
 
+/* About — animated Berlin locator tile */
+.berlin-map__scene {
+  transform-origin: 547.6px 209.3px;
+  transform-box: view-box;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.berlin-map__neighbors,
+.berlin-map__states,
+.berlin-map__berlin,
+.berlin-map__graticule {
+  shape-rendering: geometricPrecision;
+}
+
+.berlin-map__country {
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: rgba(7, 11, 9, 0.72);
+  stroke-width: 3px;
+  font-weight: 700;
+}
+
+.berlin-map__pulse {
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.is-safari) .berlin-map__scene {
+    animation: berlin-map-zoom 10s ease-in-out infinite alternate;
+  }
+
+  html:not(.is-safari) .berlin-map__pulse {
+    animation: berlin-map-pulse 2.8s ease-out infinite;
+  }
+
+  html:not(.is-safari) .berlin-map__pulse--delayed {
+    animation-delay: 0.9s;
+  }
+}
+
+@keyframes berlin-map-zoom {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(-148px, 91px, 0) scale(6.4);
+  }
+}
+
+@keyframes berlin-map-pulse {
+  0% {
+    opacity: 0.55;
+    transform: scale(0.55);
+  }
+  70% {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.45);
+  }
+}
+
+/* About — animated Venice FL locator tile */
+.venice-map-anim__scene {
+  transform-origin: 513.1px 378.1px;
+  transform-box: view-box;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.venice-map-anim__neighbors,
+.venice-map-anim__florida,
+.venice-map-anim__graticule {
+  shape-rendering: geometricPrecision;
+}
+
+.venice-map-anim__state {
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: rgba(7, 11, 9, 0.72);
+  stroke-width: 3px;
+  font-weight: 700;
+}
+
+.venice-map-anim__pulse {
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.is-safari) .venice-map-anim__scene {
+    animation: venice-map-zoom 10s ease-in-out infinite alternate;
+  }
+
+  html:not(.is-safari) .venice-map-anim__pulse {
+    animation: berlin-map-pulse 2.8s ease-out infinite;
+  }
+
+  html:not(.is-safari) .venice-map-anim__pulse--delayed {
+    animation-delay: 0.9s;
+  }
+}
+
+@keyframes venice-map-zoom {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(42px, -58px, 0) scale(5.8);
+  }
+}
+
 .venice-vegan {
   position: absolute;
   inset: 0;

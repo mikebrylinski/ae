@@ -141,33 +141,28 @@ export function Footer({ admin = false }: { admin?: boolean }) {
               </div>
             </div>
           ) : (
-            <div className="flex w-full flex-col items-center gap-6 md:flex-row md:items-stretch md:justify-between md:gap-8">
-              <div className="footer-brand-stack flex min-h-0 w-full max-w-md flex-col items-center justify-between gap-4 md:w-auto md:max-w-none md:self-stretch">
-                <div className="flex shrink-0 flex-col items-center gap-1.5">
-                  <div className="rack-brand-wrap rack-brand-wrap--no-seal rack-brand-glow min-w-0">
-                    <Link
-                      to="/"
-                      className="rack-brand rack-brand--glow inline-flex max-w-full min-w-0 flex-col items-center gap-0.5 text-center"
-                    >
-                      <span className="rack-brand__shine" aria-hidden />
-                      <span className="rack-brand__name whitespace-nowrap font-heading text-[clamp(1.75rem,8vw,2.25rem)] tracking-[0.1em] sm:text-5xl sm:tracking-[0.12em] md:text-6xl">
-                        <span className="text-white">ANDY</span>{' '}
-                        <span className="text-primary">EBERT</span>
-                      </span>
-                      <span className="rack-brand__sub w-full font-heading text-[0.75rem] uppercase text-muted sm:text-sm">
-                        {t.brand.subtitle}
-                      </span>
-                    </Link>
-                  </div>
-                  <p className="rack-brand-caption font-heading text-[0.65rem] tracking-[0.18em] text-muted sm:text-[0.7rem]">
-                    {t.brand.plants}
-                  </p>
+            <div className="flex w-full flex-col items-center gap-6 md:flex-row md:items-center md:justify-between md:gap-8">
+              <div className="footer-brand-stack flex flex-col items-center gap-3 md:gap-4">
+                <div className="rack-brand-wrap rack-brand-wrap--no-seal rack-brand-glow min-w-0">
+                  <Link
+                    to="/"
+                    className="rack-brand rack-brand--glow inline-flex max-w-full min-w-0 flex-col items-center gap-0.5 text-center"
+                  >
+                    <span className="rack-brand__shine" aria-hidden />
+                    <span className="rack-brand__name whitespace-nowrap font-heading text-[clamp(1.75rem,8vw,2.25rem)] tracking-[0.1em] sm:text-5xl sm:tracking-[0.12em] md:text-6xl">
+                      <span className="text-white">ANDY</span>{' '}
+                      <span className="text-primary">EBERT</span>
+                    </span>
+                    <span className="rack-brand__sub w-full font-heading text-[0.75rem] uppercase text-muted sm:text-sm">
+                      {t.brand.subtitle}
+                    </span>
+                  </Link>
                 </div>
-                <div className="flex shrink-0 items-center justify-center md:pb-1">
+                <div className="flex shrink-0 items-center justify-center">
                   <VeganLaminate />
                 </div>
               </div>
-              <div className="flex w-full shrink-0 items-stretch justify-center md:w-auto md:justify-end">
+              <div className="flex w-full shrink-0 items-center justify-center md:w-auto md:justify-end">
                 <VuPair />
               </div>
             </div>

@@ -35,18 +35,6 @@
       }
     ]
   },
-  "usher": {
-    "paragraphs": [
-      "Usher is a defining figure in contemporary R&B and pop — ranked among Rolling Stone’s greatest singers and Billboard’s greatest pop stars of the 21st century. Breakthrough albums from My Way through Confessions produced a run of US number-one singles.",
-      "He has sold tens of millions of records, collected multiple Grammy Awards, and headlined Super Bowl LVIII in 2024."
-    ],
-    "sources": [
-      {
-        "label": "Wikipedia",
-        "href": "https://en.wikipedia.org/wiki/Usher_(musician)"
-      }
-    ]
-  },
   "carrie-underwood": {
     "paragraphs": [
       "Carrie Underwood won American Idol in 2005 and became one of the central country artists of the 21st century, credited with keeping female country voices at the center of mainstream radio.",
@@ -352,18 +340,6 @@
     ],
     "sources": []
   },
-  "alice-in-chains": {
-    "paragraphs": [
-      "Alice in Chains is one of the defining Seattle bands of the late 1980s and 1990s, alongside Nirvana, Pearl Jam, and Soundgarden. Their dark, harmony-heavy sound sat at the crossroads of grunge, metal, and alternative rock.",
-      "The catalog around Facelift, Dirt, and Jar of Flies earned multiple Grammy nominations and a lasting place on heavy-rock and alternative radio. The band later returned to the stage with William DuVall joining Jerry Cantrell."
-    ],
-    "sources": [
-      {
-        "label": "Wikipedia",
-        "href": "https://en.wikipedia.org/wiki/Alice_in_Chains"
-      }
-    ]
-  },
   "sebastian-bach": {
     "paragraphs": [
       "Sebastian Bach rose to fame as the frontman of Skid Row, whose late-1980s albums made the Canadian singer a global hard-rock voice with hits such as “18 and Life” and “I Remember You.”",
@@ -373,18 +349,6 @@
       {
         "label": "Wikipedia",
         "href": "https://en.wikipedia.org/wiki/Sebastian_Bach"
-      }
-    ]
-  },
-  "enrique-iglesias": {
-    "paragraphs": [
-      "Enrique Iglesias is a Spanish singer who became one of the best-selling Latin artists of the 1990s before crossing into English-language pop. Early Spanish albums on Fonovisa made him the decade’s leading Spanish-language act.",
-      "He has collected a long run of Billboard Latin number-ones, worldwide pop hits, and major Latin music awards spanning both languages."
-    ],
-    "sources": [
-      {
-        "label": "Wikipedia",
-        "href": "https://en.wikipedia.org/wiki/Enrique_Iglesias"
       }
     ]
   },

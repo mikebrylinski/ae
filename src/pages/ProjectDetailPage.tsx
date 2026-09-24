@@ -29,6 +29,7 @@ import { CTABanner } from '@/components/sections/CTABanner'
 import { useSeo } from '@/hooks/useSeo'
 import { cn } from '@/lib/utils'
 import { PortfolioAurora } from '@/components/ui/PortfolioAurora'
+import { CountlessArtistsRoster } from '@/components/sections/CountlessArtistsRoster'
 import { useLanguage } from '@/i18n/LanguageProvider'
 import { useLiveGalleryState } from '@/hooks/useLiveGallery'
 import {
@@ -297,7 +298,7 @@ export default function ProjectDetailPage() {
         <Container className="section-pad min-w-0">
           <div className="grid min-w-0 gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:gap-12">
             <div className="min-w-0 space-y-10">
-              {artistIntro ? (
+              {artistIntro && project.slug !== 'countless-artists' ? (
                 <article className="min-w-0 rounded-[1rem] border border-border bg-surface/70 p-5 sm:p-6">
                   <h2 className="font-heading mb-4 text-sm tracking-[0.16em] text-primary">
                     {t.project.artistIntro}
@@ -334,43 +335,53 @@ export default function ProjectDetailPage() {
                 </article>
               ) : null}
 
-              <div className="min-w-0">
-                <h2 className="font-heading mb-4 text-sm tracking-[0.16em] text-primary">
-                  {t.project.overview}
-                </h2>
-                <p className="text-base leading-relaxed break-words text-foreground/90">
-                  {project.overview}
-                </p>
-              </div>
+              {project.slug === 'countless-artists' ? (
+                <CountlessArtistsRoster />
+              ) : (
+                <>
+                  <div className="min-w-0">
+                    <h2 className="font-heading mb-4 text-sm tracking-[0.16em] text-primary">
+                      {t.project.overview}
+                    </h2>
+                    <p className="text-base leading-relaxed break-words text-foreground/90">
+                      {project.overview}
+                    </p>
+                  </div>
 
-              <div className="min-w-0">
-                <h2 className="font-heading mb-4 text-sm tracking-[0.16em] text-primary">
-                  {t.project.responsibilities}
-                </h2>
-                <ul className="space-y-2">
-                  {project.responsibilities.map((item) => (
-                    <li
-                      key={item}
-                      className="border-l-2 border-primary/60 pl-4 text-sm break-words text-muted"
-                    >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                  {project.responsibilities.length > 0 ? (
+                    <div className="min-w-0">
+                      <h2 className="font-heading mb-4 text-sm tracking-[0.16em] text-primary">
+                        {t.project.responsibilities}
+                      </h2>
+                      <ul className="space-y-2">
+                        {project.responsibilities.map((item) => (
+                          <li
+                            key={item}
+                            className="border-l-2 border-primary/60 pl-4 text-sm break-words text-muted"
+                          >
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
 
-              <div className="min-w-0">
-                <h2 className="font-heading mb-4 text-sm tracking-[0.16em] text-primary">
-                  {t.project.challenges}
-                </h2>
-                <ul className="space-y-2">
-                  {project.challenges.map((item) => (
-                    <li key={item} className="text-sm break-words text-muted">
-                      • {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                  {project.challenges.length > 0 ? (
+                    <div className="min-w-0">
+                      <h2 className="font-heading mb-4 text-sm tracking-[0.16em] text-primary">
+                        {t.project.challenges}
+                      </h2>
+                      <ul className="space-y-2">
+                        {project.challenges.map((item) => (
+                          <li key={item} className="text-sm break-words text-muted">
+                            • {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+                </>
+              )}
             </div>
 
             <aside className="h-fit min-w-0 max-w-full space-y-8 rounded-[1rem] border border-border bg-surface p-5 sm:p-6">

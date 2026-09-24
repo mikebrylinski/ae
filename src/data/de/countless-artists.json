@@ -1,0 +1,139 @@
+{
+  "intro": "Darunter Hunderte Corporate- und andere Events als lokaler FOH- oder Monitor Engineer sowie Touren oder One-off-Shows mit den folgenden Artists und Festivals:",
+  "groups": [
+    {
+      "heading": "Monitor Engineer",
+      "regions": [
+        {
+          "heading": "In den USA",
+          "artists": [
+            { "name": "Foo Fighters", "slug": "foo-fighters" },
+            {
+              "name": "Usher",
+              "href": "https://en.wikipedia.org/wiki/Usher_(musician)"
+            },
+            {
+              "name": "Enrique Iglesias",
+              "href": "https://en.wikipedia.org/wiki/Enrique_Iglesias"
+            },
+            {
+              "name": "Beck",
+              "href": "https://en.wikipedia.org/wiki/Beck"
+            },
+            {
+              "name": "Pointer Sisters",
+              "href": "https://en.wikipedia.org/wiki/The_Pointer_Sisters"
+            },
+            {
+              "name": "Alice In Chains (Proben)",
+              "href": "https://en.wikipedia.org/wiki/Alice_in_Chains"
+            },
+            {
+              "name": "Toni Braxton (Proben)",
+              "href": "https://en.wikipedia.org/wiki/Toni_Braxton"
+            },
+            {
+              "name": "30 Seconds To Mars (Proben)",
+              "href": "https://en.wikipedia.org/wiki/Thirty_Seconds_to_Mars"
+            }
+          ]
+        },
+        {
+          "heading": "In Deutschland",
+          "artists": [
+            {
+              "name": "Seeed",
+              "href": "https://en.wikipedia.org/wiki/Seeed"
+            },
+            {
+              "name": "Scooter",
+              "href": "https://en.wikipedia.org/wiki/Scooter_(band)"
+            },
+            {
+              "name": "Die Prinzen",
+              "href": "https://en.wikipedia.org/wiki/Die_Prinzen"
+            },
+            {
+              "name": "Maceo Parker",
+              "href": "https://en.wikipedia.org/wiki/Maceo_Parker"
+            },
+            {
+              "name": "Rock am Ring Festival",
+              "href": "https://en.wikipedia.org/wiki/Rock_am_Ring"
+            },
+            {
+              "name": "With Full Force Festival",
+              "href": "https://en.wikipedia.org/wiki/With_Full_Force"
+            },
+            {
+              "name": "MTV Hip Hop Open",
+              "href": "https://en.wikipedia.org/wiki/HipHop_Open"
+            },
+            {
+              "name": "Wacken Open Air",
+              "href": "https://en.wikipedia.org/wiki/Wacken_Open_Air"
+            },
+            {
+              "name": "SplashFestival",
+              "href": "https://en.wikipedia.org/wiki/Splash!_(festival)"
+            },
+            {
+              "name": "Sonne Mond Sterne Festival",
+              "href": "https://de.wikipedia.org/wiki/SonneMondSterne"
+            },
+            {
+              "name": "Highfield Festival",
+              "href": "https://en.wikipedia.org/wiki/Highfield_Festival"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Weitere Audio-Positionen",
+      "regions": [
+        {
+          "artists": [
+            {
+              "name": "Carmen / Bolero Flamenco (Systems Engineer)",
+              "href": "https://en.wikipedia.org/wiki/Carmen"
+            },
+            {
+              "name": "I Muvrini (Asst. Monitor Engineer)",
+              "href": "https://en.wikipedia.org/wiki/I_Muvrini"
+            },
+            {
+              "name": "Jewel (Monitor Tech)",
+              "href": "https://en.wikipedia.org/wiki/Jewel_(singer)"
+            },
+            {
+              "name": "Justin Timberlake (PA Tech)",
+              "href": "https://en.wikipedia.org/wiki/Justin_Timberlake"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Backline",
+      "regions": [
+        {
+          "artists": [
+            {
+              "name": "Marianne Rosenberg (Backline)",
+              "href": "https://en.wikipedia.org/wiki/Marianne_Rosenberg"
+            },
+            {
+              "name": "Klaus Hoffmann (Backline)",
+              "href": "https://en.wikipedia.org/wiki/Klaus_Hoffmann"
+            },
+            {
+              "name": "Roland Kaiser (Backline)",
+              "href": "https://en.wikipedia.org/wiki/Roland_Kaiser"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

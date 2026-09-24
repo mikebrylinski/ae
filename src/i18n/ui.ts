@@ -132,7 +132,10 @@ const en = {
       {
         eyebrow: 'West Berlin',
         dek: 'Where it all began.',
-        alts: ['Berlin Wall with Brandenburg Gate in the background'],
+        alts: [
+          'Berlin Wall with Brandenburg Gate in the background',
+          'West Berlin on the map',
+        ],
       },
       {
         eyebrow: 'The Basement',
@@ -148,17 +151,22 @@ const en = {
         alts: [
           'Andy mixing a live show from a touring console',
         ],
-        captions: ['First professional tour — 1997'],
+        captions: [
+          'Andy at soundcheck with Michael Schenker Group opening for Thin Lizzy - 1999',
+        ],
       },
       {
-        eyebrow: 'Los Angeles',
+        eyebrow: 'On his way to LA',
         dek: 'From European tours to an international career.',
         alts: ['Andy in front of the Hollywood sign, Los Angeles'],
       },
       {
         eyebrow: 'Worldwide',
         dek: 'Long-form relationships with top artists.',
-        alts: ["Andy mixing Guns N' Roses on a Midas Heritage 3000"],
+        alts: [
+          'Puddle of Mudd crew, Jack, Elwood & Toby Francis, Lars Ide, Bus driver, Andy.',
+          'ML Procise and Andy in Tokio - sharing a console, mixing monitors from FOH for a Puddle of Mudd acoustic promo show.',
+        ],
       },
     ],
     venice: {
@@ -213,7 +221,7 @@ const en = {
         ],
       },
       {
-        eyebrow: 'Los Angeles',
+        eyebrow: 'On his way to LA',
         dek: 'From European tours to an international career.',
         alts: ['Alanis Morissette performing on stage'],
       },
@@ -404,6 +412,7 @@ const en = {
     'FOH Engineer': 'FOH Engineer',
     'Monitor / FOH Engineer': 'Monitor / FOH Engineer',
     'Monitor consultant and engineer': 'Monitor consultant and engineer',
+    'Local Monitor Engineer': 'Local Monitor Engineer',
   },
   titles: {
     'Worldwide Tours': 'Worldwide Tours',
@@ -424,6 +433,7 @@ const en = {
     'Worldwide & Festival Work': 'Worldwide & Festival Work',
     'Europe & Worldwide Foundations': 'Europe & Worldwide Foundations',
     'FOH & Early Touring': 'FOH & Early Touring',
+    'Local & Fill-in Credits': 'Local & Fill-in Credits',
   },
   year: {
     present: 'Present',
@@ -436,6 +446,7 @@ const en = {
     Germany: 'Germany',
     'One offs, USA': 'One-offs, USA',
     'MTV Music Awards': 'MTV Music Awards',
+    'Europe, USA': 'Europe, USA',
   },
   galleryAlts: {
     g1: 'Andy at FOH looking toward a packed arena stage',
@@ -591,7 +602,10 @@ const de = {
       {
         eyebrow: 'West-Berlin',
         dek: 'Wo alles begann.',
-        alts: ['Berliner Mauer mit Brandenburger Tor im Hintergrund'],
+        alts: [
+          'Berliner Mauer mit Brandenburger Tor im Hintergrund',
+          'West-Berlin auf der Karte',
+        ],
       },
       {
         eyebrow: 'Der Keller',
@@ -607,17 +621,22 @@ const de = {
         alts: [
           'Andy mischt eine Live-Show an einem Tourpult',
         ],
-        captions: ['Erste Profi-Tour — 1997'],
+        captions: [
+          'Andy beim Soundcheck mit der Michael Schenker Group als Support für Thin Lizzy – 1999',
+        ],
       },
       {
-        eyebrow: 'Los Angeles',
+        eyebrow: 'Auf dem Weg nach LA',
         dek: 'Von europäischen Touren zu einer internationalen Karriere.',
         alts: ['Andy vor dem Hollywood-Schriftzug, Los Angeles'],
       },
       {
         eyebrow: 'Weltweit',
         dek: 'Langfristige Beziehungen mit Top-Artists.',
-        alts: ["Andy mischt Guns N' Roses an einer Midas Heritage 3000"],
+        alts: [
+          'Puddle-of-Mudd-Crew: Jack, Elwood & Toby Francis, Lars Ide, Busfahrer, Andy.',
+          'ML Procise und Andy in Tokio — gemeinsam am Pult, Monitore vom FOH für eine akustische Puddle-of-Mudd-Promo-Show.',
+        ],
       },
     ],
     venice: {
@@ -672,7 +691,7 @@ const de = {
         ],
       },
       {
-        eyebrow: 'Los Angeles',
+        eyebrow: 'Auf dem Weg nach LA',
         dek: 'Von europäischen Touren zu einer internationalen Karriere.',
         alts: ['Alanis Morissette auf der Bühne'],
       },
@@ -863,6 +882,7 @@ const de = {
     'FOH Engineer': 'FOH Ingenieur',
     'Monitor / FOH Engineer': 'Monitor / FOH Ingenieur',
     'Monitor consultant and engineer': 'Monitor-Berater und -Ingenieur',
+    'Local Monitor Engineer': 'Lokaler Monitor Engineer',
   },
   titles: {
     'Worldwide Tours': 'Weltweite Tourneen',
@@ -883,6 +903,7 @@ const de = {
     'Worldwide & Festival Work': 'Weltweit und Festivals',
     'Europe & Worldwide Foundations': 'Europa und weltweite Anfänge',
     'FOH & Early Touring': 'FOH und frühe Tourjahre',
+    'Local & Fill-in Credits': 'Lokale & Fill-in Credits',
   },
   year: {
     present: 'heute',
@@ -895,6 +916,7 @@ const de = {
     Germany: 'Deutschland',
     'One offs, USA': 'One-offs, USA',
     'MTV Music Awards': 'MTV Music Awards',
+    'Europe, USA': 'Europa, USA',
   },
   galleryAlts: {
     g1: 'Andy am FOH mit Blick auf eine volle Arena-Bühne',

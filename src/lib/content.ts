@@ -32,6 +32,8 @@ import projectOverviewsDe from '@/data/de/project-overviews.json'
 import projectPhrasesDe from '@/data/de/project-phrases.json'
 import artistIntrosEn from '@/data/artist-intros.json'
 import artistIntrosDe from '@/data/de/artist-intros.json'
+import countlessArtistsEn from '@/data/countless-artists.json'
+import countlessArtistsDe from '@/data/de/countless-artists.json'
 import { loadStoredCredits } from '@/lib/admin'
 import type { Language } from '@/i18n/types'
 import { getUiCopy } from '@/i18n/ui'
@@ -157,6 +159,10 @@ export function getArtistIntro(slug: string, lang: Language): ArtistIntro | unde
   const project = getProjectBySlug(slug)
   if (!project?.overview) return undefined
   return { paragraphs: [project.overview], sources: [] }
+}
+
+export function getCountlessArtistsRoster(lang: Language) {
+  return (lang === 'de' ? countlessArtistsDe : countlessArtistsEn) as import('@/types').CountlessArtistsRoster
 }
 
 const projectPhrases = projectPhrasesDe as Record<string, string>
@@ -427,16 +433,27 @@ function projectGallerySourceFromItem(
 }
 
 /** Tagged gallery photos for an artist, then any extra URLs from the project file. */
+/** Gallery photo IDs that must never appear on a given artist page. */
+const PROJECT_GALLERY_EXCLUDE_IDS: Record<string, number[]> = {
+  rem: [131],
+  'dream-theater': [90, 94],
+  'golden-gospel-singers': [8],
+  'glenn-hughes': [169],
+}
+
 export function mergeProjectGallerySources(
   projectGallery: string[],
   artist: string,
   items: GalleryItem[],
+  slug?: string,
 ): ProjectGallerySource[] {
   const seen = new Set<string>()
   const out: ProjectGallerySource[] = []
   const bySrc = new Map(items.map((item) => [item.src, item]))
+  const excluded = new Set(slug ? PROJECT_GALLERY_EXCLUDE_IDS[slug] ?? [] : [])
 
   for (const item of items) {
+    if (excluded.has(item.id)) continue
     if (!galleryItemMatchesArtist(item, artist) || seen.has(item.src)) continue
     seen.add(item.src)
     out.push(projectGallerySourceFromItem(item))
@@ -445,7 +462,7 @@ export function mergeProjectGallerySources(
   for (const src of projectGallery) {
     if (seen.has(src)) continue
     const match = bySrc.get(src)
-    if (!match) continue
+    if (!match || excluded.has(match.id)) continue
     seen.add(src)
     out.push(projectGallerySourceFromItem(match))
   }
@@ -531,11 +548,6 @@ export function applyArtistGalleryOrder(
     seen.add(id)
     out.push(item)
   }
-  for (const item of sources) {
-    if (item.id != null && seen.has(item.id)) continue
-    if (item.id != null) seen.add(item.id)
-    out.push(item)
-  }
   return out
 }
 
@@ -547,7 +559,7 @@ export function resolveProjectGallerySources(
   items: GalleryItem[],
   orderIds?: number[] | null,
 ): ProjectGallerySource[] {
-  const merged = mergeProjectGallerySources(projectGallery, artist, items)
+  const merged = mergeProjectGallerySources(projectGallery, artist, items, slug)
   if (orderIds && orderIds.length > 0) {
     return applyArtistGalleryOrder(merged, orderIds)
   }
@@ -667,7 +679,6 @@ const PORTFOLIO_HIGHLIGHT_ARTISTS = new Set([
   'Mariah Carey',
   'Red Hot Chili Peppers',
   'Foo Fighters',
-  'Usher',
   'Dream Theater',
   'R.E.M.',
   'Puddle Of Mudd',
@@ -677,7 +688,6 @@ const PORTFOLIO_HIGHLIGHT_ARTISTS = new Set([
   'Glenn Hughes',
   'Michael Schenker Group',
   'Tarkan',
-  'Rock am Ring Festival',
   'Expo 2000',
   'Golden Gospel Singers',
   'Momix',
@@ -686,8 +696,6 @@ const PORTFOLIO_HIGHLIGHT_ARTISTS = new Set([
   'Travis Scott',
   'Local Natives',
   'Black Rebel Motorcycle Club',
-  'Alice In Chains',
-  'Enrique Iglesias',
   'Sebastian Bach',
   'Quannum World',
   'Al Bano Carrisi',
@@ -763,9 +771,8 @@ const CREDIT_ONLY_GALLERY_SRC =
   gallery.find((item) => item.id === 47)?.src ?? '/images/portfolio/console.jpg'
 
 const CREDIT_ONLY_IMAGES: Record<string, string> = {
-  'Rock am Ring Festival': '/images/projects/cards/rock-am-ring-festival.jpg',
   'Expo 2000': CREDIT_ONLY_GALLERY_SRC,
-  'Countless artists': CREDIT_ONLY_GALLERY_SRC,
+  'Countless artists': '/images/media/headshot-3.jpg',
 }
 
 /**

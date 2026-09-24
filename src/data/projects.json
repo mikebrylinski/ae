@@ -157,41 +157,6 @@
     "cardImage": "/images/projects/cards/adam-lambert.jpg"
   },
   {
-    "slug": "usher",
-    "title": "MTV Music Awards",
-    "artist": "Usher",
-    "year": "2014",
-    "role": "Monitor Engineer",
-    "category": [
-      "TV"
-    ],
-    "featured": false,
-    "heroImage": "/images/projects/cards/usher.jpg",
-    "thumbnail": "/images/logos/usher.png",
-    "icon": "Tv",
-    "overview": "Monitor engineer for Usher at the 2014 MTV Music Awards — television / broadcast date.",
-    "responsibilities": [
-      "Artist and band monitor mixes",
-      "Show-file and cue management",
-      "Coordination with production and FOH / monitors",
-      "RF coordination on touring packages"
-    ],
-    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
-    "equipment": [
-      "Digital Mixing Console",
-      "IEM / Wedges",
-      "Wireless Package"
-    ],
-    "challenges": [
-      "Venue-to-venue consistency on touring schedules",
-      "Dense wireless and high-SPL stage environments"
-    ],
-    "gallery": [],
-    "videos": [],
-    "logo": "/images/logos/usher.png",
-    "cardImage": "/images/projects/cards/usher.jpg"
-  },
-  {
     "slug": "carrie-underwood",
     "title": "Worldwide Tours",
     "artist": "Carrie Underwood",
@@ -833,7 +798,11 @@
       "Venue-to-venue consistency on touring schedules",
       "Dense wireless and high-SPL stage environments"
     ],
-    "gallery": [],
+    "gallery": [
+      "/images/projects/dream-theater-1.jpg",
+      "/images/projects/dream-theater-5.jpg",
+      "/images/projects/rem-3.jpg"
+    ],
     "videos": [],
     "logo": "/images/logos/puddle-of-mudd.png",
     "cardImage": "/images/projects/cards/puddle-of-mudd.jpg"
@@ -876,7 +845,6 @@
     "gallery": [
       "/images/projects/rem-1.jpg",
       "/images/projects/rem-2.jpg",
-      "/images/projects/rem-3.jpg",
       "/images/projects/rem-4.jpg",
       "/images/projects/rem-5.jpg"
     ],
@@ -992,11 +960,9 @@
       "Dense wireless and high-SPL stage environments"
     ],
     "gallery": [
-      "/images/projects/dream-theater-1.jpg",
       "/images/projects/dream-theater-2.jpg",
       "/images/projects/dream-theater-3.jpg",
       "/images/projects/dream-theater-4.jpg",
-      "/images/projects/dream-theater-5.jpg",
       "/images/projects/dream-theater-6.jpg",
       "/images/projects/dream-theater-7.jpg",
       "/images/projects/dream-theater-8.jpg"
@@ -1262,42 +1228,6 @@
     "cardImage": "/images/projects/cards/quantum-world.jpg"
   },
   {
-    "slug": "alice-in-chains",
-    "title": "Reunion Rehearsals",
-    "artist": "Alice In Chains",
-    "year": "2006",
-    "role": "Monitor Engineer",
-    "category": [
-      "Tours"
-    ],
-    "featured": false,
-    "heroImage": "/images/projects/cards/alice-in-chains.jpg",
-    "thumbnail": "/images/logos/alice-in-chains.png",
-    "icon": "Guitar",
-    "overview": "Monitor engineer for Alice In Chains (2006) — USA reunion rehearsal work.",
-    "responsibilities": [
-      "Artist and band monitor mixes",
-      "Show-file and cue management",
-      "Coordination with production and FOH / monitors",
-      "RF coordination on touring packages"
-    ],
-    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
-    "equipment": [
-      "Digital Mixing Console",
-      "IEM / Wedges",
-      "Wireless Package"
-    ],
-    "challenges": [
-      "Venue-to-venue consistency on touring schedules",
-      "Dense wireless and high-SPL stage environments"
-    ],
-    "gallery": [],
-    "videos": [],
-    "logo": "/images/logos/alice-in-chains.png",
-    "technicalNotes": "Reunion rehearsals.",
-    "cardImage": "/images/projects/cards/alice-in-chains.jpg"
-  },
-  {
     "slug": "sebastian-bach",
     "title": "USA Tours",
     "artist": "Sebastian Bach",
@@ -1333,41 +1263,6 @@
     "videos": [],
     "logo": "/images/logos/sebastian-bach.png",
     "cardImage": "/images/projects/cards/sebastian-bach.jpg"
-  },
-  {
-    "slug": "enrique-iglesias",
-    "title": "TV / One-off",
-    "artist": "Enrique Iglesias",
-    "year": "2007",
-    "role": "Monitor Engineer",
-    "category": [
-      "TV"
-    ],
-    "featured": false,
-    "heroImage": "/images/projects/cards/enrique-iglesias.jpg",
-    "thumbnail": "/images/logos/enrique-iglesias.png",
-    "icon": "Tv",
-    "overview": "Monitor engineer for Enrique Iglesias (2007) on a USA TV / one-off date.",
-    "responsibilities": [
-      "Artist and band monitor mixes",
-      "Show-file and cue management",
-      "Coordination with production and FOH / monitors",
-      "RF coordination on touring packages"
-    ],
-    "technicalSetup": "Touring console and monitor / FOH package matched to venue scale.",
-    "equipment": [
-      "Digital Mixing Console",
-      "IEM / Wedges",
-      "Wireless Package"
-    ],
-    "challenges": [
-      "Venue-to-venue consistency on touring schedules",
-      "Dense wireless and high-SPL stage environments"
-    ],
-    "gallery": [],
-    "videos": [],
-    "logo": "/images/logos/enrique-iglesias.png",
-    "cardImage": "/images/projects/cards/enrique-iglesias.jpg"
   },
   {
     "slug": "black-rebel-motorcycle-club",
@@ -1478,5 +1373,33 @@
     "videos": [],
     "logo": "/images/logos/travis-scott.png",
     "cardImage": "/images/projects/cards/travis-scott.jpg"
+  },
+  {
+    "slug": "countless-artists",
+    "title": "Local & Fill-in Credits",
+    "artist": "Countless artists",
+    "year": "Ongoing",
+    "role": "Local Monitor Engineer",
+    "category": [
+      "Corporate",
+      "Festivals",
+      "Tours"
+    ],
+    "featured": false,
+    "heroImage": "/images/media/headshot-3.jpg",
+    "thumbnail": "/images/media/headshot-3.jpg",
+    "icon": "Users",
+    "overview": "Among those are hundreds of Corporate- and other events as local FOH- or Monitor Engineer, as well as tours, or one-off shows with the following artists, and festivals.",
+    "responsibilities": [],
+    "technicalSetup": "Local FOH, monitor, systems, PA tech, and backline roles across corporate events, festivals, tours, and one-offs in Europe and the USA.",
+    "equipment": [
+      "Touring & local console packages",
+      "IEM / Wedges",
+      "Festival & corporate PA systems"
+    ],
+    "challenges": [],
+    "gallery": [],
+    "videos": [],
+    "cardImage": "/images/media/headshot-3.jpg"
   }
 ]

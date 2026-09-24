@@ -618,7 +618,6 @@
       "FOH",
       "Tour",
       "Console",
-      "Golden Gospel Singers",
       "Berlin",
       "1997"
     ],
@@ -2811,19 +2810,18 @@
   {
     "id": 169,
     "src": "/images/gallery/gallery-169.jpg",
-    "alt": "Andy mixing Glenn Hughes on a Midas XL250.",
-    "category": "Monitor World",
+    "alt": "Foo Fighters live — Dave Grohl, Taylor Hawkins, and Nate Mendel on stage.",
+    "category": "Arena",
     "tags": [
-      "Monitor World",
-      "Console",
+      "Foo Fighters",
       "Tour",
-      "Glenn Hughes",
+      "Arena",
       "1999"
     ],
     "width": 640,
     "height": 360,
     "year": 1999,
-    "caption": "Andy mixing Glenn Hughes on a Midas XL250.",
+    "caption": "Foo Fighters live — Dave Grohl, Taylor Hawkins, and Nate Mendel on stage.",
     "focalX": 0,
     "focalY": 50
   },

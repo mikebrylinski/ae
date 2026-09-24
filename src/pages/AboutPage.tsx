@@ -12,6 +12,8 @@ import { CTABanner } from '@/components/sections/CTABanner'
 import { PhotoHeader } from '@/components/sections/PhotoHeader'
 import { VuPlate } from '@/components/ui/VuPlate'
 import { VeniceVeganOverlay } from '@/components/ui/VeniceVeganOverlay'
+import { BerlinMapAnimation } from '@/components/ui/BerlinMapAnimation'
+import { VeniceMapAnimation } from '@/components/ui/VeniceMapAnimation'
 import { useSeo } from '@/hooks/useSeo'
 import { useLanguage } from '@/i18n/LanguageProvider'
 import { cn } from '@/lib/utils'
@@ -20,6 +22,8 @@ type ChapterImage = {
   label: string
   aspect: string
   src?: string
+  /** Custom media tile instead of a photo (e.g. Berlin map animation). */
+  media?: 'berlinMap'
   place?: 'end' | 'below' | 'followUp'
   span?: 2
   showFull?: boolean
@@ -52,7 +56,7 @@ type Chapter = {
 }
 
 /** Story paragraph indexes rendered as accented pull quotes. */
-const PULL_QUOTE_STORY_INDEXES = new Set([11, 14, 24])
+const PULL_QUOTE_STORY_INDEXES = new Set([11, 14, 26])
 
 const CHAPTERS: Chapter[] = [
   {
@@ -60,14 +64,18 @@ const CHAPTERS: Chapter[] = [
     from: 0,
     to: 5,
     layout: 'stack',
+    wrap: true,
     images: [
       {
         label: 'Berlin Wall with Brandenburg Gate in the background',
-        aspect: 'aspect-[2.4/1]',
-        src: '/images/about/west-berlin-wall.jpg',
-        place: 'below',
-        banner: true,
+        aspect: 'aspect-[4/3]',
+        src: '/images/about/berlin.jpg',
         focus: 'object-center',
+      },
+      {
+        label: 'West Berlin on the map',
+        aspect: 'aspect-[4/3]',
+        media: 'berlinMap',
       },
     ],
   },
@@ -105,15 +113,16 @@ const CHAPTERS: Chapter[] = [
         place: 'end',
         fillColumn: true,
         focus: 'object-[center_20%]',
-        caption: 'First professional tour — 1997',
-        captionPos: 'right-[3%] top-[44%] sm:right-[4%] sm:top-[46%] md:right-[5%] md:top-[48%]',
+        caption: 'Andy at soundcheck with Michael Schenker Group opening for Thin Lizzy - 1999',
+        captionPos:
+          'right-0 top-[42%] flex min-h-[7.5rem] max-w-[15rem] items-center px-4 py-5 sm:top-[44%] sm:min-h-[9rem] sm:max-w-[18rem] sm:px-5 sm:py-6 md:top-[46%] md:min-h-[10.5rem] md:max-w-[20rem] md:px-6 md:py-7',
       },
     ],
   },
   {
-    eyebrow: 'Los Angeles',
+    eyebrow: 'On his way to LA',
     from: 19,
-    to: 27,
+    to: 29,
     layout: 'stack',
     images: [
       {
@@ -128,18 +137,23 @@ const CHAPTERS: Chapter[] = [
   },
   {
     eyebrow: 'Worldwide',
-    from: 27,
-    to: 31,
+    from: 29,
+    to: 36,
     layout: 'stack',
-    copyBeside: 'right',
+    wrap: true,
     images: [
       {
-        label: "Andy mixing Guns N' Roses on a Midas Heritage 3000",
-        aspect: 'aspect-auto',
-        src: '/images/projects/gnr-5.jpg',
-        place: 'end',
-        fillColumn: true,
-        focus: 'object-[center_35%]',
+        label: 'Puddle of Mudd crew, Jack, Elwood & Toby Francis, Lars Ide, Bus driver, Andy.',
+        aspect: 'aspect-[4/3]',
+        src: '/images/gallery/backstage-2.jpg',
+        focus: 'object-center',
+      },
+      {
+        label:
+          'ML Procise and Andy in Tokio - sharing a console, mixing monitors from FOH for a Puddle of Mudd acoustic promo show.',
+        aspect: 'aspect-[4/3]',
+        src: '/images/gallery/backstage-1.jpg',
+        focus: 'object-center',
       },
     ],
   },
@@ -329,7 +343,7 @@ function ChapterWrapFigures({
   const { t } = useLanguage()
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
-  const items = useMemo<GalleryLightboxItem[]>(
+  const lightboxItems = useMemo<GalleryLightboxItem[]>(
     () =>
       images.flatMap((img) =>
         img.src
@@ -345,32 +359,53 @@ function ChapterWrapFigures({
     [images],
   )
 
-  const figure = (
-    item: GalleryLightboxItem | undefined,
-    index: number,
-    side: 'start' | 'end',
-  ) => {
-    if (!item) return null
-    const focus = images.find((img) => img.src === item.src)?.focus
+  const floatClass = (side: 'start' | 'end') =>
+    cn(
+      'mb-4 w-[58%] max-w-[24rem] overflow-hidden rounded-[0.65rem] border border-border bg-black sm:mb-5 sm:w-80 sm:max-w-none md:w-96',
+      'transition-[border-color,box-shadow] duration-300',
+      side === 'start' ? 'float-left mr-5 sm:mr-6' : 'float-right ml-5 sm:ml-6',
+    )
+
+  const figure = (img: ChapterImage | undefined, side: 'start' | 'end') => {
+    if (!img) return null
+
+    if (img.media === 'berlinMap') {
+      return (
+        <div className={floatClass(side)}>
+          <BerlinMapAnimation label={img.label} />
+        </div>
+      )
+    }
+
+    if (!img.src) {
+      return (
+        <div className={floatClass(side)}>
+          <PlaceholderMedia label={img.label} aspect="aspect-[4/3]" className="w-full border-0" />
+        </div>
+      )
+    }
+
+    const lightboxIndexForSrc = lightboxItems.findIndex((item) => item.src === img.src)
 
     return (
       <button
         type="button"
         className={cn(
-          'group mb-4 w-[58%] max-w-[24rem] cursor-pointer overflow-hidden rounded-[0.65rem] border border-border bg-black text-left sm:mb-5 sm:w-80 sm:max-w-none md:w-96',
-          'transition-[border-color,box-shadow] duration-300',
+          floatClass(side),
+          'group cursor-pointer text-left',
           'hover:border-primary/40 hover:shadow-[0_0_16px_rgba(184,255,0,0.06)]',
           'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
-          side === 'start' ? 'float-left mr-5 sm:mr-6' : 'float-right ml-5 sm:ml-6',
         )}
-        onClick={() => setLightboxIndex(index)}
-        aria-label={interpolate(t.a11y.viewGallery, { alt: item.alt })}
+        onClick={() =>
+          lightboxIndexForSrc >= 0 ? setLightboxIndex(lightboxIndexForSrc) : undefined
+        }
+        aria-label={interpolate(t.a11y.viewGallery, { alt: img.label })}
       >
         <span className="relative block aspect-[4/3] w-full overflow-hidden">
           <img
-            src={item.src}
-            alt={item.alt}
-            className={cn('h-full w-full object-cover', focus ?? 'object-[center_35%]')}
+            src={img.src}
+            alt={img.label}
+            className={cn('h-full w-full object-cover', img.focus ?? 'object-[center_35%]')}
             loading="lazy"
             decoding="async"
           />
@@ -384,13 +419,13 @@ function ChapterWrapFigures({
   return (
     <>
       {children({
-        startFigure: figure(items[0], 0, 'start'),
-        endFigure: figure(items[1], 1, 'end'),
+        startFigure: figure(images[0], 'start'),
+        endFigure: figure(images[1], 'end'),
         endInsertAt,
       })}
       <div className="clear-both" aria-hidden />
       <GalleryLightbox
-        items={items}
+        items={lightboxItems}
         index={lightboxIndex}
         onClose={() => setLightboxIndex(null)}
         onIndexChange={setLightboxIndex}
@@ -625,17 +660,25 @@ export default function AboutPage() {
                   </p>
                 </div>
               </div>
-              <div className="order-1 relative h-72 min-h-0 min-w-0 overflow-hidden sm:h-80 lg:order-2 lg:h-auto">
-                <MediaImage
-                  src="/images/about/venice.jpg"
-                  alt={t.about.venice.headerAlt}
-                  aspect="aspect-[3/2]"
-                  wrapperClassName="relative h-full min-h-0 w-full rounded-none border-0"
-                  fit="cover"
-                  className="absolute inset-0 h-full w-full object-cover object-center"
-                  fallbackLabel={t.about.venice.plate}
-                />
-                <VeniceVeganOverlay />
+              <div className="order-1 grid min-h-0 min-w-0 grid-rows-2 overflow-hidden sm:min-h-[28rem] lg:order-2 lg:min-h-0">
+                <div className="relative min-h-0 min-w-0 overflow-hidden">
+                  <MediaImage
+                    src="/images/about/venice.jpg"
+                    alt={t.about.venice.headerAlt}
+                    aspect="aspect-[3/2]"
+                    wrapperClassName="relative h-full min-h-0 w-full rounded-none border-0"
+                    fit="cover"
+                    className="absolute inset-0 h-full w-full object-cover object-center"
+                    fallbackLabel={t.about.venice.plate}
+                  />
+                  <VeniceVeganOverlay />
+                </div>
+                <div className="relative min-h-0 min-w-0 overflow-hidden border-t border-border">
+                  <VeniceMapAnimation
+                    label={t.map.title}
+                    className="absolute inset-0 h-full w-full aspect-auto"
+                  />
+                </div>
               </div>
             </article>
           </div>

@@ -137,9 +137,9 @@ const CHAPTERS: Chapter[] = [
     ],
   },
   {
-    eyebrow: 'Los Angeles',
+    eyebrow: 'On his way to LA',
     from: 19,
-    to: 27,
+    to: 29,
     layout: 'stack',
     copyBeside: 'right',
     images: [
