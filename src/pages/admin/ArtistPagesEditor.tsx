@@ -1,5 +1,6 @@
 import {
   useEffect,
+  useId,
   useMemo,
   useRef,
   useState,
@@ -138,6 +139,7 @@ export function ArtistPagesEditor() {
   const [dragPreview, setDragPreview] = useState<ProjectGallerySource | null>(null)
   const [uploading, setUploading] = useState(false)
   const [uploadOver, setUploadOver] = useState(false)
+  const [pendingRemoveId, setPendingRemoveId] = useState<number | null>(null)
 
   const rowsRef = useRef(rows)
   const itemsRef = useRef(items)
@@ -242,9 +244,15 @@ export function ArtistPagesEditor() {
     if (next.length === rows.length) return
     setRows(next)
     rememberDraft(next)
+    setPendingRemoveId(null)
     setPublishResult(null)
     setStatus('Removed from this artist page — click Publish to site.')
   }
+
+  const pendingRemovePhoto = useMemo(
+    () => (pendingRemoveId == null ? null : rows.find((row) => row.id === pendingRemoveId) ?? null),
+    [pendingRemoveId, rows],
+  )
 
   async function ingestFiles(files: ArrayLike<File>) {
     if (!project || ingestingRef.current) return
@@ -754,7 +762,7 @@ export function ArtistPagesEditor() {
                     </IconMove>
                     <IconMove
                       label="Remove from this page"
-                      onClick={() => row.id != null && removeFromPage(row.id)}
+                      onClick={() => row.id != null && setPendingRemoveId(row.id)}
                     >
                       <Trash2 size={14} />
                     </IconMove>
@@ -832,7 +840,104 @@ export function ArtistPagesEditor() {
             document.body,
           )
         : null}
+
+      <ConfirmRemoveDialog
+        photo={pendingRemovePhoto}
+        onCancel={() => setPendingRemoveId(null)}
+        onConfirm={() => {
+          if (pendingRemoveId != null) removeFromPage(pendingRemoveId)
+        }}
+      />
     </div>
+  )
+}
+
+function ConfirmRemoveDialog({
+  photo,
+  onCancel,
+  onConfirm,
+}: {
+  photo: ProjectGallerySource | null
+  onCancel: () => void
+  onConfirm: () => void
+}) {
+  const titleId = useId()
+  const open = photo != null
+  const confirmRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    confirmRef.current?.focus()
+    const { overflow } = document.body.style
+    document.body.style.overflow = 'hidden'
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        onCancel()
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.body.style.overflow = overflow
+      window.removeEventListener('keydown', onKeyDown)
+    }
+  }, [open, onCancel])
+
+  if (!photo) return null
+
+  return createPortal(
+    <div
+      className="fixed inset-0 z-[110] flex items-center justify-center bg-black/80 p-4"
+      role="presentation"
+      onClick={onCancel}
+    >
+      <div
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        className="glass-card w-full max-w-md space-y-5 p-6"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div>
+          <h2
+            id={titleId}
+            className="font-heading text-lg tracking-[0.08em] text-white"
+          >
+            Remove from this page?
+          </h2>
+          <p className="mt-2 text-sm text-muted">
+            It stays in the main Gallery. Publish to site to keep this change.
+          </p>
+        </div>
+        <div className="overflow-hidden rounded-[1rem] border border-border bg-surface">
+          <img
+            src={photo.src}
+            alt={photo.alt}
+            className={cn(GALLERY_TILE_ASPECT_CLASS, 'h-full w-full object-cover')}
+            style={galleryTilePositionStyle(photo.focalX, photo.focalY)}
+          />
+        </div>
+        {photo.alt || photo.caption ? (
+          <p className="truncate text-sm text-white">{photo.alt || photo.caption}</p>
+        ) : null}
+        <div className="flex flex-wrap justify-end gap-2">
+          <Button type="button" size="sm" variant="ghost" onClick={onCancel}>
+            Cancel
+          </Button>
+          <Button
+            ref={confirmRef}
+            type="button"
+            size="sm"
+            className="border border-red-400 bg-transparent text-red-400 hover:bg-red-400 hover:text-black"
+            onClick={onConfirm}
+          >
+            <Trash2 size={14} aria-hidden />
+            Remove from page
+          </Button>
+        </div>
+      </div>
+    </div>,
+    document.body,
   )
 }
 
