@@ -548,10 +548,19 @@ export function applyArtistGalleryOrder(
     seen.add(id)
     out.push(item)
   }
+  // Saved order is the curated sequence. Newly tagged uploads are not in
+  // that list yet, so they follow it instead of disappearing.
+  for (const item of sources) {
+    if (item.id != null) {
+      if (seen.has(item.id)) continue
+      seen.add(item.id)
+    }
+    out.push(item)
+  }
   return out
 }
 
-/** Saved Blob IDs if present; otherwise today's merge + pin/swap layout. */
+/** Saved order first, then any tagged photos not in that list. */
 export function resolveProjectGallerySources(
   projectGallery: string[],
   artist: string,

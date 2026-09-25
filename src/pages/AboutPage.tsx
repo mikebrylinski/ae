@@ -69,8 +69,8 @@ const CHAPTERS: Chapter[] = [
       {
         label: 'Berlin Wall with Brandenburg Gate in the background',
         aspect: 'aspect-[4/3]',
-        src: '/images/about/berlin.jpg',
-        focus: 'object-center',
+        src: '/images/about/west-berlin-wall.jpg',
+        focus: 'object-[62%_center]',
       },
       {
         label: 'West Berlin on the map',

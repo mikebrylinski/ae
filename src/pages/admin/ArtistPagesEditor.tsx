@@ -35,11 +35,13 @@ import {
 } from '@/lib/galleryAdmin'
 import { getAdminPassword, getSessionPassword } from '@/lib/admin'
 import {
+  galleryItemMatchesArtist,
   galleryWithSyncedYear,
   projects,
   resolveProjectGallerySources,
   type ProjectGallerySource,
 } from '@/lib/content'
+import { captionForNewUpload, readEmbeddedImageCaption } from '@/lib/imageCaption'
 import { resizeImageFile } from '@/lib/resizeImage'
 import {
   GALLERY_TILE_ASPECT_CLASS,
@@ -152,6 +154,7 @@ export function ArtistPagesEditor() {
   const dragPointRef = useRef<{ x: number; y: number } | null>(null)
   const draftsRef = useRef<Record<string, number[]>>({})
   const publishedRef = useRef<Record<string, string>>({})
+  const galleryDirtyRef = useRef(false)
 
   rowsRef.current = rows
   itemsRef.current = items
@@ -240,8 +243,19 @@ export function ArtistPagesEditor() {
   }
 
   function removeFromPage(id: number) {
+    if (!project) return
     const next = rows.filter((row) => row.id !== id)
     if (next.length === rows.length) return
+    const nextItems = itemsRef.current.map((item) => {
+      if (item.id !== id) return item
+      const tags = item.tags.filter(
+        (tag) => !galleryItemMatchesArtist({ ...item, tags: [tag] }, project.artist),
+      )
+      return tags.length === item.tags.length ? item : { ...item, tags }
+    })
+    itemsRef.current = nextItems
+    galleryDirtyRef.current = true
+    setItems(nextItems)
     setRows(next)
     rememberDraft(next)
     setPendingRemoveId(null)
@@ -274,7 +288,10 @@ export function ArtistPagesEditor() {
     try {
       for (const file of work) {
         try {
-          const resized = await resizeImageFile(file)
+          const [resized, embeddedCaption] = await Promise.all([
+            resizeImageFile(file),
+            readEmbeddedImageCaption(file),
+          ])
           const id = nextId++
           const uploaded = await uploadGalleryImage(
             {
@@ -290,7 +307,7 @@ export function ArtistPagesEditor() {
             failed += 1
             continue
           }
-          const alt = file.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ').trim() || project.artist
+          const alt = captionForNewUpload(file, embeddedCaption, project.artist)
           added.push({
             id,
             src: uploaded.src,
@@ -502,7 +519,23 @@ export function ArtistPagesEditor() {
     const ids = idsOf(rows)
     setSaving(true)
     setPublishResult(null)
-    const remote = await saveArtistOrderRemote(project.slug, ids, adminPassword())
+    const password = adminPassword()
+    if (galleryDirtyRef.current) {
+      persistGalleryLocal(itemsRef.current)
+      const galleryRemote = await saveGalleryRemote(itemsRef.current, password)
+      if (!galleryRemote.ok) {
+        setSaving(false)
+        setPublishFlash((current) => current + 1)
+        setPublishResult({
+          type: 'error',
+          message: galleryRemote.message || 'Gallery save failed. Try again.',
+        })
+        setStatus('')
+        return
+      }
+      galleryDirtyRef.current = false
+    }
+    const remote = await saveArtistOrderRemote(project.slug, ids, password)
     setSaving(false)
     setPublishFlash((current) => current + 1)
     if (!remote.ok) {
@@ -546,8 +579,9 @@ export function ArtistPagesEditor() {
             </p>
             <p className="text-sm leading-relaxed text-muted">
               Upload photos here to add them to this artist page and append them to the end of the
-              main Gallery (saved live). Drag to reorder, then Publish. Removing a photo here only
-              drops it from this page — it stays in Gallery unless you delete it there.
+              main Gallery (saved live). A caption saved in the photo comes with it; otherwise the
+              file name is used. Drag to reorder, then Publish. Removing a photo here only drops it
+              from this page — it stays in Gallery unless you delete it there.
             </p>
             <label className="block max-w-lg">
               <span className="font-heading mb-2 block text-xs tracking-[0.14em] text-primary">

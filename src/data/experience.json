@@ -18,14 +18,14 @@
       "year": "2012–2014",
       "tour": "Arena & Worldwide Tours",
       "artist": "The Weeknd · Adam Lambert · Alanis Morissette",
-      "description": "Monitor engineering across The Weeknd (worldwide), Adam Lambert (USA / worldwide), Alanis Morissette (worldwide, 2012), Usher (MTV Music Awards), and Local Natives (USA). FOH for Adam Lambert in Asia (2012).",
+      "description": "Monitor engineering across The Weeknd (worldwide), Adam Lambert (USA / worldwide), Alanis Morissette (worldwide, 2012), Usher (MTV Music Awards), Local Natives (USA), and Scott Weiland (USA, 2012). FOH for Adam Lambert in Asia (2012).",
       "photo": "/images/experience/2012-2014.jpg"
     },
     {
       "year": "2010–2011",
       "tour": "Worldwide Tours",
       "artist": "Carrie Underwood · Stone Temple Pilots",
-      "description": "Monitor engineer for Carrie Underwood and Stone Temple Pilots worldwide, plus Adam Lambert (USA, 2010).",
+      "description": "Monitor engineer for Carrie Underwood and Stone Temple Pilots worldwide, plus Adam Lambert (USA, 2010) and Scott Weiland (USA).",
       "photo": "/images/experience/stp-underwood.jpg"
     },
     {
@@ -292,6 +292,13 @@
       "featured": true
     },
     {
+      "year": "2012",
+      "artist": "Scott Weiland",
+      "region": "USA",
+      "role": "Monitor Engineer",
+      "featured": true
+    },
+    {
       "year": "2011",
       "artist": "Carrie Underwood",
       "region": "Worldwide",
@@ -302,6 +309,13 @@
       "year": "2011",
       "artist": "Stone Temple Pilots",
       "region": "Worldwide",
+      "role": "Monitor Engineer",
+      "featured": true
+    },
+    {
+      "year": "2011",
+      "artist": "Scott Weiland",
+      "region": "USA",
       "role": "Monitor Engineer",
       "featured": true
     },
@@ -323,6 +337,13 @@
       "year": "2010",
       "artist": "Stone Temple Pilots",
       "region": "Worldwide",
+      "role": "Monitor Engineer",
+      "featured": true
+    },
+    {
+      "year": "2010",
+      "artist": "Scott Weiland",
+      "region": "USA",
       "role": "Monitor Engineer",
       "featured": true
     },

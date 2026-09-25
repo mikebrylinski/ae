@@ -32,6 +32,7 @@ import {
   getGalleryArtistTags,
   sanitizeGalleryExtraTags,
 } from '@/lib/content'
+import { captionForNewUpload, readEmbeddedImageCaption } from '@/lib/imageCaption'
 import { resizeImageFile } from '@/lib/resizeImage'
 import {
   GALLERY_TILE_ASPECT_CLASS,
@@ -637,7 +638,10 @@ export function GalleryEditor() {
     try {
       for (const file of work) {
         try {
-          const resized = await resizeImageFile(file)
+          const [resized, embeddedCaption] = await Promise.all([
+            resizeImageFile(file),
+            readEmbeddedImageCaption(file),
+          ])
           const id = replaceFor ?? nextId++
           const uploaded = await uploadGalleryImage(
             {
@@ -674,7 +678,7 @@ export function GalleryEditor() {
             })
             setStatus('Photo replaced — click Save to keep it.')
           } else {
-            const alt = file.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ')
+            const alt = captionForNewUpload(file, embeddedCaption)
             added.push({
               id,
               src: uploaded.src,

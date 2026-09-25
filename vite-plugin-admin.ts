@@ -11,6 +11,8 @@ import {
   parseArtistOrderPutBody,
   parseGalleryPutBody,
   parseGalleryUploadBody,
+  readArtistOrderFromBlob,
+  readGalleryFromBlob,
   sanitizeArtistOrder,
   sanitizeGalleryItems,
   writeArtistOrderToBlob,
@@ -96,6 +98,52 @@ function writeLocalArtistOrder(rootDir: string, order: Record<string, number[]>)
   )
 }
 
+function publicBlobHost(items: unknown[]): string | null {
+  for (const item of items) {
+    if (!item || typeof item !== 'object' || !('src' in item)) continue
+    const src = String((item as { src?: unknown }).src ?? '')
+    const match = src.match(/^(https:\/\/[a-z0-9]+\.public\.blob\.vercel-storage\.com)\//i)
+    if (match) return match[1]
+  }
+  return null
+}
+
+const LIVE_GALLERY_API = 'https://ae-eight-omega.vercel.app/api/gallery'
+
+type LiveGallery = {
+  items: NonNullable<ReturnType<typeof sanitizeGalleryItems>>
+  artistOrder: Record<string, number[]>
+}
+
+/** Gallery payload the public site is serving right now. */
+async function readDeploymentGallery(url: string): Promise<LiveGallery | null> {
+  const res = await fetch(url, { cache: 'no-store' })
+  if (!res.ok) return null
+  const payload = (await res.json()) as { items?: unknown; artistOrder?: unknown }
+  const items = sanitizeGalleryItems(payload.items)
+  if (!items?.length) return null
+  return { items, artistOrder: sanitizeArtistOrder(payload.artistOrder) }
+}
+
+/** Same gallery the live site serves, when this machine has no Blob token. */
+async function readPublicDeployedGallery(host: string): Promise<LiveGallery | null> {
+  const [galleryRes, orderRes] = await Promise.all([
+    fetch(`${host}/gallery/index.json`, { cache: 'no-store' }),
+    fetch(`${host}/gallery/artist-order.json`, { cache: 'no-store' }),
+  ])
+  if (!galleryRes.ok) return null
+  const payload = (await galleryRes.json()) as { items?: unknown }
+  const items = sanitizeGalleryItems(payload.items ?? payload)
+  if (!items?.length) return null
+
+  let artistOrder: Record<string, number[]> = {}
+  if (orderRes.ok) {
+    const orderPayload = (await orderRes.json()) as { order?: unknown }
+    artistOrder = sanitizeArtistOrder(orderPayload.order ?? orderPayload)
+  }
+  return { items, artistOrder }
+}
+
 function extensionForType(contentType: string) {
   if (contentType === 'image/png') return 'png'
   if (contentType === 'image/webp') return 'webp'
@@ -121,9 +169,44 @@ export function adminApiPlugin(rootDir: string): Plugin {
 
         try {
           if (url === '/api/gallery' && req.method === 'GET') {
+            const env = envRecord(server, rootDir)
+            const localItems = sanitizeGalleryItems(readLocalGallery(rootDir)) ?? []
+
+            if (blobConfiguredFromEnv(env)) {
+              const [items, artistOrder] = await Promise.all([
+                readGalleryFromBlob(env),
+                readArtistOrderFromBlob(env),
+              ])
+              if (items?.length) {
+                json(res, 200, { ok: true, items, artistOrder, blob: true })
+                return
+              }
+            }
+
+            const host = publicBlobHost(localItems)
+            for (const load of [
+              () => readDeploymentGallery(LIVE_GALLERY_API),
+              () => (host ? readPublicDeployedGallery(host) : Promise.resolve(null)),
+            ]) {
+              try {
+                const live = await load()
+                if (live) {
+                  json(res, 200, {
+                    ok: true,
+                    items: live.items,
+                    artistOrder: live.artistOrder,
+                    blob: true,
+                  })
+                  return
+                }
+              } catch {
+                // Try the next live source, then the bundled gallery.
+              }
+            }
+
             json(res, 200, {
               ok: true,
-              items: sanitizeGalleryItems(readLocalGallery(rootDir)) ?? [],
+              items: localItems,
               artistOrder: readLocalArtistOrder(rootDir),
             })
             return
