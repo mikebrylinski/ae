@@ -57,7 +57,7 @@ const en = {
   footer: {
     backToTop: 'Back to top',
     rights: 'All Rights Reserved.',
-    siteBy: 'Site by Pixel Palisade',
+    siteBy: 'Site by',
     vu: {
       aria: 'Main stereo out analog VU, gain reduction, and digital meters',
       mainOut: 'Main Stereo Out',
@@ -133,8 +133,7 @@ const en = {
         eyebrow: 'West Berlin',
         dek: 'Where it all began.',
         alts: [
-          'Berlin Wall with Brandenburg Gate in the background',
-          'West Berlin on the map',
+          "Ticket for a concert of Andy's band, The Taylors, + 2 more in West Berlin, 1987.",
         ],
       },
       {
@@ -150,9 +149,6 @@ const en = {
         dek: 'Taking the skills from the basement studio into the live world.',
         alts: [
           'Andy mixing a live show from a touring console',
-        ],
-        captions: [
-          'Andy at soundcheck with Michael Schenker Group opening for Thin Lizzy - 1999',
         ],
       },
       {
@@ -527,7 +523,7 @@ const de = {
   footer: {
     backToTop: 'Nach oben',
     rights: 'Alle Rechte vorbehalten.',
-    siteBy: 'Website von Pixel Palisade',
+    siteBy: 'Website von',
     vu: {
       aria: 'Analog-VU, Gain Reduction und Digitalmeter am Stereo-Hauptausgang',
       mainOut: 'Stereo-Hauptausgang',
@@ -603,8 +599,7 @@ const de = {
         eyebrow: 'West-Berlin',
         dek: 'Wo alles begann.',
         alts: [
-          'Berliner Mauer mit Brandenburger Tor im Hintergrund',
-          'West-Berlin auf der Karte',
+          'Ticket für ein Konzert von Andys Band, The Taylors, und zwei weiteren Acts in West-Berlin, 1987.',
         ],
       },
       {
@@ -620,9 +615,6 @@ const de = {
         dek: 'Die Fähigkeiten aus dem Kellerstudio in die Live-Welt bringen.',
         alts: [
           'Andy mischt eine Live-Show an einem Tourpult',
-        ],
-        captions: [
-          'Andy beim Soundcheck mit der Michael Schenker Group als Support für Thin Lizzy – 1999',
         ],
       },
       {

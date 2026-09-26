@@ -186,6 +186,7 @@ export default function ProjectDetailPage() {
   useSeo({
     title: project ? `${project.artist} — ${project.title}` : t.project.seoFallback,
     description: project?.overview,
+    image: project?.cardImage || project?.heroImage,
   })
 
   if (slug === 'neil-young-velvet-revolver') {

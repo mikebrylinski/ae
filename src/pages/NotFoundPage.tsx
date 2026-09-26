@@ -10,6 +10,7 @@ export default function NotFoundPage() {
   useSeo({
     title: t.notFound.seoTitle,
     description: t.notFound.seoDescription,
+    noIndex: true,
   })
 
   return (

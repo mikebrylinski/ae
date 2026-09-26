@@ -51,6 +51,8 @@ export default function GalleryPhotoPage() {
     description: caption
       ? interpolate(t.galleryPage.seoPhotoDescription, { caption })
       : t.galleryPage.seoDescription,
+    image: item?.src,
+    noIndex: ready && !item,
   })
 
   async function share() {

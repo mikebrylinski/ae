@@ -4753,4 +4753,24 @@ html.is-safari .berlin-skyline__particles {
   }
 }
 
+@keyframes mikebweb-slash-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.28;
+  }
+}
+
+.mikebweb-mark__slash {
+  animation: mikebweb-slash-pulse 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mikebweb-mark__slash {
+    animation: none;
+  }
+}
+
 

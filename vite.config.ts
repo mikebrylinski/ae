@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { adminApiPlugin } from './vite-plugin-admin.ts'
 import { contactApiPlugin } from './vite-plugin-contact.ts'
+import { sitemapPlugin } from './vite-plugin-sitemap.ts'
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url))
 
@@ -14,6 +15,7 @@ export default defineConfig({
     tailwindcss(),
     adminApiPlugin(rootDir),
     contactApiPlugin(rootDir),
+    sitemapPlugin(rootDir),
   ],
   resolve: {
     alias: {

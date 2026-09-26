@@ -31,7 +31,12 @@ export function VeganLaminate() {
   const ringId = `vegan-laminate-ring-${useId().replace(/:/g, '')}`
 
   return (
-    <div className="all-access vegan-laminate">
+    <a
+      href="https://plantpoweredroadie.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="all-access vegan-laminate"
+    >
       <span className="all-access__clip" aria-hidden />
       <span className="all-access__hole" aria-hidden />
       <div className="all-access__pass">
@@ -67,7 +72,7 @@ export function VeganLaminate() {
           decoding="async"
         />
       </div>
-    </div>
+    </a>
   )
 }
 
@@ -197,8 +202,31 @@ export function Footer({ admin = false }: { admin?: boolean }) {
 
         <div className="mt-8 flex flex-col items-center gap-2 border-t border-white/10 pt-5 text-center text-xs text-muted lg:flex-row lg:items-center lg:justify-between lg:text-left">
           <p>© {year} Andy Ebert. {t.footer.rights}</p>
-          <p className="font-heading w-full tracking-[0.14em] lg:w-auto lg:text-right">
-            {t.footer.siteBy}
+          <p className="font-heading flex w-full flex-wrap items-center justify-center gap-2 tracking-[0.14em] lg:w-auto lg:justify-end">
+            <span>{t.footer.siteBy}</span>
+            <a
+              href="https://mikebweb.dev/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="MIKEBWEB.dev"
+              className="group relative inline-flex min-h-9 items-center gap-1.5 border border-white/20 bg-white/[0.04] px-2.5 py-1.5 font-bold leading-none tracking-[-0.03em] text-sm text-muted normal-case transition-[border-color,background-color,color] duration-500 hover:border-[#3B8CFF]/70 hover:bg-[#06101c] hover:text-[#3B8CFF] focus-visible:border-[#3B8CFF]/70 focus-visible:bg-[#06101c] focus-visible:text-[#3B8CFF] focus-visible:outline-none"
+            >
+              <span className="pointer-events-none absolute inset-0" aria-hidden>
+                <span className="absolute top-0 left-0 h-1.5 w-1.5 border border-r-0 border-b-0 border-white/35 transition-colors duration-500 group-hover:border-[#3B8CFF]/80 group-focus-visible:border-[#3B8CFF]/80" />
+                <span className="absolute top-0 right-0 h-1.5 w-1.5 border border-b-0 border-l-0 border-white/35 transition-colors duration-500 group-hover:border-[#3B8CFF]/80 group-focus-visible:border-[#3B8CFF]/80" />
+                <span className="absolute bottom-0 left-0 h-1.5 w-1.5 border border-t-0 border-r-0 border-white/35 transition-colors duration-500 group-hover:border-[#3B8CFF]/80 group-focus-visible:border-[#3B8CFF]/80" />
+                <span className="absolute right-0 bottom-0 h-1.5 w-1.5 border border-t-0 border-l-0 border-white/35 transition-colors duration-500 group-hover:border-[#3B8CFF]/80 group-focus-visible:border-[#3B8CFF]/80" />
+              </span>
+              <span className="inline-flex items-center font-mono text-[0.95em] font-medium tracking-[0.08em] text-muted transition-colors duration-500 group-hover:text-[#3B8CFF] group-focus-visible:text-[#3B8CFF]" aria-hidden>
+                <span>&lt;</span>
+                <span className="mikebweb-mark__slash inline-block">/</span>
+                <span>&gt;</span>
+              </span>
+              <span className="inline-flex items-baseline">
+                <span className="text-muted transition-colors duration-500 group-hover:text-white group-focus-visible:text-white">MIKEBWEB</span>
+                <span className="text-muted transition-colors duration-500 group-hover:text-[#3B8CFF] group-focus-visible:text-[#3B8CFF]">.dev</span>
+              </span>
+            </a>
           </p>
         </div>
       </Container>

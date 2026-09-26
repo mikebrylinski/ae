@@ -12,8 +12,6 @@ import { CTABanner } from '@/components/sections/CTABanner'
 import { PhotoHeader } from '@/components/sections/PhotoHeader'
 import { VuPlate } from '@/components/ui/VuPlate'
 import { VeniceVeganOverlay } from '@/components/ui/VeniceVeganOverlay'
-import { BerlinMapAnimation } from '@/components/ui/BerlinMapAnimation'
-import { VeniceMapAnimation } from '@/components/ui/VeniceMapAnimation'
 import { useSeo } from '@/hooks/useSeo'
 import { useLanguage } from '@/i18n/LanguageProvider'
 import { cn } from '@/lib/utils'
@@ -22,8 +20,6 @@ type ChapterImage = {
   label: string
   aspect: string
   src?: string
-  /** Custom media tile instead of a photo (e.g. Berlin map animation). */
-  media?: 'berlinMap'
   place?: 'end' | 'below' | 'followUp'
   span?: 2
   showFull?: boolean
@@ -67,15 +63,10 @@ const CHAPTERS: Chapter[] = [
     wrap: true,
     images: [
       {
-        label: 'Berlin Wall with Brandenburg Gate in the background',
+        label: "Ticket for a concert of Andy's band, The Taylors, + 2 more in West Berlin, 1987.",
         aspect: 'aspect-[4/3]',
-        src: '/images/about/west-berlin-wall.jpg',
-        focus: 'object-[62%_center]',
-      },
-      {
-        label: 'West Berlin on the map',
-        aspect: 'aspect-[4/3]',
-        media: 'berlinMap',
+        src: 'https://twj9hkdxnej2mgbm.public.blob.vercel-storage.com/gallery/photos/1790301069106-taylors-1987.jpg',
+        focus: 'object-[18%_center]',
       },
     ],
   },
@@ -113,9 +104,6 @@ const CHAPTERS: Chapter[] = [
         place: 'end',
         fillColumn: true,
         focus: 'object-[center_20%]',
-        caption: 'Andy at soundcheck with Michael Schenker Group opening for Thin Lizzy - 1999',
-        captionPos:
-          'right-0 top-[42%] flex min-h-[7.5rem] max-w-[15rem] items-center px-4 py-5 sm:top-[44%] sm:min-h-[9rem] sm:max-w-[18rem] sm:px-5 sm:py-6 md:top-[46%] md:min-h-[10.5rem] md:max-w-[20rem] md:px-6 md:py-7',
       },
     ],
   },
@@ -368,14 +356,6 @@ function ChapterWrapFigures({
 
   const figure = (img: ChapterImage | undefined, side: 'start' | 'end') => {
     if (!img) return null
-
-    if (img.media === 'berlinMap') {
-      return (
-        <div className={floatClass(side)}>
-          <BerlinMapAnimation label={img.label} />
-        </div>
-      )
-    }
 
     if (!img.src) {
       return (
@@ -660,25 +640,17 @@ export default function AboutPage() {
                   </p>
                 </div>
               </div>
-              <div className="order-1 grid min-h-0 min-w-0 grid-rows-2 overflow-hidden sm:min-h-[28rem] lg:order-2 lg:min-h-0">
-                <div className="relative min-h-0 min-w-0 overflow-hidden">
-                  <MediaImage
-                    src="/images/about/venice.jpg"
-                    alt={t.about.venice.headerAlt}
-                    aspect="aspect-[3/2]"
-                    wrapperClassName="relative h-full min-h-0 w-full rounded-none border-0"
-                    fit="cover"
-                    className="absolute inset-0 h-full w-full object-cover object-center"
-                    fallbackLabel={t.about.venice.plate}
-                  />
-                  <VeniceVeganOverlay />
-                </div>
-                <div className="relative min-h-0 min-w-0 overflow-hidden border-t border-border">
-                  <VeniceMapAnimation
-                    label={t.map.title}
-                    className="absolute inset-0 h-full w-full aspect-auto"
-                  />
-                </div>
+              <div className="relative order-1 min-h-[18rem] overflow-hidden sm:min-h-[28rem] lg:order-2 lg:min-h-full">
+                <MediaImage
+                  src="/images/about/venice.jpg"
+                  alt={t.about.venice.headerAlt}
+                  aspect="aspect-[3/2]"
+                  wrapperClassName="relative h-full min-h-[18rem] w-full rounded-none border-0 sm:min-h-[28rem] lg:absolute lg:inset-0 lg:min-h-full"
+                  fit="cover"
+                  className="absolute inset-0 h-full w-full object-cover object-center"
+                  fallbackLabel={t.about.venice.plate}
+                />
+                <VeniceVeganOverlay />
               </div>
             </article>
           </div>

@@ -1,3 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /admin
+Disallow: /aboutb
+
+Sitemap: https://andyebert.com/sitemap.xml
