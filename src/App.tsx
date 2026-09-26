@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import { LanguageProvider } from '@/i18n/LanguageProvider'
 import { RootLayout } from '@/components/layout/RootLayout'
 import { LoadingLine, LoadingMeter } from '@/components/ui/LoadingMeter'
@@ -18,9 +19,15 @@ const ContactPage = lazy(() => import('@/pages/ContactPage'))
 const AdminPage = lazy(() => import('@/pages/AdminPage'))
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'))
 
+function RouteAnalytics() {
+  const { pathname } = useLocation()
+  return <Analytics route={pathname} path={pathname} />
+}
+
 export default function App() {
   return (
     <BrowserRouter>
+      <RouteAnalytics />
       <LanguageProvider>
       <Routes>
         <Route

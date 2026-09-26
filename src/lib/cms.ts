@@ -7,7 +7,6 @@
  * TODO: MDX blog
  * TODO: Dark/light mode
  * TODO: Project search
- * TODO: Analytics
  * TODO: Image CDN / optimization
  */
 
