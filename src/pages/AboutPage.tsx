@@ -457,10 +457,6 @@ export default function AboutPage() {
               const images = chapter.images.map((img, i) => ({
                 ...img,
                 label: localized?.alts[i] ?? img.label,
-                caption:
-                  (localized && 'captions' in localized
-                    ? localized.captions[i]
-                    : undefined) ?? img.caption,
               }))
               const topImages = chapter.wrap
                 ? []
