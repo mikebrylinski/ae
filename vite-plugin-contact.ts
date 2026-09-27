@@ -1,5 +1,9 @@
 import { loadEnv, type Plugin, type ViteDevServer } from 'vite'
 import {
+  markContactEmailSent,
+  saveContactSubmission,
+} from './server/contactStore.js'
+import {
   contactEnvFromRecord,
   parseContactBody,
   sendContactEmail,
@@ -50,18 +54,39 @@ export function contactApiPlugin(rootDir: string): Plugin {
           }
 
           const loaded = loadEnv(server.config.mode, rootDir, '')
-          const env = contactEnvFromRecord({
-            ...process.env,
-            ...loaded,
-          })
+          const record = { ...process.env, ...loaded }
+          const env = contactEnvFromRecord(record)
 
-          const result = await sendContactEmail(fields, env)
-          if (!result.ok) {
-            json(res, result.status ?? 500, { ok: false, error: result.error })
+          const saved = await saveContactSubmission(fields, record)
+          const emailed = await sendContactEmail(fields, env)
+          if (saved.ok && emailed.ok) {
+            await markContactEmailSent(saved.id, record)
+          }
+
+          if (emailed.ok) {
+            json(res, 200, { ok: true })
             return
           }
 
-          json(res, 200, { ok: true })
+          if (!saved.ok && saved.configured) {
+            console.error('Contact save failed', saved.error)
+          }
+          if (!saved.configured) console.error('Contact Blob storage is not configured')
+          console.error('Contact email failed', emailed.error)
+
+          if (emailed.status === 503) {
+            json(res, 503, {
+              ok: false,
+              code: 'not_configured',
+              error: 'Email service is not configured',
+            })
+            return
+          }
+
+          json(res, emailed.status ?? 500, {
+            ok: false,
+            error: 'Could not send message',
+          })
         } catch (err) {
           json(res, 500, {
             ok: false,

@@ -55,4 +55,4 @@ Andy signs in at `/admin` with `VITE_ADMIN_PASSWORD` (set in `.env.local` locall
 
 ## Future CMS / API
 
-Gallery editing lives at `/admin`. Other CMS hooks and TODOs are in `src/lib/cms.ts`. Contact form: `POST /api/contact` (Resend → `CONTACT_TO_EMAIL`).
+Gallery editing lives at `/admin`. Other CMS hooks and TODOs are in `src/lib/cms.ts`. Contact form: `POST /api/contact` emails `CONTACT_TO_EMAIL` (default `info@andyebert.com`) through Resend and saves each submission in the gallery Vercel Blob store. Saved messages are listed under Admin → Messages.

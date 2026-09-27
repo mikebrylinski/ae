@@ -1,3 +1,8 @@
+import {
+  markContactEmailSent,
+  saveContactSubmission,
+} from '../server/contactStore.js'
+
 function parseContactBody(raw) {
   let parsed
   try {
@@ -84,7 +89,8 @@ async function sendContactEmail(fields, env) {
 
 /**
  * Production: POST /api/contact
- * Sends the contact form to CONTACT_TO_EMAIL (default info@andyebert.com) via Resend.
+ * Sends the contact form to CONTACT_TO_EMAIL (default info@andyebert.com) via Resend
+ * and stores the submission in Vercel Blob.
  */
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -99,10 +105,31 @@ export default async function handler(req, res) {
     return res.status(400).json({ ok: false, error: fields.error })
   }
 
-  const result = await sendContactEmail(fields, contactEnv())
-  if (result.ok) {
+  const runtime = globalThis.process?.env ?? {}
+  const saved = await saveContactSubmission(fields, runtime)
+  const emailed = await sendContactEmail(fields, contactEnv())
+  if (saved.ok && emailed.ok) {
+    await markContactEmailSent(saved.id, runtime)
+  }
+
+  if (emailed.ok) {
     return res.status(200).json({ ok: true })
   }
 
-  return res.status(result.status ?? 500).json({ ok: false, error: result.error })
+  if (!saved.ok && saved.configured) console.error('Contact save failed', saved.error)
+  if (!saved.configured) console.error('Contact Blob storage is not configured')
+  console.error('Contact email failed', emailed.error)
+
+  if (emailed.status === 503) {
+    return res.status(503).json({
+      ok: false,
+      code: 'not_configured',
+      error: 'Email service is not configured',
+    })
+  }
+
+  return res.status(emailed.status ?? 500).json({
+    ok: false,
+    error: 'Could not send message',
+  })
 }

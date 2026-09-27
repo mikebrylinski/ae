@@ -254,6 +254,8 @@ const en = {
     sending: 'Sending…',
     error: 'Could not send message. Please email directly.',
     emailLink: 'Email {email}',
+    mailFallback:
+      'This site can’t deliver email yet. Your mail app should open a message to {email}.',
   },
   media: {
     seoTitle: 'Press & Media',
@@ -282,7 +284,11 @@ const en = {
     title: 'On The Road',
     headerAlt: 'Mixing FOH at an outdoor concert',
     count: '{n} photos',
+    searchLabel: 'Search captions',
+    searchPlaceholder: 'Search captions…',
+    searchClear: 'Clear search',
     empty: 'No photos match these tags.',
+    emptySearch: 'No photos match that search.',
     sortLabel: 'Sort',
     order: 'Gallery order',
     newest: 'Newest',
@@ -720,6 +726,8 @@ const de = {
     sending: 'Wird gesendet…',
     error: 'Nachricht konnte nicht gesendet werden. Bitte direkt per E-Mail.',
     emailLink: 'E-Mail an {email}',
+    mailFallback:
+      'Diese Website kann E-Mail noch nicht zustellen. Dein Mailprogramm sollte eine Nachricht an {email} öffnen.',
   },
   media: {
     seoTitle: 'Presse & Medien',
@@ -748,7 +756,11 @@ const de = {
     title: 'Unterwegs',
     headerAlt: 'FOH Mix bei einem Open-Air-Konzert',
     count: '{n} Fotos',
+    searchLabel: 'Bildunterschriften durchsuchen',
+    searchPlaceholder: 'Bildunterschriften suchen…',
+    searchClear: 'Suche löschen',
     empty: 'Keine Fotos zu diesen Schlagworten.',
+    emptySearch: 'Keine Fotos passen zu dieser Suche.',
     sortLabel: 'Sortierung',
     order: 'Galeriefolge',
     newest: 'Neueste',

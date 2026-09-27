@@ -1,7 +1,7 @@
 /**
  * Content adapters.
  * Gallery is edited at /admin (password + Vercel Blob in production).
- * Contact form: POST /api/contact (Resend → CONTACT_TO_EMAIL)
+ * Contact form: POST /api/contact (Resend → CONTACT_TO_EMAIL, saved in Vercel Blob)
  *
  * TODO: Sanity / Contentful for the rest of the site
  * TODO: MDX blog

@@ -25,7 +25,7 @@ export function normalizeContactPayload(input: unknown): ContactPayload | null {
 
 export async function submitContactForm(
   payload: ContactPayload,
-): Promise<{ ok: boolean; message?: string }> {
+): Promise<{ ok: boolean; message?: string; code?: string }> {
   try {
     const res = await fetch('/api/contact', {
       method: 'POST',
@@ -36,10 +36,12 @@ export async function submitContactForm(
       ok?: boolean
       error?: string
       message?: string
+      code?: string
     }
     if (!res.ok || !data.ok) {
       return {
         ok: false,
+        code: data.code,
         message: data.error || data.message || 'Could not send message',
       }
     }

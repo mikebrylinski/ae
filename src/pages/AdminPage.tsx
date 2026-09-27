@@ -14,11 +14,12 @@ import { useSeo } from '@/hooks/useSeo'
 import { useLanguage } from '@/i18n/LanguageProvider'
 import { cn } from '@/lib/utils'
 import { CreditsEditor } from '@/pages/admin/CreditsEditor'
+import { ContactsEditor } from '@/pages/admin/ContactsEditor'
 import { GalleryEditor } from '@/pages/admin/GalleryEditor'
 import { ArtistPagesEditor } from '@/pages/admin/ArtistPagesEditor'
 import { Footer, AllAccessLaminate } from '@/components/layout/Footer'
 
-type Tab = 'credits' | 'gallery' | 'artists'
+type Tab = 'credits' | 'gallery' | 'artists' | 'messages'
 
 export default function AdminPage() {
   useSeo({ title: 'Admin', noIndex: true })
@@ -163,9 +164,9 @@ export default function AdminPage() {
                 onClick={() => setTab('artists')}
               />
               <AdminTab
-                label="Credits"
-                active={tab === 'credits'}
-                onClick={() => setTab('credits')}
+                label="Messages"
+                active={tab === 'messages'}
+                onClick={() => setTab('messages')}
               />
             </nav>
             <Button type="button" size="sm" variant="ghost" onClick={handleLogout}>
@@ -181,6 +182,8 @@ export default function AdminPage() {
           <GalleryEditor />
         ) : tab === 'artists' ? (
           <ArtistPagesEditor />
+        ) : tab === 'messages' ? (
+          <ContactsEditor />
         ) : (
           <CreditsEditor />
         )}

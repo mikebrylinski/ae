@@ -31,14 +31,21 @@ export function blobTokenFromEnv(env) {
   return (env.BLOB_READ_WRITE_TOKEN ?? '').trim()
 }
 
-/** True when a Blob store is linked (OIDC) or a static write token is set. */
+/** True when a write token is set, or Vercel OIDC can access BLOB_STORE_ID. */
 export function blobConfiguredFromEnv(env) {
-  return Boolean(blobTokenFromEnv(env) || (env.BLOB_STORE_ID ?? '').trim())
+  if (blobTokenFromEnv(env)) return true
+  const storeId = (env.BLOB_STORE_ID ?? '').trim()
+  const oidc = (env.VERCEL_OIDC_TOKEN ?? '').trim()
+  return Boolean(storeId && oidc)
 }
 
-function blobClientOptions(env) {
+export function blobClientOptions(env) {
   const token = blobTokenFromEnv(env)
-  return token ? { token } : {}
+  const storeId = (env.BLOB_STORE_ID ?? '').trim()
+  const options = {}
+  if (token) options.token = token
+  if (storeId) options.storeId = storeId
+  return options
 }
 
 function asTrimmedString(value) {

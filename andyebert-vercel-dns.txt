@@ -1,0 +1,83 @@
+Connect andyebert.com to the new site
+=====================================
+
+The new site is already live here:
+https://ae-eight-omega.vercel.app/
+
+www.andyebert.com is added in Vercel, but Vercel still says
+"Invalid Configuration." That clears after one DNS record
+is changed at Strato.
+
+DNS is on Strato (docks09.rzone.de and shades09.rzone.de).
+The website address 81.169.145.88 is Strato, and mail goes
+to smtpin.rzone.de. Leave the mail records alone and only
+change the website records below. Do not switch the
+domain's nameservers to Vercel. That would move mail
+off Strato.
+
+
+1. Change the www record at Strato
+----------------------------------
+
+Log in at Strato, open andyebert.com, then DNS settings.
+Find the CNAME named www. It currently points at
+andyebert.com. Replace that target with the value Vercel
+is showing:
+
+  Type    Name    Value
+  CNAME   www     d2b8446d57fd2cac.vercel-dns-017.com
+
+Strato sometimes wants a trailing dot on the target:
+
+  d2b8446d57fd2cac.vercel-dns-017.com.
+
+Either form is fine. Do not use the old shared name
+cname.vercel-dns.com.
+
+
+2. Point the bare domain at Vercel
+-----------------------------------
+
+People who type andyebert.com, without www, still go to
+Strato until these two records change. In the same DNS
+page:
+
+  Type    Name                        Value            What to do
+  A       @ (the domain itself)       76.76.21.21      Replace 81.169.145.88
+  AAAA    @                           (none)           Delete 2a01:238:20a:202:1088::
+
+A leftover IPv6 address will keep sending some visitors
+to Strato. 76.76.21.21 is the address Vercel still accepts
+for the root domain.
+
+www.andyebert.com also has to be added as a domain on the
+Vercel project (it already is). Add andyebert.com there
+too, without www, so the bare address is allowed to open
+the site. Vercel can redirect one to the other after both
+are valid.
+
+
+3. Leave email alone
+---------------------
+
+Keep the MX record:
+
+  MX   andyebert.com   →   smtpin.rzone.de   (priority 5)
+
+Do not change any other mail records.
+
+
+4. Check that it landed
+-----------------------
+
+DNS can take a few minutes to a few hours. Refresh the
+domain card in Vercel. When it says Valid Configuration,
+Vercel issues the certificate on its own.
+
+  dig CNAME www.andyebert.com
+  dig A andyebert.com
+
+www should answer d2b8446d57fd2cac.vercel-dns-017.com.
+andyebert.com should answer 76.76.21.21.
+Then both addresses should open the same site as
+https://ae-eight-omega.vercel.app/

@@ -35,16 +35,23 @@ export default function ContactPage() {
     const form = e.currentTarget
     const data = new FormData(form)
 
-    const result = await submitContactForm({
+    const payload = {
       name: String(data.get('name') ?? ''),
       email: String(data.get('email') ?? ''),
       subject: String(data.get('subject') ?? ''),
       message: String(data.get('message') ?? ''),
-    })
+    }
+    const result = await submitContactForm(payload)
 
     setPending(false)
 
     if (!result.ok) {
+      if (result.code === 'not_configured') {
+        const body = [payload.message, '', payload.name, payload.email].join('\n')
+        window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(body)}`
+        setError(interpolate(t.contact.mailFallback, { email: site.email }))
+        return
+      }
       setError(result.message ?? t.contact.error)
       return
     }

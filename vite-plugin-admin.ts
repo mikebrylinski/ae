@@ -2,6 +2,10 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { loadEnv, type Plugin, type ViteDevServer } from 'vite'
 import {
+  deleteContactSubmission,
+  listContactSubmissions,
+} from './server/contactStore.js'
+import {
   blobConfiguredFromEnv,
   decodeImageData,
   isAdminAuthorized,
@@ -168,6 +172,39 @@ export function adminApiPlugin(rootDir: string): Plugin {
         const url = req.url?.split('?')[0] ?? ''
 
         try {
+          if (url === '/api/admin/contacts' && (req.method === 'GET' || req.method === 'DELETE')) {
+            const env = envRecord(server, rootDir)
+            if (!authorize(req, env)) {
+              json(res, 401, { ok: false, error: 'Unauthorized' })
+              return
+            }
+            if (req.method === 'DELETE') {
+              const id = new URL(req.url ?? '', 'http://localhost').searchParams.get('id') ?? ''
+              const deleted = await deleteContactSubmission(id, env)
+              if (!deleted.ok) {
+                json(res, deleted.status ?? 500, {
+                  ok: false,
+                  configured: deleted.configured,
+                  error: deleted.error,
+                })
+                return
+              }
+              json(res, 200, { ok: true })
+              return
+            }
+            const result = await listContactSubmissions(env)
+            if (!result.ok) {
+              json(res, result.status ?? 500, {
+                ok: false,
+                configured: result.configured,
+                error: result.error,
+              })
+              return
+            }
+            json(res, 200, { ok: true, items: result.items })
+            return
+          }
+
           if (url === '/api/gallery' && req.method === 'GET') {
             const env = envRecord(server, rootDir)
             const localItems = sanitizeGalleryItems(readLocalGallery(rootDir)) ?? []

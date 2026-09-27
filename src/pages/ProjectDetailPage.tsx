@@ -184,7 +184,11 @@ export default function ProjectDetailPage() {
   )
 
   useSeo({
-    title: project ? `${project.artist} — ${project.title}` : t.project.seoFallback,
+    title: project
+      ? project.slug === 'countless-artists'
+        ? project.artist
+        : `${project.artist} — ${project.title}`
+      : t.project.seoFallback,
     description: project?.overview,
     image: project?.cardImage || project?.heroImage,
   })
@@ -279,17 +283,19 @@ export default function ProjectDetailPage() {
               <h1 className="font-heading mt-5 text-[clamp(1.65rem,6.5vw,3.25rem)] leading-[1.15] tracking-[0.04em] break-words text-white sm:mt-6 sm:tracking-[0.06em]">
                 {project.artist}
               </h1>
-              <p className="mt-3 max-w-full text-sm leading-relaxed break-words text-muted sm:text-base">
-                {project.title}
-                <span className="mx-1.5 text-white/30" aria-hidden>
-                  ·
-                </span>
-                {project.year}
-                <span className="mx-1.5 text-white/30" aria-hidden>
-                  ·
-                </span>
-                {project.role}
-              </p>
+              {project.slug !== 'countless-artists' ? (
+                <p className="mt-3 max-w-full text-sm leading-relaxed break-words text-muted sm:text-base">
+                  {project.title}
+                  <span className="mx-1.5 text-white/30" aria-hidden>
+                    ·
+                  </span>
+                  {project.year}
+                  <span className="mx-1.5 text-white/30" aria-hidden>
+                    ·
+                  </span>
+                  {project.role}
+                </p>
+              ) : null}
             </div>
           </GlassCard>
         </Container>

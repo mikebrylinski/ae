@@ -16,8 +16,10 @@ import {
 } from '@/lib/content'
 import { interpolate } from '@/i18n/ui'
 import { useLanguage } from '@/i18n/LanguageProvider'
+import { Search, X } from 'lucide-react'
 import { MediaImage } from '@/components/ui/MediaImage'
 import { FilterAccordion } from '@/components/ui/FilterAccordion'
+import { Input } from '@/components/ui/Input'
 import { VuPlate } from '@/components/ui/VuPlate'
 import { GalleryPager, GALLERY_PAGE_SIZE } from '@/components/ui/GalleryPager'
 import { cn } from '@/lib/utils'
@@ -131,12 +133,14 @@ type GalleryGridContextValue = {
   pagedItems: GalleryItem[]
   sourceItems: GalleryItem[]
   selected: string[]
+  query: string
   sort: GallerySort
   page: number
   pageCount: number
   lightboxIndex: number | null
   setLightboxIndex: (index: number | null) => void
   setPage: (page: number) => void
+  setQuery: (query: string) => void
   toggleTag: (tag: string) => void
   clearTags: () => void
   setSort: (sort: GallerySort) => void
@@ -153,8 +157,17 @@ function useGalleryGrid() {
 }
 
 export function GalleryGridHeader() {
-  const { items, sourceItems, selected, sort, toggleTag, clearTags, setSort } =
-    useGalleryGrid()
+  const {
+    items,
+    sourceItems,
+    selected,
+    query,
+    sort,
+    toggleTag,
+    clearTags,
+    setSort,
+    setQuery,
+  } = useGalleryGrid()
   const { lang, t } = useLanguage()
   const [extraTags, setExtraTags] = useState(loadStoredExtraTags)
 
@@ -199,8 +212,42 @@ export function GalleryGridHeader() {
         </div>
       </div>
 
+      <form
+        role="search"
+        className="relative mt-6 sm:mt-8"
+        onSubmit={(event) => event.preventDefault()}
+      >
+        <label htmlFor="gallery-caption-search" className="sr-only">
+          {t.galleryPage.searchLabel}
+        </label>
+        <Search
+          size={16}
+          aria-hidden
+          className="pointer-events-none absolute top-1/2 left-3.5 -translate-y-1/2 text-muted"
+        />
+        <Input
+          id="gallery-caption-search"
+          type="search"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder={t.galleryPage.searchPlaceholder}
+          autoComplete="off"
+          className="h-11 bg-black/50 pr-11 pl-10 [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none"
+        />
+        {query ? (
+          <button
+            type="button"
+            onClick={() => setQuery('')}
+            aria-label={t.galleryPage.searchClear}
+            className="absolute top-1/2 right-2 inline-flex size-8 -translate-y-1/2 items-center justify-center text-muted hover:text-primary"
+          >
+            <X size={14} aria-hidden />
+          </button>
+        ) : null}
+      </form>
+
       <FilterAccordion
-        className="mt-8 sm:mt-10"
+        className="mt-6 sm:mt-8"
         label={t.galleryPage.filters}
         toggleLabel={t.a11y.toggleFilters}
         summary={
@@ -275,8 +322,15 @@ export function GalleryGridHeader() {
 }
 
 export function GalleryGridMasonry() {
-  const { items, pagedItems, page, pageCount, setPage, setLightboxIndex } =
-    useGalleryGrid()
+  const {
+    items,
+    pagedItems,
+    query,
+    page,
+    pageCount,
+    setPage,
+    setLightboxIndex,
+  } = useGalleryGrid()
   const { t } = useLanguage()
 
   if (items.length === 0) {
@@ -287,7 +341,7 @@ export function GalleryGridMasonry() {
         aria-live="polite"
       >
         <p className="font-heading px-6 text-center text-xs tracking-[0.14em] text-muted uppercase">
-          {t.galleryPage.empty}
+          {query.trim() ? t.galleryPage.emptySearch : t.galleryPage.empty}
         </p>
       </div>
     )
@@ -363,14 +417,19 @@ export function GalleryGridMasonry() {
 export function GalleryGrid({ children }: { children?: ReactNode }) {
   const sourceItems = useLiveGallery()
   const [selected, setSelected] = useState<string[]>([])
+  const [query, setQuery] = useState('')
   const [sort, setSort] = useState<GallerySort>('order')
   const [page, setPage] = useState(1)
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
-  const items = useMemo(
-    () => filterGallery(selected, sort, sourceItems),
-    [selected, sort, sourceItems],
-  )
+  const items = useMemo(() => {
+    const filtered = filterGallery(selected, sort, sourceItems)
+    const needle = query.trim().toLowerCase()
+    if (!needle) return filtered
+    return filtered.filter((item) =>
+      (item.caption || item.alt).toLowerCase().includes(needle),
+    )
+  }, [query, selected, sort, sourceItems])
 
   const pageCount = Math.max(1, Math.ceil(items.length / GALLERY_PAGE_SIZE))
   const safePage = Math.min(page, pageCount)
@@ -405,6 +464,12 @@ export function GalleryGrid({ children }: { children?: ReactNode }) {
     setLightboxIndex(null)
   }
 
+  function handleQuery(next: string) {
+    setQuery(next)
+    setPage(1)
+    setLightboxIndex(null)
+  }
+
   return (
     <GalleryGridContext.Provider
       value={{
@@ -412,12 +477,14 @@ export function GalleryGrid({ children }: { children?: ReactNode }) {
         pagedItems,
         sourceItems,
         selected,
+        query,
         sort,
         page: safePage,
         pageCount,
         lightboxIndex,
         setLightboxIndex,
         setPage,
+        setQuery: handleQuery,
         toggleTag,
         clearTags,
         setSort: handleSort,

@@ -33,6 +33,9 @@ export function isAdminAuthorized(
 export function blobTokenFromEnv(
   env: Record<string, string | undefined>,
 ): string
+export function blobClientOptions(
+  env: Record<string, string | undefined>,
+): { token?: string; storeId?: string }
 export function blobConfiguredFromEnv(
   env: Record<string, string | undefined>,
 ): boolean
