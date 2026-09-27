@@ -239,9 +239,8 @@ const en = {
       'Planning a tour, broadcast, or production? Reach out — Andy is available for select engagements worldwide.',
     email: 'Email',
     location: 'Location',
-    sent: 'Message Sent',
-    sentBody:
-      'Thanks for reaching out. Your message was sent to {email}. Andy will get back to you soon.',
+    sent: 'Message submitted',
+    sentBody: 'Thanks for reaching out. Andy will get back to you soon.',
     sendAnother: 'Send Another',
     name: 'Name',
     namePlaceholder: 'Your name',
@@ -252,10 +251,7 @@ const en = {
     messagePlaceholder: 'Tell Andy about the project…',
     send: 'Send Message',
     sending: 'Sending…',
-    error: 'Could not send message. Please email directly.',
-    emailLink: 'Email {email}',
-    mailFallback:
-      'This site can’t deliver email yet. Your mail app should open a message to {email}.',
+    error: 'Could not send message. Please try again.',
   },
   media: {
     seoTitle: 'Press & Media',
@@ -711,9 +707,8 @@ const de = {
       'Tour, Broadcast oder Produktion in Planung? Meldet euch — Andy ist weltweit für ausgewählte Engagements zu haben.',
     email: 'E-Mail',
     location: 'Standort',
-    sent: 'Nachricht gesendet',
-    sentBody:
-      'Danke für die Nachricht. Sie ging an {email}. Andy meldet sich in Kürze.',
+    sent: 'Nachricht übermittelt',
+    sentBody: 'Danke für die Nachricht. Andy meldet sich in Kürze.',
     sendAnother: 'Weitere senden',
     name: 'Name',
     namePlaceholder: 'Dein Name',
@@ -724,10 +719,7 @@ const de = {
     messagePlaceholder: 'Erzähl Andy vom Projekt…',
     send: 'Nachricht senden',
     sending: 'Wird gesendet…',
-    error: 'Nachricht konnte nicht gesendet werden. Bitte direkt per E-Mail.',
-    emailLink: 'E-Mail an {email}',
-    mailFallback:
-      'Diese Website kann E-Mail noch nicht zustellen. Dein Mailprogramm sollte eine Nachricht an {email} öffnen.',
+    error: 'Nachricht konnte nicht gesendet werden. Bitte erneut versuchen.',
   },
   media: {
     seoTitle: 'Presse & Medien',

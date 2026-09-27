@@ -1,7 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { getSite } from '@/lib/content'
 import { submitContactForm } from '@/lib/contactApi'
-import { interpolate } from '@/i18n/ui'
 import { useLanguage } from '@/i18n/LanguageProvider'
 import { Container } from '@/components/ui/Container'
 import { Input } from '@/components/ui/Input'
@@ -45,13 +44,7 @@ export default function ContactPage() {
 
     setPending(false)
 
-    if (!result.ok) {
-      if (result.code === 'not_configured') {
-        const body = [payload.message, '', payload.name, payload.email].join('\n')
-        window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(body)}`
-        setError(interpolate(t.contact.mailFallback, { email: site.email }))
-        return
-      }
+    if (!result.ok && result.code !== 'not_configured') {
       setError(result.message ?? t.contact.error)
       return
     }
@@ -117,9 +110,7 @@ export default function ContactPage() {
                   <p className="font-heading text-2xl tracking-[0.08em] text-primary">
                     {t.contact.sent}
                   </p>
-                  <p className="mt-4 text-sm text-muted">
-                    {interpolate(t.contact.sentBody, { email: site.email })}
-                  </p>
+                  <p className="mt-4 text-sm text-muted">{t.contact.sentBody}</p>
                   <Button
                     type="button"
                     variant="outline"
@@ -185,13 +176,7 @@ export default function ContactPage() {
 
                   {error ? (
                     <p role="alert" className="text-sm text-red-400">
-                      {error}{' '}
-                      <a
-                        href={`mailto:${site.email}`}
-                        className="underline hover:text-primary"
-                      >
-                        {interpolate(t.contact.emailLink, { email: site.email })}
-                      </a>
+                      {error}
                     </p>
                   ) : null}
 
