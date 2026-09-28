@@ -4,27 +4,22 @@ import {
   blobConfiguredFromEnv,
 } from './galleryStore.js'
 
-const CONTACT_BLOB_PATH = 'contact/submissions.json'
+const LEGACY_BLOB_PATH = 'contact/submissions.json'
+const MESSAGE_PREFIX = 'contact/messages/'
 const MAX_STORED = 500
 
 function blobOptions(env) {
   return blobClientOptions(env)
 }
 
+function messagePath(id) {
+  return `${MESSAGE_PREFIX}${id}.json`
+}
+
 function isMissingBlob(err) {
   const name = err && typeof err === 'object' && 'name' in err ? String(err.name) : ''
   const msg = err instanceof Error ? err.message : String(err)
   return name === 'BlobNotFoundError' || /requested blob does not exist|blobnotfound/i.test(msg)
-}
-
-function isWriteConflict(err) {
-  const name = err && typeof err === 'object' && 'name' in err ? String(err.name) : ''
-  const msg = err instanceof Error ? err.message : String(err)
-  return (
-    name === 'BlobAlreadyExistsError' ||
-    name === 'BlobPreconditionFailedError' ||
-    /already exists|cannot be overwritten|overwrite not allowed|precondition|etag/i.test(msg)
-  )
 }
 
 function sanitizeItem(raw) {
@@ -47,58 +42,90 @@ function sanitizeItem(raw) {
   }
 }
 
-async function readContacts(blob, options) {
-  let meta
-  try {
-    meta = await blob.head(CONTACT_BLOB_PATH, options)
-  } catch (err) {
-    if (isMissingBlob(err)) return { items: [], etag: null }
-    throw err
+function putOptions(options, allowOverwrite) {
+  return {
+    access: 'public',
+    addRandomSuffix: false,
+    allowOverwrite,
+    contentType: 'application/json',
+    cacheControlMaxAge: 60,
+    ...options,
   }
-
-  if (!meta?.url || !meta.etag) return { items: [], etag: null }
-
-  const response = await fetch(`${meta.url}?t=${Date.now()}`, { cache: 'no-store' })
-  if (response.status === 404) return { items: [], etag: null }
-  if (!response.ok) {
-    throw new Error(`Could not read contact messages (${response.status})`)
-  }
-
-  const payload = JSON.parse(await response.text())
-  const items = Array.isArray(payload?.items)
-    ? payload.items.map(sanitizeItem).filter(Boolean)
-    : []
-  return { items, etag: meta.etag }
 }
 
-async function writeContacts(env, mutate) {
-  const blob = await import('@vercel/blob')
-  const options = blobOptions(env)
+async function readJson(blob, pathname, options) {
+  try {
+    const result = await blob.get(pathname, {
+      access: 'public',
+      useCache: false,
+      ...options,
+    })
+    if (!result?.stream) return null
+    return JSON.parse(await new Response(result.stream).text())
+  } catch (err) {
+    if (isMissingBlob(err)) return null
+    throw err
+  }
+}
 
-  for (let attempt = 0; attempt < 4; attempt++) {
-    const current = await readContacts(blob, options)
-    const items = mutate(current.items).slice(0, MAX_STORED)
+async function readLegacyItems(blob, options) {
+  const payload = await readJson(blob, LEGACY_BLOB_PATH, options)
+  return Array.isArray(payload?.items)
+    ? payload.items.map(sanitizeItem).filter(Boolean)
+    : []
+}
+
+async function listMessageEntries(blob, options) {
+  const entries = []
+  let cursor
+  do {
+    const page = await blob.list({
+      prefix: MESSAGE_PREFIX,
+      limit: 1000,
+      cursor,
+      ...options,
+    })
+    entries.push(...(page.blobs ?? []))
+    cursor = page.hasMore ? page.cursor : undefined
+  } while (cursor)
+  return entries
+}
+
+async function readMessageEntries(blob, options) {
+  const entries = await listMessageEntries(blob, options)
+  const items = await Promise.all(
+    entries.map(async (entry) => {
+      const payload = await readJson(blob, entry.pathname, options)
+      return sanitizeItem(payload)
+    }),
+  )
+  return items.filter(Boolean)
+}
+
+/** Older submissions lived in one file. A follow-up write of that file dropped new mail. */
+async function promoteLegacyItems(blob, options, current) {
+  const legacy = await readLegacyItems(blob, options)
+  const known = new Set(current.map((item) => item.id))
+  const promoted = []
+  for (const item of legacy) {
+    if (known.has(item.id)) continue
     try {
-      await blob.put(CONTACT_BLOB_PATH, JSON.stringify({ items }), {
-        access: 'public',
-        addRandomSuffix: false,
-        allowOverwrite: Boolean(current.etag),
-        contentType: 'application/json',
-        cacheControlMaxAge: 0,
-        ...(current.etag ? { ifMatch: current.etag } : {}),
-        ...options,
-      })
-      return items
+      await blob.put(messagePath(item.id), JSON.stringify(item), putOptions(options, false))
+      promoted.push(item)
+      known.add(item.id)
     } catch (err) {
-      if (isWriteConflict(err) && attempt < 3) {
-        await new Promise((resolve) => setTimeout(resolve, 250 * (attempt + 1)))
-        continue
+      if (!isMissingBlob(err) && !/already exists|cannot be overwritten/i.test(String(err?.message))) {
+        console.error('Could not copy a stored contact message', err)
       }
-      throw err
     }
   }
+  return promoted
+}
 
-  throw new Error('Could not save contact messages')
+function newestFirst(items) {
+  return [...items]
+    .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
+    .slice(0, MAX_STORED)
 }
 
 export async function saveContactSubmission(fields, env) {
@@ -117,7 +144,9 @@ export async function saveContactSubmission(fields, env) {
   }
 
   try {
-    await writeContacts(env, (items) => [item, ...items.filter((row) => row.id !== item.id)])
+    const blob = await import('@vercel/blob')
+    const options = blobOptions(env)
+    await blob.put(messagePath(item.id), JSON.stringify(item), putOptions(options, false))
     return { ok: true, configured: true, id: item.id }
   } catch (err) {
     return {
@@ -132,8 +161,15 @@ export async function saveContactSubmission(fields, env) {
 export async function markContactEmailSent(id, env) {
   if (!id || !blobConfiguredFromEnv(env)) return
   try {
-    await writeContacts(env, (items) =>
-      items.map((item) => (item.id === id ? { ...item, emailSent: true } : item)),
+    const blob = await import('@vercel/blob')
+    const options = blobOptions(env)
+    const payload = await readJson(blob, messagePath(id), options)
+    const item = sanitizeItem(payload)
+    if (!item) return
+    await blob.put(
+      messagePath(id),
+      JSON.stringify({ ...item, emailSent: true }),
+      putOptions(options, true),
     )
   } catch (err) {
     console.error('Could not mark contact email as sent', err)
@@ -151,13 +187,30 @@ export async function deleteContactSubmission(id, env) {
   }
 
   try {
-    let removed = false
-    await writeContacts(env, (items) => {
-      const next = items.filter((item) => item.id !== messageId)
-      removed = next.length !== items.length
-      return next
-    })
-    if (!removed) {
+    const blob = await import('@vercel/blob')
+    const options = blobOptions(env)
+    const pathname = messagePath(messageId)
+    let existed = false
+    try {
+      await blob.head(pathname, options)
+      existed = true
+    } catch (err) {
+      if (!isMissingBlob(err)) throw err
+    }
+    if (existed) await blob.del(pathname, options)
+
+    const legacy = await readLegacyItems(blob, options)
+    if (legacy.some((item) => item.id === messageId)) {
+      const next = legacy.filter((item) => item.id !== messageId)
+      await blob.put(
+        LEGACY_BLOB_PATH,
+        JSON.stringify({ items: next }),
+        putOptions(options, true),
+      )
+      existed = true
+    }
+
+    if (!existed) {
       return { ok: false, configured: true, error: 'Message not found', status: 404 }
     }
     return { ok: true, configured: true }
@@ -178,11 +231,14 @@ export async function listContactSubmissions(env) {
 
   try {
     const blob = await import('@vercel/blob')
-    const { items } = await readContacts(blob, blobOptions(env))
-    const newestFirst = [...items].sort(
-      (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt),
-    )
-    return { ok: true, configured: true, items: newestFirst.slice(0, 200) }
+    const options = blobOptions(env)
+    const stored = await readMessageEntries(blob, options)
+    const promoted = await promoteLegacyItems(blob, options, stored)
+    return {
+      ok: true,
+      configured: true,
+      items: newestFirst([...promoted, ...stored]),
+    }
   } catch (err) {
     return {
       ok: false,

@@ -63,7 +63,7 @@ export function contactApiPlugin(rootDir: string): Plugin {
             await markContactEmailSent(saved.id, record)
           }
 
-          if (emailed.ok) {
+          if (saved.ok && emailed.ok) {
             json(res, 200, { ok: true })
             return
           }
@@ -72,7 +72,15 @@ export function contactApiPlugin(rootDir: string): Plugin {
             console.error('Contact save failed', saved.error)
           }
           if (!saved.configured) console.error('Contact Blob storage is not configured')
-          console.error('Contact email failed', emailed.error)
+          if (!emailed.ok) console.error('Contact email failed', emailed.error)
+
+          if (!saved.ok) {
+            json(res, saved.status ?? 500, {
+              ok: false,
+              error: saved.error || 'Could not save message',
+            })
+            return
+          }
 
           if (emailed.status === 503) {
             json(res, 503, {
