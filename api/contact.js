@@ -40,7 +40,7 @@ function contactEnv() {
     toEmail: (env.CONTACT_TO_EMAIL ?? 'info@andyebert.com').trim(),
     fromEmail: (
       env.CONTACT_FROM_EMAIL ??
-      'Andy Ebert Contact <onboarding@resend.dev>'
+      'Andy Ebert <noreply@pracdrum.com>'
     ).trim(),
   }
 }
