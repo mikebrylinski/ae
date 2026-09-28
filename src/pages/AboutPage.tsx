@@ -63,10 +63,10 @@ const CHAPTERS: Chapter[] = [
     wrap: true,
     images: [
       {
-        label: "Ticket for a concert of Andy's band, The Taylors, + 2 more in West Berlin, 1987.",
+        label: 'Andy with his first electric guitar and amp at age 11.',
         aspect: 'aspect-[4/3]',
-        src: 'https://twj9hkdxnej2mgbm.public.blob.vercel-storage.com/gallery/photos/1790301069106-taylors-1987.jpg',
-        focus: 'object-[18%_center]',
+        src: 'https://twj9hkdxnej2mgbm.public.blob.vercel-storage.com/gallery/photos/1790381992324-scan829.jpg',
+        focus: 'object-[50%_18.4%]',
       },
     ],
   },
@@ -131,9 +131,10 @@ const CHAPTERS: Chapter[] = [
     wrap: true,
     images: [
       {
-        label: 'Puddle of Mudd crew, Jack, Elwood & Toby Francis, Lars Ide, Bus driver, Andy.',
+        label:
+          "Toby Francis (FOH), Elmo (Axl's monitor engineer), and Andy (band monitor engineer). Press shot for a Guns N' Roses article.",
         aspect: 'aspect-[4/3]',
-        src: '/images/gallery/backstage-2.jpg',
+        src: 'https://twj9hkdxnej2mgbm.public.blob.vercel-storage.com/gallery/photos/1789071142711-12-6-06-guns-n-roses-2.jpg',
         focus: 'object-center',
       },
       {

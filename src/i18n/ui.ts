@@ -133,7 +133,7 @@ const en = {
         eyebrow: 'West Berlin',
         dek: 'Where it all began.',
         alts: [
-          "Ticket for a concert of Andy's band, The Taylors, + 2 more in West Berlin, 1987.",
+          'Andy with his first electric guitar and amp at age 11.',
         ],
       },
       {
@@ -160,7 +160,7 @@ const en = {
         eyebrow: 'Worldwide',
         dek: 'Long-form relationships with top artists.',
         alts: [
-          'Puddle of Mudd crew, Jack, Elwood & Toby Francis, Lars Ide, Bus driver, Andy.',
+          "Toby Francis (FOH), Elmo (Axl's monitor engineer), and Andy (band monitor engineer). Press shot for a Guns N' Roses article.",
           'ML Procise and Andy in Tokio - sharing a console, mixing monitors from FOH for a Puddle of Mudd acoustic promo show.',
         ],
       },
@@ -601,7 +601,7 @@ const de = {
         eyebrow: 'West-Berlin',
         dek: 'Wo alles begann.',
         alts: [
-          'Ticket für ein Konzert von Andys Band, The Taylors, und zwei weiteren Acts in West-Berlin, 1987.',
+          'Andy mit seiner ersten E-Gitarre und dem Verstärker im Alter von 11 Jahren.',
         ],
       },
       {
@@ -628,7 +628,7 @@ const de = {
         eyebrow: 'Weltweit',
         dek: 'Langfristige Beziehungen mit Top-Artists.',
         alts: [
-          'Puddle-of-Mudd-Crew: Jack, Elwood & Toby Francis, Lars Ide, Busfahrer, Andy.',
+          'Toby Francis (FOH), Elmo (Axls Monitor Engineer) und Andy (Band-Monitor-Engineer). Pressefoto für einen Guns-N’-Roses-Artikel.',
           'ML Procise und Andy in Tokio — gemeinsam am Pult, Monitore vom FOH für eine akustische Puddle-of-Mudd-Promo-Show.',
         ],
       },
