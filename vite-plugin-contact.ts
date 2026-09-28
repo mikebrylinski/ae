@@ -82,19 +82,21 @@ export function contactApiPlugin(rootDir: string): Plugin {
             return
           }
 
-          if (emailed.status === 503) {
-            json(res, 503, {
-              ok: false,
-              code: 'not_configured',
-              error: 'Email service is not configured',
-            })
-            return
-          }
+          if (!emailed.ok) {
+            if (emailed.status === 503) {
+              json(res, 503, {
+                ok: false,
+                code: 'not_configured',
+                error: 'Email service is not configured',
+              })
+              return
+            }
 
-          json(res, emailed.status ?? 500, {
-            ok: false,
-            error: 'Could not send message',
-          })
+            json(res, emailed.status ?? 500, {
+              ok: false,
+              error: 'Could not send message',
+            })
+          }
         } catch (err) {
           json(res, 500, {
             ok: false,
