@@ -728,6 +728,18 @@ function parseYearSpan(year: string): YearSpan {
     return { start: Number.parseInt(openRange[1], 10), end: now, open: true }
   }
 
+  const plusSeparated = trimmed.match(/^(\d{4})(?:\s*\+\s*\d{4})+$/)
+  if (plusSeparated) {
+    const years = [...trimmed.matchAll(/\d{4}/g)].map((match) =>
+      Number.parseInt(match[0], 10),
+    )
+    return {
+      start: Math.min(...years),
+      end: Math.max(...years),
+      literal: trimmed,
+    }
+  }
+
   const match = trimmed.match(/^(\d{4})(?:\s*[–-]\s*(\d{4}))?$/)
   if (!match) {
     const fallback = Number.parseInt(trimmed, 10)

@@ -1,5 +1,5 @@
 {
-  "intro": "Among those are hundreds of corporate and other events as FOH or monitor engineer, as well as tours and one-off shows with the following artists and festivals:",
+  "intro": "Among those are hundreds of corporate and other events as FOH or Monitor Engineer, festivals as local Monitor Engineer, as well as tours and one-off shows with the following artists:",
   "groups": [
     {
       "heading": "Monitor Engineer",
@@ -39,6 +39,10 @@
             {
               "name": "30 Seconds To Mars (rehearsals)",
               "href": "https://en.wikipedia.org/wiki/Thirty_Seconds_to_Mars"
+            },
+            {
+              "name": "Jay Z (rehearsals)",
+              "href": "https://en.wikipedia.org/wiki/Jay-Z"
             }
           ]
         },

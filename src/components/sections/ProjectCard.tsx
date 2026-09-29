@@ -52,10 +52,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </h3>
           <p className="mt-1 text-[9px] leading-snug tracking-[0.1em] text-white/75 uppercase sm:mt-2 sm:text-[11px] sm:tracking-[0.12em]">
             {localized.year}
-            <span className="mx-1 text-white/35 sm:mx-1.5" aria-hidden>
-              ·
-            </span>
-            {localized.role}
+            {project.slug === 'countless-artists' ? null : (
+              <>
+                <span className="mx-1 text-white/35 sm:mx-1.5" aria-hidden>
+                  ·
+                </span>
+                {localized.role}
+              </>
+            )}
           </p>
         </div>
       </div>

@@ -245,12 +245,14 @@ function CreditCard({
             </p>
           ) : null}
 
-          <Badge
-            variant={credit.role === 'FOH Engineer' ? 'muted' : 'default'}
-            className="ml-auto w-fit shrink-0 px-1.5 pt-[3px] pb-px text-[9px] leading-none sm:px-2.5 sm:pt-1 sm:pb-[3px] sm:text-[11px]"
-          >
-            {roleBadgeLabel(credit.role, t.credits.foh, t.credits.monitors)}
-          </Badge>
+          {credit.artist === 'Countless artists' ? null : (
+            <Badge
+              variant={credit.role === 'FOH Engineer' ? 'muted' : 'default'}
+              className="ml-auto w-fit shrink-0 px-1.5 pt-[3px] pb-px text-[9px] leading-none sm:px-2.5 sm:pt-1 sm:pb-[3px] sm:text-[11px]"
+            >
+              {roleBadgeLabel(credit.role, t.credits.foh, t.credits.monitors)}
+            </Badge>
+          )}
         </div>
       </div>
     </>

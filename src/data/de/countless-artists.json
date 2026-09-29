@@ -1,5 +1,5 @@
 {
-  "intro": "Darunter Hunderte Corporate- und andere Events als FOH- oder Monitor Engineer sowie Touren oder One-off-Shows mit den folgenden Artists und Festivals:",
+  "intro": "Darunter Hunderte Corporate- und andere Events als FOH- oder Monitor Engineer, Festivals als lokaler Monitor Engineer sowie Touren und One-off-Shows mit den folgenden Artists:",
   "groups": [
     {
       "heading": "Monitor Engineer",
@@ -39,6 +39,10 @@
             {
               "name": "30 Seconds To Mars (Proben)",
               "href": "https://en.wikipedia.org/wiki/Thirty_Seconds_to_Mars"
+            },
+            {
+              "name": "Jay Z (Proben)",
+              "href": "https://en.wikipedia.org/wiki/Jay-Z"
             }
           ]
         },

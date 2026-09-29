@@ -343,7 +343,7 @@
     "slug": "sugar-ray",
     "title": "USA Tours",
     "artist": "Sugar Ray",
-    "year": "2004, 2009",
+    "year": "2004 + 2009",
     "role": "Monitor Engineer",
     "category": [
       "Amphitheaters",
@@ -355,7 +355,7 @@
     "heroImage": "/images/projects/cards/sugar-ray.jpg",
     "thumbnail": "/images/logos/sugar-ray.png",
     "icon": "Music",
-    "overview": "Monitor engineer for Sugar Ray (2004, 2009) across USA amphitheaters, corporate, festivals, and TV.",
+    "overview": "Monitor engineer for Sugar Ray (2004 + 2009) across USA amphitheaters, corporate, festivals, and TV.",
     "responsibilities": [
       "Artist and band monitor mixes",
       "Show-file and cue management",
@@ -1389,7 +1389,7 @@
     "heroImage": "/images/media/headshot-3.jpg",
     "thumbnail": "/images/media/headshot-3.jpg",
     "icon": "Users",
-    "overview": "Among those are hundreds of corporate and other events as FOH or monitor engineer, as well as tours and one-off shows with the following artists and festivals.",
+    "overview": "Among those are hundreds of corporate and other events as FOH or Monitor Engineer, festivals as local Monitor Engineer, as well as tours and one-off shows with the following artists.",
     "responsibilities": [],
     "technicalSetup": "FOH, monitor, systems, PA tech, and backline roles across corporate events, festivals, tours, and one-offs in Europe and the USA.",
     "equipment": [

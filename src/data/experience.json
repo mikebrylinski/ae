@@ -369,7 +369,7 @@
       "featured": true
     },
     {
-      "year": "2009",
+      "year": "2004 + 2009",
       "artist": "Sugar Ray",
       "region": "One offs, USA",
       "role": "Monitor Engineer",
@@ -521,13 +521,6 @@
       "region": "USA",
       "role": "Monitor Engineer",
       "featured": true
-    },
-    {
-      "year": "2004",
-      "artist": "Sugar Ray",
-      "region": "USA",
-      "role": "Monitor Engineer",
-      "featured": false
     },
     {
       "year": "2003",
