@@ -71,7 +71,16 @@ export default function JustOneQuestionPage() {
         <section className="relative z-10 border-b border-border pb-[clamp(4rem,8vw,7rem)] pt-10 md:pt-14">
           <Container className="max-w-5xl">
             <p className="text-base leading-relaxed text-foreground/85 sm:text-lg">
-              {copy.intro}
+              {copy.introBefore}
+              <a
+                href={copy.introCompanyHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary underline decoration-primary/40 underline-offset-4 transition-colors hover:decoration-primary"
+              >
+                {copy.introCompany}
+              </a>
+              {copy.introAfter}
             </p>
 
             <figure className="glass-card mt-8 overflow-hidden p-0 sm:mt-10">

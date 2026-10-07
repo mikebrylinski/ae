@@ -347,8 +347,11 @@ const en = {
     title: 'Just One Question',
     subtitle:
       'Featured in Greg McVeigh’s Just 100 Questions — a collection of thoughts on music and sound.',
-    intro:
-      'In Just 100 Questions, Heil Sound’s Greg McVeigh asks top touring mixers, musicians, and industry pros just one focused question each. The answers add up to a love letter to the people who make live shows happen — with a portion of proceeds supporting The Roadie Clinic.',
+    introBefore: 'In Just 100 Questions, Greg McVeigh of ',
+    introCompany: 'Guest House Projects',
+    introCompanyHref: 'https://www.guesthouseprojects.com/',
+    introAfter:
+      ' asks top touring mixers, musicians, and industry pros just one focused question each. The answers add up to a love letter to the people who make live shows happen — with a portion of proceeds supporting The Roadie Clinic.',
     coverAlt:
       'Just 100 Questions book by Greg McVeigh on a mixing console — a love letter to the touring and live sound world',
     imageAlt:
@@ -880,8 +883,11 @@ const de = {
     title: 'Just One Question',
     subtitle:
       'Zu sehen in Greg McVeighs Just 100 Questions — Gedanken zu Musik und Sound.',
-    intro:
-      'In Just 100 Questions stellt Greg McVeigh von Heil Sound Top-Tourmixern, Musikern und Branchenprofis jeweils nur eine gezielte Frage. Die Antworten werden zum Liebesbrief an die Menschen, die Live-Shows möglich machen — ein Teil der Erlöse geht an The Roadie Clinic.',
+    introBefore: 'In Just 100 Questions stellt Greg McVeigh von ',
+    introCompany: 'Guest House Projects',
+    introCompanyHref: 'https://www.guesthouseprojects.com/',
+    introAfter:
+      ' Top-Tourmixern, Musikern und Branchenprofis jeweils nur eine gezielte Frage. Die Antworten werden zum Liebesbrief an die Menschen, die Live-Shows möglich machen — ein Teil der Erlöse geht an The Roadie Clinic.',
     coverAlt:
       'Just 100 Questions von Greg McVeigh auf einem Mischpult — ein Liebesbrief an die Touring- und Live-Sound-Welt',
     imageAlt:
