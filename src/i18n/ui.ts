@@ -322,9 +322,12 @@ const en = {
     all: 'All',
     interviews: 'Interviews',
     articles: 'Articles',
+    videos: 'Videos',
     reviews: 'Reviews',
     openPdf: 'Open PDF',
     readArticle: 'Read article',
+    watchVideo: 'Watch video',
+    listenPodcast: 'Listen',
     empty: 'No press in this filter.',
     types: {
       Interview: 'Interview',
@@ -332,6 +335,68 @@ const en = {
       Video: 'Video',
       Review: 'Review',
       Podcast: 'Podcast',
+    },
+  },
+  justOneQuestion: {
+    seoTitle: 'Just One Question — Greg McVeigh',
+    seoDescription:
+      'Andy Ebert’s Just One Question feature from Greg McVeigh’s book Just 100 Questions — on RF challenges, IEMs, and mixing monitors for Alanis Morissette.',
+    back: 'Back to Press',
+    badge: 'Interview',
+    meta: 'Just 100 Questions · Mar 2025',
+    title: 'Just One Question',
+    subtitle:
+      'Featured in Greg McVeigh’s Just 100 Questions — a collection of thoughts on music and sound.',
+    intro:
+      'In Just 100 Questions, Heil Sound’s Greg McVeigh asks top touring mixers, musicians, and industry pros just one focused question each. The answers add up to a love letter to the people who make live shows happen — with a portion of proceeds supporting The Roadie Clinic.',
+    coverAlt:
+      'Just 100 Questions book by Greg McVeigh on a mixing console — a love letter to the touring and live sound world',
+    imageAlt:
+      'Andy Ebert’s Just One Question page from Greg McVeigh’s book Just 100 Questions',
+    subjectLabel: 'Featured',
+    subjectName: 'Andy Ebert',
+    subjectMeta: 'Venice, FL · Sound Mixer',
+    questionLabel: 'The question',
+    question:
+      'You travel the world as a monitor mixer for high profile artists, notably Alanis Morissette, and all are on IEMs. How do you prepare for, and deal with, the myriad of RF challenges that this presents?',
+    answer:
+      'The short answer is preparation, spare bodypacks, Wireless Workbench and a system tech/RF coordinator. Available frequency ranges for our industry have become more and more limited and so RF coordination has been its own position on large tours and festivals. In order for me not to get distracted with wireless problems that do happen from time to time at soundcheck, or worse, during a show, I have outsourced that job to our monitor systems tech. They are able to react if a problem arises, working with musicians and/or their techs while I can keep focusing on mixing and paying full attention to artist and band. There is a lot that goes into this including scanning frequencies each day – several times a day, actually – and importing them into a computer program which helps not only ensure that the frequencies are available but then syncs all of the IEMs that are being used in our show. Of course, unexpected problems can arise, even during the show but we prepare for that. The good news, for me, is Alanis is on a hardwired mic!',
+    buyEyebrow: 'The book',
+    buyTitle: 'Just 100 Questions',
+    buyBody:
+      'A love letter to the touring and live sound world by Greg McVeigh. A portion of proceeds supports The Roadie Clinic.',
+    buyCta: 'Buy the book',
+  },
+  hittinEzine: {
+    seoTitle: "Hittin' EZine Interview Series",
+    seoDescription:
+      "Four short Hittin' EZine YouTube interview clips with Andy Ebert — Ultimate Ears, Road Duties, PreMixing, and an Engineer's Advice.",
+    back: 'Back to Press',
+    badge: 'Video',
+    meta: "Hittin' EZine · Dec 2012",
+    title: "Hittin' EZine Interviews",
+    subtitle:
+      'A four-clip interview series with Andy on IEMs, road life, premixing, and advice for engineers.',
+    imageAlt: "Hittin' EZine logo",
+    clipsLabel: 'Watch the clips',
+    watch: 'Watch',
+    clips: {
+      'ultimate-ears': {
+        title: 'Ultimate Ears',
+        description: 'In-ear monitoring on the road.',
+      },
+      'road-duties': {
+        title: 'Road Duties',
+        description: 'Day-to-day duties as a touring monitor engineer.',
+      },
+      premixing: {
+        title: 'PreMixing',
+        description: 'Preparing monitor mixes for show day.',
+      },
+      'engineers-advice': {
+        title: "An Engineer's Advice",
+        description: 'Advice for engineers working in live sound.',
+      },
     },
   },
   project: {
@@ -790,9 +855,12 @@ const de = {
     all: 'Alle',
     interviews: 'Interviews',
     articles: 'Artikel',
+    videos: 'Videos',
     reviews: 'Rezensionen',
     openPdf: 'PDF öffnen',
     readArticle: 'Artikel lesen',
+    watchVideo: 'Video ansehen',
+    listenPodcast: 'Anhören',
     empty: 'Keine Presse in diesem Filter.',
     types: {
       Interview: 'Interview',
@@ -800,6 +868,68 @@ const de = {
       Video: 'Video',
       Review: 'Rezension',
       Podcast: 'Podcast',
+    },
+  },
+  justOneQuestion: {
+    seoTitle: 'Just One Question — Greg McVeigh',
+    seoDescription:
+      'Andy Eberts Just-One-Question-Beitrag aus Greg McVeighs Buch Just 100 Questions — über Funkprobleme, IEMs und Monitor-Mixing für Alanis Morissette.',
+    back: 'Zurück zur Presse',
+    badge: 'Interview',
+    meta: 'Just 100 Questions · März 2025',
+    title: 'Just One Question',
+    subtitle:
+      'Zu sehen in Greg McVeighs Just 100 Questions — Gedanken zu Musik und Sound.',
+    intro:
+      'In Just 100 Questions stellt Greg McVeigh von Heil Sound Top-Tourmixern, Musikern und Branchenprofis jeweils nur eine gezielte Frage. Die Antworten werden zum Liebesbrief an die Menschen, die Live-Shows möglich machen — ein Teil der Erlöse geht an The Roadie Clinic.',
+    coverAlt:
+      'Just 100 Questions von Greg McVeigh auf einem Mischpult — ein Liebesbrief an die Touring- und Live-Sound-Welt',
+    imageAlt:
+      'Andy Eberts Just-One-Question-Seite aus Greg McVeighs Buch Just 100 Questions',
+    subjectLabel: 'Im Porträt',
+    subjectName: 'Andy Ebert',
+    subjectMeta: 'Venice, FL · Sound Mixer',
+    questionLabel: 'Die Frage',
+    question:
+      'Du reist als Monitor-Mixer mit hochkarätigen Artists um die Welt, vor allem Alanis Morissette, und alle sind auf IEMs. Wie bereitest du dich auf die vielen Funk-Herausforderungen vor — und wie gehst du damit um?',
+    answer:
+      'Die kurze Antwort: Vorbereitung, Ersatz-Bodypacks, Wireless Workbench und ein System-Tech/RF-Koordinator. Die verfügbaren Frequenzbereiche für unsere Branche werden immer knapper, deshalb ist Funkkoordination auf großen Touren und Festivals längst eine eigene Position. Damit ich mich bei Soundcheck — oder schlimmer: während der Show — nicht von Funkproblemen ablenken lasse, habe ich diesen Job an unseren Monitor-Systems-Tech ausgelagert. Der kann reagieren, wenn etwas passiert, mit Musikern und/oder ihren Techs arbeiten, während ich mich weiter aufs Mischen und die volle Aufmerksamkeit für Artist und Band konzentriere. Dahinter steckt viel: Frequenzen jeden Tag scannen — eigentlich mehrmals am Tag — und in ein Programm importieren, das nicht nur prüft, ob sie frei sind, sondern auch alle IEMs in unserer Show synct. Natürlich können unerwartete Probleme auch während der Show auftreten, aber wir bereiten uns darauf vor. Die gute Nachricht für mich: Alanis ist auf einem kabelgebundenen Mikro!',
+    buyEyebrow: 'Das Buch',
+    buyTitle: 'Just 100 Questions',
+    buyBody:
+      'Ein Liebesbrief an die Touring- und Live-Sound-Welt von Greg McVeigh. Ein Teil der Erlöse geht an The Roadie Clinic.',
+    buyCta: 'Buch kaufen',
+  },
+  hittinEzine: {
+    seoTitle: "Hittin' EZine Interview-Serie",
+    seoDescription:
+      "Vier kurze Hittin' EZine YouTube-Interviewclips mit Andy Ebert — Ultimate Ears, Road Duties, PreMixing und An Engineer's Advice.",
+    back: 'Zurück zur Presse',
+    badge: 'Video',
+    meta: "Hittin' EZine · Dez 2012",
+    title: "Hittin' EZine Interviews",
+    subtitle:
+      'Eine vierteilige Interviewserie mit Andy zu IEMs, Touralltag, Premixing und Tipps für Engineers.',
+    imageAlt: "Hittin' EZine Logo",
+    clipsLabel: 'Clips ansehen',
+    watch: 'Ansehen',
+    clips: {
+      'ultimate-ears': {
+        title: 'Ultimate Ears',
+        description: 'In-Ear-Monitoring auf Tour.',
+      },
+      'road-duties': {
+        title: 'Road Duties',
+        description: 'Der Alltag als tourender Monitor Engineer.',
+      },
+      premixing: {
+        title: 'PreMixing',
+        description: 'Monitor-Mixes für den Showtag vorbereiten.',
+      },
+      'engineers-advice': {
+        title: "An Engineer's Advice",
+        description: 'Tipps für Engineers im Live-Sound.',
+      },
     },
   },
   project: {

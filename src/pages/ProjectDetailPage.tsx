@@ -11,9 +11,10 @@ import {
   localizePressType,
   localizeProject,
   resolveProjectGallerySources,
-  pressAnchorProps,
+  pressHref,
   type ProjectGallerySource,
 } from '@/lib/content'
+import { PressNavLink } from '@/components/ui/PressNavLink'
 import { interpolate } from '@/i18n/ui'
 import { galleryPhotoPath } from '@/lib/share'
 import { Container } from '@/components/ui/Container'
@@ -436,14 +437,18 @@ export default function ProjectDetailPage() {
               </h2>
               <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
                 {pressItems.map((item) => {
-                  const link = pressAnchorProps(item)
+                  const href = pressHref(item)
                   const meta = [item.publication, item.date]
                     .filter(Boolean)
                     .join(' · ')
                   const cta = item.pdf
                     ? t.press.openPdf
-                    : link
-                      ? t.press.readArticle
+                    : href
+                      ? item.type === 'Video'
+                        ? t.press.watchVideo
+                        : item.type === 'Podcast'
+                          ? t.press.listenPodcast
+                          : t.press.readArticle
                       : null
                   const inner = (
                     <>
@@ -498,13 +503,13 @@ export default function ProjectDetailPage() {
                       key={item.id}
                       className="glass-card min-w-0 overflow-hidden transition-[border-color,box-shadow] duration-500 hover:border-primary/30 hover:shadow-[0_0_24px_rgba(184,255,0,0.06)]"
                     >
-                      {link ? (
-                        <a
-                          {...link}
+                      {href ? (
+                        <PressNavLink
+                          item={item}
                           className="group flex h-full min-w-0 flex-col focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                         >
                           {inner}
-                        </a>
+                        </PressNavLink>
                       ) : (
                         <div className="flex h-full min-w-0 flex-col">{inner}</div>
                       )}

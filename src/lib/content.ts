@@ -207,6 +207,7 @@ export function localizeGroupedCredit(
 export type PressTypeFilter = 'all' | PressItem['type']
 
 export function pressHref(item: PressItem): string | undefined {
+  if (item.detailPath) return item.detailPath
   if (item.pdf) return item.pdf
   if (item.url && item.url !== '#') return item.url
   return undefined
@@ -215,6 +216,9 @@ export function pressHref(item: PressItem): string | undefined {
 export function pressAnchorProps(item: PressItem) {
   const href = pressHref(item)
   if (!href) return undefined
+  if (item.detailPath) {
+    return { href }
+  }
   return {
     href,
     target: '_blank' as const,

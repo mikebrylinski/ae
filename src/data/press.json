@@ -1,5 +1,19 @@
 [
   {
+    "id": "p25",
+    "title": "Just One Question — Andy Ebert",
+    "type": "Interview",
+    "publication": "Just 100 Questions",
+    "date": "Mar 2025",
+    "sortDate": "2025-03",
+    "excerpt": "Featured in Greg McVeigh’s Just 100 Questions — a one-question interview on RF challenges and IEM workflow while touring with Alanis Morissette.",
+    "detailPath": "/media/just-one-question",
+    "image": "/images/press/cards/just-100-questions-andy.jpg",
+    "projectSlugs": [
+      "alanis-morissette"
+    ]
+  },
+  {
     "id": "p23",
     "title": "Musikalische Denkweisen verstehen",
     "type": "Interview",
@@ -43,6 +57,17 @@
     "projectSlugs": [
       "the-weeknd"
     ]
+  },
+  {
+    "id": "p26",
+    "title": "Hittin' EZine Interview Series",
+    "type": "Video",
+    "publication": "Hittin' EZine",
+    "date": "Dec 2012",
+    "sortDate": "2012-12",
+    "excerpt": "Four short YouTube interview clips — Ultimate Ears, Road Duties, PreMixing, and an Engineer’s Advice.",
+    "detailPath": "/media/hittin-ezine",
+    "image": "/images/press/cards/hittin-ezine.jpg"
   },
   {
     "id": "p1",

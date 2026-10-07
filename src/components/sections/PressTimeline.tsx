@@ -11,9 +11,10 @@ import {
   getPressItems,
   getProjectBySlug,
   localizePressType,
-  pressAnchorProps,
+  pressHref,
   type PressTypeFilter,
 } from '@/lib/content'
+import { PressNavLink } from '@/components/ui/PressNavLink'
 import { interpolate } from '@/i18n/ui'
 import { useLanguage } from '@/i18n/LanguageProvider'
 import { getLenis } from '@/hooks/useLenis'
@@ -24,7 +25,13 @@ import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { cn } from '@/lib/utils'
 import type { PressItem } from '@/types'
 
-const TYPE_FILTER_IDS: PressTypeFilter[] = ['all', 'Interview', 'Article', 'Review']
+const TYPE_FILTER_IDS: PressTypeFilter[] = [
+  'all',
+  'Interview',
+  'Article',
+  'Video',
+  'Review',
+]
 
 const PAGE_SIZE = 10
 
@@ -161,8 +168,16 @@ function PressCard({
   className?: string
 }) {
   const { lang, t } = useLanguage()
-  const link = pressAnchorProps(item)
-  const cta = item.pdf ? t.press.openPdf : link ? t.press.readArticle : null
+  const href = pressHref(item)
+  const cta = item.pdf
+    ? t.press.openPdf
+    : href
+      ? item.type === 'Video'
+        ? t.press.watchVideo
+        : item.type === 'Podcast'
+          ? t.press.listenPodcast
+          : t.press.readArticle
+      : null
   const [imageFailed, setImageFailed] = useState(false)
   const showImage = Boolean(item.image) && !imageFailed
   const artists = (item.projectSlugs ?? []).flatMap((slug) => {
@@ -248,17 +263,17 @@ function PressCard({
   const cardClass = cn(
     'glass-card group flex h-full w-full min-w-0 flex-row items-stretch overflow-hidden p-0 transition-[transform,box-shadow,border-color] duration-700 ease-out',
     mirror && 'md:flex-row-reverse',
-    (link || artists.length > 0) &&
+    (href || artists.length > 0) &&
       'card-lift hover:-translate-y-1 hover:border-primary/35 hover:shadow-[0_0_28px_rgba(184,255,0,0.08)]',
     className,
   )
 
   return (
     <div className={cardClass}>
-      {link ? (
-        <a {...link} tabIndex={-1} className={imageShell}>
+      {href ? (
+        <PressNavLink item={item} tabIndex={-1} className={imageShell}>
           {imageInner}
-        </a>
+        </PressNavLink>
       ) : (
         <div className={imageShell} aria-hidden>
           {imageInner}
@@ -266,13 +281,13 @@ function PressCard({
       )}
 
       <div className="flex min-w-0 flex-1 flex-col justify-center gap-1.5 p-2.5 sm:gap-2.5 sm:p-4 md:gap-2">
-        {link ? (
-          <a
-            {...link}
+        {href ? (
+          <PressNavLink
+            item={item}
             className="flex min-w-0 flex-col gap-1.5 focus-visible:outline-none sm:gap-2.5 md:gap-2"
           >
             {copy}
-          </a>
+          </PressNavLink>
         ) : (
           copy
         )}
@@ -316,6 +331,7 @@ export function PressTimelineHeader() {
     if (id === 'all') return t.press.all
     if (id === 'Interview') return t.press.interviews
     if (id === 'Article') return t.press.articles
+    if (id === 'Video') return t.press.videos
     if (id === 'Review') return t.press.reviews
     return id
   }

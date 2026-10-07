@@ -20,7 +20,14 @@ const DEFAULT_VIEW: PressView = { page: 1, type: 'all' }
 export function parsePressType(
   raw: string | null | undefined,
 ): PressTypeFilter {
-  if (raw === 'Interview' || raw === 'Article' || raw === 'Review' || raw === 'all') {
+  if (
+    raw === 'Interview' ||
+    raw === 'Article' ||
+    raw === 'Video' ||
+    raw === 'Review' ||
+    raw === 'Podcast' ||
+    raw === 'all'
+  ) {
     return raw
   }
   return 'all'

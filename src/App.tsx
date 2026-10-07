@@ -10,6 +10,8 @@ const PortfolioPage = lazy(() => import('@/pages/PortfolioPage'))
 const ProjectDetailPage = lazy(() => import('@/pages/ProjectDetailPage'))
 const ExperiencePage = lazy(() => import('@/pages/ExperiencePage'))
 const MediaPage = lazy(() => import('@/pages/MediaPage'))
+const JustOneQuestionPage = lazy(() => import('@/pages/JustOneQuestionPage'))
+const HittinEzinePage = lazy(() => import('@/pages/HittinEzinePage'))
 const GalleryPage = lazy(() => import('@/pages/GalleryPage'))
 const GalleryPhotoPage = lazy(() => import('@/pages/GalleryPhotoPage'))
 const DownloadsPage = lazy(() => import('@/pages/DownloadsPage'))
@@ -51,6 +53,11 @@ export default function App() {
           <Route path="portfolio/:slug" element={<ProjectDetailPage />} />
           <Route path="experience" element={<ExperiencePage />} />
           <Route path="media" element={<MediaPage />} />
+          <Route
+            path="media/just-one-question"
+            element={<JustOneQuestionPage />}
+          />
+          <Route path="media/hittin-ezine" element={<HittinEzinePage />} />
           <Route path="gallery" element={<GalleryPage />} />
           <Route path="gallery/:id" element={<GalleryPhotoPage />} />
           <Route path="downloads" element={<DownloadsPage />} />

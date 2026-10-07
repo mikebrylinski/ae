@@ -149,6 +149,8 @@ export interface PressItem {
   publication: string
   date: string
   excerpt: string
+  /** In-app detail route (preferred over url/pdf for navigation). */
+  detailPath?: string
   /** External article URL when available; empty/omitted means no outbound link. */
   url?: string
   /** Local stamped PDF in /public/press. */

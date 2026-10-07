@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { getPressItems, localizePressType, pressAnchorProps, pressHref } from '@/lib/content'
+import { getPressItems, localizePressType, pressHref } from '@/lib/content'
+import { PressNavLink } from '@/components/ui/PressNavLink'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Badge } from '@/components/ui/Badge'
@@ -57,7 +58,7 @@ export function PressPreview() {
           viewport={{ once: true, margin: '-60px' }}
         >
           {items.map((pressItem) => {
-            const link = pressAnchorProps(pressItem)
+            const href = pressHref(pressItem)
             const meta = [pressItem.publication, pressItem.date]
               .filter(Boolean)
               .join(' · ')
@@ -108,10 +109,10 @@ export function PressPreview() {
                 variants={item}
                 className="glass-card overflow-hidden transition-[border-color,box-shadow] duration-500 hover:border-primary/30 hover:shadow-[0_0_24px_rgba(184,255,0,0.06)]"
               >
-                {link ? (
-                  <a {...link} className="group block h-full">
+                {href ? (
+                  <PressNavLink item={pressItem} className="group block h-full">
                     {body}
-                  </a>
+                  </PressNavLink>
                 ) : (
                   <Link to="/media" className="group block h-full">
                     {body}
