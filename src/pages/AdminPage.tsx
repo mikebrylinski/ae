@@ -17,9 +17,10 @@ import { CreditsEditor } from '@/pages/admin/CreditsEditor'
 import { ContactsEditor } from '@/pages/admin/ContactsEditor'
 import { GalleryEditor } from '@/pages/admin/GalleryEditor'
 import { ArtistPagesEditor } from '@/pages/admin/ArtistPagesEditor'
+import { AnalyticsPanel } from '@/pages/admin/AnalyticsPanel'
 import { Footer, AllAccessLaminate } from '@/components/layout/Footer'
 
-type Tab = 'credits' | 'gallery' | 'artists' | 'messages'
+type Tab = 'credits' | 'gallery' | 'artists' | 'messages' | 'analytics'
 
 export default function AdminPage() {
   useSeo({ title: 'Admin', noIndex: true })
@@ -168,6 +169,11 @@ export default function AdminPage() {
                 active={tab === 'messages'}
                 onClick={() => setTab('messages')}
               />
+              <AdminTab
+                label="Analytics"
+                active={tab === 'analytics'}
+                onClick={() => setTab('analytics')}
+              />
             </nav>
             <Button type="button" size="sm" variant="ghost" onClick={handleLogout}>
               <LogOut size={14} aria-hidden />
@@ -184,6 +190,8 @@ export default function AdminPage() {
           <ArtistPagesEditor />
         ) : tab === 'messages' ? (
           <ContactsEditor />
+        ) : tab === 'analytics' ? (
+          <AnalyticsPanel />
         ) : (
           <CreditsEditor />
         )}

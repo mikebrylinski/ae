@@ -26,6 +26,7 @@
     "vite-plugin-contact.ts",
     "server/sendContactEmail.ts",
     "server/galleryStore.d.ts",
-    "server/contactStore.d.ts"
+    "server/contactStore.d.ts",
+    "server/vercelAnalytics.d.ts"
   ]
 }

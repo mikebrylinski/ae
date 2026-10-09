@@ -6,6 +6,11 @@ import {
   listContactSubmissions,
 } from './server/contactStore.js'
 import {
+  loadAdminAnalytics,
+  loadAnalyticsBucketDetail,
+  normalizeAnalyticsRange,
+} from './server/vercelAnalytics.js'
+import {
   blobConfiguredFromEnv,
   decodeImageData,
   isAdminAuthorized,
@@ -172,6 +177,39 @@ export function adminApiPlugin(rootDir: string): Plugin {
         const url = req.url?.split('?')[0] ?? ''
 
         try {
+          if (url === '/api/admin/analytics' && req.method === 'GET') {
+            const env = envRecord(server, rootDir)
+            if (!authorize(req, env)) {
+              json(res, 401, { ok: false, error: 'Unauthorized' })
+              return
+            }
+            const params = new URL(req.url ?? '', 'http://localhost').searchParams
+            const bucket = params.get('bucket') ?? ''
+            const result = bucket
+              ? await loadAnalyticsBucketDetail(
+                  env,
+                  bucket,
+                  params.get('granularity') === 'hour' || bucket.includes('T')
+                    ? 'hour'
+                    : 'day',
+                )
+              : await loadAdminAnalytics(
+                  env,
+                  normalizeAnalyticsRange(params.get('range') ?? '7d'),
+                  { fresh: params.get('fresh') === '1' },
+                )
+            if (!result.ok) {
+              json(res, result.configured === false ? 200 : (result.status ?? 502), {
+                ok: false,
+                configured: result.configured,
+                error: result.error,
+              })
+              return
+            }
+            json(res, 200, result)
+            return
+          }
+
           if (url === '/api/admin/contacts' && (req.method === 'GET' || req.method === 'DELETE')) {
             const env = envRecord(server, rootDir)
             if (!authorize(req, env)) {
